@@ -1,0 +1,279 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>ELYON | Brand System</title>
+<link rel="icon" type="image/svg+xml" href='data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100"><rect width="100" height="100" fill="%230F0F12"/><rect x="22" y="22" width="12" height="56" fill="%23EFEDE6"/><rect x="22" y="22" width="56" height="12" fill="%232038E6"/><rect x="22" y="44" width="44" height="12" fill="%23EFEDE6"/><rect x="22" y="66" width="32" height="12" fill="%23EFEDE6"/></svg>'>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Martian+Mono:wght@300;400;500;700;800&family=IBM+Plex+Mono:ital,wght@0,400;0,500;0,600;1,400&display=swap" rel="stylesheet">
+<style>
+:root{
+  --paper:#EFEDE6;--paper-2:#E6E3DA;--carbon:#0F0F12;--ink:#131316;--bone:#EFEDE6;
+  --cobalt:#2038E6;--cobalt-lt:#7D8CFF;--signal:#FF3D1F;--ok:#0E8A4D;
+  --rule:#131316;--rule-d:#3A3A40;
+  --mono:'IBM Plex Mono',ui-monospace,monospace;--disp:'Martian Mono',ui-monospace,monospace;
+}
+*{margin:0;padding:0;box-sizing:border-box}
+body{background:var(--paper);color:var(--ink);font-family:var(--mono);font-size:15px;line-height:1.65;-webkit-font-smoothing:antialiased}
+::selection{background:var(--cobalt);color:var(--paper)}
+.disp{font-family:var(--disp);font-weight:800;text-transform:uppercase;letter-spacing:-.03em;line-height:.95}
+.lbl{font-size:.66rem;letter-spacing:.16em;text-transform:uppercase;font-weight:500}
+.idx{font-family:var(--disp);font-weight:400;font-size:.7rem;letter-spacing:.08em;color:var(--cobalt)}
+.sec{border-bottom:1.5px solid var(--rule)}
+.sec.dark{background:var(--carbon);color:var(--bone)}
+.sec.dark .idx{color:var(--cobalt-lt)}
+.sec-head{display:flex;justify-content:space-between;gap:1rem;padding:.65rem 24px;border-bottom:1.5px solid var(--rule)}
+.sec.dark .sec-head{border-color:var(--rule-d)}
+.sec-body{padding:clamp(44px,6vw,84px) 24px;position:relative;
+  background-image:linear-gradient(rgba(32,56,230,.05) 1px,transparent 1px),linear-gradient(90deg,rgba(32,56,230,.05) 1px,transparent 1px);
+  background-size:34px 34px;}
+.sec.dark .sec-body{background-image:linear-gradient(rgba(125,140,255,.045) 1px,transparent 1px),linear-gradient(90deg,rgba(125,140,255,.045) 1px,transparent 1px)}
+.inner{max-width:1180px;margin:0 auto}
+.h2{font-size:clamp(1.5rem,3.4vw,2.4rem)}
+p.copy{margin-top:1.2rem;font-size:.9rem;max-width:64ch;opacity:.78}
+.grid2{display:grid;grid-template-columns:1fr 1fr;gap:0;border:1.5px solid var(--rule);margin-top:2.6rem}
+.grid3{display:grid;grid-template-columns:repeat(3,1fr);border:1.5px solid var(--rule);border-right:0;margin-top:2.6rem}
+.cell{border-right:1.5px solid var(--rule);padding:1.6rem;display:flex;flex-direction:column;gap:1rem}
+.grid2>.cell:last-child,.grid3>.cell:nth-child(3n){border-right-width:1.5px}
+.grid3>.cell{border-right:1.5px solid var(--rule)}
+.cell .cap{font-size:.62rem;letter-spacing:.14em;text-transform:uppercase;opacity:.55}
+.dark .grid2,.dark .grid3,.dark .cell{border-color:var(--rule-d)}
+.tile{display:flex;align-items:center;justify-content:center;min-height:220px;border:1.5px solid var(--rule)}
+.tile.carbon{background:var(--carbon);border-color:var(--rule-d)}
+.tile.paper{background:var(--paper)}
+.swatches{display:grid;grid-template-columns:repeat(auto-fit,minmax(180px,1fr));border:1.5px solid var(--rule-d);border-right:0;margin-top:2.6rem}
+.sw{border-right:1.5px solid var(--rule-d);display:flex;flex-direction:column}
+.sw .chip{height:120px}
+.sw .meta{padding:.9rem 1rem;font-size:.66rem;letter-spacing:.1em;text-transform:uppercase;line-height:1.9;border-top:1.5px solid var(--rule-d)}
+.rules{display:grid;grid-template-columns:1fr 1fr;gap:0;border:1.5px solid var(--rule);margin-top:2.6rem}
+.rules .col{padding:1.8rem}
+.rules .col+.col{border-left:1.5px solid var(--rule)}
+.rules h4{font-family:var(--disp);font-size:.8rem;font-weight:800;text-transform:uppercase;letter-spacing:.08em;margin-bottom:1rem}
+.rules ul{list-style:none;display:flex;flex-direction:column;gap:.55rem;font-size:.8rem}
+.rules li{display:flex;gap:.7rem}
+.rules .do li::before{content:"✓";color:var(--ok);font-weight:700}
+.rules .dont li::before{content:"✕";color:var(--signal);font-weight:700}
+.type-spec{border:1.5px solid var(--rule);margin-top:2.6rem}
+.type-row{display:grid;grid-template-columns:220px 1fr;border-bottom:1.5px solid var(--rule)}
+.type-row:last-child{border-bottom:0}
+.type-row .tl{padding:1.1rem 1.3rem;font-size:.62rem;letter-spacing:.14em;text-transform:uppercase;opacity:.55;border-right:1.5px solid var(--rule)}
+.type-row .tr{padding:1.1rem 1.3rem}
+footer{background:var(--carbon);color:var(--bone);padding:1rem 24px;display:flex;justify-content:space-between;flex-wrap:wrap;gap:1rem;font-size:.62rem;letter-spacing:.12em;text-transform:uppercase;opacity:.9}
+@media(max-width:860px){.grid2,.rules{grid-template-columns:1fr}.rules .col+.col{border-left:0;border-top:1.5px solid var(--rule)}.grid3{grid-template-columns:1fr}.type-row{grid-template-columns:1fr}.type-row .tl{border-right:0;border-bottom:1.5px solid var(--rule)}}
+</style>
+</head>
+<body>
+
+<!-- COVER -->
+<section class="sec dark">
+  <div class="sec-head"><span class="idx">ELYON / BRAND SYSTEM</span><span class="lbl" style="opacity:.6">IDENTITY SPEC · V1.0 · 2026</span></div>
+  <div class="sec-body"><div class="inner" style="display:flex;flex-direction:column;gap:3rem">
+    <svg viewBox="-24 -24 420 108" style="width:min(560px,90%)" role="img" aria-label="Elyon lockup">
+      <rect x="0" y="0" width="13" height="60" fill="#EFEDE6"/><rect x="0" y="0" width="60" height="13" fill="#2038E6"/><rect x="0" y="23.5" width="47" height="13" fill="#EFEDE6"/><rect x="0" y="47" width="34" height="13" fill="#EFEDE6"/>
+      <g transform="translate(88,0)" fill="#EFEDE6">
+        <rect x="0" y="0" width="13" height="60"/><rect x="0" y="0" width="44" height="13"/><rect x="0" y="23.5" width="36" height="13"/><rect x="0" y="47" width="28" height="13"/>
+        <rect x="60" y="0" width="13" height="60"/><rect x="60" y="47" width="44" height="13"/>
+        <polygon points="120,0 133,0 148.5,30 135.5,30"/><polygon points="151,0 164,0 148.5,30 135.5,30"/><rect x="135.5" y="30" width="13" height="30"/>
+        <path fill-rule="evenodd" d="M180 0H224V60H180Z M193 13H211V47H193Z"/>
+        <rect x="240" y="0" width="13" height="60"/><rect x="271" y="0" width="13" height="60"/><polygon points="240,0 253,0 284,60 271,60"/>
+      </g>
+    </svg>
+    <div class="lbl" style="opacity:.6;line-height:2.2">
+      BRAND: ELYON · DOMAIN: TRYELYON.COM<br>
+      CATEGORY: AI SOFTWARE · AI EMPLOYEES<br>
+      REGISTER: MINIMAL · PREMIUM · TIMELESS
+    </div>
+  </div></div>
+</section>
+
+<!-- 00 THE MARK -->
+<section class="sec">
+  <div class="sec-head"><span class="idx">00 / THE MARK</span><span class="lbl" style="opacity:.55">Construction &amp; rationale</span></div>
+  <div class="sec-body"><div class="inner">
+    <h2 class="disp h2">The ascending E.</h2>
+    <p class="copy">Elyon means <em>the highest</em>. The mark states this without saying it: a monogram E whose three arms lengthen as they rise. Read top-down it is a letter; read bottom-up it is an ascent: a level meter at maximum, an elevation reading on a drawing. It borrows from the vernacular the product already lives in (spec sheets, schematics, engineering plates) and from nothing else: no symbol, no metaphor, no ornament. One idea, held quietly.</p>
+    <p class="copy">The top arm, the highest line, is the only element that may carry Cobalt. Everything else is monochrome. This single accent is the entire expressive range of the mark.</p>
+
+    <div class="grid2">
+      <div class="cell">
+        <span class="cap">CONSTRUCTION / 100-UNIT GRID · STROKE 13 · ARMS 60/47/34</span>
+        <div class="tile paper">
+          <svg viewBox="0 0 140 140" style="width:min(300px,80%)">
+            <g stroke="#2038E6" stroke-width=".5" opacity=".35">
+              <line x1="20" y1="0" x2="20" y2="140"/><line x1="33" y1="0" x2="33" y2="140"/>
+              <line x1="54" y1="0" x2="54" y2="140"/><line x1="67" y1="0" x2="67" y2="140"/><line x1="80" y1="0" x2="80" y2="140"/>
+              <line x1="0" y1="20" x2="140" y2="20"/><line x1="0" y1="33" x2="140" y2="33"/>
+              <line x1="0" y1="43.5" x2="140" y2="43.5"/><line x1="0" y1="56.5" x2="140" y2="56.5"/>
+              <line x1="0" y1="67" x2="140" y2="67"/><line x1="0" y1="80" x2="140" y2="80"/>
+            </g>
+            <g>
+              <rect x="20" y="20" width="13" height="60" fill="#131316"/>
+              <rect x="20" y="20" width="60" height="13" fill="#2038E6"/>
+              <rect x="20" y="43.5" width="47" height="13" fill="#131316"/>
+              <rect x="20" y="67" width="34" height="13" fill="#131316"/>
+            </g>
+            <g font-family="'Martian Mono',monospace" font-size="6" fill="#2038E6">
+              <text x="84" y="29">60 · HIGHEST</text><text x="71" y="52.5">47</text><text x="58" y="76">34</text>
+            </g>
+          </svg>
+        </div>
+      </div>
+      <div class="cell">
+        <span class="cap">PRIMARY / INVERSE / MONO</span>
+        <div style="display:grid;grid-template-columns:1fr 1fr 1fr;gap:0;border:1.5px solid var(--rule);flex:1">
+          <div class="tile paper" style="border:0;border-right:1.5px solid var(--rule);min-height:150px">
+            <svg viewBox="-20 -20 100 100" style="width:64px"><rect x="0" y="0" width="13" height="60" fill="#131316"/><rect x="0" y="0" width="60" height="13" fill="#2038E6"/><rect x="0" y="23.5" width="47" height="13" fill="#131316"/><rect x="0" y="47" width="34" height="13" fill="#131316"/></svg>
+          </div>
+          <div class="tile carbon" style="border:0;border-right:1.5px solid var(--rule-d);min-height:150px">
+            <svg viewBox="-20 -20 100 100" style="width:64px"><rect x="0" y="0" width="13" height="60" fill="#EFEDE6"/><rect x="0" y="0" width="60" height="13" fill="#2038E6"/><rect x="0" y="23.5" width="47" height="13" fill="#EFEDE6"/><rect x="0" y="47" width="34" height="13" fill="#EFEDE6"/></svg>
+          </div>
+          <div class="tile paper" style="border:0;min-height:150px">
+            <svg viewBox="-20 -20 100 100" style="width:64px"><rect x="0" y="0" width="13" height="60" fill="#131316"/><rect x="0" y="0" width="60" height="13" fill="#131316"/><rect x="0" y="23.5" width="47" height="13" fill="#131316"/><rect x="0" y="47" width="34" height="13" fill="#131316"/></svg>
+          </div>
+        </div>
+        <span class="cap">WHEN COBALT IS UNAVAILABLE, THE MARK RUNS FULLY MONOCHROME. NEVER RECOLOR ANY OTHER ARM.</span>
+      </div>
+    </div>
+  </div></div>
+</section>
+
+<!-- 01 WORDMARK -->
+<section class="sec dark">
+  <div class="sec-head"><span class="idx">01 / WORDMARK</span><span class="lbl" style="opacity:.55">Custom letterforms · cap 60 · stroke 13</span></div>
+  <div class="sec-body"><div class="inner">
+    <h2 class="disp h2">Five letters, one grid.</h2>
+    <p class="copy">The wordmark is drawn, not typeset: five geometric monospaced letterforms on the same 13-unit stroke as the mark. The E carries the ascending arms (44/36/28), quieter than the monogram but unmistakably the same idea. The Y meets in a hard diagonal; the O is a rectangular ring; the N cuts one diagonal. Zero border radius throughout. It is a wordmark that could be milled from a plate.</p>
+    <div class="tile carbon" style="margin-top:2.6rem;min-height:200px">
+      <svg viewBox="-20 -20 324 100" style="width:min(620px,86%)" fill="#EFEDE6">
+        <rect x="0" y="0" width="13" height="60"/><rect x="0" y="0" width="44" height="13"/><rect x="0" y="23.5" width="36" height="13"/><rect x="0" y="47" width="28" height="13"/>
+        <rect x="60" y="0" width="13" height="60"/><rect x="60" y="47" width="44" height="13"/>
+        <polygon points="120,0 133,0 148.5,30 135.5,30"/><polygon points="151,0 164,0 148.5,30 135.5,30"/><rect x="135.5" y="30" width="13" height="30"/>
+        <path fill-rule="evenodd" d="M180 0H224V60H180Z M193 13H211V47H193Z"/>
+        <rect x="240" y="0" width="13" height="60"/><rect x="271" y="0" width="13" height="60"/><polygon points="240,0 253,0 284,60 271,60"/>
+      </svg>
+    </div>
+    <div class="grid2" style="border-color:var(--rule-d)">
+      <div class="cell" style="border-color:var(--rule-d)">
+        <span class="cap">IN RUNNING TEXT</span>
+        <p style="font-size:.85rem;opacity:.8">The brand is written <b>Elyon</b>: capital E, lowercase after. Never ELYON in body copy, never "TryElyon" as a name. <b>Try</b> exists in exactly two places: the domain (tryelyon.com) and the trial call-to-action ("Try Elyon free"). Everywhere else, the company is simply Elyon.</p>
+      </div>
+      <div class="cell" style="border-color:var(--rule-d)">
+        <span class="cap">DIGITAL FALLBACK</span>
+        <p style="font-size:.85rem;opacity:.8">Where the drawn wordmark can't be used (plain text UI, documents), set ELYON in <b>Martian Mono 800</b>, uppercase, tracking −3%. This is a fallback, not a substitute; the drawn wordmark is canonical.</p>
+      </div>
+    </div>
+  </div></div>
+</section>
+
+<!-- 02 LOCKUPS -->
+<section class="sec">
+  <div class="sec-head"><span class="idx">02 / LOCKUPS &amp; SCALE</span><span class="lbl" style="opacity:.55">Clearspace = one stroke (13u) on all sides, min.</span></div>
+  <div class="sec-body"><div class="inner">
+    <div class="grid3">
+      <div class="cell">
+        <span class="cap">HORIZONTAL LOCKUP / DEFAULT</span>
+        <div class="tile paper" style="min-height:160px">
+          <svg viewBox="-24 -24 420 108" style="width:88%">
+            <rect x="0" y="0" width="13" height="60" fill="#131316"/><rect x="0" y="0" width="60" height="13" fill="#2038E6"/><rect x="0" y="23.5" width="47" height="13" fill="#131316"/><rect x="0" y="47" width="34" height="13" fill="#131316"/>
+            <g transform="translate(88,0)" fill="#131316">
+              <rect x="0" y="0" width="13" height="60"/><rect x="0" y="0" width="44" height="13"/><rect x="0" y="23.5" width="36" height="13"/><rect x="0" y="47" width="28" height="13"/>
+              <rect x="60" y="0" width="13" height="60"/><rect x="60" y="47" width="44" height="13"/>
+              <polygon points="120,0 133,0 148.5,30 135.5,30"/><polygon points="151,0 164,0 148.5,30 135.5,30"/><rect x="135.5" y="30" width="13" height="30"/>
+              <path fill-rule="evenodd" d="M180 0H224V60H180Z M193 13H211V47H193Z"/>
+              <rect x="240" y="0" width="13" height="60"/><rect x="271" y="0" width="13" height="60"/><polygon points="240,0 253,0 284,60 271,60"/>
+            </g>
+          </svg>
+        </div>
+      </div>
+      <div class="cell">
+        <span class="cap">APP ICON / 512 GRID · R:116</span>
+        <div class="tile paper" style="min-height:160px">
+          <svg viewBox="0 0 512 512" style="width:120px"><rect width="512" height="512" rx="116" fill="#0F0F12"/><g transform="translate(124,124)"><rect x="0" y="0" width="57.2" height="264" fill="#EFEDE6"/><rect x="0" y="0" width="264" height="57.2" fill="#2038E6"/><rect x="0" y="103.4" width="206.8" height="57.2" fill="#EFEDE6"/><rect x="0" y="206.8" width="149.6" height="57.2" fill="#EFEDE6"/></g></svg>
+        </div>
+      </div>
+      <div class="cell">
+        <span class="cap">FAVICON / LEGIBLE AT 16PX</span>
+        <div class="tile paper" style="min-height:160px;gap:18px;display:flex">
+          <svg viewBox="0 0 100 100" style="width:64px"><rect width="100" height="100" fill="#0F0F12"/><rect x="22" y="22" width="12" height="56" fill="#EFEDE6"/><rect x="22" y="22" width="56" height="12" fill="#2038E6"/><rect x="22" y="44" width="44" height="12" fill="#EFEDE6"/><rect x="22" y="66" width="32" height="12" fill="#EFEDE6"/></svg>
+          <svg viewBox="0 0 100 100" style="width:32px"><rect width="100" height="100" fill="#0F0F12"/><rect x="22" y="22" width="12" height="56" fill="#EFEDE6"/><rect x="22" y="22" width="56" height="12" fill="#2038E6"/><rect x="22" y="44" width="44" height="12" fill="#EFEDE6"/><rect x="22" y="66" width="32" height="12" fill="#EFEDE6"/></svg>
+          <svg viewBox="0 0 100 100" style="width:16px"><rect width="100" height="100" fill="#0F0F12"/><rect x="22" y="22" width="12" height="56" fill="#EFEDE6"/><rect x="22" y="22" width="56" height="12" fill="#2038E6"/><rect x="22" y="44" width="44" height="12" fill="#EFEDE6"/><rect x="22" y="66" width="32" height="12" fill="#EFEDE6"/></svg>
+        </div>
+      </div>
+    </div>
+    <p class="copy" style="margin-top:2rem">Minimum sizes: mark 16px. Lockup: 96px wide. Below 96px, use the mark alone. The unit plate ("ELYON-INC." in IBM Plex Mono, 0.12em tracking, uppercase) is the utility signature for footers, documents and hardware-style labeling.</p>
+  </div></div>
+</section>
+
+<!-- 03 COLOR -->
+<section class="sec dark">
+  <div class="sec-head"><span class="idx">03 / COLOR</span><span class="lbl" style="opacity:.55">Two surfaces, one ink, one accent</span></div>
+  <div class="sec-body"><div class="inner">
+    <h2 class="disp h2">Paper, carbon, cobalt.</h2>
+    <p class="copy">The palette is a drawing set: paper to draw on, carbon to print on, cobalt to annotate with. No gradients, ever. Signal red and verify green belong to the product's system states (errors, confirmations), never to marketing surfaces or the logo.</p>
+    <div class="swatches">
+      <div class="sw"><div class="chip" style="background:#EFEDE6"></div><div class="meta">PAPER<br>#EFEDE6<br>PRIMARY LIGHT SURFACE</div></div>
+      <div class="sw"><div class="chip" style="background:#0F0F12"></div><div class="meta">CARBON<br>#0F0F12<br>PRIMARY DARK SURFACE</div></div>
+      <div class="sw"><div class="chip" style="background:#131316"></div><div class="meta">INK<br>#131316<br>TEXT / RULES ON PAPER</div></div>
+      <div class="sw"><div class="chip" style="background:#2038E6"></div><div class="meta">COBALT<br>#2038E6<br>THE ACCENT · THE TOP ARM</div></div>
+      <div class="sw"><div class="chip" style="background:#7D8CFF"></div><div class="meta">COBALT-70<br>#7D8CFF<br>ACCENT ON CARBON</div></div>
+      <div class="sw"><div class="chip" style="background:#FF3D1F"></div><div class="meta">SIGNAL<br>#FF3D1F<br>SYSTEM: ERROR ONLY</div></div>
+      <div class="sw"><div class="chip" style="background:#0E8A4D"></div><div class="meta">VERIFY<br>#0E8A4D<br>SYSTEM: CONFIRM ONLY</div></div>
+    </div>
+    <p class="copy" style="margin-top:2rem">Ratio guidance: a composed surface is roughly 80% paper or carbon, 18% ink or bone, 2% cobalt. Cobalt is scarce by design; scarcity is what makes it read as intelligence rather than decoration.</p>
+  </div></div>
+</section>
+
+<!-- 04 TYPOGRAPHY -->
+<section class="sec">
+  <div class="sec-head"><span class="idx">04 / TYPOGRAPHY</span><span class="lbl" style="opacity:.55">Two families, both monospaced</span></div>
+  <div class="sec-body"><div class="inner">
+    <div class="type-spec">
+      <div class="type-row"><div class="tl">DISPLAY / MARTIAN MONO 800<br>UPPERCASE · TRACK −3% · LEAD 0.95</div><div class="tr"><span class="disp" style="font-size:clamp(1.4rem,3.4vw,2.4rem)">Engineered AI employees.</span></div></div>
+      <div class="type-row"><div class="tl">TEXT / IBM PLEX MONO 400/500<br>SENTENCE CASE · LEAD 1.65</div><div class="tr" style="font-size:.9rem;max-width:60ch">Body copy is set plainly and reads like documentation: short sentences, concrete verbs, no exclamation marks. The typography never performs; the content does.</div></div>
+      <div class="type-row"><div class="tl">LABEL / IBM PLEX MONO 500<br>UPPERCASE · TRACK +14%</div><div class="tr"><span class="lbl">UNIT ID: SLS-01 · SERIAL: 004981-AX · STATUS: ONLINE</span></div></div>
+      <div class="type-row"><div class="tl">INDEX / MARTIAN MONO 400<br>SECTION NUMBERING</div><div class="tr"><span class="idx">02.5 / CORRECTION</span></div></div>
+    </div>
+  </div></div>
+</section>
+
+<!-- 05 RULES -->
+<section class="sec">
+  <div class="sec-head"><span class="idx">05 / USAGE</span><span class="lbl" style="opacity:.55">Non-negotiable</span></div>
+  <div class="sec-body"><div class="inner">
+    <div class="rules">
+      <div class="col do">
+        <h4 style="color:var(--ok)">Always</h4>
+        <ul>
+          <li>Use the mark on paper or carbon, monochrome plus cobalt top arm.</li>
+          <li>Keep clearspace of at least one stroke width (13 units) around the mark.</li>
+          <li>Write the brand as "Elyon" in prose; "ELYON" only in the drawn wordmark and plates.</li>
+          <li>Reserve "Try" for the domain and the trial CTA exclusively.</li>
+          <li>Use hard edges, hairline-to-1.5px rules, zero border radius (except OS app-icon masks).</li>
+          <li>Let cobalt stay scarce: one accent per composition.</li>
+        </ul>
+      </div>
+      <div class="col dont">
+        <h4 style="color:var(--signal)">Never</h4>
+        <ul>
+          <li>No gradients, glows, shadows, bevels, or outlines on the mark.</li>
+          <li>No rotation, skew, or per-arm recoloring; only the top arm may be cobalt.</li>
+          <li>No robots, brains, circuits, sparkles, chat bubbles, or "AI" iconography.</li>
+          <li>No religious or symbolic references in explaining the name; the ascent is engineering, nothing more.</li>
+          <li>No placing the mark on photography or busy surfaces; paper or carbon only.</li>
+          <li>No "TryElyon" as a company name in any copy.</li>
+        </ul>
+      </div>
+    </div>
+    <p class="copy" style="margin-top:2rem"><b>Voice.</b> Elyon speaks like a well-written spec sheet: precise, calm, outcome-first. Quiet confidence means stating capability as fact and letting restraint do the persuading, the same discipline that governs the cobalt.</p>
+  </div></div>
+</section>
+
+<footer>
+  <span>ELYON-INC. · BRAND SYSTEM V1.0</span>
+  <span>TRYELYON.COM</span>
+  <span>© 2026 ELYON. ALL RIGHTS RESERVED.</span>
+</footer>
+</body>
+</html>

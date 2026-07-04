@@ -1,0 +1,1736 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Elyon | Engineered AI Employees</title>
+<meta name="description" content="Elyon builds AI employees for sales, support and operations. Deployed on WhatsApp, Instagram, Messenger, voice and CRM. 24/7. Try Elyon free for 7 days.">
+<link rel="icon" type="image/svg+xml" href='data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100"><rect width="100" height="100" fill="%230F0F12"/><rect x="22" y="22" width="12" height="56" fill="%23EFEDE6"/><rect x="22" y="22" width="56" height="12" fill="%232038E6"/><rect x="22" y="44" width="44" height="12" fill="%23EFEDE6"/><rect x="22" y="66" width="32" height="12" fill="%23EFEDE6"/></svg>'>
+<meta name="theme-color" content="#0F0F12">
+<meta name="robots" content="index,follow">
+<meta property="og:locale" content="en_US">
+<meta property="og:locale:alternate" content="es_MX">
+<!-- ANALYTICS: paste your GA4 gtag.js snippet and Meta Pixel here before launch.
+     All key actions already fire through the trackEvent() helper at the bottom of this file. -->
+<link rel="canonical" href="https://tryelyon.com/">
+<meta property="og:type" content="website">
+<meta property="og:url" content="https://tryelyon.com/">
+<meta property="og:title" content="Elyon | AI Employees for Sales, Support & Operations">
+<meta property="og:description" content="AI Agents that reply in seconds, qualify leads, book appointments and follow up on WhatsApp, Instagram, Messenger and phone. Try Elyon free for 7 days.">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="Elyon | AI Employees for Sales, Support & Operations">
+<meta name="twitter:description" content="Deploy AI Agents that sell, support and operate 24/7. Try Elyon free for 7 days.">
+<script type="application/ld+json">
+{"@context":"https://schema.org","@type":"Organization","name":"Elyon","url":"https://tryelyon.com","description":"Elyon builds AI employees for sales, support and operations, deployed on WhatsApp, Instagram, Messenger, voice and CRM.","areaServed":["MX","US","ES"],"sameAs":[]}
+</script>
+<script type="application/ld+json">
+{"@context":"https://schema.org","@type":"FAQPage","mainEntity":[
+{"@type":"Question","name":"How fast can my AI Agent go live?","acceptedAnswer":{"@type":"Answer","text":"Most agents go live 3 to 5 business days after you send your business information. Your 7-day free trial starts the day your agent is activated."}},
+{"@type":"Question","name":"Will it sound robotic?","acceptedAnswer":{"@type":"Answer","text":"No. Your agent is configured with your services, prices and tone of voice, and it hands the conversation to a human whenever a case needs one."}},
+{"@type":"Question","name":"Which languages does it speak?","acceptedAnswer":{"@type":"Answer","text":"Spanish and English, switching naturally based on how the customer writes or speaks."}},
+{"@type":"Question","name":"Do I need a special WhatsApp account?","acceptedAnswer":{"@type":"Answer","text":"We set everything up for you on the official WhatsApp Business Platform. Your number stays yours."}},
+{"@type":"Question","name":"What happens after the 7-day trial?","acceptedAnswer":{"@type":"Answer","text":"You continue only if you want to. No contracts, cancel anytime. The setup fee applies only if you decide to keep your agent."}},
+{"@type":"Question","name":"Is the free trial really free? What is included?","acceptedAnswer":{"@type":"Answer","text":"Yes, no card required. The trial includes up to 150 AI conversations and 30 voice minutes over 7 days. If you pass the included usage, the agent pauses and you decide whether to continue on a paid plan."}},
+{"@type":"Question","name":"What counts as a conversation, and what if I go over my limit?","acceptedAnswer":{"@type":"Answer","text":"A conversation is one customer chat session within a 24-hour window. Past your monthly limit, extra conversations are billed at the published overage rate. We alert you at 80% of your limit, and you can upgrade at any time."}},
+{"@type":"Question","name":"Is my customer data safe?","acceptedAnswer":{"@type":"Answer","text":"Conversations run over encrypted channels and we store only what is needed to operate your agent. You can request deletion of your data at any time."}}
+]}
+</script>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Martian+Mono:wght@300;400;500;700;800&family=IBM+Plex+Mono:ital,wght@0,400;0,500;0,600;1,400&display=swap" rel="stylesheet">
+<style>
+/* ==========================================================
+   BRAND TOKENS / swap here to rebrand
+   ========================================================== */
+:root{
+  --paper:#efede6;
+  --paper-2:#e6e3da;
+  --carbon:#0f0f12;
+  --carbon-2:#161619;
+  --ink:#131316;
+  --bone:#efede6;
+  --cobalt:#2038e6;
+  --cobalt-lt:#7d8cff;
+  --cobalt-dim:#1a2cb8;
+  --signal:#ff3d1f;
+  --ok:#0e8a4d;
+  --ok-lt:#41d98c;
+  --rule:#131316;
+  --rule-d:#3a3a40;
+  --mono:'IBM Plex Mono',ui-monospace,monospace;
+  --disp:'Martian Mono',ui-monospace,monospace;
+}
+
+*{margin:0;padding:0;box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{
+  background:var(--paper);color:var(--ink);
+  font-family:var(--mono);font-size:15px;line-height:1.6;
+  -webkit-font-smoothing:antialiased;overflow-x:hidden;
+}
+/* blueprint grid over light sections */
+.sec:not(.dark) .sec-body{
+  background-image:
+    linear-gradient(rgba(32,56,230,.05) 1px,transparent 1px),
+    linear-gradient(90deg,rgba(32,56,230,.05) 1px,transparent 1px);
+  background-size:34px 34px;
+}
+.sec.dark .sec-body{
+  background-image:
+    linear-gradient(rgba(125,140,255,.045) 1px,transparent 1px),
+    linear-gradient(90deg,rgba(125,140,255,.045) 1px,transparent 1px);
+  background-size:34px 34px;
+}
+::selection{background:var(--cobalt);color:var(--paper)}
+a{color:inherit;text-decoration:none}
+:focus-visible{outline:2px solid var(--cobalt);outline-offset:2px}
+button{font-family:inherit}
+
+.lbl{font-size:.68rem;letter-spacing:.14em;text-transform:uppercase;font-weight:500}
+.disp{font-family:var(--disp);font-weight:800;text-transform:uppercase;letter-spacing:-.03em;line-height:.95}
+.idx{font-family:var(--disp);font-weight:400;font-size:.7rem;letter-spacing:.08em}
+.h-xl{font-size:clamp(2rem,5.4vw,4.2rem)}
+.h-lg{font-size:clamp(1.5rem,3.6vw,2.6rem)}
+.dim{opacity:.62}
+
+/* section frame system */
+.sec{border-bottom:1.5px solid var(--rule);position:relative}
+.sec.dark{background:var(--carbon);color:var(--bone)}
+.sec.dark .sec-head{border-color:var(--rule-d)}
+.sec-head{
+  display:flex;justify-content:space-between;align-items:center;gap:1rem;
+  padding:.65rem 24px;border-bottom:1.5px solid var(--rule);position:relative;z-index:2;
+  background:inherit;
+}
+.sec-head .idx{color:var(--cobalt)}
+.sec.dark .sec-head .idx{color:var(--cobalt-lt)}
+.sec-body{padding:clamp(48px,7vw,96px) 24px;position:relative}
+.inner{max-width:1240px;margin:0 auto;position:relative}
+/* crosshair register marks */
+.inner::before,.inner::after{
+  content:"+";position:absolute;font-family:var(--disp);font-size:.85rem;color:var(--cobalt);opacity:.55;
+}
+.inner::before{top:-14px;left:-6px}
+.inner::after{bottom:-14px;right:-6px}
+.sec.dark .inner::before,.sec.dark .inner::after{color:var(--cobalt-lt)}
+
+/* buttons */
+.btn{
+  display:inline-flex;align-items:center;gap:.6rem;cursor:pointer;
+  font-family:var(--disp);font-weight:700;font-size:.72rem;letter-spacing:.1em;text-transform:uppercase;
+  padding:.85rem 1.5rem;border:1.5px solid var(--rule);background:transparent;color:inherit;
+  transition:background .15s,color .15s;
+}
+.btn:hover{background:var(--ink);color:var(--paper)}
+.btn.fill{background:var(--cobalt);border-color:var(--cobalt);color:#fff}
+.btn.fill:hover{background:var(--cobalt-dim);border-color:var(--cobalt-dim)}
+.sec.dark .btn{border-color:var(--bone)}
+.sec.dark .btn:hover{background:var(--bone);color:var(--carbon)}
+.sec.dark .btn.fill{border-color:var(--cobalt)}
+.sec.dark .btn.fill:hover{background:#3d52ff;border-color:#3d52ff;color:#fff}
+
+/* corner brackets for framed modules */
+.brk{position:relative}
+.brk .c{position:absolute;width:12px;height:12px;border-color:var(--cobalt-lt);border-style:solid;border-width:0;z-index:3}
+.brk .c.tl{top:-2px;left:-2px;border-top-width:2.5px;border-left-width:2.5px}
+.brk .c.tr{top:-2px;right:-2px;border-top-width:2.5px;border-right-width:2.5px}
+.brk .c.bl{bottom:-2px;left:-2px;border-bottom-width:2.5px;border-left-width:2.5px}
+.brk .c.br{bottom:-2px;right:-2px;border-bottom-width:2.5px;border-right-width:2.5px}
+.sec:not(.dark) .brk .c{border-color:var(--cobalt)}
+
+/* ==========================================================
+   TOP BAR
+   ========================================================== */
+.skip{position:absolute;left:-9999px;top:0;z-index:100;background:var(--cobalt);color:#fff;padding:.7rem 1rem;font-family:var(--disp);font-size:.7rem;text-transform:uppercase;letter-spacing:.1em}
+.skip:focus{left:0}
+.topbar{
+  position:fixed;inset:0 0 auto 0;z-index:60;background:var(--paper);
+  border-bottom:1.5px solid var(--rule);display:flex;align-items:stretch;height:52px;
+}
+.brand{
+  display:flex;align-items:center;gap:.7rem;padding:0 20px;
+  font-family:var(--disp);font-weight:800;font-size:.85rem;letter-spacing:.06em;
+  border-right:1.5px solid var(--rule);white-space:nowrap;
+}
+.brand .mark{width:19px;height:19px;display:block}
+@keyframes pulse{50%{opacity:.25}}
+.topnav{display:flex;flex:1;overflow-x:auto;scrollbar-width:none}
+.topnav::-webkit-scrollbar{display:none}
+.topnav a{
+  display:flex;align-items:center;gap:.6rem;padding:0 16px;border-right:1.5px solid var(--rule);
+  font-size:.7rem;letter-spacing:.08em;text-transform:uppercase;white-space:nowrap;transition:background .15s;
+}
+.topnav a:hover{background:var(--paper-2)}
+.topnav a b{font-family:var(--disp);font-weight:400;font-size:.6rem;color:var(--cobalt)}
+/* language toggle */
+.langsw{display:flex;align-items:center;border-left:1.5px solid var(--rule)}
+.langsw button{
+  height:100%;padding:0 13px;border:0;background:transparent;cursor:pointer;
+  font-family:var(--disp);font-weight:700;font-size:.66rem;letter-spacing:.1em;color:var(--ink);opacity:.4;
+  transition:opacity .15s,background .15s;
+}
+.langsw button+button{border-left:1.5px solid var(--rule)}
+.langsw button.on{opacity:1;background:var(--cobalt);color:#fff}
+.topcta{display:flex;align-items:center;padding:0 14px;border-left:1.5px solid var(--rule)}
+.topcta .btn{padding:.5rem 1rem;font-size:.62rem}
+
+/* ==========================================================
+   HERO
+   ========================================================== */
+.hero{padding-top:52px;background:var(--paper)}
+.hero-grid{display:grid;grid-template-columns:1fr 1fr;border-bottom:1.5px solid var(--rule)}
+.hero-left{
+  padding:clamp(26px,3.4vw,44px) 24px;border-right:1.5px solid var(--rule);
+  display:flex;flex-direction:column;justify-content:space-between;gap:1.6rem;
+  position:relative;overflow:hidden;
+  background-image:
+    linear-gradient(rgba(32,56,230,.05) 1px,transparent 1px),
+    linear-gradient(90deg,rgba(32,56,230,.05) 1px,transparent 1px);
+  background-size:34px 34px;
+}
+/* hero 2D workflow schematic */
+.hero-sch{margin-top:1.8rem;border:1.5px solid var(--rule);background:var(--paper)}
+.hero-sch-head{display:flex;justify-content:space-between;gap:1rem;padding:.45rem 14px;border-bottom:1.5px solid var(--rule);font-family:var(--disp);font-size:.58rem;letter-spacing:.12em;color:var(--cobalt)}
+.hero-sch-head .r{color:var(--ink);opacity:.5}
+.hero-sch svg{display:block;width:100%;height:auto}
+.hero-sch text{font-family:var(--disp);text-transform:uppercase}
+.hv-ring{fill:none;stroke:var(--cobalt);stroke-width:1;opacity:.3}
+.hv-orbit{stroke-dasharray:5 7;stroke-width:1.3;opacity:.5}
+.hv-tick{stroke:var(--ink);stroke-width:1;opacity:.28}
+.hv-sat{fill:var(--paper);stroke:var(--ink);stroke-width:1.5}
+.hv-lbl{font-size:10px;font-weight:700;letter-spacing:.06em}
+.hv-cross text{font-family:var(--disp);font-size:11px;fill:var(--cobalt);opacity:.55}
+.hv-sweep-line{stroke:var(--cobalt);stroke-width:1.2;opacity:.22}
+.hv-spin-slow{animation:hvspin 46s linear infinite}
+.hv-sweep{animation:hvspin 9s linear infinite}
+@keyframes hvspin{to{transform:rotate(360deg)}}
+@media (max-width:520px){.hv-lbl{font-size:12px}}
+.hero-kicker{display:flex;flex-wrap:wrap;gap:.5rem 1.6rem;margin-bottom:1.3rem}
+.hero-kicker span{font-size:.66rem;letter-spacing:.14em;text-transform:uppercase}
+.hero-kicker .live{color:var(--ok)}
+.hero-kicker .live::before{content:"●";margin-right:.45rem;animation:pulse 1.6s infinite}
+.hero h1{
+  font-family:var(--disp);font-weight:800;text-transform:uppercase;
+  font-size:clamp(2rem,3.9vw,3.15rem);line-height:.94;letter-spacing:-.03em;
+}
+.hero h1 .co{color:var(--cobalt)}
+.hero-sub{margin-top:1.2rem;max-width:52ch;font-size:.86rem;line-height:1.7}
+.hero-ctas{display:flex;gap:.8rem;flex-wrap:wrap;margin-top:1.6rem}
+.hero-plate{font-size:.6rem;letter-spacing:.12em;text-transform:uppercase;opacity:.6}
+.hero-right{display:flex;flex-direction:column}
+
+/* ==========================================================
+   AGENT DEMO SLIDESHOW (phone)
+   ========================================================== */
+.phone-stage{flex:1;display:flex;flex-direction:column;background:var(--paper)}
+/* agent tabs */
+.agent-tabs{display:grid;grid-template-columns:repeat(6,1fr);border-bottom:1.5px solid var(--rule)}
+.seg{position:relative;border:0;background:transparent;cursor:pointer;padding:.55rem 0 .65rem;
+  font-family:var(--disp);font-size:.56rem;letter-spacing:.08em;color:var(--ink);opacity:.45;
+  border-right:1.5px solid var(--rule);transition:opacity .15s}
+.seg:last-child{border-right:0}
+.seg:hover{opacity:.8}
+.seg.on{opacity:1;color:var(--cobalt)}
+.seg i{position:absolute;left:0;bottom:0;height:2.5px;width:0;background:var(--cobalt);display:block}
+.seg.done i{width:100%;background:var(--ink);opacity:.25}
+.stage-title{display:flex;justify-content:space-between;gap:1rem;padding:.5rem 18px;border-bottom:1.5px solid var(--rule)}
+.stage-title .wa-chip{display:inline-flex;align-items:center;gap:.5rem}
+.stage-title .wa-chip svg{width:14px;height:14px;flex:none}
+.phone-wrap{flex:1;display:flex;align-items:center;justify-content:center;padding:clamp(12px,2vw,22px) 18px;
+  background-image:linear-gradient(rgba(32,56,230,.05) 1px,transparent 1px),linear-gradient(90deg,rgba(32,56,230,.05) 1px,transparent 1px);
+  background-size:34px 34px;}
+.phone{width:min(330px,100%);background:#0b0d0e;border-radius:38px;padding:10px;
+  box-shadow:0 24px 60px rgba(15,15,18,.35),0 0 0 1.5px var(--rule);position:relative}
+.phone::after{content:"";position:absolute;right:-2.5px;top:110px;width:2.5px;height:52px;background:#0b0d0e;border-radius:2px}
+.screen{border-radius:29px;overflow:hidden;height:512px;position:relative;background:#ECE5DD}
+.scene{position:absolute;inset:0;display:none;flex-direction:column;font-family:-apple-system,'Segoe UI',Roboto,sans-serif}
+.scene.active{display:flex}
+/* status bar variants */
+.statusbar{display:flex;justify-content:space-between;align-items:center;padding:8px 18px 4px;font-size:.68rem;font-weight:600}
+.statusbar .sicons{display:flex;gap:5px;align-items:center}
+.statusbar svg{height:10px;width:auto;display:block}
+.sb-wa{background:#008069;color:#fff}
+.sb-dark{background:#0B141A;color:#fff}
+.sb-ig{background:#fff;color:#111}
+.sb-ig svg *{fill:#111!important;stroke:#111!important}
+/* whatsapp chrome */
+.wa-bg{background:#ECE5DD;position:relative}
+.wa-bg::before{content:"";position:absolute;inset:0;opacity:.5;pointer-events:none;
+  background-image:radial-gradient(rgba(0,0,0,.045) 1.2px,transparent 1.2px);background-size:18px 18px}
+.wa-head{display:flex;align-items:center;gap:10px;padding:8px 12px 10px;background:#008069;color:#fff}
+.wa-back{font-size:1.1rem;line-height:1;opacity:.95}
+.wa-avatar{width:36px;height:36px;border-radius:50%;background:var(--carbon);display:grid;place-items:center;flex:none;overflow:hidden}
+.wa-avatar svg{width:17px;height:17px}
+.wa-id{flex:1;min-width:0}
+.wa-name{font-size:.86rem;font-weight:600;display:flex;align-items:center;gap:5px;white-space:nowrap}
+.wa-name svg{width:13px;height:13px;flex:none}
+.wa-status{font-size:.68rem;opacity:.85}
+.wa-icons{display:flex;gap:18px;font-size:1rem;opacity:.95}
+.wa-chat{flex:1;overflow-y:auto;scrollbar-width:none;padding:10px 10px 6px;display:flex;flex-direction:column;gap:5px;position:relative}
+.wa-chat::-webkit-scrollbar,.ig-chat::-webkit-scrollbar,.call-cap::-webkit-scrollbar{display:none}
+.wa-day{align-self:center;background:#FFF;color:#54656F;font-size:.62rem;font-weight:500;padding:4px 10px;border-radius:7px;box-shadow:0 1px 1px rgba(0,0,0,.08);letter-spacing:.04em}
+.wa-enc{align-self:center;background:#FFF3C2;color:#54656F;font-size:.6rem;padding:5px 10px;border-radius:7px;max-width:88%;text-align:center;line-height:1.45;box-shadow:0 1px 1px rgba(0,0,0,.08)}
+/* messages / display:none until shown so the chat grows naturally */
+.tx-msg{max-width:80%;display:none;position:relative}
+.tx-msg.show{display:block;animation:txIn .3s ease}
+@keyframes txIn{from{opacity:0;transform:translateY(8px)}to{opacity:1;transform:none}}
+.tx-msg .body{padding:6px 8px 7px 9px;font-size:.8rem;line-height:1.45;border-radius:8px;box-shadow:0 1px 1px rgba(0,0,0,.1);color:#111B21}
+.tx-msg .stamp{float:right;margin:8px 0 0 8px;font-size:.6rem;color:#667781;display:inline-flex;gap:3px;align-items:flex-end;position:relative;top:3px}
+.tx-msg .ticks{color:#53BDEB;font-size:.66rem;letter-spacing:-.12em}
+.tx-msg.cust{align-self:flex-end}
+.tx-msg.cust .body{background:#D9FDD3;border-top-right-radius:0}
+.tx-msg.cust::after{content:"";position:absolute;top:0;right:-7px;border:8px solid transparent;border-top-color:#D9FDD3;border-right-width:0}
+.tx-msg.agent{align-self:flex-start}
+.tx-msg.agent .body{background:#FFF;border-top-left-radius:0}
+.tx-msg.agent::after{content:"";position:absolute;top:0;left:-7px;border:8px solid transparent;border-top-color:#FFF;border-left-width:0}
+.tx-typing{align-self:flex-start;display:none;gap:4px;padding:11px 12px;background:#FFF;border-radius:8px;border-top-left-radius:0;box-shadow:0 1px 1px rgba(0,0,0,.1)}
+.tx-typing.show{display:flex}
+.tx-typing span{width:6px;height:6px;border-radius:50%;background:#8696A0;animation:blink 1s infinite}
+.tx-typing span:nth-child(2){animation-delay:.18s}
+.tx-typing span:nth-child(3){animation-delay:.36s}
+@keyframes blink{0%,80%,100%{opacity:.25}40%{opacity:1}}
+.wa-input{display:flex;align-items:center;gap:7px;padding:6px 8px 10px}
+.wa-field{flex:1;background:#FFF;border-radius:20px;padding:8px 14px;font-size:.78rem;color:#8696A0;display:flex;align-items:center;gap:9px;box-shadow:0 1px 1px rgba(0,0,0,.08)}
+.wa-field svg{width:17px;height:17px;flex:none;fill:#8696A0}
+.wa-mic{width:38px;height:38px;border-radius:50%;background:#008069;display:grid;place-items:center;flex:none}
+.wa-mic svg{width:17px;height:17px;fill:#fff}
+/* voice call scene */
+.call-scene{background:#0B141A;color:#fff}
+.call-body{flex:1;display:flex;flex-direction:column;align-items:center;padding:16px 16px 8px;gap:6px;min-height:0}
+.call-kind{font-size:.66rem;opacity:.6;letter-spacing:.08em}
+.call-avatar{width:66px;height:66px;border-radius:50%;background:#111B21;border:2px solid #1f2c33;display:grid;place-items:center;margin-top:6px}
+.call-avatar svg{width:38px;height:38px}
+.call-name{font-size:1.05rem;font-weight:600;margin-top:4px}
+.call-timer{font-size:.78rem;opacity:.75;font-variant-numeric:tabular-nums}
+.wave{display:flex;gap:3.5px;align-items:flex-end;height:22px;margin:8px 0 2px}
+.wave i{width:3.5px;background:#25D366;border-radius:2px;animation:wv 1s ease-in-out infinite}
+.wave i:nth-child(2){animation-delay:.12s}.wave i:nth-child(3){animation-delay:.24s}.wave i:nth-child(4){animation-delay:.36s}
+.wave i:nth-child(5){animation-delay:.48s}.wave i:nth-child(6){animation-delay:.6s}.wave i:nth-child(7){animation-delay:.72s}
+@keyframes wv{0%,100%{height:5px}50%{height:20px}}
+.call-cap{width:100%;flex:1;display:flex;flex-direction:column;gap:6px;margin-top:8px;overflow-y:auto;scrollbar-width:none}
+.call-line{display:none;font-size:.72rem;line-height:1.45;padding:6px 10px;border-radius:8px;max-width:92%}
+.call-line.show{display:block;animation:txIn .3s ease}
+.call-line.a{background:#1F2C33;align-self:flex-start}
+.call-line.c{background:#005C4B;align-self:flex-end}
+.call-line b{display:block;font-size:.58rem;letter-spacing:.1em;opacity:.6;text-transform:uppercase;margin-bottom:2px}
+.call-btns{display:flex;gap:20px;justify-content:center;padding:10px 0 14px}
+.call-btn{width:42px;height:42px;border-radius:50%;background:#1F2C33;display:grid;place-items:center;font-size:1.05rem}
+.call-btn.end{background:#EA4335;transform:rotate(135deg)}
+/* instagram DM scene */
+.ig-scene{background:#fff;color:#111}
+.ig-head{display:flex;align-items:center;gap:10px;padding:8px 12px 10px;background:#fff;border-bottom:1px solid #EFEFEF;color:#111}
+.ig-ring{width:38px;height:38px;border-radius:50%;padding:2px;background:conic-gradient(#F58529,#DD2A7B,#8134AF,#515BD4,#F58529);flex:none}
+.ig-ring .wa-avatar{width:100%;height:100%;border:2px solid #fff}
+.ig-name{font-size:.86rem;font-weight:600}
+.ig-status{font-size:.68rem;color:#8E8E8E}
+.ig-chat{flex:1;overflow-y:auto;scrollbar-width:none;padding:10px;display:flex;flex-direction:column;gap:5px;background:#fff}
+.ig-chat .tx-msg .body{box-shadow:none}
+.ig-chat .tx-msg.agent .body{background:#EFEFEF;border-radius:18px;border-top-left-radius:6px}
+.ig-chat .tx-msg.agent::after{display:none}
+.ig-chat .tx-msg.cust .body{background:#3797F0;color:#fff;border-radius:18px;border-top-right-radius:6px}
+.ig-chat .tx-msg.cust::after{display:none}
+.ig-chat .tx-msg .stamp{color:#8E8E8E}
+.ig-chat .tx-msg .ticks{color:#8E8E8E}
+.ig-chat .tx-typing{background:#EFEFEF;border-radius:18px;box-shadow:none}
+.ig-input{display:flex;align-items:center;gap:8px;padding:8px 10px 12px;background:#fff}
+.ig-field{flex:1;border:1px solid #DBDBDB;border-radius:22px;padding:9px 14px;font-size:.78rem;color:#8E8E8E;display:flex;align-items:center;gap:9px}
+.ig-cam{width:34px;height:34px;border-radius:50%;background:#3797F0;display:grid;place-items:center;flex:none;color:#fff;font-size:.85rem}
+/* results strips */
+#resultsHost .tx-result{display:none}
+#resultsHost .tx-result.active{display:flex}
+.tx-result{border-top:1.5px solid var(--rule);padding:.8rem 18px;flex-wrap:wrap;gap:.4rem 1.6rem;font-size:.64rem;letter-spacing:.12em;text-transform:uppercase}
+.tx-result span{opacity:0}
+.tx-result span.show{animation:resIn .4s ease forwards}
+@keyframes resIn{to{opacity:1}}
+.tx-result .ok{color:var(--ok);font-weight:600}
+
+/* telemetry bar */
+.telemetry{display:grid;grid-template-columns:repeat(3,1fr);border-bottom:1.5px solid var(--rule);background:var(--paper)}
+.tele{padding:1rem 24px;border-right:1.5px solid var(--rule);display:flex;flex-direction:column;gap:.2rem}
+.tele:last-child{border-right:0}
+.tele b{font-family:var(--disp);font-weight:800;font-size:clamp(1.2rem,2.4vw,1.9rem);letter-spacing:-.02em}
+.tele b em{font-style:normal;color:var(--cobalt)}
+.tele span{font-size:.6rem;letter-spacing:.16em;text-transform:uppercase;opacity:.55}
+
+/* ticker */
+.ticker{background:var(--carbon);color:var(--bone);border-bottom:1.5px solid var(--rule);overflow:hidden;white-space:nowrap;padding:.55rem 0}
+.ticker-track{display:inline-block;animation:tick 28s linear infinite}
+.ticker span{font-family:var(--disp);font-size:.68rem;letter-spacing:.16em;text-transform:uppercase;margin-right:3.2rem}
+.ticker span b{color:var(--cobalt-lt);font-weight:400}
+@keyframes tick{to{transform:translateX(-50%)}}
+
+/* ==========================================================
+   WORKFLOW SVG (system schematic)
+   ========================================================== */
+.schematic{border:1.5px solid var(--rule);margin-top:3rem;background:var(--paper);overflow:hidden}
+.schematic-head{display:flex;justify-content:space-between;gap:1rem;padding:.6rem 18px;border-bottom:1.5px solid var(--rule);flex-wrap:wrap}
+.schematic svg{display:block;width:100%;height:auto}
+.schematic text{font-family:var(--disp);text-transform:uppercase}
+.sch-node{fill:var(--paper);stroke:var(--ink);stroke-width:1.5}
+.sch-node.core{fill:var(--carbon);stroke:var(--cobalt);stroke-width:2}
+.sch-node.out{stroke:var(--ok)}
+.sch-line{fill:none;stroke:var(--cobalt);stroke-width:1.5;stroke-dasharray:6 5;animation:dash 1.2s linear infinite}
+.sch-line.out{stroke:var(--ok)}
+@keyframes dash{to{stroke-dashoffset:-11}}
+.sch-dot{fill:var(--cobalt)}
+.sch-dot.out{fill:var(--ok)}
+.sch-t{fill:var(--ink);font-size:11px;font-weight:700;letter-spacing:.06em}
+.sch-t.sm{font-size:9px;font-weight:400;opacity:.55}
+.sch-t.inv{fill:var(--bone)}
+.sch-t.co{fill:var(--cobalt-lt);font-size:9px;font-weight:400}
+.sch-pulse{fill:none;stroke:var(--cobalt);stroke-width:1.5;opacity:0;animation:ring 2.4s ease-out infinite}
+@keyframes ring{0%{opacity:.7;transform:scale(.7)}100%{opacity:0;transform:scale(1.5)}}
+
+/* ==========================================================
+   DIAGNOSTICS / PROBLEM
+   ========================================================== */
+.diag-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(230px,1fr));border:1.5px solid var(--rule-d);border-right:0;border-bottom:0;margin-top:3rem}
+.diag{border-right:1.5px solid var(--rule-d);border-bottom:1.5px solid var(--rule-d);padding:1.5rem 1.4rem;min-height:190px;display:flex;flex-direction:column;gap:.8rem;background:var(--carbon)}
+.diag .code{font-family:var(--disp);font-size:.62rem;letter-spacing:.1em;color:var(--signal)}
+.diag h4{font-family:var(--disp);font-weight:700;font-size:.86rem;text-transform:uppercase}
+.diag p{font-size:.8rem;line-height:1.65;opacity:.68}
+.diag .bar{margin-top:auto;height:5px;background:var(--rule-d);position:relative;overflow:hidden}
+.diag .bar i{position:absolute;inset:0;background:var(--signal);transform-origin:left;transform:scaleX(var(--loss))}
+
+/* ==========================================================
+   SOLUTION protocol
+   ========================================================== */
+.proto{display:grid;grid-template-columns:repeat(4,1fr);border:1.5px solid var(--rule);border-right:0;margin-top:3rem}
+.proto-step{border-right:1.5px solid var(--rule);padding:1.6rem 1.4rem;background:var(--paper)}
+.proto-step .idx{color:var(--cobalt);display:block;margin-bottom:1rem}
+.proto-step h4{font-family:var(--disp);font-weight:700;font-size:.9rem;text-transform:uppercase;margin-bottom:.5rem}
+.proto-step p{font-size:.8rem;line-height:1.65;opacity:.7}
+.not-chatbot{
+  margin-top:2.4rem;border-left:4px solid var(--cobalt);padding:.4rem 0 .4rem 1.4rem;
+  font-family:var(--disp);font-weight:700;font-size:clamp(.95rem,1.7vw,1.25rem);text-transform:uppercase;
+}
+
+/* ==========================================================
+   UNITS
+   ========================================================== */
+.unit{border:1.5px solid var(--rule-d);margin-top:26px;background:var(--carbon)}
+.unit-top{display:flex;flex-wrap:wrap;justify-content:space-between;align-items:baseline;gap:.6rem 2rem;padding:.7rem 20px;border-bottom:1.5px solid var(--rule-d)}
+.unit-top .uid{font-family:var(--disp);font-size:.66rem;letter-spacing:.12em;color:var(--cobalt-lt)}
+.unit-top .stat{font-size:.62rem;letter-spacing:.14em;text-transform:uppercase;color:var(--ok-lt)}
+.unit-top .stat::before{content:"●";margin-right:.4rem;animation:pulse 1.8s infinite}
+.unit-main{display:grid;grid-template-columns:1.1fr 1fr}
+.unit-name{padding:clamp(26px,3.4vw,44px) 20px;border-right:1.5px solid var(--rule-d);display:flex;flex-direction:column;gap:1.4rem}
+.unit-name h3{font-family:var(--disp);font-weight:800;text-transform:uppercase;font-size:clamp(1.6rem,3.4vw,2.8rem);line-height:.95;letter-spacing:-.03em}
+.unit-name h3 em{font-style:normal;color:var(--cobalt-lt)}
+.unit-name>p{font-size:.84rem;line-height:1.7;opacity:.72;max-width:44ch}
+.unit-spec{display:flex;flex-direction:column}
+.spec-row{display:grid;grid-template-columns:130px 1fr;gap:1rem;padding:.72rem 20px;border-bottom:1.5px solid var(--rule-d);font-size:.76rem}
+.spec-row:last-child{border-bottom:0}
+.spec-row dt{font-size:.6rem;letter-spacing:.14em;text-transform:uppercase;opacity:.5;padding-top:.15rem}
+.spec-row dd{line-height:1.6}
+.spec-row dd b{color:var(--cobalt-lt);font-weight:500}
+.unit-foot{border-top:1.5px solid var(--rule-d);padding:.7rem 20px;display:flex;justify-content:space-between;gap:1rem;flex-wrap:wrap;align-items:center}
+.unit-foot .fn{font-size:.62rem;letter-spacing:.12em;text-transform:uppercase;opacity:.5}
+
+/* mini workflow pipeline inside each unit */
+.pipe{display:flex;align-items:stretch;flex-wrap:wrap;gap:0;margin-top:auto}
+.pipe-node{
+  border:1.5px solid var(--rule-d);padding:.42rem .7rem;font-size:.58rem;letter-spacing:.12em;
+  text-transform:uppercase;display:flex;align-items:center;white-space:nowrap;color:var(--bone);
+}
+.pipe-node.in{border-color:var(--cobalt-lt);color:var(--cobalt-lt)}
+.pipe-node.out{border-color:var(--ok-lt);color:var(--ok-lt)}
+.pipe-link{
+  width:34px;align-self:center;height:1.5px;position:relative;flex:none;
+  background-image:linear-gradient(90deg,var(--cobalt-lt) 55%,transparent 45%);
+  background-size:9px 1.5px;animation:pipeflow 1s linear infinite;
+}
+@keyframes pipeflow{to{background-position:9px 0}}
+.pipe-link::after{content:"▸";position:absolute;right:-3px;top:50%;transform:translateY(-50%);color:var(--cobalt-lt);font-size:.55rem}
+
+/* ==========================================================
+   INDUSTRIES
+   ========================================================== */
+.ind-matrix{display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));border:1.5px solid var(--rule);border-right:0;border-bottom:0;margin-top:3rem}
+.ind-cell{border-right:1.5px solid var(--rule);border-bottom:1.5px solid var(--rule);padding:1.3rem;display:flex;flex-direction:column;gap:.5rem;transition:background .15s,color .15s;background:var(--paper)}
+.ind-cell:hover{background:var(--cobalt);color:#fff}
+.ind-cell:hover .idx{color:#fff}
+.ind-cell .idx{color:var(--cobalt)}
+.ind-cell h4{font-family:var(--disp);font-weight:700;font-size:.92rem;text-transform:uppercase}
+.ind-cell p{font-size:.72rem;opacity:.65;line-height:1.55}
+
+/* ==========================================================
+   TRIAL
+   ========================================================== */
+.trial-grid{display:grid;grid-template-columns:1fr 1fr;border:1.5px solid var(--rule-d);margin-top:3rem}
+.trial-copy{padding:clamp(28px,4vw,56px) 24px;border-right:1.5px solid var(--rule-d)}
+.trial-copy p{font-size:.9rem;line-height:1.75;opacity:.78;margin-top:1.4rem;max-width:48ch}
+.trial-steps{display:flex;flex-direction:column}
+.tstep{display:grid;grid-template-columns:64px 1fr;border-bottom:1.5px solid var(--rule-d);flex:1}
+.tstep:last-child{border-bottom:0}
+.tstep b{display:grid;place-items:center;border-right:1.5px solid var(--rule-d);font-family:var(--disp);font-size:.72rem;color:var(--cobalt-lt)}
+.tstep span{padding:.95rem 1.2rem;font-size:.82rem;display:flex;align-items:center}
+
+/* ==========================================================
+   PRICING
+   ========================================================== */
+.plans{display:grid;grid-template-columns:repeat(3,1fr);border:1.5px solid var(--rule);border-right:0;margin-top:3rem}
+.plan{border-right:1.5px solid var(--rule);display:flex;flex-direction:column;background:var(--paper)}
+.plan.hot{background:var(--carbon);color:var(--bone)}
+.plan-h{padding:1.4rem 1.4rem 1.1rem;border-bottom:1.5px solid var(--rule)}
+.plan.hot .plan-h,.plan.hot .plan-li{border-color:var(--rule-d)}
+.plan-h .idx{color:var(--cobalt);display:block;margin-bottom:.8rem}
+.plan.hot .plan-h .idx{color:var(--cobalt-lt)}
+.plan-h h3{font-family:var(--disp);font-weight:800;font-size:1.15rem;text-transform:uppercase}
+.plan-h .price{font-family:var(--disp);font-weight:800;font-size:2.1rem;margin-top:.7rem;letter-spacing:-.03em}
+.plan-h .price small{font-size:.72rem;font-weight:400;opacity:.6}
+.plan-h .setup{display:inline-block;margin-top:.8rem;padding:.4rem .75rem;border:1.5px dashed var(--cobalt);
+  font-size:.64rem;letter-spacing:.12em;text-transform:uppercase;color:var(--cobalt);font-weight:600}
+.plan.hot .plan-h .setup{border-color:var(--cobalt-lt);color:var(--cobalt-lt)}
+.plan-usage{padding:.75rem 1.4rem;border-bottom:1.5px solid var(--rule);font-size:.68rem;letter-spacing:.08em;
+  text-transform:uppercase;background:rgba(32,56,230,.06);display:flex;gap:.5rem;align-items:baseline}
+.plan-usage::before{content:"▮";color:var(--cobalt);font-size:.6rem}
+.plan.hot .plan-usage{border-color:var(--rule-d);background:rgba(125,140,255,.1)}
+.plan.hot .plan-usage::before{color:var(--cobalt-lt)}
+.plan ul{list-style:none;flex:1}
+.plan-li{padding:.62rem 1.4rem;border-bottom:1.5px solid var(--rule);font-size:.78rem;display:flex;gap:.7rem}
+.plan-li::before{content:"+";font-family:var(--disp);color:var(--cobalt);font-weight:700}
+.plan.hot .plan-li::before{color:var(--cobalt-lt)}
+.plan-f{padding:1.2rem 1.4rem}
+.plan-f .btn{width:100%;justify-content:center}
+.hotflag{background:var(--cobalt);color:#fff;text-align:center;font-family:var(--disp);font-size:.6rem;letter-spacing:.2em;text-transform:uppercase;padding:.42rem;font-weight:700}
+.addons{border:1.5px dashed var(--rule);margin-top:26px;padding:1.3rem 1.5rem;display:flex;flex-wrap:wrap;gap:.6rem 2.4rem;align-items:baseline;background:var(--paper)}
+.addons h4{font-family:var(--disp);font-size:.64rem;letter-spacing:.18em;text-transform:uppercase;color:var(--cobalt);width:100%}
+.addons span{font-size:.78rem;opacity:.8}
+.addons b{font-weight:600;opacity:1}
+
+/* ==========================================================
+   DEPLOYMENT
+   ========================================================== */
+.seq{display:grid;grid-template-columns:repeat(5,1fr);border:1.5px solid var(--rule-d);border-right:0;margin-top:3rem}
+.seq-step{border-right:1.5px solid var(--rule-d);padding:1.6rem 1.3rem;display:flex;flex-direction:column;gap:.9rem;min-height:220px;background:var(--carbon)}
+.seq-step .idx{color:var(--cobalt-lt)}
+.seq-step h4{font-family:var(--disp);font-weight:700;font-size:.84rem;text-transform:uppercase;line-height:1.25}
+.seq-step p{font-size:.76rem;line-height:1.6;opacity:.65}
+.seq-step .tick{margin-top:auto;font-size:.6rem;letter-spacing:.14em;text-transform:uppercase;color:var(--ok-lt)}
+
+/* ==========================================================
+   CONTACT
+   ========================================================== */
+.contact-grid{display:grid;grid-template-columns:1fr 1.2fr;border:1.5px solid var(--rule);margin-top:3rem;background:var(--paper)}
+.contact-left{padding:clamp(28px,4vw,52px) 24px;border-right:1.5px solid var(--rule);display:flex;flex-direction:column;justify-content:space-between;gap:2.5rem}
+.contact-left .plate{font-size:.66rem;letter-spacing:.12em;text-transform:uppercase;line-height:2;opacity:.6}
+form.channel{display:flex;flex-direction:column}
+.f-grid{display:grid;grid-template-columns:1fr 1fr}
+.f-cell{border-bottom:1.5px solid var(--rule);padding:.9rem 1.3rem;display:flex;flex-direction:column;gap:.35rem;background:var(--paper)}
+.f-cell:nth-child(odd){border-right:1.5px solid var(--rule)}
+.f-cell.full{grid-column:1/-1;border-right:0}
+.f-cell label{font-size:.6rem;letter-spacing:.16em;text-transform:uppercase;opacity:.55}
+.f-cell input,.f-cell select{background:transparent;border:0;font-family:var(--mono);font-size:.9rem;color:var(--ink);padding:.15rem 0;appearance:none}
+.f-cell select{background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='10' height='10' viewBox='0 0 16 16'%3E%3Cpath fill='%232038e6' d='M8 11L2 5h12z'/%3E%3C/svg%3E");background-repeat:no-repeat;background-position:right .2rem center;cursor:pointer}
+.f-cell input:focus,.f-cell select:focus{outline:none}
+.f-cell:focus-within{background:#fff}
+.f-cell:focus-within label{color:var(--cobalt);opacity:1}
+.channel .btn{border:0;width:100%;justify-content:center;padding:1.2rem;font-size:.8rem}
+.f-note{padding:.8rem 1.3rem;font-size:.64rem;letter-spacing:.1em;text-transform:uppercase;opacity:.55;border-top:1.5px solid var(--rule)}
+
+/* ==========================================================
+   FOOTER + BANDS
+   ========================================================== */
+footer{background:var(--carbon);color:var(--bone)}
+.foot-grid{display:grid;grid-template-columns:1fr 1fr 1fr;border-bottom:1.5px solid var(--rule-d)}
+.foot-cell{padding:2.2rem 24px;border-right:1.5px solid var(--rule-d);font-size:.68rem;letter-spacing:.1em;text-transform:uppercase;line-height:2.1}
+.foot-cell:last-child{border-right:0}
+.foot-cell .disp{font-size:.85rem;display:block}
+.foot-cell .mark{width:18px;height:18px}
+.foot-base{display:flex;justify-content:space-between;gap:1rem;flex-wrap:wrap;padding:.9rem 24px;font-size:.62rem;letter-spacing:.12em;text-transform:uppercase;opacity:.55}
+.band{overflow:hidden;border-bottom:1.5px solid var(--rule);background:var(--paper);padding:clamp(10px,1.6vw,22px) 0}
+.band .disp{font-size:clamp(3.4rem,11vw,10rem);white-space:nowrap;color:transparent;-webkit-text-stroke:1.5px var(--ink)}
+.band .disp em{font-style:normal;color:var(--cobalt);-webkit-text-stroke:0}
+
+/* reveal */
+.rv{opacity:0;transform:translateY(20px);transition:opacity .6s ease,transform .6s ease}
+.rv.on{opacity:1;transform:none}
+
+@media (prefers-reduced-motion:reduce){
+  *{animation:none!important;transition:none!important}
+  .rv,.tx-msg,.tx-result span{opacity:1;transform:none}
+  html{scroll-behavior:auto}
+}
+
+/* ==========================================================
+   PROOF / RESULTS
+   ========================================================== */
+.proof-grid{display:grid;grid-template-columns:repeat(3,1fr);border:1.5px solid var(--rule);border-right:0;margin-top:3rem}
+.proof{border-right:1.5px solid var(--rule);padding:1.8rem 1.5rem;display:flex;flex-direction:column;gap:1rem;background:var(--paper)}
+.proof .metric{font-family:var(--disp);font-weight:800;font-size:2.4rem;letter-spacing:-.03em;color:var(--cobalt)}
+.proof .metric small{font-size:.8rem;font-weight:400;color:var(--ink);opacity:.6;letter-spacing:0}
+.proof blockquote{font-size:.86rem;line-height:1.7;opacity:.82;flex:1}
+.proof .who{font-size:.66rem;letter-spacing:.12em;text-transform:uppercase;opacity:.55;line-height:1.9}
+.works{border:1.5px dashed var(--rule);margin-top:26px;padding:1.2rem 1.5rem;display:flex;flex-wrap:wrap;gap:.5rem 1rem;align-items:center}
+.works h4{font-family:var(--disp);font-size:.62rem;letter-spacing:.18em;text-transform:uppercase;color:var(--cobalt);width:100%;margin-bottom:.3rem}
+.works span{border:1.5px solid var(--rule);padding:.35rem .8rem;font-size:.68rem;letter-spacing:.1em;text-transform:uppercase}
+/* ==========================================================
+   ROI CALCULATOR
+   ========================================================== */
+.roi{display:grid;grid-template-columns:1fr 1fr;border:1.5px solid var(--rule-d);margin-top:3rem}
+.roi-in{padding:clamp(24px,3.4vw,44px) 24px;border-right:1.5px solid var(--rule-d);display:flex;flex-direction:column;gap:1.6rem}
+.roi-field label{display:flex;justify-content:space-between;font-size:.66rem;letter-spacing:.14em;text-transform:uppercase;opacity:.7;margin-bottom:.6rem}
+.roi-field label b{color:var(--cobalt-lt);font-family:var(--disp)}
+.roi input[type=range]{width:100%;appearance:none;height:3px;background:var(--rule-d);outline:none}
+.roi input[type=range]::-webkit-slider-thumb{appearance:none;width:16px;height:16px;background:var(--cobalt);border:2px solid var(--bone);cursor:pointer}
+.roi input[type=range]::-moz-range-thumb{width:14px;height:14px;background:var(--cobalt);border:2px solid var(--bone);cursor:pointer;border-radius:0}
+.roi-out{padding:clamp(24px,3.4vw,44px) 24px;display:flex;flex-direction:column;gap:1.1rem;justify-content:center}
+.roi-line{display:flex;justify-content:space-between;align-items:baseline;gap:1rem;border-bottom:1.5px solid var(--rule-d);padding-bottom:.7rem}
+.roi-line span{font-size:.66rem;letter-spacing:.12em;text-transform:uppercase;opacity:.6}
+.roi-line b{font-family:var(--disp);font-weight:800;font-size:1.3rem;letter-spacing:-.02em}
+.roi-line.big b{font-size:clamp(1.8rem,3.4vw,2.6rem);color:var(--ok-lt)}
+.roi-note{font-size:.62rem;letter-spacing:.06em;opacity:.45;text-transform:uppercase;line-height:1.8}
+/* ==========================================================
+   COMPARISON + GUARANTEE
+   ========================================================== */
+.cmp{border:1.5px solid var(--rule);margin-top:26px;overflow-x:auto;background:var(--paper)}
+.cmp table{width:100%;border-collapse:collapse;font-size:.78rem;min-width:560px}
+.cmp th,.cmp td{padding:.7rem 1.1rem;border-bottom:1.5px solid var(--rule);border-right:1.5px solid var(--rule);text-align:left}
+.cmp th:last-child,.cmp td:last-child{border-right:0}
+.cmp tr:last-child td{border-bottom:0}
+.cmp thead th{font-family:var(--disp);font-size:.66rem;letter-spacing:.1em;text-transform:uppercase}
+.cmp thead th.hl{background:var(--carbon);color:var(--bone)}
+.cmp td.hl{background:rgba(32,56,230,.06);font-weight:600}
+.cmp td .y{color:var(--ok);font-weight:700}
+.cmp td .n{color:var(--signal);font-weight:700}
+.guarantee{display:flex;flex-wrap:wrap;gap:.6rem 2.4rem;border:1.5px solid var(--ok);margin-top:26px;padding:1.1rem 1.5rem;align-items:center}
+.guarantee b{font-family:var(--disp);font-size:.7rem;letter-spacing:.14em;text-transform:uppercase;color:var(--ok)}
+.guarantee span{font-size:.78rem;opacity:.85}
+/* ==========================================================
+   FAQ
+   ========================================================== */
+.faq{margin-top:3rem;border:1.5px solid var(--rule);background:var(--paper)}
+.faq details{border-bottom:1.5px solid var(--rule)}
+.faq details:last-child{border-bottom:0}
+.faq summary{cursor:pointer;list-style:none;display:flex;justify-content:space-between;gap:1rem;align-items:center;padding:1.1rem 1.4rem;font-family:var(--disp);font-weight:700;font-size:.86rem;text-transform:uppercase;letter-spacing:.02em}
+.faq summary::-webkit-details-marker{display:none}
+.faq summary::after{content:"+";font-family:var(--disp);color:var(--cobalt);font-size:1rem;flex:none}
+.faq details[open] summary::after{content:"−"}
+.faq .a{padding:0 1.4rem 1.2rem;font-size:.86rem;line-height:1.75;opacity:.78;max-width:70ch}
+/* ==========================================================
+   FLOATING WHATSAPP DEMO CTA
+   ========================================================== */
+.wa-float{position:fixed;right:18px;bottom:18px;z-index:70;display:flex;align-items:center;gap:.7rem;
+  background:#25D366;color:#04120a;border:1.5px solid var(--rule);padding:.7rem 1.1rem;
+  font-family:var(--disp);font-weight:700;font-size:.7rem;letter-spacing:.08em;text-transform:uppercase;
+  box-shadow:0 10px 30px rgba(15,15,18,.3);transition:transform .15s}
+.wa-float:hover{transform:translateY(-2px)}
+.wa-float svg{width:20px;height:20px;flex:none}
+@media (max-width:640px){.wa-float span.txt{display:none}.wa-float{padding:.8rem}}
+/* ==========================================================
+   RESPONSIVE
+   ========================================================== */
+@media (max-width:1020px){
+  .proto{grid-template-columns:1fr 1fr;border-right:1.5px solid var(--rule)}
+  .proto-step{border-bottom:1.5px solid var(--rule)}
+  .seq{grid-template-columns:1fr 1fr;border-right:1.5px solid var(--rule-d)}
+  .seq-step{border-bottom:1.5px solid var(--rule-d);min-height:0}
+  .plans{grid-template-columns:1fr;border-right:1.5px solid var(--rule)}
+  .plan{border-right:0;border-bottom:1.5px solid var(--rule)}
+  .plan:last-child{border-bottom:0}
+  .topnav a b{display:none}
+}
+@media (max-width:880px){
+  .hero-grid,.unit-main,.trial-grid,.contact-grid,.foot-grid{grid-template-columns:1fr}
+  .hero-left,.unit-name,.trial-copy,.contact-left{border-right:0;border-bottom:1.5px solid var(--rule)}
+  .unit-name,.trial-copy{border-color:var(--rule-d)}
+  .foot-cell{border-right:0;border-bottom:1.5px solid var(--rule-d)}
+  .telemetry{grid-template-columns:1fr}
+  .tele{border-right:0;border-bottom:1.5px solid var(--rule)}
+  .tele:last-child{border-bottom:0}
+  .f-cell{grid-column:1/-1;border-right:0!important}
+  .topnav{min-width:0}
+  .topnav a{padding:0 12px;font-size:.64rem}
+  .brand{padding:0 12px;font-size:.78rem}
+  .topcta{padding:0 8px}
+  .topcta .btn{padding:.45rem .7rem;font-size:.56rem}
+  .langsw button{padding:0 9px}
+}
+</style>
+</head>
+<body>
+<a class="skip" href="#top" data-i18n="a11y.skip">Skip to content</a>
+
+<!-- ================= TOP BAR ================= -->
+<header class="topbar">
+  <a class="brand" href="#top"><svg class="mark" viewBox="0 0 100 100" aria-hidden="true"><rect x="20" y="20" width="13" height="60" fill="currentColor"/><rect x="20" y="20" width="60" height="13" fill="var(--cobalt)"/><rect x="20" y="43.5" width="47" height="13" fill="currentColor"/><rect x="20" y="67" width="34" height="13" fill="currentColor"/></svg>ELYON</a>
+  <nav class="topnav">
+    <a href="#units"><span data-i18n="nav.agents">Agents</span> <b>01.0</b></a>
+    <a href="#diag"><span data-i18n="nav.problem">Problem</span> <b>02.0</b></a>
+    <a href="#industries"><span data-i18n="nav.industries">Industries</span> <b>03.0</b></a>
+    <a href="#trial"><span data-i18n="nav.trial">Field Test</span> <b>04.0</b></a>
+    <a href="#pricing"><span data-i18n="nav.pricing">Pricing</span> <b>05.0</b></a>
+    <a href="#deploy"><span data-i18n="nav.deploy">Deployment</span> <b>06.0</b></a>
+    <a href="#faq"><span data-i18n="nav.faq">FAQ</span> <b>06.5</b></a>
+  </nav>
+  <div class="langsw" role="group" aria-label="Language">
+    <button id="langEN" onclick="setLang('en')">EN</button>
+    <button id="langES" onclick="setLang('es')">ES</button>
+  </div>
+  <div class="topcta"><a class="btn fill" href="#channel" data-i18n="cta.trial">Try Elyon Free</a></div>
+</header>
+
+<!-- ================= HERO ================= -->
+<section class="hero sec" id="top">
+  <div class="hero-grid">
+    <div class="hero-left">
+      <div>
+        <div class="hero-kicker">
+          <span class="live" data-i18n="hero.live">All units operational</span>
+          <span class="dim">MX · LATAM · US · ES</span>
+          <span class="dim">EST. 2026</span>
+        </div>
+        <h1 data-i18n="hero.h1">AI Agents that <span class="co">sell, support &amp; operate.</span> 24/7.</h1>
+        <p class="hero-sub" data-i18n="hero.sub">Engineered AI employees for sales, support and operations. Deployed across WhatsApp, Instagram, Facebook Messenger, website chat, phone calls and CRM systems. They reply in seconds, qualify leads, book appointments and follow up while your team sleeps.</p>
+        <div class="hero-ctas">
+          <a class="btn fill" href="#channel" data-i18n="cta.trial7">Try Elyon Free / 7 Days</a>
+          <a class="btn" href="#units" data-i18n="cta.see">See AI Agents ↓</a>
+        </div>
+        <div class="hero-sch" aria-label="How an Elyon AI employee operates">
+          <div class="hero-sch-head"><span data-i18n="hero.fig">FIG. 00 / AGENT OPERATING SYSTEM</span><span class="r" data-i18n="hs.sub">360° INTAKE · ONE CORE · REAL WORK</span></div>
+          <svg viewBox="0 0 760 316">
+            <g class="hv-cross"><text x="8" y="16">+</text><text x="744" y="16">+</text><text x="8" y="310">+</text><text x="744" y="310">+</text></g>
+            <circle class="hv-ring" cx="380" cy="148" r="42" stroke-dasharray="2 5"/>
+            <circle class="hv-ring" cx="380" cy="148" r="74" stroke-dasharray="2 5"/>
+            <g style="transform-origin:380px 148px" class="hv-spin-slow"><circle class="hv-ring hv-orbit" cx="380" cy="148" r="106"/></g>
+            <line class="hv-tick" x1="512.0" y1="148.0" x2="520.0" y2="148.0"/><line class="hv-tick" x1="507.5" y1="182.2" x2="515.2" y2="184.2"/><line class="hv-tick" x1="494.3" y1="214.0" x2="501.2" y2="218.0"/><line class="hv-tick" x1="473.3" y1="241.3" x2="479.0" y2="247.0"/><line class="hv-tick" x1="446.0" y1="262.3" x2="450.0" y2="269.2"/><line class="hv-tick" x1="414.2" y1="275.5" x2="416.2" y2="283.2"/><line class="hv-tick" x1="380.0" y1="280.0" x2="380.0" y2="288.0"/><line class="hv-tick" x1="345.8" y1="275.5" x2="343.8" y2="283.2"/><line class="hv-tick" x1="314.0" y1="262.3" x2="310.0" y2="269.2"/><line class="hv-tick" x1="286.7" y1="241.3" x2="281.0" y2="247.0"/><line class="hv-tick" x1="265.7" y1="214.0" x2="258.8" y2="218.0"/><line class="hv-tick" x1="252.5" y1="182.2" x2="244.8" y2="184.2"/><line class="hv-tick" x1="248.0" y1="148.0" x2="240.0" y2="148.0"/><line class="hv-tick" x1="252.5" y1="113.8" x2="244.8" y2="111.8"/><line class="hv-tick" x1="265.7" y1="82.0" x2="258.8" y2="78.0"/><line class="hv-tick" x1="286.7" y1="54.7" x2="281.0" y2="49.0"/><line class="hv-tick" x1="314.0" y1="33.7" x2="310.0" y2="26.8"/><line class="hv-tick" x1="345.8" y1="20.5" x2="343.8" y2="12.8"/><line class="hv-tick" x1="380.0" y1="16.0" x2="380.0" y2="8.0"/><line class="hv-tick" x1="414.2" y1="20.5" x2="416.2" y2="12.8"/><line class="hv-tick" x1="446.0" y1="33.7" x2="450.0" y2="26.8"/><line class="hv-tick" x1="473.3" y1="54.7" x2="479.0" y2="49.0"/><line class="hv-tick" x1="494.3" y1="82.0" x2="501.2" y2="78.0"/><line class="hv-tick" x1="507.5" y1="113.8" x2="515.2" y2="111.8"/>
+            <g style="transform-origin:380px 148px" class="hv-sweep"><line x1="380" y1="148" x2="508" y2="148" class="hv-sweep-line"/></g>
+            <path class="sch-line" d="M274.0 148.0 Q 302.0 148.0 332.0 148.0"/><path class="sch-line" d="M314.7 64.5 Q 332.0 86.5 350.4 110.2"/><path class="sch-line" d="M380.0 42.0 Q 380.0 70.0 380.0 100.0"/><path class="sch-line" d="M445.3 64.5 Q 428.0 86.5 409.6 110.2"/><path class="sch-line" d="M486.0 148.0 Q 458.0 148.0 428.0 148.0"/>
+            <rect class="hv-sat" x="267.0" y="141.0" width="14" height="14" transform="rotate(45 274.0 148.0)"/><text class="sch-t hv-lbl" text-anchor="end" x="248.0" y="151.0">WHATSAPP</text><rect class="hv-sat" x="307.7" y="57.5" width="14" height="14" transform="rotate(45 314.7 64.5)"/><text class="sch-t hv-lbl" text-anchor="middle" x="301.2" y="50.1">INSTAGRAM</text><rect class="hv-sat" x="373.0" y="35.0" width="14" height="14" transform="rotate(45 380.0 42.0)"/><text class="sch-t hv-lbl" text-anchor="middle" x="380.0" y="23.0">MESSENGER</text><rect class="hv-sat" x="438.3" y="57.5" width="14" height="14" transform="rotate(45 445.3 64.5)"/><text class="sch-t hv-lbl" text-anchor="middle" x="458.8" y="50.1" data-i18n="hv.calls">CALLS</text><rect class="hv-sat" x="479.0" y="141.0" width="14" height="14" transform="rotate(45 486.0 148.0)"/><text class="sch-t hv-lbl" text-anchor="start" x="512.0" y="151.0" data-i18n="hv.web">WEBCHAT</text>
+            <circle class="sch-pulse" cx="380" cy="148" r="58" style="transform-origin:380px 148px"/>
+            <rect class="sch-node core" x="336" y="104" width="88" height="88"/>
+            <g transform="translate(359,124)">
+              <rect x="0" y="0" width="10.4" height="48" fill="#EFEDE6"/>
+              <rect x="0" y="0" width="48" height="10.4" fill="#2038E6"/>
+              <rect x="0" y="18.8" width="37.6" height="10.4" fill="#EFEDE6"/>
+              <rect x="0" y="37.6" width="27.2" height="10.4" fill="#EFEDE6"/>
+            </g>
+            <text class="sch-t co" text-anchor="middle" x="380" y="210" data-i18n="hv.core">ELYON CORE · DECIDES IN 0.8S</text>
+            <path class="sch-line out" d="M380 192 L 380 246"/>
+            <path class="sch-line out" d="M380 246 L 168 246 L 168 266"/><path class="sch-line out" d="M380 246 L 380 266"/><path class="sch-line out" d="M380 246 L 592 246 L 592 266"/>
+            <rect class="sch-node out" x="80" y="266" width="176" height="36"/><text class="sch-t" text-anchor="middle" x="168" y="288" data-i18n="hs.o1">QUALIFIED</text><rect class="sch-node out" x="292" y="266" width="176" height="36"/><text class="sch-t" text-anchor="middle" x="380" y="288" data-i18n="hs.o2">BOOKED ✓</text><rect class="sch-node out" x="504" y="266" width="176" height="36"/><text class="sch-t" text-anchor="middle" x="592" y="288" data-i18n="hs.o3">CRM + FOLLOW-UP</text>
+            <circle class="sch-dot" r="3"><animateMotion dur="2.20s" begin="0.0s" repeatCount="indefinite" path="M274.0 148.0 Q 302.0 148.0 332.0 148.0"/></circle><circle class="sch-dot" r="3"><animateMotion dur="2.55s" begin="0.5s" repeatCount="indefinite" path="M314.7 64.5 Q 332.0 86.5 350.4 110.2"/></circle><circle class="sch-dot" r="3"><animateMotion dur="2.90s" begin="1.0s" repeatCount="indefinite" path="M380.0 42.0 Q 380.0 70.0 380.0 100.0"/></circle><circle class="sch-dot" r="3"><animateMotion dur="3.25s" begin="1.5s" repeatCount="indefinite" path="M445.3 64.5 Q 428.0 86.5 409.6 110.2"/></circle><circle class="sch-dot" r="3"><animateMotion dur="3.60s" begin="2.0s" repeatCount="indefinite" path="M486.0 148.0 Q 458.0 148.0 428.0 148.0"/></circle>
+            <circle class="sch-dot out" r="3"><animateMotion dur="2.4s" begin="0.4s" repeatCount="indefinite" path="M380 192 L 380 246 380 246 L 168 246 L 168 266"/></circle><circle class="sch-dot out" r="3"><animateMotion dur="2.4s" begin="1.1s" repeatCount="indefinite" path="M380 192 L 380 246 380 246 L 380 266"/></circle><circle class="sch-dot out" r="3"><animateMotion dur="2.4s" begin="1.8s" repeatCount="indefinite" path="M380 192 L 380 246 380 246 L 592 246 L 592 266"/></circle>
+          </svg>
+        </div>
+      </div>
+      <div class="hero-plate">
+        ELYON-INC. · TRYELYON.COM · <span data-i18n="hero.plate1">SALES–SUPPORT–OPERATIONS</span> · WA–IG–FB–VOICE–WEBCHAT–CRM · © 2026
+      </div>
+    </div>
+
+    <div class="hero-right">
+      <div class="phone-stage" aria-label="Elyon AI agents demo slideshow">
+        <div class="agent-tabs" role="tablist">
+          <button class="seg on" role="tab" aria-selected="true" data-i="0">SLS-01<i></i></button>
+          <button class="seg" role="tab" aria-selected="false" data-i="1">VOX-02<i></i></button>
+          <button class="seg" role="tab" aria-selected="false" data-i="2">SUP-03<i></i></button>
+          <button class="seg" role="tab" aria-selected="false" data-i="3">OPS-04<i></i></button>
+          <button class="seg" role="tab" aria-selected="false" data-i="4">MKT-05<i></i></button>
+          <button class="seg" role="tab" aria-selected="false" data-i="5">REV-06<i></i></button>
+        </div>
+        <div class="stage-title">
+          <span class="lbl wa-chip" id="stageChip"><svg viewBox="0 0 24 24" aria-hidden="true"><path fill="#25D366" d="M12 0C5.4 0 .1 5.3.1 11.9c0 2.1.5 4.1 1.6 5.9L0 24l6.4-1.7c1.7.9 3.6 1.4 5.6 1.4 6.6 0 11.9-5.3 11.9-11.9C24 5.3 18.6 0 12 0z"/><path fill="#FFF" d="M19.1 16.9c-.3.8-1.5 1.5-2.4 1.7-.6.1-1.5.2-4.3-.9-3.6-1.5-5.9-5.2-6.1-5.4-.2-.2-1.5-1.9-1.5-3.7S5.7 6 6.1 5.6c.3-.3.7-.5 1-.5h.7c.2 0 .5-.1.8.6.3.8 1.1 2.6 1.2 2.8.1.2.2.4 0 .7-.1.3-.2.4-.4.7-.2.2-.4.5-.6.7-.2.2-.4.4-.2.8.2.4 1 1.7 2.2 2.7 1.5 1.3 2.8 1.8 3.2 1.9.4.2.6.2.9-.1.2-.3 1-1.2 1.3-1.6.3-.4.5-.3.9-.2.4.1 2.2 1 2.5 1.2.4.2.6.3.7.5.1.1.1.8-.2 1.6z"/></svg><span id="stageTitle">AI Sales Agent · live on WhatsApp</span></span>
+          <span class="lbl" style="color:var(--ok)" data-i18n="stage.live">Live demo · Customer view</span>
+        </div>
+        <div class="phone-wrap">
+          <div class="phone">
+            <div class="screen" id="screen">
+<div class="scene active" data-dur="13600" data-title="sc1.title"><div class="statusbar sb-wa"><span>21:47</span><span class="sicons"><svg viewBox="0 0 18 12"><g fill="#fff"><rect x="0" y="8" width="3" height="4" rx=".8"/><rect x="5" y="5" width="3" height="7" rx=".8"/><rect x="10" y="2" width="3" height="10" rx=".8"/><rect x="15" y="0" width="3" height="12" rx=".8" opacity=".4"/></g></svg><svg viewBox="0 0 16 12"><path fill="#fff" d="M8 9.6a1.6 1.6 0 1 0 0 3.2 1.6 1.6 0 0 0 0-3.2zM8 5c-1.9 0-3.6.8-4.8 2l1.5 1.5A4.8 4.8 0 0 1 8 7.2c1.3 0 2.4.5 3.3 1.3L12.8 7A6.7 6.7 0 0 0 8 5zm0-5C4.9 0 2.1 1.3 0 3.3l1.5 1.5A8.8 8.8 0 0 1 8 2.2c2.5 0 4.8 1 6.5 2.6L16 3.3A11 11 0 0 0 8 0z"/></svg><svg viewBox="0 0 22 12"><rect x="0" y="1" width="18" height="10" rx="2.5" fill="none" stroke="#fff" stroke-width="1.2"/><rect x="2" y="3" width="12" height="6" rx="1.2" fill="#fff"/><rect x="19.2" y="4" width="2" height="4" rx="1" fill="#fff" opacity=".7"/></svg></span></div><div class="wa-head"><span class="wa-back">‹</span><span class="wa-avatar"><svg viewBox="0 0 100 100"><rect x="20" y="20" width="13" height="60" fill="#EFEDE6"/><rect x="20" y="20" width="60" height="13" fill="#7D8CFF"/><rect x="20" y="43.5" width="47" height="13" fill="#EFEDE6"/><rect x="20" y="67" width="34" height="13" fill="#EFEDE6"/></svg></span><span class="wa-id"><span class="wa-name">Sofía · Elyon <svg viewBox="0 0 24 24"><path fill="#53BDEB" d="M12 0l2.6 2.3 3.4-.6 1 3.3 3.3 1-.6 3.4L24 12l-2.3 2.6.6 3.4-3.3 1-1 3.3-3.4-.6L12 24l-2.6-2.3-3.4.6-1-3.3-3.3-1 .6-3.4L0 12l2.3-2.6-.6-3.4 3.3-1 1-3.3 3.4.6z"/><path fill="#fff" d="M10.4 16.2l-3.6-3.6 1.4-1.4 2.2 2.2 5.4-5.4 1.4 1.4z"/></svg></span><span class="wa-status" data-i18n="tx.online">online</span></span><span class="wa-icons"><span>▤</span><span>✆</span><span>⋮</span></span></div><div class="wa-chat wa-bg"><span class="wa-day" data-i18n="wa.today">TODAY</span><span class="wa-enc" data-i18n="wa.enc">🔒 Messages and calls are end-to-end encrypted. No one outside of this chat can read or listen to them.</span><div class="tx-msg cust" data-d="600"><div class="body" data-i18n="tx.m1">Hi! Do you do teeth whitening? How much does it cost?</div><span class="stamp">21:47 <span class="ticks">✓✓</span></span></div><div class="tx-typing"><span></span><span></span><span></span></div><div class="tx-msg agent" data-d="2300"><div class="body" data-i18n="tx.m2">Hi! Yes, professional whitening from $120. Is this your first visit with us?</div><span class="stamp">21:47</span></div><div class="tx-msg cust" data-d="4300"><div class="body" data-i18n="tx.m3">Yes, first time. Anything available this week?</div><span class="stamp">21:48 <span class="ticks">✓✓</span></span></div><div class="tx-msg agent" data-d="6200"><div class="body" data-i18n="tx.m4">Thursday 16:30 or Friday 11:00 are open. Which works better?</div><span class="stamp">21:48</span></div><div class="tx-msg cust" data-d="8000"><div class="body" data-i18n="tx.m5">Thursday 16:30 works!</div><span class="stamp">21:49 <span class="ticks">✓✓</span></span></div><div class="tx-msg agent" data-d="9600"><div class="body" data-i18n="tx.m6">Booked: Thursday 16:30. Reminder scheduled for Wednesday. See you soon.</div><span class="stamp">21:49</span></div></div><div class="wa-input"><span class="wa-field"><svg viewBox="0 0 24 24"><path d="M12 2a10 10 0 1 0 0 20 10 10 0 0 0 0-20zm-3.5 7a1.3 1.3 0 1 1 0 2.6 1.3 1.3 0 0 1 0-2.6zm7 0a1.3 1.3 0 1 1 0 2.6 1.3 1.3 0 0 1 0-2.6zM7.3 14.5h9.4A5.2 5.2 0 0 1 12 17.6a5.2 5.2 0 0 1-4.7-3.1z"/></svg><span data-i18n="wa.msg">Message</span></span><span class="wa-mic"><svg viewBox="0 0 24 24"><path d="M12 14a3 3 0 0 0 3-3V5a3 3 0 1 0-6 0v6a3 3 0 0 0 3 3zm5.9-3a5.9 5.9 0 0 1-11.8 0H4a8 8 0 0 0 7 7.9V22h2v-3.1a8 8 0 0 0 7-7.9h-2.1z"/></svg></span></div></div>
+<div class="scene call-scene" data-dur="11500" data-title="sc2.title"><div class="statusbar sb-dark"><span>09:12</span><span class="sicons"><svg viewBox="0 0 18 12"><g fill="#fff"><rect x="0" y="8" width="3" height="4" rx=".8"/><rect x="5" y="5" width="3" height="7" rx=".8"/><rect x="10" y="2" width="3" height="10" rx=".8"/><rect x="15" y="0" width="3" height="12" rx=".8" opacity=".4"/></g></svg><svg viewBox="0 0 16 12"><path fill="#fff" d="M8 9.6a1.6 1.6 0 1 0 0 3.2 1.6 1.6 0 0 0 0-3.2zM8 5c-1.9 0-3.6.8-4.8 2l1.5 1.5A4.8 4.8 0 0 1 8 7.2c1.3 0 2.4.5 3.3 1.3L12.8 7A6.7 6.7 0 0 0 8 5zm0-5C4.9 0 2.1 1.3 0 3.3l1.5 1.5A8.8 8.8 0 0 1 8 2.2c2.5 0 4.8 1 6.5 2.6L16 3.3A11 11 0 0 0 8 0z"/></svg><svg viewBox="0 0 22 12"><rect x="0" y="1" width="18" height="10" rx="2.5" fill="none" stroke="#fff" stroke-width="1.2"/><rect x="2" y="3" width="12" height="6" rx="1.2" fill="#fff"/><rect x="19.2" y="4" width="2" height="4" rx="1" fill="#fff" opacity=".7"/></svg></span></div><div class="call-body"><span class="call-kind" data-i18n="sc2.kind">VOICE CALL · ANSWERED IN 1 RING</span><span class="call-avatar"><svg viewBox="0 0 100 100"><rect x="20" y="20" width="13" height="60" fill="#EFEDE6"/><rect x="20" y="20" width="60" height="13" fill="#7D8CFF"/><rect x="20" y="43.5" width="47" height="13" fill="#EFEDE6"/><rect x="20" y="67" width="34" height="13" fill="#EFEDE6"/></svg></span><span class="call-name">Elyon Voice</span><span class="call-timer">00:00</span><div class="wave"><i></i><i></i><i></i><i></i><i></i><i></i><i></i></div><div class="call-cap"><div class="call-line c" data-d="900"><b data-i18n="sc2.who.c">Caller</b><span data-i18n="sc2.l1">Hi, I need to reschedule my appointment for this week.</span></div><div class="call-line a" data-d="3000"><b data-i18n="sc2.who.a">Elyon · Voice Agent</b><span data-i18n="sc2.l2">Of course. You are booked Tuesday at 10:00. Would Thursday at 15:00 work instead?</span></div><div class="call-line c" data-d="5600"><b data-i18n="sc2.who.c">Caller</b><span data-i18n="sc2.l3">Yes, Thursday is perfect.</span></div><div class="call-line a" data-d="7400"><b data-i18n="sc2.who.a">Elyon · Voice Agent</b><span data-i18n="sc2.l4">Done. Moved to Thursday 15:00. I have sent the confirmation to your WhatsApp. Anything else?</span></div></div><div class="call-btns"><span class="call-btn">🔇</span><span class="call-btn">⌨</span><span class="call-btn">🔊</span><span class="call-btn end">✆</span></div></div></div>
+<div class="scene " data-dur="10800" data-title="sc3.title"><div class="statusbar sb-wa"><span>14:05</span><span class="sicons"><svg viewBox="0 0 18 12"><g fill="#fff"><rect x="0" y="8" width="3" height="4" rx=".8"/><rect x="5" y="5" width="3" height="7" rx=".8"/><rect x="10" y="2" width="3" height="10" rx=".8"/><rect x="15" y="0" width="3" height="12" rx=".8" opacity=".4"/></g></svg><svg viewBox="0 0 16 12"><path fill="#fff" d="M8 9.6a1.6 1.6 0 1 0 0 3.2 1.6 1.6 0 0 0 0-3.2zM8 5c-1.9 0-3.6.8-4.8 2l1.5 1.5A4.8 4.8 0 0 1 8 7.2c1.3 0 2.4.5 3.3 1.3L12.8 7A6.7 6.7 0 0 0 8 5zm0-5C4.9 0 2.1 1.3 0 3.3l1.5 1.5A8.8 8.8 0 0 1 8 2.2c2.5 0 4.8 1 6.5 2.6L16 3.3A11 11 0 0 0 8 0z"/></svg><svg viewBox="0 0 22 12"><rect x="0" y="1" width="18" height="10" rx="2.5" fill="none" stroke="#fff" stroke-width="1.2"/><rect x="2" y="3" width="12" height="6" rx="1.2" fill="#fff"/><rect x="19.2" y="4" width="2" height="4" rx="1" fill="#fff" opacity=".7"/></svg></span></div><div class="wa-head"><span class="wa-back">‹</span><span class="wa-avatar"><svg viewBox="0 0 100 100"><rect x="20" y="20" width="13" height="60" fill="#EFEDE6"/><rect x="20" y="20" width="60" height="13" fill="#7D8CFF"/><rect x="20" y="43.5" width="47" height="13" fill="#EFEDE6"/><rect x="20" y="67" width="34" height="13" fill="#EFEDE6"/></svg></span><span class="wa-id"><span class="wa-name">Elyon Support <svg viewBox="0 0 24 24"><path fill="#53BDEB" d="M12 0l2.6 2.3 3.4-.6 1 3.3 3.3 1-.6 3.4L24 12l-2.3 2.6.6 3.4-3.3 1-1 3.3-3.4-.6L12 24l-2.6-2.3-3.4.6-1-3.3-3.3-1 .6-3.4L0 12l2.3-2.6-.6-3.4 3.3-1 1-3.3 3.4.6z"/><path fill="#fff" d="M10.4 16.2l-3.6-3.6 1.4-1.4 2.2 2.2 5.4-5.4 1.4 1.4z"/></svg></span><span class="wa-status" data-i18n="tx.online">online</span></span><span class="wa-icons"><span>▤</span><span>✆</span><span>⋮</span></span></div><div class="wa-chat wa-bg"><span class="wa-day" data-i18n="wa.today">TODAY</span><div class="tx-msg cust" data-d="600"><div class="body" data-i18n="sc3.m1">Hi, my order #4471 still has not arrived 😕</div><span class="stamp">14:05 <span class="ticks">✓✓</span></span></div><div class="tx-typing"><span></span><span></span><span></span></div><div class="tx-msg agent" data-d="2400"><div class="body" data-i18n="sc3.m2">Sorry about that! Checking… your order is out for delivery and will arrive today before 6 PM. 📦</div><span class="stamp">14:05</span></div><div class="tx-msg agent" data-d="4600"><div class="body" data-i18n="sc3.m3">I have also opened ticket #310 so we track it until it is in your hands.</div><span class="stamp">14:06</span></div><div class="tx-msg cust" data-d="6600"><div class="body" data-i18n="sc3.m4">Perfect, thank you!</div><span class="stamp">14:06 <span class="ticks">✓✓</span></span></div><div class="tx-msg agent" data-d="8200"><div class="body" data-i18n="sc3.m5">Anytime! I will message you the moment it is delivered. ✅</div><span class="stamp">14:06</span></div></div><div class="wa-input"><span class="wa-field"><svg viewBox="0 0 24 24"><path d="M12 2a10 10 0 1 0 0 20 10 10 0 0 0 0-20zm-3.5 7a1.3 1.3 0 1 1 0 2.6 1.3 1.3 0 0 1 0-2.6zm7 0a1.3 1.3 0 1 1 0 2.6 1.3 1.3 0 0 1 0-2.6zM7.3 14.5h9.4A5.2 5.2 0 0 1 12 17.6a5.2 5.2 0 0 1-4.7-3.1z"/></svg><span data-i18n="wa.msg">Message</span></span><span class="wa-mic"><svg viewBox="0 0 24 24"><path d="M12 14a3 3 0 0 0 3-3V5a3 3 0 1 0-6 0v6a3 3 0 0 0 3 3zm5.9-3a5.9 5.9 0 0 1-11.8 0H4a8 8 0 0 0 7 7.9V22h2v-3.1a8 8 0 0 0 7-7.9h-2.1z"/></svg></span></div></div>
+<div class="scene " data-dur="10800" data-title="sc4.title"><div class="statusbar sb-wa"><span>08:00</span><span class="sicons"><svg viewBox="0 0 18 12"><g fill="#fff"><rect x="0" y="8" width="3" height="4" rx=".8"/><rect x="5" y="5" width="3" height="7" rx=".8"/><rect x="10" y="2" width="3" height="10" rx=".8"/><rect x="15" y="0" width="3" height="12" rx=".8" opacity=".4"/></g></svg><svg viewBox="0 0 16 12"><path fill="#fff" d="M8 9.6a1.6 1.6 0 1 0 0 3.2 1.6 1.6 0 0 0 0-3.2zM8 5c-1.9 0-3.6.8-4.8 2l1.5 1.5A4.8 4.8 0 0 1 8 7.2c1.3 0 2.4.5 3.3 1.3L12.8 7A6.7 6.7 0 0 0 8 5zm0-5C4.9 0 2.1 1.3 0 3.3l1.5 1.5A8.8 8.8 0 0 1 8 2.2c2.5 0 4.8 1 6.5 2.6L16 3.3A11 11 0 0 0 8 0z"/></svg><svg viewBox="0 0 22 12"><rect x="0" y="1" width="18" height="10" rx="2.5" fill="none" stroke="#fff" stroke-width="1.2"/><rect x="2" y="3" width="12" height="6" rx="1.2" fill="#fff"/><rect x="19.2" y="4" width="2" height="4" rx="1" fill="#fff" opacity=".7"/></svg></span></div><div class="wa-head"><span class="wa-back">‹</span><span class="wa-avatar"><svg viewBox="0 0 100 100"><rect x="20" y="20" width="13" height="60" fill="#EFEDE6"/><rect x="20" y="20" width="60" height="13" fill="#7D8CFF"/><rect x="20" y="43.5" width="47" height="13" fill="#EFEDE6"/><rect x="20" y="67" width="34" height="13" fill="#EFEDE6"/></svg></span><span class="wa-id"><span class="wa-name">Elyon Ops <svg viewBox="0 0 24 24"><path fill="#53BDEB" d="M12 0l2.6 2.3 3.4-.6 1 3.3 3.3 1-.6 3.4L24 12l-2.3 2.6.6 3.4-3.3 1-1 3.3-3.4-.6L12 24l-2.6-2.3-3.4.6-1-3.3-3.3-1 .6-3.4L0 12l2.3-2.6-.6-3.4 3.3-1 1-3.3 3.4.6z"/><path fill="#fff" d="M10.4 16.2l-3.6-3.6 1.4-1.4 2.2 2.2 5.4-5.4 1.4 1.4z"/></svg></span><span class="wa-status" data-i18n="tx.online">online</span></span><span class="wa-icons"><span>▤</span><span>✆</span><span>⋮</span></span></div><div class="wa-chat wa-bg"><span class="wa-day" data-i18n="wa.today">TODAY</span><div class="tx-msg agent" data-d="600"><div class="body" data-i18n="sc4.m1">Good morning ☀️ Daily summary for yesterday: 23 conversations · 6 appointments booked · 2 payments pending. Sheet updated.</div><span class="stamp">08:00</span></div><div class="tx-msg cust" data-d="3200"><div class="body" data-i18n="sc4.m2">Send reminders for the pending payments.</div><span class="stamp">08:01 <span class="ticks">✓✓</span></span></div><div class="tx-typing"><span></span><span></span><span></span></div><div class="tx-msg agent" data-d="5200"><div class="body" data-i18n="sc4.m3">Done. 2 payment reminders sent on WhatsApp. I will flag any reply.</div><span class="stamp">08:01</span></div><div class="tx-msg agent" data-d="7200"><div class="body" data-i18n="sc4.m4">Also: Thursday is 92% booked. Want me to open Friday morning slots?</div><span class="stamp">08:01</span></div></div><div class="wa-input"><span class="wa-field"><svg viewBox="0 0 24 24"><path d="M12 2a10 10 0 1 0 0 20 10 10 0 0 0 0-20zm-3.5 7a1.3 1.3 0 1 1 0 2.6 1.3 1.3 0 0 1 0-2.6zm7 0a1.3 1.3 0 1 1 0 2.6 1.3 1.3 0 0 1 0-2.6zM7.3 14.5h9.4A5.2 5.2 0 0 1 12 17.6a5.2 5.2 0 0 1-4.7-3.1z"/></svg><span data-i18n="wa.msg">Message</span></span><span class="wa-mic"><svg viewBox="0 0 24 24"><path d="M12 14a3 3 0 0 0 3-3V5a3 3 0 1 0-6 0v6a3 3 0 0 0 3 3zm5.9-3a5.9 5.9 0 0 1-11.8 0H4a8 8 0 0 0 7 7.9V22h2v-3.1a8 8 0 0 0 7-7.9h-2.1z"/></svg></span></div></div>
+<div class="scene ig-scene" data-dur="10800" data-title="sc5.title"><div class="statusbar sb-ig"><span>17:26</span><span class="sicons"><svg viewBox="0 0 18 12"><g fill="#fff"><rect x="0" y="8" width="3" height="4" rx=".8"/><rect x="5" y="5" width="3" height="7" rx=".8"/><rect x="10" y="2" width="3" height="10" rx=".8"/><rect x="15" y="0" width="3" height="12" rx=".8" opacity=".4"/></g></svg><svg viewBox="0 0 16 12"><path fill="#fff" d="M8 9.6a1.6 1.6 0 1 0 0 3.2 1.6 1.6 0 0 0 0-3.2zM8 5c-1.9 0-3.6.8-4.8 2l1.5 1.5A4.8 4.8 0 0 1 8 7.2c1.3 0 2.4.5 3.3 1.3L12.8 7A6.7 6.7 0 0 0 8 5zm0-5C4.9 0 2.1 1.3 0 3.3l1.5 1.5A8.8 8.8 0 0 1 8 2.2c2.5 0 4.8 1 6.5 2.6L16 3.3A11 11 0 0 0 8 0z"/></svg><svg viewBox="0 0 22 12"><rect x="0" y="1" width="18" height="10" rx="2.5" fill="none" stroke="#fff" stroke-width="1.2"/><rect x="2" y="3" width="12" height="6" rx="1.2" fill="#fff"/><rect x="19.2" y="4" width="2" height="4" rx="1" fill="#fff" opacity=".7"/></svg></span></div><div class="ig-head"><span class="wa-back" style="color:#111">‹</span><span class="ig-ring"><span class="wa-avatar"><svg viewBox="0 0 100 100"><rect x="20" y="20" width="13" height="60" fill="#EFEDE6"/><rect x="20" y="20" width="60" height="13" fill="#7D8CFF"/><rect x="20" y="43.5" width="47" height="13" fill="#EFEDE6"/><rect x="20" y="67" width="34" height="13" fill="#EFEDE6"/></svg></span></span><span class="wa-id"><span class="ig-name">elyon.clinic</span><span class="ig-status wa-status" data-i18n="ig.active">Active now</span></span><span class="wa-icons" style="color:#111">✆ ▤</span></div><div class="ig-chat"><div class="tx-msg cust" data-d="600"><div class="body" data-i18n="sc5.m1">Saw your post. Is the whitening promo still on? 👀</div><span class="stamp">17:26</span></div><div class="tx-typing"><span></span><span></span><span></span></div><div class="tx-msg agent" data-d="2400"><div class="body" data-i18n="sc5.m2">It is! 20% off until Friday. Want me to hold a spot for you?</div><span class="stamp">17:26</span></div><div class="tx-msg cust" data-d="4400"><div class="body" data-i18n="sc5.m3">Yes please!</div><span class="stamp">17:27</span></div><div class="tx-msg agent" data-d="6000"><div class="body" data-i18n="sc5.m4">Reserved ✨ I can book you right now. Thursday 17:00?</div><span class="stamp">17:27</span></div><div class="tx-msg cust" data-d="8000"><div class="body" data-i18n="sc5.m5">Thursday works 🙌</div><span class="stamp">17:27</span></div></div><div class="ig-input"><span class="ig-cam">📷</span><span class="ig-field" data-i18n="ig.msg">Message…</span></div></div>
+<div class="scene " data-dur="9800" data-title="sc6.title"><div class="statusbar sb-wa"><span>18:40</span><span class="sicons"><svg viewBox="0 0 18 12"><g fill="#fff"><rect x="0" y="8" width="3" height="4" rx=".8"/><rect x="5" y="5" width="3" height="7" rx=".8"/><rect x="10" y="2" width="3" height="10" rx=".8"/><rect x="15" y="0" width="3" height="12" rx=".8" opacity=".4"/></g></svg><svg viewBox="0 0 16 12"><path fill="#fff" d="M8 9.6a1.6 1.6 0 1 0 0 3.2 1.6 1.6 0 0 0 0-3.2zM8 5c-1.9 0-3.6.8-4.8 2l1.5 1.5A4.8 4.8 0 0 1 8 7.2c1.3 0 2.4.5 3.3 1.3L12.8 7A6.7 6.7 0 0 0 8 5zm0-5C4.9 0 2.1 1.3 0 3.3l1.5 1.5A8.8 8.8 0 0 1 8 2.2c2.5 0 4.8 1 6.5 2.6L16 3.3A11 11 0 0 0 8 0z"/></svg><svg viewBox="0 0 22 12"><rect x="0" y="1" width="18" height="10" rx="2.5" fill="none" stroke="#fff" stroke-width="1.2"/><rect x="2" y="3" width="12" height="6" rx="1.2" fill="#fff"/><rect x="19.2" y="4" width="2" height="4" rx="1" fill="#fff" opacity=".7"/></svg></span></div><div class="wa-head"><span class="wa-back">‹</span><span class="wa-avatar"><svg viewBox="0 0 100 100"><rect x="20" y="20" width="13" height="60" fill="#EFEDE6"/><rect x="20" y="20" width="60" height="13" fill="#7D8CFF"/><rect x="20" y="43.5" width="47" height="13" fill="#EFEDE6"/><rect x="20" y="67" width="34" height="13" fill="#EFEDE6"/></svg></span><span class="wa-id"><span class="wa-name">Sofía · Elyon <svg viewBox="0 0 24 24"><path fill="#53BDEB" d="M12 0l2.6 2.3 3.4-.6 1 3.3 3.3 1-.6 3.4L24 12l-2.3 2.6.6 3.4-3.3 1-1 3.3-3.4-.6L12 24l-2.6-2.3-3.4.6-1-3.3-3.3-1 .6-3.4L0 12l2.3-2.6-.6-3.4 3.3-1 1-3.3 3.4.6z"/><path fill="#fff" d="M10.4 16.2l-3.6-3.6 1.4-1.4 2.2 2.2 5.4-5.4 1.4 1.4z"/></svg></span><span class="wa-status" data-i18n="tx.online">online</span></span><span class="wa-icons"><span>▤</span><span>✆</span><span>⋮</span></span></div><div class="wa-chat wa-bg"><span class="wa-day" data-i18n="wa.today">TODAY</span><div class="tx-msg agent" data-d="600"><div class="body" data-i18n="sc6.m1">Thanks for visiting us today, María! 😊 How was everything?</div><span class="stamp">18:40</span></div><div class="tx-msg cust" data-d="2600"><div class="body" data-i18n="sc6.m2">Great, really happy with the result!</div><span class="stamp">18:41 <span class="ticks">✓✓</span></span></div><div class="tx-typing"><span></span><span></span><span></span></div><div class="tx-msg agent" data-d="4400"><div class="body" data-i18n="sc6.m3">Wonderful! Would you mind leaving us a quick Google review? It takes 30 seconds: g.page/r/elyon ⭐</div><span class="stamp">18:41</span></div><div class="tx-msg cust" data-d="6600"><div class="body" data-i18n="sc6.m4">Done! ⭐⭐⭐⭐⭐</div><span class="stamp">18:44 <span class="ticks">✓✓</span></span></div></div><div class="wa-input"><span class="wa-field"><svg viewBox="0 0 24 24"><path d="M12 2a10 10 0 1 0 0 20 10 10 0 0 0 0-20zm-3.5 7a1.3 1.3 0 1 1 0 2.6 1.3 1.3 0 0 1 0-2.6zm7 0a1.3 1.3 0 1 1 0 2.6 1.3 1.3 0 0 1 0-2.6zM7.3 14.5h9.4A5.2 5.2 0 0 1 12 17.6a5.2 5.2 0 0 1-4.7-3.1z"/></svg><span data-i18n="wa.msg">Message</span></span><span class="wa-mic"><svg viewBox="0 0 24 24"><path d="M12 14a3 3 0 0 0 3-3V5a3 3 0 1 0-6 0v6a3 3 0 0 0 3 3zm5.9-3a5.9 5.9 0 0 1-11.8 0H4a8 8 0 0 0 7 7.9V22h2v-3.1a8 8 0 0 0 7-7.9h-2.1z"/></svg></span></div></div>
+            </div>
+          </div>
+        </div>
+<div id="resultsHost"><div class="tx-result active"><span class="ok" data-d="11200" data-i18n="tx.r1">✓ Appointment booked</span><span data-d="11600" data-i18n="tx.r2">CRM updated</span><span data-d="12000" data-i18n="tx.r3">Reminder scheduled</span><span data-d="12400" data-i18n="tx.r4">Lead qualified: first-visit</span></div><div class="tx-result"><span class="ok" data-d="9000" data-i18n="sc2.r1">✓ Call answered · 0 missed</span><span data-d="9400" data-i18n="sc2.r2">Appointment rescheduled</span><span data-d="9800" data-i18n="sc2.r3">Summary + confirmation sent</span></div><div class="tx-result"><span class="ok" data-d="8800" data-i18n="sc3.r1">✓ Resolved in chat</span><span data-d="9200" data-i18n="sc3.r2">Ticket #310 created</span><span data-d="9600" data-i18n="sc3.r3">No human needed</span></div><div class="tx-result"><span class="ok" data-d="8600" data-i18n="sc4.r1">✓ Sheet updated</span><span data-d="9000" data-i18n="sc4.r2">2 reminders sent</span><span data-d="9400" data-i18n="sc4.r3">0 manual tasks</span></div><div class="tx-result"><span class="ok" data-d="8800" data-i18n="sc5.r1">✓ Comment → conversation</span><span data-d="9200" data-i18n="sc5.r2">Promo delivered</span><span data-d="9600" data-i18n="sc5.r3">Lead captured + booked</span></div><div class="tx-result"><span class="ok" data-d="7800" data-i18n="sc6.r1">✓ Review requested</span><span data-d="8200" data-i18n="sc6.r2">5 stars received</span><span data-d="8600" data-i18n="sc6.r3">Reputation +1</span></div></div>
+      </div>
+    </div>
+  </div>
+
+  <!-- telemetry -->
+  <div class="telemetry">
+    <div class="tele"><b><em data-count="12480">0</em>+</b><span data-i18n="tele.1">Messages handled / month</span></div>
+    <div class="tele"><b>&lt;<em data-count="3">0</em>s</b><span data-i18n="tele.2">Average reply time</span></div>
+    <div class="tele"><b><em data-count="24">0</em>/7</b><span data-i18n="tele.3">Uptime: nights, weekends, holidays</span></div>
+  </div>
+
+  <!-- ticker -->
+  <div class="ticker" aria-hidden="true">
+    <div class="ticker-track" id="tickerTrack">
+      <span data-i18n="tick.1">Incoming lead from: <b>WhatsApp</b></span>
+      <span data-i18n="tick.2">Incoming lead from: <b>Instagram</b></span>
+      <span data-i18n="tick.3">Incoming lead from: <b>Messenger</b></span>
+      <span data-i18n="tick.4">Incoming call: <b>Voice line</b></span>
+      <span data-i18n="tick.5">Incoming lead from: <b>Website chat</b></span>
+      <span data-i18n="tick.6">Status: <b>Replied in 0.8s</b></span>
+      <span data-i18n="tick.7">Status: <b>Appointment booked</b></span>
+      <span data-i18n="tick.8">Status: <b>CRM updated</b></span>
+    </div>
+  </div>
+</section>
+
+<!-- ================= 02.0 DIAGNOSTICS ================= -->
+<section class="sec dark" id="diag">
+  <div class="sec-head"><span class="idx" data-i18n="diag.idx">02.0 / DIAGNOSTICS</span><span class="lbl dim" data-i18n="diag.sub">Signal loss report</span></div>
+  <div class="sec-body"><div class="inner">
+    <h2 class="disp h-xl rv" data-i18n="diag.h">Most businesses lose leads<br>before they ever speak<br>to a <span style="color:#7d8cff">real person.</span></h2>
+    <p class="rv" style="margin-top:1.6rem;font-size:.9rem;opacity:.7;max-width:62ch" data-i18n="diag.p">Every unanswered message is a customer who books with someone else. Diagnostic scan: five points where your leads drop:</p>
+    <div class="diag-grid">
+      <div class="diag rv" style="--loss:.82"><span class="code">ERR / AFTER-HOURS</span><h4 data-i18n="diag.1h">Messages arrive at night</h4><p data-i18n="diag.1p">Customers write at 9 PM. By morning, they've already found another option.</p><div class="bar"><i></i></div></div>
+      <div class="diag rv" style="--loss:.64"><span class="code">ERR / LINE-BUSY</span><h4 data-i18n="diag.2h">Receptionists are busy</h4><p data-i18n="diag.2p">Your team is with patients or clients, so calls and chats go unanswered.</p><div class="bar"><i></i></div></div>
+      <div class="diag rv" style="--loss:.71"><span class="code">ERR / SLOW-REPLY</span><h4 data-i18n="diag.3h">WhatsApp replies are slow</h4><p data-i18n="diag.3p">Leads expect an answer in minutes. Hours later, interest is gone.</p><div class="bar"><i></i></div></div>
+      <div class="diag rv" style="--loss:.77"><span class="code">ERR / NO-FOLLOWUP</span><h4 data-i18n="diag.4h">Leads never followed up</h4><p data-i18n="diag.4p">They ask for prices and information, then nobody writes back to close them.</p><div class="bar"><i></i></div></div>
+      <div class="diag rv" style="--loss:.58"><span class="code">ERR / MANUAL-REMINDER</span><h4 data-i18n="diag.5h">Appointments missed</h4><p data-i18n="diag.5p">Reminders are manual, so no-shows keep eating your calendar and revenue.</p><div class="bar"><i></i></div></div>
+    </div>
+  </div></div>
+</section>
+
+<!-- ================= 02.5 CORRECTION + SYSTEM SCHEMATIC ================= -->
+<section class="sec" id="solution">
+  <div class="sec-head"><span class="idx" data-i18n="sol.idx">02.5 / CORRECTION</span><span class="lbl dim" data-i18n="sol.sub">Error correction: active</span></div>
+  <div class="sec-body"><div class="inner">
+    <h2 class="disp h-lg rv" style="max-width:26ch" data-i18n="sol.h">Your AI Agent replies instantly, qualifies leads, books appointments, and follows up automatically.</h2>
+
+    <!-- WORKFLOW SCHEMATIC -->
+    <div class="schematic brk rv">
+      <span class="c tl"></span><span class="c tr"></span><span class="c bl"></span><span class="c br"></span>
+      <div class="schematic-head">
+        <span class="lbl" style="color:var(--cobalt)" data-i18n="sch.head">FIG. 01 / AGENT WORKFLOW / SIGNAL PATH</span>
+        <span class="lbl dim" data-i18n="sch.sub">Input → Processing → Real-world output</span>
+      </div>
+      <svg viewBox="0 0 940 400" role="img" aria-label="AI agent workflow diagram">
+        <!-- input nodes -->
+        <g>
+          <rect class="sch-node" x="30" y="40"  width="150" height="44"/><text class="sch-t" x="46" y="60" data-i18n="sch.in1">WHATSAPP</text><text class="sch-t sm" x="46" y="74" data-i18n="sch.inq">Incoming lead</text>
+          <rect class="sch-node" x="30" y="118" width="150" height="44"/><text class="sch-t" x="46" y="138">INSTAGRAM</text><text class="sch-t sm" x="46" y="152" data-i18n="sch.inq2">DM / comment</text>
+          <rect class="sch-node" x="30" y="196" width="150" height="44"/><text class="sch-t" x="46" y="216">MESSENGER</text><text class="sch-t sm" x="46" y="230" data-i18n="sch.inq3">Page message</text>
+          <rect class="sch-node" x="30" y="274" width="150" height="44"/><text class="sch-t" x="46" y="294" data-i18n="sch.in4">VOICE / WEBCHAT</text><text class="sch-t sm" x="46" y="308" data-i18n="sch.inq4">Call / site visit</text>
+        </g>
+        <!-- input lines -->
+        <path class="sch-line" d="M180 62  C 270 62, 300 150, 385 168"/>
+        <path class="sch-line" d="M180 140 C 260 140, 300 168, 385 182"/>
+        <path class="sch-line" d="M180 218 C 260 218, 300 208, 385 198"/>
+        <path class="sch-line" d="M180 296 C 270 296, 300 226, 385 212"/>
+        <!-- core -->
+        <g>
+          <circle class="sch-pulse" cx="470" cy="190" r="86" style="transform-origin:470px 190px"/>
+          <rect class="sch-node core" x="385" y="120" width="170" height="140"/>
+          <text class="sch-t inv" x="405" y="148" style="font-size:13px" data-i18n="sch.core">AI AGENT</text>
+          <text class="sch-t co" x="405" y="166" data-i18n="sch.core2">UNIT · ES/EN · 24/7</text>
+          <text class="sch-t co" x="405" y="196">→ <tspan data-i18n="sch.f1">UNDERSTAND</tspan></text>
+          <text class="sch-t co" x="405" y="214">→ <tspan data-i18n="sch.f2">QUALIFY</tspan></text>
+          <text class="sch-t co" x="405" y="232">→ <tspan data-i18n="sch.f3">CHECK CALENDAR</tspan></text>
+          <text class="sch-t co" x="405" y="250">→ <tspan data-i18n="sch.f4">DECIDE &amp; ACT</tspan></text>
+        </g>
+        <!-- output lines -->
+        <path class="sch-line out" d="M555 150 C 640 130, 660 62,  745 62"/>
+        <path class="sch-line out" d="M555 175 C 640 168, 660 140, 745 140"/>
+        <path class="sch-line out" d="M555 205 C 640 212, 660 218, 745 218"/>
+        <path class="sch-line out" d="M555 230 C 640 250, 660 296, 745 296"/>
+        <!-- output nodes -->
+        <g>
+          <rect class="sch-node out" x="745" y="40"  width="165" height="44"/><text class="sch-t" x="761" y="60" data-i18n="sch.o1">LEAD QUALIFIED</text><text class="sch-t sm" x="761" y="74" data-i18n="sch.o1s">Intent + budget + timing</text>
+          <rect class="sch-node out" x="745" y="118" width="165" height="44"/><text class="sch-t" x="761" y="138" data-i18n="sch.o2">APPOINTMENT BOOKED</text><text class="sch-t sm" x="761" y="152" data-i18n="sch.o2s">On your calendar</text>
+          <rect class="sch-node out" x="745" y="196" width="165" height="44"/><text class="sch-t" x="761" y="216" data-i18n="sch.o3">CRM UPDATED</text><text class="sch-t sm" x="761" y="230" data-i18n="sch.o3s">Or Google Sheets</text>
+          <rect class="sch-node out" x="745" y="274" width="165" height="44"/><text class="sch-t" x="761" y="294" data-i18n="sch.o4">FOLLOW-UP SENT</text><text class="sch-t sm" x="761" y="308" data-i18n="sch.o4s">Until it converts</text>
+        </g>
+        <!-- moving signal dots -->
+        <circle class="sch-dot" r="3.5"><animateMotion dur="2.6s" repeatCount="indefinite" path="M180 62 C 270 62, 300 150, 385 168"/></circle>
+        <circle class="sch-dot" r="3.5"><animateMotion dur="3.1s" repeatCount="indefinite" begin="0.6s" path="M180 218 C 260 218, 300 208, 385 198"/></circle>
+        <circle class="sch-dot" r="3.5"><animateMotion dur="2.9s" repeatCount="indefinite" begin="1.1s" path="M180 296 C 270 296, 300 226, 385 212"/></circle>
+        <circle class="sch-dot out" r="3.5"><animateMotion dur="2.7s" repeatCount="indefinite" begin="0.4s" path="M555 175 C 640 168, 660 140, 745 140"/></circle>
+        <circle class="sch-dot out" r="3.5"><animateMotion dur="3.2s" repeatCount="indefinite" begin="1.3s" path="M555 205 C 640 212, 660 218, 745 218"/></circle>
+        <!-- baseline annotations -->
+        <text class="sch-t sm" x="30" y="372" data-i18n="sch.a1">INPUT: 6 CHANNELS</text>
+        <text class="sch-t sm" x="405" y="372" data-i18n="sch.a2">PROCESS: SECONDS</text>
+        <text class="sch-t sm" x="745" y="372" data-i18n="sch.a3">OUTPUT: REAL WORK</text>
+      </svg>
+    </div>
+
+    <div class="proto">
+      <div class="proto-step rv"><span class="idx">FN-01</span><h4 data-i18n="fn.1h">Reply in seconds</h4><p data-i18n="fn.1p">Every message answered instantly. Nights, weekends, holidays. 24/7.</p></div>
+      <div class="proto-step rv"><span class="idx">FN-02</span><h4 data-i18n="fn.2h">Qualify the lead</h4><p data-i18n="fn.2p">Asks the right questions to separate serious buyers from browsers.</p></div>
+      <div class="proto-step rv"><span class="idx">FN-03</span><h4 data-i18n="fn.3h">Book the appointment</h4><p data-i18n="fn.3p">Checks availability and confirms directly on your calendar.</p></div>
+      <div class="proto-step rv"><span class="idx">FN-04</span><h4 data-i18n="fn.4h">Follow up until close</h4><p data-i18n="fn.4p">Reminders and follow-ups until the lead shows up or converts.</p></div>
+    </div>
+    <p class="not-chatbot rv" data-i18n="sol.nb">Not a chatbot. An AI employee that performs real work.</p>
+  </div></div>
+</section>
+
+<div class="band" aria-hidden="true"><div class="disp" data-i18n="band.1">ENGINEERED&nbsp;<em>AI&nbsp;EMPLOYEES</em>&nbsp;/ ENGINEERED&nbsp;<em>AI&nbsp;EMPLOYEES</em></div></div>
+
+<!-- ================= 01.0 UNITS ================= -->
+<section class="sec dark" id="units">
+  <div class="sec-head"><span class="idx" data-i18n="un.idx">01.0 / UNIT CATALOG</span><span class="lbl dim" data-i18n="un.sub">6 agents · engineered &amp; field-tested</span></div>
+  <div class="sec-body"><div class="inner">
+    <h2 class="disp h-xl rv" data-i18n="un.h">The units.</h2>
+    <p class="rv" style="margin-top:1.4rem;font-size:.9rem;opacity:.7;max-width:56ch" data-i18n="un.p">Ready-made AI Agents, customized to your business. Each unit ships with its own function set and workflow. Start with one, add more as you grow.</p>
+
+    <!-- SLS-01 -->
+    <div class="unit brk rv">
+      <span class="c tl"></span><span class="c tr"></span><span class="c bl"></span><span class="c br"></span>
+      <div class="unit-top"><span class="uid">UNIT ID: SLS-01 · SERIAL: 004981-AX</span><span class="stat" data-i18n="u1.stat">Online · Most deployed</span></div>
+      <div class="unit-main">
+        <div class="unit-name">
+          <h3 data-i18n="u1.name">AI <em>Sales</em> Agent</h3>
+          <p data-i18n="u1.desc">Your front line. Answers every lead the moment it arrives, qualifies it, and turns the conversation into a booked appointment.</p>
+          <div class="pipe">
+            <span class="pipe-node in">WA/IG/FB</span><span class="pipe-link"></span>
+            <span class="pipe-node" data-i18n="u1.p1">Qualify</span><span class="pipe-link"></span>
+            <span class="pipe-node" data-i18n="u1.p2">Book</span><span class="pipe-link"></span>
+            <span class="pipe-node out">CRM ✓</span>
+          </div>
+        </div>
+        <dl class="unit-spec">
+          <div class="spec-row"><dt data-i18n="sp.ch">Channels</dt><dd><b>WhatsApp · Instagram · Messenger · <span data-i18n="sp.web">Website chat</span></b></dd></div>
+          <div class="spec-row"><dt data-i18n="sp.fn">Functions</dt><dd data-i18n="u1.fn">Answers FAQs · Qualifies leads · Books appointments</dd></div>
+          <div class="spec-row"><dt data-i18n="sp.fu">Follow-up</dt><dd data-i18n="u1.fu">Automatic sequences until the lead converts</dd></div>
+          <div class="spec-row"><dt data-i18n="sp.sync">Sync</dt><dd data-i18n="u1.sync">Updates CRM or Google Sheets in real time</dd></div>
+        </dl>
+      </div>
+      <div class="unit-foot"><span class="fn" data-i18n="u1.foot">Reply time: seconds · Uptime: 24/7 · Lang: ES/EN</span><a class="btn fill" href="#channel" data-i18n="u1.cta">Deploy SLS-01</a></div>
+    </div>
+
+    <!-- VOX-02 -->
+    <div class="unit brk rv">
+      <span class="c tl"></span><span class="c tr"></span><span class="c bl"></span><span class="c br"></span>
+      <div class="unit-top"><span class="uid">UNIT ID: VOX-02 · SERIAL: 005114-BR</span><span class="stat" data-i18n="u2.stat">Online · Phone lines</span></div>
+      <div class="unit-main">
+        <div class="unit-name">
+          <h3 data-i18n="u2.name">AI <em>Voice</em> Agent</h3>
+          <p data-i18n="u2.desc">Answers your phone so no call rings out. Natural conversation, real bookings, clean handoffs.</p>
+          <div class="pipe">
+            <span class="pipe-node in" data-i18n="u2.p0">Call in</span><span class="pipe-link"></span>
+            <span class="pipe-node" data-i18n="u2.p1">Speak ES/EN</span><span class="pipe-link"></span>
+            <span class="pipe-node" data-i18n="u2.p2">Book / transfer</span><span class="pipe-link"></span>
+            <span class="pipe-node out" data-i18n="u2.p3">Summary ✓</span>
+          </div>
+        </div>
+        <dl class="unit-spec">
+          <div class="spec-row"><dt data-i18n="sp.ch">Channels</dt><dd><b data-i18n="u2.ch">Inbound phone calls</b></dd></div>
+          <div class="spec-row"><dt data-i18n="sp.sp">Speech</dt><dd data-i18n="u2.sp">Natural voice in Spanish or English</dd></div>
+          <div class="spec-row"><dt data-i18n="sp.fn">Functions</dt><dd data-i18n="u2.fn">Books appointments · Transfers complex calls to your team</dd></div>
+          <div class="spec-row"><dt data-i18n="sp.rep">Reporting</dt><dd data-i18n="u2.rep">Sends call summaries after every conversation</dd></div>
+        </dl>
+      </div>
+      <div class="unit-foot"><span class="fn" data-i18n="u2.foot">Answer rate: 100% · Missed calls: 0</span><a class="btn" href="#channel" data-i18n="u2.cta">Deploy VOX-02</a></div>
+    </div>
+
+    <!-- SUP-03 -->
+    <div class="unit brk rv">
+      <span class="c tl"></span><span class="c tr"></span><span class="c bl"></span><span class="c br"></span>
+      <div class="unit-top"><span class="uid">UNIT ID: SUP-03 · SERIAL: 005420-CT</span><span class="stat" data-i18n="u3.stat">Online · Customer care</span></div>
+      <div class="unit-main">
+        <div class="unit-name">
+          <h3 data-i18n="u3.name">AI <em>Support</em> Agent</h3>
+          <p data-i18n="u3.desc">Absorbs the repetitive questions so your team only touches what actually needs a human.</p>
+          <div class="pipe">
+            <span class="pipe-node in" data-i18n="u3.p0">Question</span><span class="pipe-link"></span>
+            <span class="pipe-node" data-i18n="u3.p1">Resolve / ticket</span><span class="pipe-link"></span>
+            <span class="pipe-node out" data-i18n="u3.p2">Human if needed ✓</span>
+          </div>
+        </div>
+        <dl class="unit-spec">
+          <div class="spec-row"><dt data-i18n="sp.fn">Functions</dt><dd data-i18n="u3.fn">Handles repetitive customer questions · Creates tickets</dd></div>
+          <div class="spec-row"><dt data-i18n="sp.lk">Lookups</dt><dd data-i18n="u3.lk">Gives order and service information on demand</dd></div>
+          <div class="spec-row"><dt data-i18n="sp.esc">Escalation</dt><dd data-i18n="u3.esc"><b>Hands off to humans</b> when a case needs one</dd></div>
+        </dl>
+      </div>
+      <div class="unit-foot"><span class="fn" data-i18n="u3.foot">Queue: cleared · Tone: on-brand</span><a class="btn" href="#channel" data-i18n="u3.cta">Deploy SUP-03</a></div>
+    </div>
+
+    <!-- OPS-04 -->
+    <div class="unit brk rv">
+      <span class="c tl"></span><span class="c tr"></span><span class="c bl"></span><span class="c br"></span>
+      <div class="unit-top"><span class="uid">UNIT ID: OPS-04 · SERIAL: 005733-DK</span><span class="stat" data-i18n="u4.stat">Online · Back office</span></div>
+      <div class="unit-main">
+        <div class="unit-name">
+          <h3 data-i18n="u4.name">AI <em>Operations</em> Agent</h3>
+          <p data-i18n="u4.desc">The quiet worker behind the desk: admin tasks done without anyone typing them.</p>
+          <div class="pipe">
+            <span class="pipe-node in" data-i18n="u4.p0">Task</span><span class="pipe-link"></span>
+            <span class="pipe-node" data-i18n="u4.p1">Update sheets</span><span class="pipe-link"></span>
+            <span class="pipe-node" data-i18n="u4.p2">Remind</span><span class="pipe-link"></span>
+            <span class="pipe-node out" data-i18n="u4.p3">Summary ✓</span>
+          </div>
+        </div>
+        <dl class="unit-spec">
+          <div class="spec-row"><dt data-i18n="sp.fn">Functions</dt><dd data-i18n="u4.fn">Internal admin tasks · Updates spreadsheets automatically</dd></div>
+          <div class="spec-row"><dt data-i18n="sp.cm">Comms</dt><dd data-i18n="u4.cm">Sends reminders to your team · Creates daily summaries</dd></div>
+          <div class="spec-row"><dt data-i18n="sp.au">Automation</dt><dd data-i18n="u4.au"><b>Repetitive workflows</b> run on schedule, error-free</dd></div>
+        </dl>
+      </div>
+      <div class="unit-foot"><span class="fn" data-i18n="u4.foot">Manual hours saved: weekly</span><a class="btn" href="#channel" data-i18n="u4.cta">Deploy OPS-04</a></div>
+    </div>
+
+    <!-- MKT-05 -->
+    <div class="unit brk rv">
+      <span class="c tl"></span><span class="c tr"></span><span class="c bl"></span><span class="c br"></span>
+      <div class="unit-top"><span class="uid">UNIT ID: MKT-05 · SERIAL: 006018-EM</span><span class="stat" data-i18n="u5.stat">Online · Social growth</span></div>
+      <div class="unit-main">
+        <div class="unit-name">
+          <h3 data-i18n="u5.name">AI <em>Marketing</em> Agent</h3>
+          <p data-i18n="u5.desc">Works your comment sections and DMs, turning social noise into real conversations.</p>
+          <div class="pipe">
+            <span class="pipe-node in" data-i18n="u5.p0">Comment / DM</span><span class="pipe-link"></span>
+            <span class="pipe-node" data-i18n="u5.p1">Engage</span><span class="pipe-link"></span>
+            <span class="pipe-node" data-i18n="u5.p2">Promote</span><span class="pipe-link"></span>
+            <span class="pipe-node out" data-i18n="u5.p3">Lead ✓</span>
+          </div>
+        </div>
+        <dl class="unit-spec">
+          <div class="spec-row"><dt data-i18n="sp.ch">Channels</dt><dd><b>Facebook · Instagram</b></dd></div>
+          <div class="spec-row"><dt data-i18n="sp.fn">Functions</dt><dd data-i18n="u5.fn">Replies to comments · Starts conversations from posts and ads</dd></div>
+          <div class="spec-row"><dt data-i18n="sp.cp">Campaigns</dt><dd data-i18n="u5.cp">Sends promotions to interested contacts</dd></div>
+          <div class="spec-row"><dt data-i18n="sp.out">Output</dt><dd data-i18n="u5.out">Social engagement converted into qualified leads</dd></div>
+        </dl>
+      </div>
+      <div class="unit-foot"><span class="fn" data-i18n="u5.foot">Comments: answered · DMs: opened</span><a class="btn" href="#channel" data-i18n="u5.cta">Deploy MKT-05</a></div>
+    </div>
+
+    <!-- REV-06 -->
+    <div class="unit brk rv">
+      <span class="c tl"></span><span class="c tr"></span><span class="c bl"></span><span class="c br"></span>
+      <div class="unit-top"><span class="uid">UNIT ID: REV-06 · SERIAL: 006244-FS</span><span class="stat" data-i18n="u6.stat">Online · Reputation</span></div>
+      <div class="unit-main">
+        <div class="unit-name">
+          <h3 data-i18n="u6.name">AI <em>Review</em> Agent</h3>
+          <p data-i18n="u6.desc">Asks for the review at exactly the right moment, and builds your reputation on autopilot.</p>
+          <div class="pipe">
+            <span class="pipe-node in" data-i18n="u6.p0">Service done</span><span class="pipe-link"></span>
+            <span class="pipe-node" data-i18n="u6.p1">Ask + link</span><span class="pipe-link"></span>
+            <span class="pipe-node out" data-i18n="u6.p2">★★★★★ ✓</span>
+          </div>
+        </div>
+        <dl class="unit-spec">
+          <div class="spec-row"><dt data-i18n="sp.tr">Trigger</dt><dd data-i18n="u6.tr">After appointments or completed services</dd></div>
+          <div class="spec-row"><dt data-i18n="sp.fn">Functions</dt><dd data-i18n="u6.fn">Requests <b>Google reviews</b> · Sends direct review links</dd></div>
+          <div class="spec-row"><dt data-i18n="sp.out">Output</dt><dd data-i18n="u6.out">A steady stream of fresh 5-star social proof</dd></div>
+        </dl>
+      </div>
+      <div class="unit-foot"><span class="fn" data-i18n="u6.foot">Timing: optimal · Ask rate: 100%</span><a class="btn" href="#channel" data-i18n="u6.cta">Deploy REV-06</a></div>
+    </div>
+
+  </div></div>
+</section>
+
+<!-- ================= 03.0 INDUSTRIES ================= -->
+<section class="sec" id="industries">
+  <div class="sec-head"><span class="idx" data-i18n="ind.idx">03.0 / COMPATIBILITY MATRIX</span><span class="lbl dim" data-i18n="ind.sub">9 verified sectors</span></div>
+  <div class="sec-body"><div class="inner">
+    <h2 class="disp h-lg rv" style="max-width:30ch" data-i18n="ind.h">Built for businesses that receive leads through WhatsApp, Facebook, Instagram, and phone calls.</h2>
+    <div class="ind-matrix">
+      <div class="ind-cell rv"><span class="idx">SEC-01</span><h4 data-i18n="ind.1h">Dental clinics</h4><p data-i18n="ind.1p">Whitening, cleanings, implants, booked while you drill.</p></div>
+      <div class="ind-cell rv"><span class="idx">SEC-02</span><h4 data-i18n="ind.2h">Beauty clinics</h4><p data-i18n="ind.2p">Every "how much for…?" answered and converted.</p></div>
+      <div class="ind-cell rv"><span class="idx">SEC-03</span><h4 data-i18n="ind.3h">Medical clinics</h4><p data-i18n="ind.3p">Appointments confirmed, reminders sent, no-shows down.</p></div>
+      <div class="ind-cell rv"><span class="idx">SEC-04</span><h4 data-i18n="ind.4h">Real estate</h4><p data-i18n="ind.4p">Listing inquiries qualified and toured, not ignored.</p></div>
+      <div class="ind-cell rv"><span class="idx">SEC-05</span><h4 data-i18n="ind.5h">Car dealerships</h4><p data-i18n="ind.5p">Test drives scheduled from Messenger at midnight.</p></div>
+      <div class="ind-cell rv"><span class="idx">SEC-06</span><h4 data-i18n="ind.6h">Law firms</h4><p data-i18n="ind.6p">Case inquiries screened before they reach a lawyer.</p></div>
+      <div class="ind-cell rv"><span class="idx">SEC-07</span><h4 data-i18n="ind.7h">Tourism</h4><p data-i18n="ind.7p">Tours and reservations sold in Spanish and English.</p></div>
+      <div class="ind-cell rv"><span class="idx">SEC-08</span><h4 data-i18n="ind.8h">Gyms</h4><p data-i18n="ind.8p">Trial classes booked, memberships followed up.</p></div>
+      <div class="ind-cell rv"><span class="idx">SEC-09</span><h4 data-i18n="ind.9h">Home services</h4><p data-i18n="ind.9p">Quotes requested, visits scheduled, jobs won.</p></div>
+    </div>
+  </div></div>
+</section>
+
+<!-- ================= 03.5 FIELD RESULTS ================= -->
+<section class="sec" id="results">
+  <div class="sec-head"><span class="idx" data-i18n="pf.idx">03.5 / FIELD RESULTS</span><span class="lbl dim" data-i18n="pf.sub">Measured on live deployments</span></div>
+  <div class="sec-body"><div class="inner">
+    <h2 class="disp h-lg rv" style="max-width:30ch" data-i18n="pf.h">Businesses stop losing leads in the first week.</h2>
+    <!-- NOTE: SAMPLE testimonials. Replace with real, verifiable customer results before launch. -->
+    <div class="proof-grid">
+      <div class="proof rv">
+        <span class="metric">+38%<small> <span data-i18n="pf.1m">booked appointments</span></small></span>
+        <blockquote data-i18n="pf.1q">"We used to answer WhatsApp the next morning. Now every lead gets a reply in seconds, even at midnight. Our calendar has never been this full."</blockquote>
+        <span class="who" data-i18n="pf.1w">DIRECTOR · DENTAL CLINIC · MONTERREY, MX</span>
+      </div>
+      <div class="proof rv">
+        <span class="metric">0<small> <span data-i18n="pf.2m">missed calls in 60 days</span></small></span>
+        <blockquote data-i18n="pf.2q">"The voice agent answers every call, books the visit and sends me a summary. It paid for itself with the first two clients it recovered."</blockquote>
+        <span class="who" data-i18n="pf.2w">OWNER · REAL ESTATE AGENCY · GUADALAJARA, MX</span>
+      </div>
+      <div class="proof rv">
+        <span class="metric">-11<small> <span data-i18n="pf.3m">hours of manual work / week</span></small></span>
+        <blockquote data-i18n="pf.3q">"Follow-ups, reminders and the daily summary happen without anyone touching a phone. My team finally focuses on patients, not on chats."</blockquote>
+        <span class="who" data-i18n="pf.3w">MANAGER · MEDICAL CLINIC · CDMX, MX</span>
+      </div>
+    </div>
+    <div class="works rv">
+      <h4 data-i18n="ws.h">Works with the tools you already use</h4>
+      <span>WhatsApp Business Platform</span><span>Instagram</span><span>Messenger</span>
+      <span>Google Calendar</span><span>Google Sheets</span><span>HubSpot</span><span>Calendly</span>
+    </div>
+  </div></div>
+</section>
+
+<!-- ================= 04.0 FIELD TEST ================= -->
+<section class="sec dark" id="trial">
+  <div class="sec-head"><span class="idx" data-i18n="tr.idx">04.0 / FIELD TEST</span><span class="lbl dim" data-i18n="tr.sub">Duration: 7 days · Cost: $0</span></div>
+  <div class="sec-body"><div class="inner">
+    <div class="trial-grid brk rv">
+      <span class="c tl"></span><span class="c tr"></span><span class="c bl"></span><span class="c br"></span>
+      <div class="trial-copy">
+        <h2 class="disp h-lg" data-i18n="tr.h">Try your AI Agent free for 7 days.</h2>
+        <p data-i18n="tr.p">No upfront payment required. We activate a ready-made AI Agent template for your business, customize the basics, and let you test it with real customers. If it saves time and helps you convert more leads, you keep it after the trial.</p>
+        <p class="lbl" style="margin-top:1.2rem;color:var(--cobalt-lt)" data-i18n="tr.cap">Trial includes up to 150 AI conversations + 30 voice minutes. No card required.</p>
+        <a class="btn fill" href="#channel" style="margin-top:2rem" data-i18n="cta.trial7">Try Elyon Free / 7 Days</a>
+      </div>
+      <div class="trial-steps">
+        <div class="tstep"><b>T-01</b><span data-i18n="tr.s1">Choose your AI Agent.</span></div>
+        <div class="tstep"><b>T-02</b><span data-i18n="tr.s2">Send us your business information.</span></div>
+        <div class="tstep"><b>T-03</b><span data-i18n="tr.s3">We activate your template.</span></div>
+        <div class="tstep"><b>T-04</b><span data-i18n="tr.s4">You test it for 7 days with real customers.</span></div>
+        <div class="tstep"><b>T-05</b><span data-i18n="tr.s5">Continue only if you like it.</span></div>
+      </div>
+    </div>
+  </div></div>
+</section>
+
+<!-- ================= 04.5 ROI CALCULATOR ================= -->
+<section class="sec dark" id="roi">
+  <div class="sec-head"><span class="idx" data-i18n="roi.idx">04.5 / MISSED-REVENUE CALCULATOR</span><span class="lbl dim" data-i18n="roi.sub">Estimate in 10 seconds</span></div>
+  <div class="sec-body"><div class="inner">
+    <h2 class="disp h-lg rv" style="max-width:28ch" data-i18n="roi.h">How much are unanswered leads costing you?</h2>
+    <div class="roi rv">
+      <div class="roi-in">
+        <div class="roi-field">
+          <label><span data-i18n="roi.l1">Leads / messages per day</span><b id="roiLeadsV">20</b></label>
+          <input type="range" id="roiLeads" min="1" max="200" value="20">
+        </div>
+        <div class="roi-field">
+          <label><span data-i18n="roi.l2">% currently answered fast</span><b id="roiAnsV">40%</b></label>
+          <input type="range" id="roiAns" min="0" max="100" value="40">
+        </div>
+        <div class="roi-field">
+          <label><span data-i18n="roi.l3">Average sale / ticket value (USD)</span><b id="roiTicketV">$150</b></label>
+          <input type="range" id="roiTicket" min="20" max="2000" step="10" value="150">
+        </div>
+      </div>
+      <div class="roi-out">
+        <div class="roi-line"><span data-i18n="roi.o1">Leads going cold every month</span><b id="roiMissed">360</b></div>
+        <div class="roi-line"><span data-i18n="roi.o2">Appointments an AI agent could recover</span><b id="roiRec">108</b></div>
+        <div class="roi-line big"><span data-i18n="roi.o3">Estimated revenue recovered / month</span><b id="roiRev">$16,200</b></div>
+        <a class="btn fill" href="#channel" data-i18n="cta.trial7" style="align-self:flex-start">Try Elyon Free / 7 Days</a>
+        <p class="roi-note" data-i18n="roi.note">Estimate. Assumes 30% of instantly-answered leads convert to a booking. Your results depend on your industry and offer.</p>
+      </div>
+    </div>
+  </div></div>
+</section>
+
+<!-- ================= 05.0 PRICING ================= -->
+<section class="sec" id="pricing">
+  <div class="sec-head"><span class="idx" data-i18n="pr.idx">05.0 / CONFIGURATIONS</span><span class="lbl dim" data-i18n="pr.sub">Monthly · Cancel anytime</span></div>
+  <div class="sec-body"><div class="inner">
+    <h2 class="disp h-lg rv" style="max-width:28ch" data-i18n="pr.h">One AI employee costs less than one hour of payroll a day.</h2>
+    <div class="plans">
+      <div class="plan rv">
+        <div class="plan-h"><span class="idx">CFG-A</span><h3 data-i18n="pr.a">Starter Agent</h3><div class="price">$79<small>/MO</small></div><div class="setup" data-i18n="pr.a.setup">+ $149 one-time setup, after trial</div></div>
+        <div class="plan-usage"><span data-i18n="pr.a.use">300 AI conversations / mo included</span></div>
+        <ul>
+          <li class="plan-li" data-i18n="pr.a1">WhatsApp AI Sales Agent</li>
+          <li class="plan-li" data-i18n="pr.a2">FAQ answering</li>
+          <li class="plan-li" data-i18n="pr.a3">Lead qualification</li>
+          <li class="plan-li" data-i18n="pr.a4">Human handoff</li>
+          <li class="plan-li" data-i18n="pr.a5">Basic reporting</li>
+        </ul>
+        <div class="plan-f"><a class="btn" href="#channel" data-i18n="cta.start">Start free trial</a></div>
+      </div>
+      <div class="plan hot rv">
+        <div class="hotflag" data-i18n="pr.flag">Most deployed configuration</div>
+        <div class="plan-h"><span class="idx">CFG-B</span><h3 data-i18n="pr.b">Growth Agent</h3><div class="price">$149<small>/MO</small></div><div class="setup" data-i18n="pr.b.setup">+ $299 one-time setup, after trial</div></div>
+        <div class="plan-usage"><span data-i18n="pr.b.use">1,000 AI conversations / mo included</span></div>
+        <ul>
+          <li class="plan-li" data-i18n="pr.b1">Everything in Starter</li>
+          <li class="plan-li" data-i18n="pr.b2">Instagram + Facebook Messenger</li>
+          <li class="plan-li" data-i18n="pr.b3">Appointment booking</li>
+          <li class="plan-li" data-i18n="pr.b4">Automatic follow-ups</li>
+          <li class="plan-li" data-i18n="pr.b5">CRM or Google Sheets integration</li>
+          <li class="plan-li" data-i18n="pr.b6">Monthly optimization</li>
+        </ul>
+        <div class="plan-f"><a class="btn fill" href="#channel" data-i18n="cta.start">Start free trial</a></div>
+      </div>
+      <div class="plan rv">
+        <div class="plan-h"><span class="idx">CFG-C</span><h3 data-i18n="pr.c">Elite Agent</h3><div class="price">$249+<small>/MO</small></div><div class="setup" data-i18n="pr.c.setup">+ $500 one-time setup, after trial</div></div>
+        <div class="plan-usage"><span data-i18n="pr.c.use">2,500 conversations + 300 voice min / mo</span></div>
+        <ul>
+          <li class="plan-li" data-i18n="pr.c1">Everything in Growth</li>
+          <li class="plan-li" data-i18n="pr.c2">AI Voice Agent</li>
+          <li class="plan-li" data-i18n="pr.c3">Inbound phone calls</li>
+          <li class="plan-li" data-i18n="pr.c4">Advanced workflows</li>
+          <li class="plan-li" data-i18n="pr.c5">Multi-location support</li>
+          <li class="plan-li" data-i18n="pr.c6">Custom dashboard</li>
+        </ul>
+        <div class="plan-f"><a class="btn" href="#channel" data-i18n="cta.start">Start free trial</a></div>
+      </div>
+    </div>
+    <div class="addons rv">
+      <h4 data-i18n="pr.add">Add-on modules</h4>
+      <span><b data-i18n="pr.ad1">AI Voice Agent</b> +$49–$99/mo</span>
+      <span><b data-i18n="pr.ad2">Review Agent</b> +$29/mo</span>
+      <span><b data-i18n="pr.ad3">Operations Agent</b> +$99/mo</span>
+      <span><b data-i18n="pr.ad4">Extra location</b> +$30–$50/mo</span>
+    </div>
+    <div class="addons rv">
+      <h4 data-i18n="us.h">Usage / simple and transparent</h4>
+      <span><b data-i18n="us.1a">1 conversation</b> <span data-i18n="us.1b">= one customer chat session within 24 hours</span></span>
+      <span><b data-i18n="us.2a">Extra conversations</b> +$0.08 <span data-i18n="us.2b">each (Elite: +$0.06)</span></span>
+      <span><b data-i18n="us.3a">Extra voice minutes</b> +$0.15/min</span>
+      <span><b data-i18n="us.4a">Meta WhatsApp fees</b> <span data-i18n="us.4b">included within your plan limits</span></span>
+      <span><b data-i18n="us.5a">No surprises</b> <span data-i18n="us.5b">we alert you at 80% of your limit</span></span>
+    </div>
+    <div class="cmp rv">
+      <table>
+        <thead><tr>
+          <th data-i18n="cmp.h0">Capability</th>
+          <th class="hl">ELYON AGENT</th>
+          <th data-i18n="cmp.h2">Front desk alone</th>
+          <th data-i18n="cmp.h3">Basic chatbot</th>
+        </tr></thead>
+        <tbody>
+          <tr><td data-i18n="cmp.r1">Replies 24/7 in seconds</td><td class="hl"><span class="y">✓</span></td><td><span class="n">✕</span> <span data-i18n="cmp.r1b">business hours</span></td><td><span class="y">✓</span></td></tr>
+          <tr><td data-i18n="cmp.r2">Books real appointments</td><td class="hl"><span class="y">✓</span></td><td><span class="y">✓</span></td><td><span class="n">✕</span></td></tr>
+          <tr><td data-i18n="cmp.r3">Natural Spanish + English</td><td class="hl"><span class="y">✓</span></td><td><span class="y">✓</span></td><td><span class="n">✕</span></td></tr>
+          <tr><td data-i18n="cmp.r4">Follows up automatically</td><td class="hl"><span class="y">✓</span></td><td><span class="n">✕</span></td><td><span class="n">✕</span></td></tr>
+          <tr><td data-i18n="cmp.r5">Updates CRM / Sheets</td><td class="hl"><span class="y">✓</span></td><td data-i18n="cmp.r5b">Manual</td><td><span class="n">✕</span></td></tr>
+          <tr><td data-i18n="cmp.r6">Monthly cost</td><td class="hl" data-i18n="cmp.r6a">From $79</td><td>$600+</td><td>$20–50</td></tr>
+        </tbody>
+      </table>
+    </div>
+    <div class="guarantee rv">
+      <b data-i18n="gua.b">Zero-risk start</b>
+      <span data-i18n="gua.1">7-day free trial with real customers</span>
+      <span data-i18n="gua.2">No contracts, cancel anytime</span>
+      <span data-i18n="gua.3">Setup fee only if you decide to keep it</span>
+      <span data-i18n="gua.4"><b style="color:var(--ok)">30-day guarantee:</b> no booked appointments in your first paid month, full refund</span>
+    </div>
+
+  </div></div>
+</section>
+
+<!-- ================= 06.0 DEPLOYMENT ================= -->
+<section class="sec dark" id="deploy">
+  <div class="sec-head"><span class="idx" data-i18n="dp.idx">06.0 / DEPLOYMENT SEQUENCE</span><span class="lbl dim" data-i18n="dp.sub">5 steps · assisted</span></div>
+  <div class="sec-body"><div class="inner">
+    <h2 class="disp h-lg rv" data-i18n="dp.h">From missed messages to booked appointments.</h2>
+    <div class="seq">
+      <div class="seq-step rv"><span class="idx">STEP-01</span><h4 data-i18n="dp.1h">Analyze your lead flow</h4><p data-i18n="dp.1p">We map where your leads come from and where they get lost.</p><span class="tick" data-i18n="dp.1t">✓ Audit complete</span></div>
+      <div class="seq-step rv"><span class="idx">STEP-02</span><h4 data-i18n="dp.2h">Activate the right template</h4><p data-i18n="dp.2p">The AI Agent configured for your business type.</p><span class="tick" data-i18n="dp.2t">✓ Unit assigned</span></div>
+      <div class="seq-step rv"><span class="idx">STEP-03</span><h4 data-i18n="dp.3h">Connect your channels</h4><p data-i18n="dp.3p">WhatsApp, Instagram, Messenger, website chat, or voice.</p><span class="tick" data-i18n="dp.3t">✓ Channels linked</span></div>
+      <div class="seq-step rv"><span class="idx">STEP-04</span><h4 data-i18n="dp.4h">Test during the free trial</h4><p data-i18n="dp.4p">Watch it reply, qualify, and book with real customers.</p><span class="tick" data-i18n="dp.4t">✓ Field-tested</span></div>
+      <div class="seq-step rv"><span class="idx">STEP-05</span><h4 data-i18n="dp.5h">Optimize monthly</h4><p data-i18n="dp.5p">We keep improving responses and conversion, every month.</p><span class="tick" data-i18n="dp.5t">✓ Tuned</span></div>
+    </div>
+  </div></div>
+</section>
+
+<!-- ================= 06.5 FAQ ================= -->
+<section class="sec" id="faq">
+  <div class="sec-head"><span class="idx" data-i18n="faq.idx">06.5 / FAQ</span><span class="lbl dim" data-i18n="faq.sub">Straight answers</span></div>
+  <div class="sec-body"><div class="inner">
+    <h2 class="disp h-lg rv" data-i18n="faq.h">Questions owners actually ask.</h2>
+    <div class="faq rv">
+      <details open><summary data-i18n="faq.q1">How fast can my AI Agent go live?</summary><p class="a" data-i18n="faq.a1">Most agents go live 3 to 5 business days after you send your business information. Your 7-day free trial starts the day your agent is activated, not before.</p></details>
+      <details><summary data-i18n="faq.q2">Will it sound robotic to my customers?</summary><p class="a" data-i18n="faq.a2">No. Your agent is configured with your services, prices and tone of voice, and it hands the conversation to a human whenever a case needs one. Most customers simply experience fast, helpful answers.</p></details>
+      <details><summary data-i18n="faq.q3">Which languages does it speak?</summary><p class="a" data-i18n="faq.a3">Spanish and English, switching naturally based on how the customer writes or speaks.</p></details>
+      <details><summary data-i18n="faq.q4">Do I need a special WhatsApp account?</summary><p class="a" data-i18n="faq.a4">We set everything up for you on the official WhatsApp Business Platform. Your number stays yours, and your team can keep using it alongside the agent.</p></details>
+      <details><summary data-i18n="faq.q5">What happens after the 7-day trial?</summary><p class="a" data-i18n="faq.a5">You continue only if you want to. No contracts, cancel anytime. The setup fee applies only if you decide to keep your agent. And paid plans carry a 30-day guarantee: if your agent books no appointments in your first paid month, we refund it.</p></details>
+                  <details><summary data-i18n="faq.q8">Is the free trial really free? What is included?</summary><p class="a" data-i18n="faq.a8">Yes. No card required. The trial includes up to 150 AI conversations and 30 voice minutes over 7 days, which is more than enough to see your agent reply, qualify and book with real customers. If you go past the included usage during the trial, we simply pause the agent and ask if you want to continue on a paid plan.</p></details>
+      <details><summary data-i18n="faq.q7">What counts as a conversation, and what if I go over my limit?</summary><p class="a" data-i18n="faq.a7">A conversation is one customer chat session within a 24-hour window, no matter how many messages it contains. If you pass your monthly limit, extra conversations are billed at the overage rate shown in the pricing section. We alert you at 80% of your limit so there are never surprises, and you can upgrade plans at any time.</p></details>
+      <details><summary data-i18n="faq.q6">Is my customer data safe?</summary><p class="a" data-i18n="faq.a6">Conversations run over encrypted channels and we store only what is needed to operate your agent. You can request deletion of your data at any time.</p></details>
+    </div>
+  </div></div>
+</section>
+
+<div class="band" aria-hidden="true"><div class="disp" data-i18n="band.2"><em>DEPLOY</em>&nbsp;YOUR&nbsp;FIRST&nbsp;AI&nbsp;EMPLOYEE&nbsp;/ <em>DEPLOY</em>&nbsp;YOUR&nbsp;FIRST&nbsp;AI&nbsp;EMPLOYEE</div></div>
+
+<!-- ================= 07.0 OPEN CHANNEL ================= -->
+<section class="sec" id="channel">
+  <div class="sec-head"><span class="idx" data-i18n="ch.idx">07.0 / OPEN CHANNEL</span><span class="lbl dim" data-i18n="ch.sub">Response: within 1 business day</span></div>
+  <div class="sec-body"><div class="inner">
+    <div class="contact-grid brk rv">
+      <span class="c tl"></span><span class="c tr"></span><span class="c bl"></span><span class="c br"></span>
+      <div class="contact-left">
+        <div>
+          <h2 class="disp h-lg" data-i18n="ch.h">Ready to deploy your first AI employee?</h2>
+          <!-- CAPACITY strip: keep this ONLY if it is genuinely true for your operation. False scarcity destroys trust. -->
+          <p class="lbl" style="margin-top:1rem;color:var(--cobalt)"><span data-i18n="cap.t">Capacity: we onboard a limited number of new businesses each month to guarantee setup quality.</span></p>
+          <p style="margin-top:1.4rem;font-size:.88rem;opacity:.72;max-width:42ch" data-i18n="ch.p">Open a channel. Tell us about your business and we'll configure the right unit for your free 7-day field test.</p>
+        </div>
+        <div class="plate">
+          ELYON-INC. · TRYELYON.COM<br>
+          <span data-i18n="ch.pl1">CHANNEL: WHATSAPP-FIRST</span><br>
+          <span data-i18n="ch.pl2">COVERAGE: MX–LATAM–US–ES</span><br>
+          <span data-i18n="ch.pl3">NO PAYMENT REQUIRED TO START</span>
+        </div>
+      </div>
+      <form class="channel" id="leadForm" onsubmit="return handleSubmit(event)">
+        <div class="f-grid">
+          <div class="f-cell"><label for="f-name" data-i18n="f.name">Name</label><input id="f-name" name="name" type="text" data-i18n-ph="f.name.ph" placeholder="Your full name" required></div>
+          <div class="f-cell"><label for="f-biz" data-i18n="f.biz">Business name</label><input id="f-biz" name="business" type="text" data-i18n-ph="f.biz.ph" placeholder="Your business" required></div>
+          <div class="f-cell"><label for="f-ind" data-i18n="f.ind">Industry</label>
+            <select id="f-ind" name="industry" required>
+              <option value="" disabled selected data-i18n="f.ind.0">Select industry</option>
+              <option data-i18n="f.ind.1">Dental clinic</option><option data-i18n="f.ind.2">Beauty clinic</option><option data-i18n="f.ind.3">Medical clinic</option>
+              <option data-i18n="f.ind.4">Real estate</option><option data-i18n="f.ind.5">Car dealership</option><option data-i18n="f.ind.6">Law firm</option>
+              <option data-i18n="f.ind.7">Tourism</option><option data-i18n="f.ind.8">Gym</option><option data-i18n="f.ind.9">Home services</option><option data-i18n="f.ind.10">Other</option>
+            </select>
+          </div>
+          <div class="f-cell"><label for="f-country" data-i18n="f.country">Country</label><input id="f-country" name="country" type="text" data-i18n-ph="f.country.ph" placeholder="e.g. Mexico" required></div>
+          <div class="f-cell"><label for="f-wa" data-i18n="f.wa">WhatsApp number</label><input id="f-wa" name="whatsapp" type="tel" placeholder="+52 ..." required></div>
+          <div class="f-cell"><label for="f-agent" data-i18n="f.agent">AI Agent of interest</label>
+            <select id="f-agent" name="agent" required>
+              <option value="" disabled selected data-i18n="f.agent.0">Choose a unit</option>
+              <option data-i18n="f.agent.1">SLS-01 · AI Sales Agent</option><option data-i18n="f.agent.2">VOX-02 · AI Voice Agent</option>
+              <option data-i18n="f.agent.3">SUP-03 · AI Support Agent</option><option data-i18n="f.agent.4">OPS-04 · AI Operations Agent</option>
+              <option data-i18n="f.agent.5">MKT-05 · AI Marketing Agent</option><option data-i18n="f.agent.6">REV-06 · AI Review Agent</option>
+              <option data-i18n="f.agent.7">Not sure, recommend one</option>
+            </select>
+          </div>
+          <div class="f-cell full"><label for="f-vol" data-i18n="f.vol">Leads / messages per day</label>
+            <select id="f-vol" name="volume" required>
+              <option value="" disabled selected data-i18n="f.vol.0">Select a range</option>
+              <option data-i18n="f.vol.1">1–10 per day</option><option data-i18n="f.vol.2">10–30 per day</option><option data-i18n="f.vol.3">30–100 per day</option><option data-i18n="f.vol.4">100+ per day</option>
+            </select>
+          </div>
+        </div>
+        <button class="btn fill" type="submit" data-i18n="f.submit">Request Free Trial →</button>
+        <p class="f-note" id="fNote" data-i18n="f.note">We reply on WhatsApp within one business day. No payment required.</p>
+      </form>
+    </div>
+  </div></div>
+</section>
+
+<!-- ================= FOOTER ================= -->
+<footer>
+  <div class="foot-grid">
+    <div class="foot-cell">
+      <span style="display:flex;align-items:center;gap:.6rem;margin-bottom:.8rem"><svg class="mark" viewBox="0 0 100 100" aria-hidden="true"><rect x="20" y="20" width="13" height="60" fill="currentColor"/><rect x="20" y="20" width="60" height="13" fill="var(--cobalt-lt)"/><rect x="20" y="43.5" width="47" height="13" fill="currentColor"/><rect x="20" y="67" width="34" height="13" fill="currentColor"/></svg><span class="disp" style="font-size:.95rem">ELYON</span></span>
+      <span data-i18n="ft.1">AI-EMPLOYEES-FOR<br>SALES–SUPPORT–OPERATIONS</span>
+    </div>
+    <div class="foot-cell">
+      <span data-i18n="ft.2">COVERAGE<br>MEXICO–LATAM<br>UNITED-STATES · SPAIN</span>
+    </div>
+    <div class="foot-cell">
+      <span data-i18n="ft.3">CHANNELS<br>WHATSAPP–INSTAGRAM–MESSENGER<br>VOICE–WEBCHAT–CRM</span>
+    </div>
+  </div>
+  <div class="foot-base">
+    <span data-i18n="ft.c">© 2026 ELYON. ALL RIGHTS RESERVED. · TRYELYON.COM</span>
+    <span data-i18n="ft.s">ALL UNITS OPERATIONAL · 24/7</span>
+  </div>
+</footer>
+
+
+<!-- Floating demo CTA: number is set from the ELYON_WA constant in the script below -->
+<a class="wa-float" href="#"  target="_blank" rel="noopener" aria-label="Chat with our demo AI agent on WhatsApp">
+  <svg viewBox="0 0 24 24" aria-hidden="true"><path fill="#0b3d24" d="M12 0C5.4 0 .1 5.3.1 11.9c0 2.1.5 4.1 1.6 5.9L0 24l6.4-1.7c1.7.9 3.6 1.4 5.6 1.4 6.6 0 11.9-5.3 11.9-11.9C24 5.3 18.6 0 12 0z"/><path fill="#FFF" d="M19.1 16.9c-.3.8-1.5 1.5-2.4 1.7-.6.1-1.5.2-4.3-.9-3.6-1.5-5.9-5.2-6.1-5.4-.2-.2-1.5-1.9-1.5-3.7S5.7 6 6.1 5.6c.3-.3.7-.5 1-.5h.7c.2 0 .5-.1.8.6.3.8 1.1 2.6 1.2 2.8.1.2.2.4 0 .7-.1.3-.2.4-.4.7-.2.2-.4.5-.6.7-.2.2-.4.4-.2.8.2.4 1 1.7 2.2 2.7 1.5 1.3 2.8 1.8 3.2 1.9.4.2.6.2.9-.1.2-.3 1-1.2 1.3-1.6.3-.4.5-.3.9-.2.4.1 2.2 1 2.5 1.2.4.2.6.3.7.5.1.1.1.8-.2 1.6z"/></svg><span class="txt" data-i18n="wf.cta">Talk to our AI agent now</span>
+</a>
+
+<script>
+/* ==========================================================
+   I18N / auto-detect + toggle. EN is read from the HTML;
+   ES lives in the dictionary below. Edit freely.
+   ========================================================== */
+const ES = {
+  'tr.cap':'La prueba incluye hasta 150 conversaciones de IA + 30 minutos de voz. Sin tarjeta.',
+  'gua.4':'<b style="color:var(--ok)">Garantía de 30 días:</b> si no hay citas agendadas en tu primer mes pagado, reembolso total',
+  'faq.q8':'¿La prueba gratis es realmente gratis? ¿Qué incluye?','faq.a8':'Sí. Sin tarjeta. La prueba incluye hasta 150 conversaciones de IA y 30 minutos de voz durante 7 días, más que suficiente para ver a tu agente responder, calificar y agendar con clientes reales. Si superas el uso incluido durante la prueba, simplemente pausamos el agente y te preguntamos si quieres continuar con un plan de pago.',
+  'a11y.skip':'Ir al contenido',
+  'cap.t':'Capacidad: incorporamos un número limitado de negocios nuevos cada mes para garantizar la calidad de la configuración.',
+  'pr.a.use':'300 conversaciones de IA / mes incluidas','pr.b.use':'1,000 conversaciones de IA / mes incluidas','pr.c.use':'2,500 conversaciones + 300 min de voz / mes',
+  'us.h':'Consumo / simple y transparente','us.1a':'1 conversación','us.1b':'= una sesión de chat con un cliente dentro de 24 horas',
+  'us.2a':'Conversaciones extra','us.2b':'cada una (Elite: +$0.06)','us.3a':'Minutos de voz extra',
+  'us.4a':'Tarifas de Meta WhatsApp','us.4b':'incluidas dentro de los límites de tu plan',
+  'us.5a':'Sin sorpresas','us.5b':'te avisamos al 80% de tu límite',
+  'faq.q7':'¿Qué cuenta como conversación y qué pasa si supero mi límite?','faq.a7':'Una conversación es una sesión de chat con un cliente dentro de una ventana de 24 horas, sin importar cuántos mensajes contenga. Si superas tu límite mensual, las conversaciones extra se cobran a la tarifa publicada en la sección de precios. Te avisamos al 80% de tu límite para que nunca haya sorpresas, y puedes subir de plan en cualquier momento.',
+  'nav.faq':'Preguntas',
+  'pf.idx':'03.5 / RESULTADOS DE CAMPO','pf.sub':'Medidos en despliegues reales',
+  'pf.h':'Los negocios dejan de perder leads desde la primera semana.',
+  'pf.1m':'citas agendadas','pf.1q':'"Antes contestábamos WhatsApp a la mañana siguiente. Ahora cada lead recibe respuesta en segundos, incluso a medianoche. Nuestra agenda nunca había estado tan llena."','pf.1w':'DIRECTOR · CLÍNICA DENTAL · MONTERREY, MX',
+  'pf.2m':'llamadas perdidas en 60 días','pf.2q':'"El agente de voz contesta cada llamada, agenda la visita y me manda un resumen. Se pagó solo con los primeros dos clientes que recuperó."','pf.2w':'PROPIETARIO · INMOBILIARIA · GUADALAJARA, MX',
+  'pf.3m':'horas de trabajo manual / semana','pf.3q':'"Los seguimientos, recordatorios y el resumen diario suceden sin que nadie toque un teléfono. Mi equipo por fin se enfoca en los pacientes, no en los chats."','pf.3w':'GERENTE · CLÍNICA MÉDICA · CDMX, MX',
+  'ws.h':'Funciona con las herramientas que ya usas',
+  'roi.idx':'04.5 / CALCULADORA DE INGRESOS PERDIDOS','roi.sub':'Estímalo en 10 segundos',
+  'roi.h':'¿Cuánto te cuestan los leads sin respuesta?',
+  'roi.l1':'Leads / mensajes por día','roi.l2':'% respondido rápido hoy','roi.l3':'Ticket promedio (USD)',
+  'roi.o1':'Leads que se enfrían cada mes','roi.o2':'Citas que un agente de IA podría recuperar','roi.o3':'Ingresos estimados recuperados / mes',
+  'roi.note':'Estimación. Asume que el 30% de los leads respondidos al instante se convierten en cita. Tus resultados dependen de tu industria y tu oferta.',
+  'cmp.h0':'Capacidad','cmp.h2':'Solo recepción','cmp.h3':'Chatbot básico',
+  'cmp.r1':'Responde 24/7 en segundos','cmp.r1b':'horario laboral','cmp.r2':'Agenda citas reales','cmp.r3':'Español e inglés naturales','cmp.r4':'Da seguimiento automático','cmp.r5':'Actualiza CRM / Sheets','cmp.r5b':'Manual','cmp.r6':'Costo mensual','cmp.r6a':'Desde $79',
+  'gua.b':'Inicio sin riesgo','gua.1':'Prueba gratis de 7 días con clientes reales','gua.2':'Sin contratos, cancela cuando quieras','gua.3':'Costo de configuración solo si decides quedartelo',
+  'faq.idx':'06.5 / PREGUNTAS','faq.sub':'Respuestas directas','faq.h':'Las preguntas que los dueños realmente hacen.',
+  'faq.q1':'¿Qué tan rápido queda listo mi Agente de IA?','faq.a1':'La mayoria de los agentes quedan activos en 3 a 5 días hábiles después de que envias la información de tu negocio. Tu prueba gratis de 7 días empieza el dia en que tu agente se activa, no antes.',
+  'faq.q2':'¿Sonará robótico con mis clientes?','faq.a2':'No. Tu agente se configura con tus servicios, precios y tono de voz, y transfiere la conversacion a un humano cuando un caso lo necesita. La mayoria de los clientes solo experimentan respuestas rápidas y útiles.',
+  'faq.q3':'¿Qué idiomas habla?','faq.a3':'Español e inglés, cambiando de forma natural según cómo escriba o hable el cliente.',
+  'faq.q4':'¿Necesito una cuenta especial de WhatsApp?','faq.a4':'Nosotros configuramos todo por ti en la plataforma oficial de WhatsApp Business. Tu número sigue siendo tuyo y tu equipo puede seguir usándolo junto con el agente.',
+  'faq.q5':'Que pasa despues de la prueba de 7 días?','faq.a5':'Continúas solo si quieres. Sin contratos, cancela cuando quieras. El costo de configuracion aplica solo si decides quedarte con tu agente.',
+  'faq.q6':'¿Los datos de mis clientes están seguros?','faq.a6':'Las conversaciones viajan por canales cifrados y solo almacenamos lo necesario para operar tu agente. Puedes solicitar la eliminación de tus datos en cualquier momento.',
+  'wf.cta':'Habla con nuestro agente de IA',
+  'nav.agents':'Agentes','nav.problem':'Problema','nav.industries':'Industrias','nav.trial':'Prueba','nav.pricing':'Precios','nav.deploy':'Implementación',
+  'cta.trial':'Prueba Elyon gratis','cta.trial7':'Prueba Elyon gratis / 7 días','cta.see':'Ver agentes de IA ↓','cta.start':'Iniciar prueba gratis',
+  'hero.live':'Todas las unidades operativas',
+  'hero.h1':'Agentes de IA que <span class="co">venden, atienden y operan.</span> 24/7.',
+  'hero.sub':'Empleados de IA diseñados para ventas, atención y operaciones. Desplegados en WhatsApp, Instagram, Facebook Messenger, chat web, llamadas telefónicas y sistemas CRM. Responden en segundos, califican leads, agendan citas y dan seguimiento mientras tu equipo duerme.',
+  'hero.plate1':'VENTAS–ATENCIÓN–OPERACIONES',
+  'tx.head':'En vivo en WhatsApp · <b style="color:var(--cobalt)">UNIDAD SLS-01</b>','tx.live':'Vista del cliente · Tiempo real',
+  'tx.online':'en línea','wa.typing':'escribiendo…','wa.today':'HOY','wa.msg':'Mensaje',
+  'hs.sub':'ENTRADA 360° · UN NÚCLEO · TRABAJO REAL','hv.core':'NÚCLEO ELYON · DECIDE EN 0.8S','hv.calls':'LLAMADAS','hv.web':'CHAT WEB','hs.o1':'CALIFICADO','hs.o2':'AGENDADO ✓','hs.o3':'CRM + SEGUIMIENTO',
+  'stage.live':'Demo en vivo · Vista del cliente',
+  'sc1.title':'Agente de Ventas IA · en vivo en WhatsApp',
+  'sc2.title':'Agente de Voz IA · llamada entrante','sc2.kind':'LLAMADA DE VOZ · CONTESTADA AL PRIMER TIMBRE','sc2.who.c':'Cliente','sc2.who.a':'Elyon · Agente de Voz',
+  'sc2.l1':'Hola, necesito reagendar mi cita de esta semana.',
+  'sc2.l2':'Claro. Tienes cita el martes a las 10:00. ¿Te funcionaría el jueves a las 15:00?',
+  'sc2.l3':'Sí, el jueves es perfecto.',
+  'sc2.l4':'Listo. Movida al jueves 15:00. Te envié la confirmación por WhatsApp. ¿Algo más?',
+  'sc2.r1':'✓ Llamada contestada · 0 perdidas','sc2.r2':'Cita reagendada','sc2.r3':'Resumen + confirmación enviados',
+  'sc3.title':'Agente de Soporte IA · en vivo en WhatsApp',
+  'sc3.m1':'Hola, mi pedido #4471 todavía no llega 😕',
+  'sc3.m2':'¡Una disculpa! Verificando… tu pedido está en reparto y llega hoy antes de las 6 PM. 📦',
+  'sc3.m3':'También abrí el ticket #310 para darle seguimiento hasta que lo tengas en tus manos.',
+  'sc3.m4':'¡Perfecto, gracias!',
+  'sc3.m5':'¡Con gusto! Te aviso en cuanto sea entregado. ✅',
+  'sc3.r1':'✓ Resuelto en el chat','sc3.r2':'Ticket #310 creado','sc3.r3':'Sin intervención humana',
+  'sc4.title':'Agente de Operaciones IA · resumen diario',
+  'sc4.m1':'Buenos días ☀️ Resumen diario de ayer: 23 conversaciones · 6 citas agendadas · 2 pagos pendientes. Hoja actualizada.',
+  'sc4.m2':'Envía recordatorios de los pagos pendientes.',
+  'sc4.m3':'Listo. 2 recordatorios de pago enviados por WhatsApp. Te aviso si responden.',
+  'sc4.m4':'Además: el jueves está al 92%. ¿Abro espacios el viernes por la mañana?',
+  'sc4.r1':'✓ Hoja actualizada','sc4.r2':'2 recordatorios enviados','sc4.r3':'0 tareas manuales',
+  'sc5.title':'Agente de Marketing IA · DM de Instagram','ig.active':'Activo ahora','ig.msg':'Mensaje…',
+  'sc5.m1':'Vi tu publicación. ¿Sigue la promo de blanqueamiento? 👀',
+  'sc5.m2':'¡Sigue! 20% de descuento hasta el viernes. ¿Te aparto un lugar?',
+  'sc5.m3':'¡Sí, por favor!',
+  'sc5.m4':'Reservado ✨ Puedo agendarte ahora mismo. ¿Jueves 17:00?',
+  'sc5.m5':'El jueves me queda 🙌',
+  'sc5.r1':'✓ Comentario → conversación','sc5.r2':'Promo entregada','sc5.r3':'Lead captado + agendado',
+  'sc6.title':'Agente de Reseñas IA · después de la visita',
+  'sc6.m1':'¡Gracias por visitarnos hoy, María! 😊 ¿Cómo salió todo?',
+  'sc6.m2':'¡Excelente, muy contenta con el resultado!',
+  'sc6.m3':'¡Qué bien! ¿Nos dejarías una reseña rápida en Google? Toma 30 segundos: g.page/r/elyon ⭐',
+  'sc6.m4':'¡Listo! ⭐⭐⭐⭐⭐',
+  'sc6.r1':'✓ Reseña solicitada','sc6.r2':'5 estrellas recibidas','sc6.r3':'Reputación +1',
+
+  'wa.enc':'🔒 Los mensajes y llamadas están cifrados de extremo a extremo. Nadie fuera de este chat puede leerlos ni escucharlos.',
+  'hero.fig':'FIG. 00 / SISTEMA OPERATIVO DEL AGENTE',
+  'tx.m1':'¡Hola! ¿Hacen blanqueamiento dental? ¿Cuánto cuesta?',
+  'tx.m2':'¡Hola! Sí, blanqueamiento profesional desde $120. ¿Es tu primera visita con nosotros?',
+  'tx.m3':'Sí, primera vez. ¿Tienen algo disponible esta semana?',
+  'tx.m4':'Hay espacio el jueves 16:30 o el viernes 11:00. ¿Cuál te queda mejor?',
+  'tx.m5':'¡El jueves 16:30 me queda perfecto!',
+  'tx.m6':'Listo: jueves 16:30. Recordatorio programado para el miércoles. ¡Nos vemos pronto!',
+  'tx.r1':'✓ Cita agendada','tx.r2':'CRM actualizado','tx.r3':'Recordatorio programado','tx.r4':'Lead calificado: primera visita',
+  'tele.1':'Mensajes gestionados / mes','tele.2':'Tiempo promedio de respuesta','tele.3':'Disponibilidad: noches, fines de semana, feriados',
+  'tick.1':'Lead entrante desde: <b>WhatsApp</b>','tick.2':'Lead entrante desde: <b>Instagram</b>','tick.3':'Lead entrante desde: <b>Messenger</b>','tick.4':'Llamada entrante: <b>Línea de voz</b>','tick.5':'Lead entrante desde: <b>Chat web</b>','tick.6':'Estado: <b>Respondido en 0.8s</b>','tick.7':'Estado: <b>Cita agendada</b>','tick.8':'Estado: <b>CRM actualizado</b>',
+  'diag.idx':'02.0 / DIAGNÓSTICO','diag.sub':'Reporte de pérdida de señal',
+  'diag.h':'La mayoría de los negocios pierden leads<br>antes de que hablen<br>con una <span style="color:#7d8cff">persona real.</span>',
+  'diag.p':'Cada mensaje sin responder es un cliente que agenda con alguien más. Escaneo de diagnóstico: cinco puntos donde se pierden tus leads:',
+  'diag.1h':'Los mensajes llegan de noche','diag.1p':'Los clientes escriben a las 9 PM. Para la mañana, ya encontraron otra opción.',
+  'diag.2h':'Recepción ocupada','diag.2p':'Tu equipo está con pacientes o clientes, así que llamadas y chats quedan sin respuesta.',
+  'diag.3h':'Respuestas lentas en WhatsApp','diag.3p':'Los leads esperan respuesta en minutos. Horas después, el interés se fue.',
+  'diag.4h':'Leads sin seguimiento','diag.4p':'Preguntan precios e información, y nadie les vuelve a escribir para cerrar.',
+  'diag.5h':'Citas perdidas','diag.5p':'Los recordatorios son manuales, y las inasistencias se comen tu agenda y tus ingresos.',
+  'sol.idx':'02.5 / CORRECCIÓN','sol.sub':'Corrección de errores: activa',
+  'sol.h':'Tu Agente de IA responde al instante, califica leads, agenda citas y da seguimiento automáticamente.',
+  'sch.head':'FIG. 01 / FLUJO DEL AGENTE / RUTA DE SEÑAL','sch.sub':'Entrada → Procesamiento → Resultado real',
+  'sch.in1':'WHATSAPP','sch.inq':'Lead entrante','sch.inq2':'DM / comentario','sch.inq3':'Mensaje de página','sch.in4':'VOZ / CHAT WEB','sch.inq4':'Llamada / visita web',
+  'sch.core':'AGENTE IA','sch.core2':'UNIDAD · ES/EN · 24/7','sch.f1':'ENTENDER','sch.f2':'CALIFICAR','sch.f3':'VER CALENDARIO','sch.f4':'DECIDIR Y ACTUAR',
+  'sch.o1':'LEAD CALIFICADO','sch.o1s':'Intención + presupuesto','sch.o2':'CITA AGENDADA','sch.o2s':'En tu calendario','sch.o3':'CRM ACTUALIZADO','sch.o3s':'O Google Sheets','sch.o4':'SEGUIMIENTO ENVIADO','sch.o4s':'Hasta convertir',
+  'sch.a1':'ENTRADA: 6 CANALES','sch.a2':'PROCESO: SEGUNDOS','sch.a3':'SALIDA: TRABAJO REAL',
+  'fn.1h':'Responde en segundos','fn.1p':'Cada mensaje contestado al instante. Noches, fines de semana, feriados. 24/7.',
+  'fn.2h':'Califica el lead','fn.2p':'Hace las preguntas correctas para separar compradores serios de curiosos.',
+  'fn.3h':'Agenda la cita','fn.3p':'Verifica disponibilidad y confirma directamente en tu calendario.',
+  'fn.4h':'Da seguimiento hasta cerrar','fn.4p':'Recordatorios y seguimientos hasta que el lead asista o convierta.',
+  'sol.nb':'No es un chatbot. Es un empleado de IA que realiza trabajo real.',
+  'band.1':'EMPLEADOS&nbsp;<em>DE&nbsp;IA</em>&nbsp;DISEÑADOS / EMPLEADOS&nbsp;<em>DE&nbsp;IA</em>&nbsp;DISEÑADOS',
+  'un.idx':'01.0 / CATÁLOGO DE UNIDADES','un.sub':'6 agentes · diseñados y probados en campo',
+  'un.h':'Las unidades.','un.p':'Agentes de IA listos para usar, personalizados para tu negocio. Cada unidad incluye su propio conjunto de funciones y flujo de trabajo. Empieza con una y agrega más al crecer.',
+  'sp.ch':'Canales','sp.fn':'Funciones','sp.fu':'Seguimiento','sp.sync':'Sincronización','sp.sp':'Voz','sp.rep':'Reportes','sp.lk':'Consultas','sp.esc':'Escalamiento','sp.cm':'Comunicación','sp.au':'Automatización','sp.cp':'Campañas','sp.out':'Resultado','sp.tr':'Activador','sp.web':'Chat web',
+  'u1.stat':'En línea · La más desplegada','u1.name':'Agente de <em>Ventas</em> IA',
+  'u1.desc':'Tu primera línea. Responde cada lead en el momento en que llega, lo califica y convierte la conversación en una cita agendada.',
+  'u1.p1':'Calificar','u1.p2':'Agendar',
+  'u1.fn':'Responde preguntas frecuentes · Califica leads · Agenda citas','u1.fu':'Secuencias automáticas hasta que el lead convierta','u1.sync':'Actualiza CRM o Google Sheets en tiempo real',
+  'u1.foot':'Respuesta: segundos · Disponibilidad: 24/7 · Idiomas: ES/EN','u1.cta':'Desplegar SLS-01',
+  'u2.stat':'En línea · Líneas telefónicas','u2.name':'Agente de <em>Voz</em> IA',
+  'u2.desc':'Contesta tu teléfono para que ninguna llamada quede sin respuesta. Conversación natural, citas reales, transferencias limpias.',
+  'u2.p0':'Llamada','u2.p1':'Habla ES/EN','u2.p2':'Agenda / transfiere','u2.p3':'Resumen ✓',
+  'u2.ch':'Llamadas telefónicas entrantes','u2.sp':'Voz natural en español o inglés','u2.fn':'Agenda citas · Transfiere llamadas complejas a tu equipo','u2.rep':'Envía resúmenes después de cada conversación',
+  'u2.foot':'Tasa de respuesta: 100% · Llamadas perdidas: 0','u2.cta':'Desplegar VOX-02',
+  'u3.stat':'En línea · Atención al cliente','u3.name':'Agente de <em>Soporte</em> IA',
+  'u3.desc':'Absorbe las preguntas repetitivas para que tu equipo solo toque lo que realmente necesita un humano.',
+  'u3.p0':'Pregunta','u3.p1':'Resuelve / ticket','u3.p2':'Humano si hace falta ✓',
+  'u3.fn':'Gestiona preguntas repetitivas · Crea tickets','u3.lk':'Da información de pedidos y servicios al momento','u3.esc':'<b>Transfiere a humanos</b> cuando un caso lo requiere',
+  'u3.foot':'Fila: al día · Tono: de tu marca','u3.cta':'Desplegar SUP-03',
+  'u4.stat':'En línea · Trastienda','u4.name':'Agente de <em>Operaciones</em> IA',
+  'u4.desc':'El trabajador silencioso detrás del escritorio: tareas administrativas hechas sin que nadie las teclee.',
+  'u4.p0':'Tarea','u4.p1':'Actualiza hojas','u4.p2':'Recuerda','u4.p3':'Resumen ✓',
+  'u4.fn':'Tareas administrativas internas · Actualiza hojas de cálculo automáticamente','u4.cm':'Envía recordatorios a tu equipo · Crea resúmenes diarios','u4.au':'<b>Flujos repetitivos</b> ejecutados a tiempo, sin errores',
+  'u4.foot':'Horas manuales ahorradas: semanales','u4.cta':'Desplegar OPS-04',
+  'u5.stat':'En línea · Crecimiento social','u5.name':'Agente de <em>Marketing</em> IA',
+  'u5.desc':'Trabaja tus comentarios y DMs, convirtiendo el ruido social en conversaciones reales.',
+  'u5.p0':'Comentario / DM','u5.p1':'Interactúa','u5.p2':'Promociona','u5.p3':'Lead ✓',
+  'u5.fn':'Responde comentarios · Inicia conversaciones desde publicaciones y anuncios','u5.cp':'Envía promociones a contactos interesados','u5.out':'Interacción social convertida en leads calificados',
+  'u5.foot':'Comentarios: respondidos · DMs: abiertos','u5.cta':'Desplegar MKT-05',
+  'u6.stat':'En línea · Reputación','u6.name':'Agente de <em>Reseñas</em> IA',
+  'u6.desc':'Pide la reseña en el momento exacto, y construye tu reputación en piloto automático.',
+  'u6.p0':'Servicio listo','u6.p1':'Solicita + enlace','u6.p2':'★★★★★ ✓',
+  'u6.tr':'Después de citas o servicios completados','u6.fn':'Solicita <b>reseñas de Google</b> · Envía enlaces directos','u6.out':'Un flujo constante de prueba social de 5 estrellas',
+  'u6.foot':'Momento: óptimo · Tasa de solicitud: 100%','u6.cta':'Desplegar REV-06',
+  'ind.idx':'03.0 / MATRIZ DE COMPATIBILIDAD','ind.sub':'9 sectores verificados',
+  'ind.h':'Hecho para negocios que reciben leads por WhatsApp, Facebook, Instagram y llamadas telefónicas.',
+  'ind.1h':'Clínicas dentales','ind.1p':'Blanqueamientos, limpiezas, implantes, agendados mientras trabajas.',
+  'ind.2h':'Clínicas de belleza','ind.2p':'Cada "¿cuánto cuesta…?" respondido y convertido.',
+  'ind.3h':'Clínicas médicas','ind.3p':'Citas confirmadas, recordatorios enviados, menos inasistencias.',
+  'ind.4h':'Inmobiliarias','ind.4p':'Consultas de propiedades calificadas y con visita, no ignoradas.',
+  'ind.5h':'Agencias de autos','ind.5p':'Pruebas de manejo agendadas desde Messenger a medianoche.',
+  'ind.6h':'Despachos legales','ind.6p':'Consultas filtradas antes de llegar a un abogado.',
+  'ind.7h':'Turismo','ind.7p':'Tours y reservas vendidos en español e inglés.',
+  'ind.8h':'Gimnasios','ind.8p':'Clases de prueba agendadas, membresías con seguimiento.',
+  'ind.9h':'Servicios del hogar','ind.9p':'Cotizaciones solicitadas, visitas agendadas, trabajos ganados.',
+  'tr.idx':'04.0 / PRUEBA DE CAMPO','tr.sub':'Duración: 7 días · Costo: $0',
+  'tr.h':'Prueba tu Agente de IA gratis por 7 días.',
+  'tr.p':'Sin pago inicial. Activamos una plantilla de Agente de IA lista para tu negocio, personalizamos lo básico y te dejamos probarla con clientes reales. Si te ahorra tiempo y te ayuda a convertir más leads, te la quedas después de la prueba.',
+  'tr.s1':'Elige tu Agente de IA.','tr.s2':'Envíanos la información de tu negocio.','tr.s3':'Activamos tu plantilla.','tr.s4':'La pruebas 7 días con clientes reales.','tr.s5':'Continúas solo si te convence.',
+  'pr.idx':'05.0 / CONFIGURACIONES','pr.sub':'Mensual · Cancela cuando quieras',
+  'pr.h':'Un empleado de IA cuesta menos que una hora de nómina al día.',
+  'pr.a':'Agente Starter','pr.a.setup':'+ $149 configuración única, tras la prueba',
+  'pr.a1':'Agente de Ventas IA en WhatsApp','pr.a2':'Respuesta a preguntas frecuentes','pr.a3':'Calificación de leads','pr.a4':'Transferencia a humanos','pr.a5':'Reportes básicos',
+  'pr.flag':'La configuración más desplegada',
+  'pr.b':'Agente Growth','pr.b.setup':'+ $299 configuración única, tras la prueba',
+  'pr.b1':'Todo lo de Starter','pr.b2':'Instagram + Facebook Messenger','pr.b3':'Agendamiento de citas','pr.b4':'Seguimientos automáticos','pr.b5':'Integración con CRM o Google Sheets','pr.b6':'Optimización mensual',
+  'pr.c':'Agente Elite','pr.c.setup':'+ $500 configuración única, tras la prueba',
+  'pr.c1':'Todo lo de Growth','pr.c2':'Agente de Voz IA','pr.c3':'Llamadas telefónicas entrantes','pr.c4':'Flujos avanzados','pr.c5':'Soporte multi-sucursal','pr.c6':'Panel personalizado',
+  'pr.add':'Módulos adicionales','pr.ad1':'Agente de Voz IA','pr.ad2':'Agente de Reseñas','pr.ad3':'Agente de Operaciones','pr.ad4':'Sucursal extra',
+  'dp.idx':'06.0 / SECUENCIA DE IMPLEMENTACIÓN','dp.sub':'5 pasos · asistida',
+  'dp.h':'De mensajes perdidos a citas agendadas.',
+  'dp.1h':'Analizamos tu flujo de leads','dp.1p':'Mapeamos de dónde vienen tus leads y dónde se pierden.','dp.1t':'✓ Auditoría completa',
+  'dp.2h':'Activamos la plantilla correcta','dp.2p':'El Agente de IA configurado para tu tipo de negocio.','dp.2t':'✓ Unidad asignada',
+  'dp.3h':'Conectamos tus canales','dp.3p':'WhatsApp, Instagram, Messenger, chat web o voz.','dp.3t':'✓ Canales enlazados',
+  'dp.4h':'Pruebas durante el periodo gratis','dp.4p':'Míralo responder, calificar y agendar con clientes reales.','dp.4t':'✓ Probado en campo',
+  'dp.5h':'Optimizamos cada mes','dp.5p':'Seguimos mejorando respuestas y conversión, mes a mes.','dp.5t':'✓ Afinado',
+  'band.2':'<em>DESPLIEGA</em>&nbsp;TU&nbsp;PRIMER&nbsp;EMPLEADO&nbsp;DE&nbsp;IA / <em>DESPLIEGA</em>&nbsp;TU&nbsp;PRIMER&nbsp;EMPLEADO&nbsp;DE&nbsp;IA',
+  'ch.idx':'07.0 / ABRIR CANAL','ch.sub':'Respuesta: en 1 día hábil',
+  'ch.h':'¿Listo para desplegar tu primer empleado de IA?',
+  'ch.p':'Abre un canal. Cuéntanos de tu negocio y configuraremos la unidad correcta para tu prueba de campo gratis de 7 días.',
+  'ch.pl1':'CANAL: WHATSAPP PRIMERO','ch.pl2':'COBERTURA: MX–LATAM–US–ES','ch.pl3':'SIN PAGO PARA EMPEZAR',
+  'f.name':'Nombre','f.name.ph':'Tu nombre completo','f.biz':'Nombre del negocio','f.biz.ph':'Tu negocio',
+  'f.ind':'Industria','f.ind.0':'Selecciona tu industria','f.ind.1':'Clínica dental','f.ind.2':'Clínica de belleza','f.ind.3':'Clínica médica','f.ind.4':'Inmobiliaria','f.ind.5':'Agencia de autos','f.ind.6':'Despacho legal','f.ind.7':'Turismo','f.ind.8':'Gimnasio','f.ind.9':'Servicios del hogar','f.ind.10':'Otro',
+  'f.country':'País','f.country.ph':'p. ej. México','f.wa':'Número de WhatsApp',
+  'f.agent':'Agente de IA de interés','f.agent.0':'Elige una unidad','f.agent.1':'SLS-01 · Agente de Ventas IA','f.agent.2':'VOX-02 · Agente de Voz IA','f.agent.3':'SUP-03 · Agente de Soporte IA','f.agent.4':'OPS-04 · Agente de Operaciones IA','f.agent.5':'MKT-05 · Agente de Marketing IA','f.agent.6':'REV-06 · Agente de Reseñas IA','f.agent.7':'No estoy seguro, recomiéndenme uno',
+  'f.vol':'Leads / mensajes por día','f.vol.0':'Selecciona un rango','f.vol.1':'1–10 por día','f.vol.2':'10–30 por día','f.vol.3':'30–100 por día','f.vol.4':'100+ por día',
+  'f.submit':'Solicitar prueba gratis →','f.note':'Respondemos por WhatsApp en 1 día hábil. Sin pago requerido.',
+  'f.sent':'Solicitud recibida ✓','f.sentnote':'CANAL ABIERTO. TE CONTACTAREMOS POR WHATSAPP EN BREVE.',
+  'ft.1':'EMPLEADOS-DE-IA-PARA<br>VENTAS–ATENCIÓN–OPERACIONES',
+  'ft.2':'COBERTURA<br>MÉXICO–LATAM<br>ESTADOS-UNIDOS · ESPAÑA',
+  'ft.3':'CANALES<br>WHATSAPP–INSTAGRAM–MESSENGER<br>VOZ–CHAT-WEB–CRM',
+  'ft.c':'© 2026 ELYON. TODOS LOS DERECHOS RESERVADOS. · TRYELYON.COM','ft.s':'TODAS LAS UNIDADES OPERATIVAS · 24/7'
+};
+
+let currentLang='en';
+function setLang(l){
+  if(typeof trackEvent==='function'&&currentLang!==l)trackEvent('lang_switch',{lang:l});
+  currentLang=l;
+  document.querySelectorAll('[data-i18n]').forEach(el=>{
+    const k=el.dataset.i18n;
+    if(el.dataset.en===undefined) el.dataset.en=el.innerHTML;   // cache original EN
+    el.innerHTML=(l==='es'&&ES[k]!==undefined)?ES[k]:el.dataset.en;
+  });
+  document.querySelectorAll('[data-i18n-ph]').forEach(el=>{
+    const k=el.dataset.i18nPh;
+    if(el.dataset.enPh===undefined) el.dataset.enPh=el.placeholder;
+    el.placeholder=(l==='es'&&ES[k]!==undefined)?ES[k]:el.dataset.enPh;
+  });
+  document.documentElement.lang=l;
+  document.getElementById('langEN').classList.toggle('on',l==='en');
+  document.getElementById('langES').classList.toggle('on',l==='es');
+  try{localStorage.setItem('elyon-lang',l);}catch(e){}
+  // ticker was duplicated for the loop / rebuild it in the new language
+  rebuildTicker();
+  if(window.refreshStage)refreshStage();
+  if(window.recalcROI)recalcROI();
+}
+function detectLang(){
+  try{const saved=localStorage.getItem('elyon-lang');if(saved==='es'||saved==='en')return saved;}catch(e){}
+  const nav=(navigator.languages&&navigator.languages[0])||navigator.language||'en';
+  return nav.toLowerCase().startsWith('es')?'es':'en';
+}
+
+/* ---- ticker (seamless loop, language-aware) ---- */
+const track=document.getElementById('tickerTrack');
+const tickerBase=track.innerHTML;
+function rebuildTicker(){
+  // translate the base copy, then duplicate for the loop
+  const tmp=document.createElement('div');tmp.innerHTML=tickerBase;
+  tmp.querySelectorAll('[data-i18n]').forEach(el=>{
+    const k=el.dataset.i18n;
+    if(currentLang==='es'&&ES[k])el.innerHTML=ES[k];
+  });
+  track.innerHTML=tmp.innerHTML+tmp.innerHTML;
+}
+
+/* ---- scroll reveal ---- */
+const io=new IntersectionObserver(es=>es.forEach(e=>{
+  if(e.isIntersecting){e.target.classList.add('on');io.unobserve(e.target);}
+}),{threshold:.1});
+document.querySelectorAll('.rv').forEach(el=>io.observe(el));
+
+/* ---- telemetry count-up ---- */
+const reduceMotion=window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+function countUp(el){
+  const target=+el.dataset.count;
+  if(reduceMotion){el.textContent=target.toLocaleString();return;}
+  const dur=1400,t0=performance.now();
+  (function step(t){
+    const p=Math.min((t-t0)/dur,1);
+    el.textContent=Math.round(target*(1-Math.pow(1-p,3))).toLocaleString();
+    if(p<1)requestAnimationFrame(step);
+  })(t0);
+}
+const teleIO=new IntersectionObserver(es=>{
+  if(es[0].isIntersecting){document.querySelectorAll('[data-count]').forEach(countUp);teleIO.disconnect();}
+},{threshold:.4});
+teleIO.observe(document.querySelector('.telemetry'));
+
+/* ---- agent demo slideshow ---- */
+const scenes=[...document.querySelectorAll('.scene')];
+const segs=[...document.querySelectorAll('.seg')];
+const resultStrips=[...document.querySelectorAll('#resultsHost .tx-result')];
+const stageTitle=document.getElementById('stageTitle');
+const TITLES_EN=['AI Sales Agent · live on WhatsApp','AI Voice Agent · inbound call','AI Support Agent · live on WhatsApp','AI Operations Agent · daily brief','AI Marketing Agent · Instagram DM','AI Review Agent · after the visit'];
+function tKey(k,fb){return (currentLang==='es'&&ES[k])?ES[k]:fb}
+let curScene=0,runId=0,timers=[],stageVisible=false;
+function clearTimers(){timers.forEach(clearTimeout);timers=[]}
+function playScene(i){
+  runId++;const id=runId;clearTimers();curScene=i;
+  scenes.forEach((s,j)=>s.classList.toggle('active',j===i));
+  resultStrips.forEach((r,j)=>r.classList.toggle('active',j===i));
+  segs.forEach((s,j)=>{s.classList.toggle('on',j===i);s.classList.toggle('done',j<i);s.setAttribute('aria-selected',j===i)});
+  const sc=scenes[i];
+  stageTitle.textContent=tKey('sc'+(i+1)+'.title',TITLES_EN[i]);
+  const items=[...sc.querySelectorAll('[data-d]'),...resultStrips[i].querySelectorAll('[data-d]')];
+  items.forEach(el=>el.classList.remove('show'));
+  sc.querySelectorAll('.wa-chat,.ig-chat,.call-cap').forEach(c=>c.scrollTop=0);
+  const follow=el=>{const c=el.closest&&el.closest('.wa-chat,.ig-chat,.call-cap');if(c)c.scrollTo({top:c.scrollHeight,behavior:'smooth'})};
+  const typingEl=sc.querySelector('.tx-typing');if(typingEl)typingEl.classList.remove('show');
+  const statusEl=sc.querySelector('.wa-status');
+  if(statusEl&&statusEl.dataset.i18n==='tx.online')statusEl.textContent=tKey('tx.online','online');
+  const dur=+sc.dataset.dur;
+  const bar=segs[i].querySelector('i');
+  segs.forEach((s,j)=>{if(j!==i){const b=s.querySelector('i');b.style.transition='none';b.style.width=j<i?'100%':'0%'}});
+  bar.style.transition='none';bar.style.width='0%';void bar.offsetWidth;
+  if(reduceMotion){items.forEach(el=>el.classList.add('show'));bar.style.width='100%';
+    sc.querySelectorAll('.wa-chat,.ig-chat,.call-cap').forEach(c=>c.scrollTop=c.scrollHeight);return}
+  bar.style.transition='width '+dur+'ms linear';bar.style.width='100%';
+  items.forEach(el=>{
+    const d=+el.dataset.d;
+    if(typingEl&&el.classList.contains('agent')&&el.classList.contains('tx-msg')){
+      timers.push(setTimeout(()=>{if(id!==runId)return;
+        el.parentNode.insertBefore(typingEl,el);typingEl.classList.add('show');follow(typingEl);
+        if(statusEl)statusEl.textContent=tKey('wa.typing','typing…');
+      },Math.max(d-1000,0)));
+      timers.push(setTimeout(()=>{if(id!==runId)return;
+        typingEl.classList.remove('show');
+        if(statusEl)statusEl.textContent=tKey(statusEl.dataset.i18n==='ig.active'?'ig.active':'tx.online',statusEl.dataset.i18n==='ig.active'?'Active now':'online');
+      },d-60));
+    }
+    timers.push(setTimeout(()=>{if(id!==runId)return;el.classList.add('show');follow(el)},d));
+  });
+  const tm=sc.querySelector('.call-timer');
+  if(tm){let s0=0;tm.textContent='00:00';
+    const iv=setInterval(()=>{if(id!==runId){clearInterval(iv);return}
+      s0++;tm.textContent='0'+Math.floor(s0/60)+':'+String(s0%60).padStart(2,'0')},1000)}
+  timers.push(setTimeout(()=>{if(id!==runId)return;playScene((i+1)%scenes.length)},dur));
+}
+segs.forEach(s=>s.addEventListener('click',()=>playScene(+s.dataset.i)));
+window.refreshStage=function(){playScene(curScene)};
+const stageIO=new IntersectionObserver(es=>{
+  if(es[0].isIntersecting&&!stageVisible){stageVisible=true;playScene(curScene)}
+  else if(!es[0].isIntersecting&&stageVisible){stageVisible=false;runId++;clearTimers()}
+},{threshold:.2});
+stageIO.observe(document.querySelector('.phone-stage'));
+
+
+/* ---- ROI calculator ---- */
+(function(){
+  const L=document.getElementById('roiLeads'),A=document.getElementById('roiAns'),T=document.getElementById('roiTicket');
+  if(!L)return;
+  const CONV=0.30; // assumed booking rate on instantly-answered leads
+  function fmt(n){return n.toLocaleString(currentLang==='es'?'es-MX':'en-US')}
+  function calc(){
+    const leads=+L.value,ans=+A.value,ticket=+T.value;
+    document.getElementById('roiLeadsV').textContent=fmt(leads);
+    document.getElementById('roiAnsV').textContent=ans+'%';
+    document.getElementById('roiTicketV').textContent='$'+fmt(ticket);
+    const missed=Math.round(leads*30*(1-ans/100));
+    const rec=Math.round(missed*CONV);
+    document.getElementById('roiMissed').textContent=fmt(missed);
+    document.getElementById('roiRec').textContent=fmt(rec);
+    document.getElementById('roiRev').textContent='$'+fmt(rec*ticket)+'/mo';
+  }
+  [L,A,T].forEach(el=>el.addEventListener('input',calc));
+  window.recalcROI=calc;calc();
+})();
+
+/* ================================================================
+   CONFIG: your WhatsApp Business number (country code + number, digits only).
+   Used by the floating button AND the lead form handoff.
+   ================================================================ */
+const ELYON_WA='0000000000'; // TODO: replace before launch, e.g. '5215512345678'
+
+/* ---- analytics helper: wire GA4 / Meta Pixel here ---- */
+function trackEvent(ev,props){
+  try{
+    if(window.gtag)gtag('event',ev,props||{});
+    if(window.fbq)fbq('trackCustom',ev,props||{});
+  }catch(err){}
+}
+/* capture ad attribution once per visit */
+const UTM=(()=>{const p=new URLSearchParams(location.search),o={};
+  ['utm_source','utm_medium','utm_campaign','utm_content'].forEach(k=>{if(p.get(k))o[k]=p.get(k)});return o})();
+
+/* point the floating button at the configured number */
+(function(){const f=document.querySelector('.wa-float');
+  if(f){f.href='https://wa.me/'+ELYON_WA+'?text='+encodeURIComponent(currentLang==='es'?'Hola Elyon, quiero ver el agente en acción':'Hi Elyon, I want to see the agent in action');
+    f.addEventListener('click',()=>trackEvent('wa_float_click',UTM));}})();
+
+/* CTA + tab tracking (delegated) */
+document.addEventListener('click',e=>{
+  const a=e.target.closest('a.btn[href="#channel"]');
+  if(a)trackEvent('cta_click',{label:a.textContent.trim(),...UTM});
+  const seg=e.target.closest('.seg');
+  if(seg)trackEvent('demo_tab',{tab:seg.textContent.trim()});
+});
+
+/* ---- lead form: opens WhatsApp with a prefilled summary (no backend needed) ---- */
+function handleSubmit(e){
+  e.preventDefault();
+  const f=e.target,v=n=>f.querySelector('[name='+n+']').value;
+  const es=currentLang==='es';
+  const lines=[
+    es?'Hola Elyon, quiero mi prueba gratis de 7 días.':'Hi Elyon, I want my free 7-day trial.',
+    (es?'Nombre: ':'Name: ')+v('name'),
+    (es?'Negocio: ':'Business: ')+v('business'),
+    (es?'Industria: ':'Industry: ')+v('industry'),
+    (es?'País: ':'Country: ')+v('country'),
+    'WhatsApp: '+v('whatsapp'),
+    (es?'Agente: ':'Agent: ')+v('agent'),
+    (es?'Volumen: ':'Volume: ')+v('volume')
+  ];
+  if(Object.keys(UTM).length)lines.push('Ref: '+Object.values(UTM).join(' / '));
+  trackEvent('lead_submit',{agent:v('agent'),volume:v('volume'),...UTM});
+  window.open('https://wa.me/'+ELYON_WA+'?text='+encodeURIComponent(lines.join('\n')),'_blank');
+  const btn=f.querySelector('button[type=submit]');
+  btn.textContent=es?ES['f.sent']:'Request received ✓';
+  btn.disabled=true;btn.style.opacity=.8;
+  document.getElementById('fNote').textContent=es?ES['f.sentnote']:'CHANNEL OPEN. WE WILL CONTACT YOU ON WHATSAPP SHORTLY.';
+  return false;
+}
+
+/* ---- init ---- */
+setLang(detectLang());
+</script>
+</body>
+</html>
