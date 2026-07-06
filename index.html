@@ -37,7 +37,7 @@
 </script>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Martian+Mono:wght@300;400;500;700;800&family=IBM+Plex+Mono:ital,wght@0,400;0,500;0,600;1,400&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Martian+Mono:wght@400;700;800&family=IBM+Plex+Mono:wght@400;500;600&display=swap" rel="stylesheet">
 <style>
 /* ==========================================================
    BRAND TOKENS / swap here to rebrand
@@ -95,6 +95,7 @@ button{font-family:inherit}
 
 /* section frame system */
 .sec{border-bottom:1.5px solid var(--rule);position:relative}
+.sec:not(#top){content-visibility:auto;contain-intrinsic-size:auto 800px}
 .sec.dark{background:var(--carbon);color:var(--bone)}
 .sec.dark .sec-head{border-color:var(--rule-d)}
 .sec-head{
@@ -582,6 +583,10 @@ footer{background:var(--carbon);color:var(--bone)}
 .roi-in{padding:clamp(24px,3.4vw,44px) 24px;border-right:1.5px solid var(--rule-d);display:flex;flex-direction:column;gap:1.6rem}
 .roi-field label{display:flex;justify-content:space-between;font-size:.66rem;letter-spacing:.14em;text-transform:uppercase;opacity:.7;margin-bottom:.6rem}
 .roi-field label b{color:var(--cobalt-lt);font-family:var(--disp)}
+.cur-toggle{display:inline-flex;border:1.5px solid var(--rule-d);margin-top:.2rem}
+.cur-toggle button{background:transparent;border:0;color:var(--bone);opacity:.45;font-family:var(--disp);font-weight:700;font-size:.66rem;letter-spacing:.1em;padding:.5rem 1.1rem;cursor:pointer;transition:opacity .15s,background .15s}
+.cur-toggle button+button{border-left:1.5px solid var(--rule-d)}
+.cur-toggle button.on{opacity:1;background:var(--cobalt);color:#fff}
 .roi input[type=range]{width:100%;appearance:none;height:3px;background:var(--rule-d);outline:none}
 .roi input[type=range]::-webkit-slider-thumb{appearance:none;width:16px;height:16px;background:var(--cobalt);border:2px solid var(--bone);cursor:pointer}
 .roi input[type=range]::-moz-range-thumb{width:14px;height:14px;background:var(--cobalt);border:2px solid var(--bone);cursor:pointer;border-radius:0}
@@ -658,6 +663,11 @@ footer{background:var(--carbon);color:var(--bone)}
   .langsw button{padding:0 9px}
 }
 </style>
+<noscript><style>
+.tx-msg,.call-line{display:block!important}
+.rv,.tx-result span{opacity:1!important;transform:none!important}
+#resultsHost .tx-result:first-child{display:flex!important}
+</style></noscript>
 </head>
 <body>
 <a class="skip" href="#top" data-i18n="a11y.skip">Skip to content</a>
@@ -1110,6 +1120,10 @@ footer{background:var(--carbon);color:var(--bone)}
     <div class="roi rv">
       <div class="roi-in">
         <div class="roi-field">
+          <label><span data-i18n="roi.cur">Currency</span></label>
+          <div class="cur-toggle"><button type="button" class="on" id="curMXN">MXN</button><button type="button" id="curUSD">USD</button></div>
+        </div>
+        <div class="roi-field">
           <label><span data-i18n="roi.l1">Leads / messages per day</span><b id="roiLeadsV">20</b></label>
           <input type="range" id="roiLeads" min="1" max="200" value="20">
         </div>
@@ -1118,7 +1132,7 @@ footer{background:var(--carbon);color:var(--bone)}
           <input type="range" id="roiAns" min="0" max="100" value="40">
         </div>
         <div class="roi-field">
-          <label><span data-i18n="roi.l3">Average sale / ticket value (USD)</span><b id="roiTicketV">$150</b></label>
+          <label><span data-i18n="roi.l3">Average sale / ticket value</span><b id="roiTicketV">$150</b></label>
           <input type="range" id="roiTicket" min="20" max="2000" step="10" value="150">
         </div>
       </div>
@@ -1347,6 +1361,7 @@ footer{background:var(--carbon);color:var(--bone)}
    ES lives in the dictionary below. Edit freely.
    ========================================================== */
 const ES = {
+  'roi.cur':'Moneda',
   'tr.cap':'La prueba incluye hasta 150 conversaciones de IA + 30 minutos de voz. Sin tarjeta.',
   'gua.4':'<b style="color:var(--ok)">Garantía de 30 días:</b> si no hay citas agendadas en tu primer mes pagado, reembolso total',
   'faq.q8':'¿La prueba gratis es realmente gratis? ¿Qué incluye?','faq.a8':'Sí. Sin tarjeta. La prueba incluye hasta 150 conversaciones de IA y 30 minutos de voz durante 7 días, más que suficiente para ver a tu agente responder, calificar y agendar con clientes reales. Si superas el uso incluido durante la prueba, simplemente pausamos el agente y te preguntamos si quieres continuar con un plan de pago.',
@@ -1367,7 +1382,7 @@ const ES = {
   'ws.h':'Funciona con las herramientas que ya usas',
   'roi.idx':'04.5 / CALCULADORA DE INGRESOS PERDIDOS','roi.sub':'Estímalo en 10 segundos',
   'roi.h':'¿Cuánto te cuestan los leads sin respuesta?',
-  'roi.l1':'Leads / mensajes por día','roi.l2':'% respondido rápido hoy','roi.l3':'Ticket promedio (USD)',
+  'roi.l1':'Leads / mensajes por día','roi.l2':'% respondido rápido hoy','roi.l3':'Ticket promedio',
   'roi.o1':'Leads que se enfrían cada mes','roi.o2':'Citas que un agente de IA podría recuperar','roi.o3':'Ingresos estimados recuperados / mes',
   'roi.note':'Estimación. Asume que el 30% de los leads respondidos al instante se convierten en cita. Tus resultados dependen de tu industria y tu oferta.',
   'cmp.h0':'Capacidad','cmp.h2':'Solo recepción','cmp.h3':'Chatbot básico',
@@ -1670,25 +1685,43 @@ const stageIO=new IntersectionObserver(es=>{
 stageIO.observe(document.querySelector('.phone-stage'));
 
 
-/* ---- ROI calculator ---- */
+/* ---- ROI calculator (MX-first: MXN default, USD toggle) ---- */
 (function(){
   const L=document.getElementById('roiLeads'),A=document.getElementById('roiAns'),T=document.getElementById('roiTicket');
   if(!L)return;
   const CONV=0.30; // assumed booking rate on instantly-answered leads
+  const FX=18.5;   // approx MXN per USD; cosmetic only
+  const CUR={MXN:{min:300,max:40000,step:100,def:2500},USD:{min:20,max:2000,step:10,def:150}};
+  let cur='MXN';
+  const bM=document.getElementById('curMXN'),bU=document.getElementById('curUSD');
   function fmt(n){return n.toLocaleString(currentLang==='es'?'es-MX':'en-US')}
+  function applyCur(c,convert){
+    const next=CUR[c];let val=+T.value;
+    if(convert&&c!==cur){val=Math.round((c==='USD'?val/FX:val*FX)/next.step)*next.step}
+    else if(!convert){val=next.def}
+    cur=c;
+    T.min=next.min;T.max=next.max;T.step=next.step;
+    T.value=Math.min(Math.max(val,next.min),next.max);
+    bM.classList.toggle('on',c==='MXN');bU.classList.toggle('on',c==='USD');
+    calc();
+  }
   function calc(){
     const leads=+L.value,ans=+A.value,ticket=+T.value;
     document.getElementById('roiLeadsV').textContent=fmt(leads);
     document.getElementById('roiAnsV').textContent=ans+'%';
-    document.getElementById('roiTicketV').textContent='$'+fmt(ticket);
+    document.getElementById('roiTicketV').textContent='$'+fmt(ticket)+' '+cur;
     const missed=Math.round(leads*30*(1-ans/100));
     const rec=Math.round(missed*CONV);
     document.getElementById('roiMissed').textContent=fmt(missed);
     document.getElementById('roiRec').textContent=fmt(rec);
-    document.getElementById('roiRev').textContent='$'+fmt(rec*ticket)+'/mo';
+    document.getElementById('roiRev').textContent='$'+fmt(rec*ticket)+' '+cur+(currentLang==='es'?'/mes':'/mo');
   }
+  bM.addEventListener('click',()=>{applyCur('MXN',true);trackEvent('roi_currency',{cur:'MXN'})});
+  bU.addEventListener('click',()=>{applyCur('USD',true);trackEvent('roi_currency',{cur:'USD'})});
   [L,A,T].forEach(el=>el.addEventListener('input',calc));
-  window.recalcROI=calc;calc();
+  window.recalcROI=calc;
+  window.setRoiCur=c=>applyCur(c,false);
+  applyCur('MXN',false);
 })();
 
 /* ================================================================
@@ -1748,6 +1781,7 @@ function handleSubmit(e){
 
 /* ---- init ---- */
 setLang(detectLang());
+if(window.setRoiCur)setRoiCur(currentLang==='es'?'MXN':'USD');
 </script>
 </body>
 </html>
