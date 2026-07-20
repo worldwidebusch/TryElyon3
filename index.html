@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="es">
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -1580,8 +1580,7 @@ function setLang(l){
 }
 function detectLang(){
   try{const saved=localStorage.getItem('elyon-lang');if(saved==='es'||saved==='en')return saved;}catch(e){}
-  const nav=(navigator.languages&&navigator.languages[0])||navigator.language||'en';
-  return nav.toLowerCase().startsWith('es')?'es':'en';
+  return 'es'; // Spanish is the site's base language; EN available via the toggle
 }
 
 /* ---- ticker (seamless loop, language-aware) ---- */
@@ -1781,7 +1780,7 @@ function handleSubmit(e){
 
 /* ---- init ---- */
 setLang(detectLang());
-if(window.setRoiCur)setRoiCur(currentLang==='es'?'MXN':'USD');
+if(window.setRoiCur)setRoiCur('MXN');
 </script>
 </body>
 </html>
