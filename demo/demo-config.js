@@ -51,16 +51,14 @@ var ELYON_DEMOS = [
     widget: {
       placement: 'inline',
       /* ----------------------------------------------------------------
-         PASTE THE GoHighLevel VOICE AI WEB-CALL WIDGET EMBED HERE, verbatim.
-         Requirements for it to render inside the card:
-           • It must be the Voice AI web-call widget (a Call button / mic),
-             NOT a Chat/Text widget (that one is a floating message form).
-           • Its "Widget Placement" must be Embedded / Inline, NOT floating.
-         The previous value here was a chat widget (id 6a6167b1cbb3de01dd6c4421)
-         and has been removed. Until the real voice embed is pasted, the page
-         shows a "widget sin configurar" notice instead of a broken widget.
+         GoHighLevel Chat Widget that hosts the Voice AI agent, verbatim.
+         REQUIRED for it to render inside the card instead of a floating
+         bubble: in GoHighLevel, set this widget's "Widget Placement" to
+         Embedded / Inline (NOT floating), save, then hard-refresh the page.
+         Placement is read from GHL by data-widget-id, so the snippet itself
+         does not change — only the GHL setting.
          ---------------------------------------------------------------- */
-      embedHtml: `[PASTE_THE_COMPLETE_GHL_WIDGET_EMBED_CODE_HERE]`
+      embedHtml: `<script src="https://widgets.leadconnectorhq.com/loader.js" data-resources-url="https://widgets.leadconnectorhq.com/chat-widget/loader.js" data-widget-id="6a6167b1cbb3de01dd6c4421"></script>`
     }
   }
 ];
