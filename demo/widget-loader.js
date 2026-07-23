@@ -92,7 +92,13 @@
     function rendered() {
       // The provider injected real DOM into the slot (iframe, button, custom
       // element, etc.) beyond the markup we placed there ourselves.
-      return !!slot.querySelector('iframe, button, canvas, [class*="widget"], [id*="widget"], [class*="call"], [class*="voice"]');
+      var el = slot.querySelector('iframe, button, canvas, chat-widget, [class*="widget"], [id*="widget"], [class*="call"], [class*="voice"]');
+      if (!el) return false;
+      // It must actually occupy space INSIDE the card — an embedded/inline
+      // widget. A floating widget mounts a zero-size host here and pins its
+      // UI to the viewport corner instead; that does not count as inline and
+      // should surface the fallback so the widget gets switched to Inline.
+      return el.offsetWidth > 20 && el.offsetHeight > 20;
     }
 
     // Split the embed into scripts vs. everything else, preserving order.
