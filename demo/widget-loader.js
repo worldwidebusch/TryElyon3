@@ -89,16 +89,29 @@
       host.setAttribute('data-widget-state', 'ready');
       onReady();
     }
-    function rendered() {
-      // The provider injected real DOM into the slot (iframe, button, custom
-      // element, etc.) beyond the markup we placed there ourselves.
-      var el = slot.querySelector('iframe, button, canvas, chat-widget, [class*="widget"], [id*="widget"], [class*="call"], [class*="voice"]');
+    function bigEnough(r) { return r && r.width >= 120 && r.height >= 40; }
+    function hasVisibleWidget(el) {
       if (!el) return false;
-      // It must actually occupy space INSIDE the card — an embedded/inline
-      // widget. A floating widget mounts a zero-size host here and pins its
-      // UI to the viewport corner instead; that does not count as inline and
-      // should surface the fallback so the widget gets switched to Inline.
-      return el.offsetWidth > 20 && el.offsetHeight > 20;
+      // The widget occupies real space in the card itself…
+      if (bigEnough(el.getBoundingClientRect())) return true;
+      // …or its UI lives in a shadow root (e.g. GHL <chat-widget> collapses
+      // its host but paints a sized panel inside its shadow DOM). Pierce one
+      // level and look for a genuinely-sized element there.
+      if (el.shadowRoot) {
+        var kids = el.shadowRoot.querySelectorAll('div, button, iframe, a');
+        for (var i = 0; i < kids.length; i++) {
+          if (bigEnough(kids[i].getBoundingClientRect())) return true;
+        }
+      }
+      return false;
+    }
+    function rendered() {
+      // A widget element the provider injected into the slot, rendered at a
+      // real size — an embedded/inline widget. A floating widget mounts a
+      // zero-size host and pins a launcher to the viewport corner instead,
+      // which stays "not rendered" so the fallback surfaces.
+      var el = slot.querySelector('iframe, button, canvas, chat-widget, [data-chat-widget], [class*="widget"], [id*="widget"], [class*="call"], [class*="voice"]');
+      return hasVisibleWidget(el);
     }
 
     // Split the embed into scripts vs. everything else, preserving order.
@@ -136,11 +149,19 @@
       }
     });
 
+    // Poll for hydration: widgets that paint inside a shadow root don't
+    // trigger the light-DOM observer, so a timer is the reliable signal.
+    var poll = global.setInterval(function () {
+      if (settled) { global.clearInterval(poll); return; }
+      if (rendered()) { global.clearInterval(poll); if (observer) observer.disconnect(); succeed(); }
+    }, 400);
+
     chain.then(function () {
-      // Scripts are in and none errored. Give a fast follow-up check in case
-      // the widget rendered synchronously before the observer attached.
-      if (!settled && rendered()) { if (observer) observer.disconnect(); succeed(); }
+      // Scripts are in and none errored. Fast check in case the widget
+      // rendered synchronously before the observer/poll attached.
+      if (!settled && rendered()) { global.clearInterval(poll); if (observer) observer.disconnect(); succeed(); }
     }).catch(function () {
+      global.clearInterval(poll);
       if (observer) observer.disconnect();
       fail('script_error'); // a required script failed to load
     });
@@ -148,6 +169,7 @@
     // Timeout guard: scripts loaded but nothing rendered in the card. This is
     // usually a network problem or a widget still set to floating placement.
     global.setTimeout(function () {
+      global.clearInterval(poll);
       if (settled) return;
       if (rendered()) { if (observer) observer.disconnect(); succeed(); return; }
       if (observer) observer.disconnect();
