@@ -39,6 +39,17 @@
         '¿Pueden contactarme por WhatsApp?'
       ],
       notice: 'Esta es una demostración personalizada. Los servicios, horarios, respuestas, herramientas y acciones se configuran completamente antes de la activación.',
+      bfEyebrow: 'Por qué Elyon',
+      bfH: 'Una recepcionista de IA que trabaja como parte de tu equipo',
+      bfLede: 'Se configura por completo a la medida de tu negocio y atiende cada contacto al instante, para que no pierdas ni una sola oportunidad.',
+      benefits: [
+        { title: 'Totalmente personalizable', text: 'Se adapta a tus servicios, precios, horarios y tono de voz. Habla como tu negocio, no como un robot genérico.' },
+        { title: 'Disponible 24/7', text: 'Responde al instante de día, de noche, fines de semana y días festivos. Nunca deja una consulta sin atender.' },
+        { title: 'Primera línea o respaldo', text: 'Ponla a atender todas las llamadas, o solo cuando tu equipo no alcanza a contestar. Tú decides cómo trabaja.' },
+        { title: 'También en WhatsApp, Facebook e Instagram', text: 'Además de la voz, la versión de chat responde en WhatsApp, Facebook Messenger e Instagram desde un mismo lugar.' },
+        { title: 'Ahorra tiempo y dinero', text: 'Automatiza las consultas repetitivas y libera a tu equipo del teléfono, sin sumar más personal para crecer.' },
+        { title: 'Más clientes atendidos', text: 'Contesta al momento, resuelve dudas, solicita los datos del cliente y pide el seguimiento del equipo cuando hace falta.' }
+      ],
       loading: 'Iniciando la recepcionista…',
       wErrTitle: 'No se pudo cargar la demo',
       wErrBody: 'La recepcionista de IA no cargó en este dispositivo o red. Escríbenos por WhatsApp y te la mostramos al instante.',
@@ -77,6 +88,17 @@
         'Can you contact me on WhatsApp?'
       ],
       notice: 'This is a personalized demo. Services, hours, responses, tools and actions are fully configured before activation.',
+      bfEyebrow: 'Why Elyon',
+      bfH: 'An AI receptionist that works like part of your team',
+      bfLede: 'Fully configured to fit your business, answering every contact instantly so you never miss an opportunity.',
+      benefits: [
+        { title: 'Fully customizable', text: 'Adapts to your services, prices, hours and tone of voice. It sounds like your business, not a generic bot.' },
+        { title: 'Available 24/7', text: 'Responds instantly day, night, weekends and holidays. It never leaves a question unanswered.' },
+        { title: 'First line or backup', text: 'Have it answer every call, or only when your team can’t pick up. You decide how it works.' },
+        { title: 'Also on WhatsApp, Facebook & Instagram', text: 'Beyond voice, the chat version replies on WhatsApp, Facebook Messenger and Instagram from one place.' },
+        { title: 'Saves time and money', text: 'Automates repetitive questions and frees your team from the phone, without hiring more people to grow.' },
+        { title: 'More customers served', text: 'Answers on the spot, resolves questions, collects the customer’s details and requests team follow-up when needed.' }
+      ],
       loading: 'Starting the receptionist…',
       wErrTitle: 'The demo could not load',
       wErrBody: 'The AI receptionist did not load on this device or network. Message us on WhatsApp and we will show it to you right away.',
@@ -185,6 +207,30 @@
     buildList($('qs-list'), t.questions);
     setText('demo-notice', t.notice);
     setText('loading-text', t.loading);
+
+    // benefits / why-elyon grid
+    setText('bf-eyebrow', t.bfEyebrow);
+    setText('bf-h', t.bfH);
+    setText('bf-lede', t.bfLede);
+    var bg = $('benefits-grid');
+    if (bg && t.benefits) {
+      bg.innerHTML = '';
+      t.benefits.forEach(function (b, i) {
+        var card = document.createElement('div');
+        card.className = 'bf-card';
+        var idx = document.createElement('span');
+        idx.className = 'idx';
+        idx.textContent = (i + 1 < 10 ? '0' : '') + (i + 1);
+        var h = document.createElement('h3');
+        h.textContent = b.title;
+        var p = document.createElement('p');
+        p.textContent = b.text;
+        card.appendChild(idx);
+        card.appendChild(h);
+        card.appendChild(p);
+        bg.appendChild(card);
+      });
+    }
 
     // conversion
     setText('cv-h', t.convertH);
