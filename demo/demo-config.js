@@ -76,9 +76,12 @@ var ELYON_DEMOS = [
     whatsappNumber: ELYON_WA_DEFAULT,
     widget: {
       placement: 'inline',
-      /* PENDING: paste the generic Sofía agent's inline embed here
-         (<div data-chat-widget ...> + loader <script>, verbatim). */
-      embedHtml: `[PASTE_THE_COMPLETE_GHL_WIDGET_EMBED_CODE_HERE]`
+      /* NOTE: this is currently the SAME widget/agent as the-shop-automotive
+         (agent "The Shop Automotive Service"). For the general demo the
+         agent should be renamed/reconfigured in GoHighLevel as a generic
+         "Sofía" receptionist — otherwise callers on this page hear it
+         introduce itself as an automotive shop. */
+      embedHtml: `<div data-chat-widget data-widget-id="6a61922ecbb3de01dd722f05" data-location-id="5ynssMYlwC8Q67rGQchD"></div><script src="https://widgets.leadconnectorhq.com/loader.js" data-resources-url="https://widgets.leadconnectorhq.com/chat-widget/loader.js" data-widget-id="6a61922ecbb3de01dd722f05"></script>`
     }
   },
 
