@@ -13,8 +13,28 @@
     Referrer-Policy = "strict-origin-when-cross-origin"
     Permissions-Policy = "camera=(), microphone=(self), geolocation=()"
 
+# Personalized demo pages need the microphone in the embedded Voice AI widget,
+# which loads its call UI from GoHighLevel (leadconnectorhq.com). Allow the mic
+# for self + that origin on /demo/* only. (This block is more specific than /*,
+# so it overrides the global microphone policy for demo pages.)
+[[headers]]
+  for = "/demo/*"
+  [headers.values]
+    X-Frame-Options = "DENY"
+    X-Content-Type-Options = "nosniff"
+    Referrer-Policy = "strict-origin-when-cross-origin"
+    Permissions-Policy = 'camera=(), microphone=(self "https://widgets.leadconnectorhq.com"), geolocation=()'
+
 # Brand SVGs never change once shipped: cache hard
 [[headers]]
   for = "/brand/assets/*"
   [headers.values]
     Cache-Control = "public, max-age=31536000, immutable"
+
+# Dynamic demo route: tryelyon.com/demo/<slug> is served by the demo template,
+# which reads <slug> client-side from demo-config.js. Real files under /demo
+# (index.html, demo.css, *.js) are served directly; only unknown paths rewrite.
+[[redirects]]
+  from = "/demo/*"
+  to = "/demo/index.html"
+  status = 200
