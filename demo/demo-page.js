@@ -346,7 +346,20 @@
         trackEvent('demo_wa_contact', { slug: demo ? demo.slug : '(none)', placement: pair[1] });
       });
     });
-    setText('wa-header', WA_DISPLAY);
+    // Header chip: number hides on very small screens (CSS) so the top bar
+    // stays a single row on 320-400px phones.
+    var chip = $('wa-header');
+    if (chip) {
+      chip.textContent = '';
+      var w = document.createElement('span');
+      w.className = 'wa-w';
+      w.textContent = 'WhatsApp';
+      var n = document.createElement('span');
+      n.className = 'wa-n';
+      n.textContent = ' ' + WA_DISPLAY;
+      chip.appendChild(w);
+      chip.appendChild(n);
+    }
     setText('foot-wa', 'WhatsApp ' + WA_DISPLAY);
   }
 
@@ -405,6 +418,9 @@
     }
     window.addEventListener('scroll', onScroll, { passive: true });
     window.addEventListener('resize', onScroll, { passive: true });
+    // Heartbeat fallback: keeps sticky/reveal state correct even in
+    // contexts where scroll events are throttled or suppressed.
+    setInterval(update, 700);
     update();
   }
 

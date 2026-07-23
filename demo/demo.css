@@ -57,6 +57,8 @@ img,svg{max-width:100%}
 .brand{
   font-family:var(--disp);font-weight:800;font-size:clamp(.92rem,2.5vw,1.1rem);
   text-transform:uppercase;letter-spacing:-.01em;line-height:1.2;
+  flex:1;min-width:0;overflow-wrap:break-word; /* long business names wrap
+  inside the brand column instead of pushing the WhatsApp chip down */
 }
 .brand small{display:block;font-family:var(--body);font-weight:500;font-size:.64rem;letter-spacing:.1em;color:var(--ink-soft);text-transform:uppercase;margin-top:2px}
 .top-chip{
@@ -65,6 +67,12 @@ img,svg{max-width:100%}
   transition:background .15s,color .15s;
 }
 .top-chip:hover{background:var(--accent);color:var(--on-accent)}
+/* keep the top bar a single row on small phones: number appears >=420px */
+@media (max-width:419.98px){.top-chip .wa-n{display:none}}
+@media (max-width:359.98px){
+  .brand small{font-size:.58rem;letter-spacing:.05em}
+  .top-chip{padding:.4rem .6rem;font-size:.64rem}
+}
 
 /* --- layout shell --- */
 .wrap{max-width:1180px;margin:0 auto;padding:clamp(30px,5vw,64px) clamp(16px,4vw,24px)}
@@ -175,6 +183,12 @@ img,svg{max-width:100%}
 .btn.fill{background:var(--accent);border-color:var(--accent);color:var(--on-accent)}
 .btn.fill:hover{background:var(--accent-dark);border-color:var(--accent-dark)}
 .btn.big{padding:1.05rem 1.8rem;font-size:.8rem}
+/* thumb-friendly: primary CTAs span the full width on phones */
+@media (max-width:619.98px){
+  .btn.big{width:100%}
+  .hero-cta{align-items:stretch}
+  .hero-cta .trust-line{justify-content:center}
+}
 
 /* --- benefits: short checkmark lines + closing statement + mid CTA --- */
 .benefits{border-top:1.5px solid var(--rule)}
@@ -191,6 +205,9 @@ img,svg{max-width:100%}
 }
 .bf-close{margin-top:1.7rem;font-size:clamp(1.05rem,2.3vw,1.45rem);color:var(--accent)}
 .cta-mid{margin-top:1.6rem}
+
+/* Below-fold sections skip initial render work on low-end phones. */
+.how,.faq,.convert{content-visibility:auto;contain-intrinsic-size:auto 620px}
 
 /* --- how the trial works: 3 steps, last one highlighted --- */
 .how{border-top:1.5px solid var(--rule);background:var(--surface)}
