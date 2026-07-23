@@ -12,6 +12,13 @@
    industry        Free text (e.g. "Taller automotriz").
    city            Free text (e.g. "Querétaro, México").
    language        "es" or "en". Drives on-page copy.
+   template        Business-type design template (colors, fonts, motif and
+                   industry-tailored suggested questions). One of:
+                   "automotive" | "dental" | "restaurant" | "beauty" |
+                   "fitness" | "professional" (default when omitted).
+                   Defined in demo-templates.js — add new types there.
+   questions       OPTIONAL array of 3 strings. Overrides the template's
+                   suggested test questions for this business only.
    trialDays       Number of free-trial days offered (e.g. 7).
    status          "active"  -> demo is live.
                    "inactive"-> shows the not-found state.
@@ -44,6 +51,7 @@ var ELYON_DEMOS = [
     industry: 'Taller automotriz',
     city: 'Querétaro, México',
     language: 'es',
+    template: 'automotive',
     trialDays: 7,
     status: 'active',
     expiresAt: null,

@@ -127,6 +127,63 @@
   function show(id) { var el = $(id); if (el) el.classList.remove('hidden'); }
   function setText(id, txt) { var el = $(id); if (el) el.textContent = txt; }
 
+  /* ---- business-type template: colors, fonts, motif, favicon ----
+     Templates live in demo-templates.js; this applies one to the page. */
+  function hexToRgba(hex, a) {
+    var m = /^#?([0-9a-f]{6})$/i.exec(String(hex || ''));
+    if (!m) return null;
+    var n = parseInt(m[1], 16);
+    return 'rgba(' + (n >> 16 & 255) + ',' + (n >> 8 & 255) + ',' + (n & 255) + ',' + a + ')';
+  }
+
+  function applyTemplate(tpl) {
+    if (!tpl) return;
+    var root = document.documentElement;
+    var map = {
+      '--t-bg': tpl.palette.bg,
+      '--t-surface': tpl.palette.surface,
+      '--t-ink': tpl.palette.ink,
+      '--t-ink-soft': tpl.palette.inkSoft,
+      '--t-accent': tpl.palette.accent,
+      '--t-accent-dark': tpl.palette.accentDark,
+      '--t-on-accent': tpl.palette.onAccent,
+      '--t-card-bg': tpl.palette.cardBg,
+      '--t-card-ink': tpl.palette.cardInk,
+      '--t-rule': tpl.palette.rule,
+      '--t-disp': tpl.displayFamily,
+      '--t-body': tpl.bodyFamily,
+      '--t-motif-ink': tpl.motifInk || hexToRgba(tpl.palette.ink, 0.05) || 'rgba(0,0,0,.05)'
+    };
+    for (var k in map) { if (map[k]) root.style.setProperty(k, map[k]); }
+
+    // template fonts (Google Fonts, loaded once)
+    if (tpl.fontCss && !document.querySelector('link[data-tpl-font]')) {
+      var l = document.createElement('link');
+      l.rel = 'stylesheet';
+      l.href = tpl.fontCss;
+      l.setAttribute('data-tpl-font', '1');
+      document.head.appendChild(l);
+    }
+
+    // background motif
+    document.body.setAttribute('data-motif', tpl.motif || 'none');
+
+    // favicon + theme color tinted to the template accent
+    var fav = $('favicon');
+    if (fav) {
+      var a = encodeURIComponent(tpl.palette.accent);
+      var o = encodeURIComponent(tpl.palette.onAccent);
+      fav.href = 'data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100"><rect width="100" height="100" rx="18" fill="' + a + '"/><path d="M50 24a12 12 0 0 0-12 12v14a12 12 0 0 0 24 0V36a12 12 0 0 0-12-12Z" fill="' + o + '"/><path d="M30 50a20 20 0 0 0 40 0h-7a13 13 0 0 1-26 0Zm17 26h6v-8h-6Z" fill="' + o + '"/></svg>';
+    }
+    var tc = document.querySelector('meta[name="theme-color"]');
+    if (tc) tc.setAttribute('content', tpl.palette.cardBg);
+  }
+
+  function resolveTemplate(demo) {
+    if (typeof elyonTemplate !== 'function') return null; // demo-templates.js missing
+    return elyonTemplate(demo && demo.template);
+  }
+
   function slugFromLocation() {
     // Primary: path segment after /demo/. Fallback: ?slug= (local/file use).
     var m = location.pathname.match(/\/demo\/([^\/?#]+)/i);
@@ -173,10 +230,22 @@
 
   function renderActive(demo, t) {
     var number = elyonWhatsApp(demo);
+    var tpl = resolveTemplate(demo);
 
     // <head>
     document.title = 'Demo IA para ' + demo.businessName + ' | Elyon';
     document.documentElement.lang = demo.language || 'es';
+
+    // header: branded for the business, not Elyon
+    var brand = $('brand-name');
+    if (brand) {
+      brand.textContent = '';
+      brand.appendChild(document.createTextNode(demo.businessName));
+      var sm = document.createElement('small');
+      sm.textContent = [demo.industry, demo.city].filter(Boolean).join(' · ');
+      brand.appendChild(sm);
+    }
+    setText('top-chip', t.badge);
 
     // hero
     setText('badge-text', t.badge);
@@ -204,7 +273,10 @@
     setText('card-title', t.cardTitle);
     buildList($('steps'), t.steps);
     setText('qs-label', t.qsLabel);
-    buildList($('qs-list'), t.questions);
+    // suggested questions: per-business override > industry template > generic
+    var questions = demo.questions ||
+      (demo.language === 'es' && tpl && tpl.questions_es) || t.questions;
+    buildList($('qs-list'), questions);
     setText('demo-notice', t.notice);
     setText('loading-text', t.loading);
 
@@ -315,11 +387,17 @@
     var lang = (demo && COPY[demo.language]) ? demo.language : 'es';
     var t = COPY[lang];
 
+    // Skin the page for the business type (neutral template when unknown).
+    applyTemplate(resolveTemplate(demo));
+
     if (!demo || demo.status !== 'active') {
       renderNotFound(COPY.es); // not-found copy stays Spanish (site default)
       return;
     }
     if (elyonDemoExpired(demo)) {
+      // keep the branded header even on the ended state
+      var brand = $('brand-name');
+      if (brand) brand.textContent = demo.businessName;
       renderEnded(demo, t);
       return;
     }

@@ -7,33 +7,32 @@
 <meta name="robots" content="noindex, nofollow">
 <meta name="googlebot" content="noindex, nofollow">
 <title>Demo IA para The Shop Automotive Service | Elyon</title>
-<meta name="description" content="Demostración personalizada de la recepcionista de IA de Elyon.">
-<meta name="theme-color" content="#0F0F12">
-<link rel="icon" type="image/svg+xml" href='data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100"><rect width="100" height="100" fill="%230F0F12"/><rect x="22" y="22" width="12" height="56" fill="%23EFEDE6"/><rect x="22" y="22" width="56" height="12" fill="%232038E6"/><rect x="22" y="44" width="44" height="12" fill="%23EFEDE6"/><rect x="22" y="66" width="32" height="12" fill="%23EFEDE6"/></svg>'>
+<meta name="description" content="Demostración personalizada de recepcionista de IA.">
+<meta name="theme-color" content="#1c2430">
+<link id="favicon" rel="icon" type="image/svg+xml" href='data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100"><rect width="100" height="100" rx="18" fill="%231f3a5f"/><path d="M50 24a12 12 0 0 0-12 12v14a12 12 0 0 0 24 0V36a12 12 0 0 0-12-12Z" fill="%23ffffff"/><path d="M30 50a20 20 0 0 0 40 0h-7a13 13 0 0 1-26 0Zm17 26h6v-8h-6Z" fill="%23ffffff"/></svg>'>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Martian+Mono:wght@400;700;800&family=IBM+Plex+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+<!-- Template fonts are injected at runtime by demo-page.js from demo-templates.js -->
 <!-- ANALYTICS: the same GA4 / Meta Pixel snippet used on the main site can be
      pasted here; events already fire through trackEvent() in demo-page.js. -->
 <link rel="stylesheet" href="/demo/demo.css">
 </head>
-<body>
+<body data-motif="none">
 <a class="skip" href="#main">Ir al contenido</a>
 
 <header class="topbar">
-  <a class="brand" href="https://tryelyon.com/" aria-label="Elyon — inicio">
-    <svg class="mark" viewBox="-20 -20 100 100" aria-hidden="true"><rect x="0" y="0" width="13" height="60" fill="#131316"/><rect x="0" y="0" width="60" height="13" fill="#2038E6"/><rect x="0" y="23.5" width="47" height="13" fill="#131316"/><rect x="0" y="47" width="34" height="13" fill="#131316"/></svg>
-    ELYON
-  </a>
-  <a class="home" href="https://tryelyon.com/">tryelyon.com</a>
+  <div class="brand" id="brand-name">
+    <!-- business name + industry filled by demo-page.js -->
+  </div>
+  <span class="top-chip" id="top-chip">Demo personalizada</span>
 </header>
 
 <main id="main">
 
   <!-- ============================= ACTIVE ============================= -->
   <section id="view-active" class="hidden">
-    <div class="wrap grid-bg">
-      <div class="hero reg">
+    <div class="wrap">
+      <div class="hero">
 
         <!-- left: pitch -->
         <div class="hero-left">
@@ -45,9 +44,7 @@
 
         <!-- right: the live widget -->
         <div class="hero-right">
-          <div class="card brk">
-            <span class="c tl" aria-hidden="true"></span><span class="c tr" aria-hidden="true"></span>
-            <span class="c bl" aria-hidden="true"></span><span class="c br" aria-hidden="true"></span>
+          <div class="card">
             <div class="card-head">
               <span class="t" id="card-title"></span>
               <span class="idx" aria-hidden="true">VOICE · AI</span>
@@ -75,9 +72,9 @@
       </div>
     </div>
 
-    <!-- why elyon / benefits -->
-    <section class="benefits grid-bg">
-      <div class="wrap reg">
+    <!-- why / benefits -->
+    <section class="benefits">
+      <div class="wrap">
         <span class="lbl bf-eyebrow" id="bf-eyebrow"></span>
         <h2 class="disp" id="bf-h"></h2>
         <p class="bf-lede" id="bf-lede"></p>
@@ -87,7 +84,7 @@
 
     <!-- conversion -->
     <section class="convert">
-      <div class="wrap reg">
+      <div class="wrap">
         <h2 class="disp" id="cv-h"></h2>
         <p id="cv-p"></p>
         <div class="cta-row">
@@ -99,7 +96,7 @@
   </section>
 
   <!-- ============================= ENDED ============================== -->
-  <section id="view-ended" class="state grid-bg hidden">
+  <section id="view-ended" class="state hidden">
     <div class="inner-state">
       <div class="code" aria-hidden="true">— —</div>
       <h1 class="disp" id="ended-title"></h1>
@@ -109,7 +106,7 @@
   </section>
 
   <!-- =========================== NOT FOUND =========================== -->
-  <section id="view-notfound" class="state grid-bg hidden">
+  <section id="view-notfound" class="state hidden">
     <div class="inner-state">
       <div class="code" aria-hidden="true">404</div>
       <h1 class="disp" id="nf-title"></h1>
@@ -121,10 +118,11 @@
 </main>
 
 <footer class="foot">
-  <span>© 2026 Elyon · Demostración privada</span>
-  <span>tryelyon.com</span>
+  <span id="foot-left">Demostración privada</span>
+  <span id="foot-right">Preparada por Elyon</span>
 </footer>
 
+<script src="/demo/demo-templates.js"></script>
 <script src="/demo/demo-config.js"></script>
 <script src="/demo/widget-loader.js"></script>
 <script src="/demo/demo-page.js"></script>
