@@ -2,18 +2,18 @@
    ELYON · DEMO PAGE CONTROLLER
    --------------------------------------------------------------------------
    Reads the slug from the URL, looks up its entry in demo-config.js, and
-   renders the personalized demo. One universal conversion-optimized design;
-   the AI receptionist has a persona name (default "Sofía", configurable per
-   demo) and the copy adapts between business-specific and generic mode
-   (generic: true -> "tu negocio", the one link sent to any prospect).
-   Handles: active / not-found / expired states, WhatsApp CTAs (hero,
-   sticky, bottom), analytics, scroll-aware sticky CTA, reveal animations,
-   and safe widget mounting with loading + error fallback.
+   renders the demo. Content order optimized for the LATAM market: pain-first
+   headline, trial CTA in the first viewport, short checkmark benefits,
+   3-step trial explainer (last step highlighted), FAQ, closing CTA. CTAs
+   repeat through the page (hero / benefits / bottom / sticky) — "perdidos
+   en el texto pero siempre presentes".
+   Persona: Sofía (receptionistName per demo). generic:true entries speak to
+   "tu negocio"; business entries name the business.
    Depends on: demo-config.js, widget-loader.js.
 
-   NOTE ON CLAIMS: every factual claim below (trial length, included usage,
-   setup time, no card, cancel anytime) mirrors what tryelyon.com already
-   publishes. If the main site's terms change, update this copy to match.
+   NOTE ON CLAIMS: every factual claim mirrors what tryelyon.com publishes
+   (150 conversaciones + 30 min voz, 3-5 días hábiles de configuración, sin
+   tarjeta, cancela cuando quieras). Do not add claims the site doesn't make.
    ========================================================================== */
 (function () {
   'use strict';
@@ -30,24 +30,23 @@
   var COPY = {
     es: {
       badge: 'Demo en vivo',
-      /* headline is rendered in parts so the name can be accent-colored */
-      headlineParts: function (d) {
+      headlineParts: function () {
+        return ['Nunca vuelvas a perder un cliente ', 'por no contestar el teléfono', ''];
+      },
+      ledeParts: function (d) {
         return d.generic
-          ? ['Conoce a ', d.rName, ', la recepcionista con IA para tu negocio']
-          : ['Conoce a ', d.rName, ', la recepcionista con IA de ' + d.businessName];
+          ? ['', d.rName, ', tu recepcionista con IA, atiende llamadas y WhatsApp 24/7: responde dudas, agenda citas y da seguimiento por ti.']
+          : ['', d.rName, ', la recepcionista con IA de ' + d.businessName + ', atiende llamadas y WhatsApp 24/7: responde dudas, agenda citas y da seguimiento por ti.'];
       },
-      lede: function (d) {
-        return 'Pruébala ahora. Habla con ' + d.rName + ' como si fueras un cliente y descubre cómo atiende consultas, recopila datos y solicita el seguimiento del equipo.';
-      },
-      heroCta: 'Activar mi prueba gratuita',
-      trust: ['Sin tarjeta', 'Sin contratos', 'Cancelas cuando quieras'],
+      heroCta: function (d) { return 'Activa tu prueba gratuita de ' + d.trialDays + ' días'; },
+      trust: ['Sin tarjeta', 'Sin compromiso', 'Configuración incluida'],
       personaRole: 'Recepcionista con IA',
       personaStatus: 'Disponible 24/7',
       steps: function (d) {
         return [
-          'Pulsa el botón para comenzar.',
+          'Pulsa el botón para llamar.',
           'Permite el acceso al micrófono.',
-          'Habla con ' + d.rName + ' como si fueras un cliente real.'
+          'Pide informes o una cita, como si fueras un cliente real de ' + (d.generic ? 'tu negocio' : d.businessName) + '.'
         ];
       },
       qsLabel: 'Preguntas de prueba sugeridas',
@@ -58,29 +57,25 @@
       ],
       notice: 'Esta es una demostración. Los servicios, horarios, respuestas, herramientas y acciones se configuran completamente a la medida de tu negocio antes de la activación.',
       loading: function (d) { return 'Iniciando a ' + d.rName + '…'; },
+      bfEyebrow: 'Beneficios',
+      bfH: function (d) { return 'Todo lo que ' + d.rName + ' hace por tu negocio'; },
+      checklist: [
+        'Atiende llamadas 24/7, también fines de semana',
+        'Agenda citas automáticamente',
+        'Responde WhatsApp al instante',
+        'Nunca olvida dar seguimiento',
+        'Se adapta a tus servicios y a tu tono',
+        'Más clientes atendidos sin contratar más personal'
+      ],
+      bfClose: 'Más citas, mejor servicio — más ventas.',
+      benefitsCta: function (d) { return 'Quiero probar gratis ' + d.trialDays + ' días'; },
       hwEyebrow: 'Cómo funciona',
-      hwH: function (d) { return 'De esta demo a tu negocio en 4 pasos'; },
+      hwH: function (d) { return '¿Cómo funciona la prueba de ' + d.trialDays + ' días?'; },
       howSteps: function (d) {
         return [
-          { t: 'Prueba la demo', p: 'Habla con ' + d.rName + ' aquí mismo y comprueba cómo atiende a un cliente.' },
-          { t: 'Activa tu prueba gratuita', p: 'Nos escribes por WhatsApp y configuramos a ' + d.rName + ' con tus servicios, horarios y tono. Queda lista en 3 a 5 días hábiles.' },
-          { t: 'Úsala con clientes reales', p: d.trialDays + ' días de prueba con clientes reales. Sin tarjeta y sin compromiso.' },
-          { t: 'Decide con resultados', p: 'Si te convence, eliges tu plan y sigue trabajando. Si no, no pagas nada.' }
-        ];
-      },
-      bfEyebrow: 'Por qué Elyon',
-      bfH: function (d) { return 'Una recepcionista que trabaja como parte de tu equipo'; },
-      bfLede: function (d) {
-        return d.rName + ' se configura por completo a la medida de tu negocio y atiende cada contacto al instante, para que no pierdas ni una sola oportunidad.';
-      },
-      benefits: function (d) {
-        return [
-          { title: 'Totalmente personalizable', text: 'Se adapta a tus servicios, precios, horarios y tono de voz. Habla como tu negocio, no como un robot genérico.' },
-          { title: 'Disponible 24/7', text: 'Responde al instante de día, de noche, fines de semana y días festivos. Nunca deja una consulta sin atender.' },
-          { title: 'Primera línea o respaldo', text: 'Ponla a atender todas las llamadas, o solo cuando tu equipo no alcanza a contestar. Tú decides cómo trabaja.' },
-          { title: 'También en WhatsApp, Facebook e Instagram', text: 'Además de la voz, la versión de chat responde en WhatsApp, Facebook Messenger e Instagram desde un mismo lugar.' },
-          { title: 'Ahorra tiempo y dinero', text: 'Automatiza las consultas repetitivas y libera a tu equipo del teléfono, sin sumar más personal para crecer.' },
-          { title: 'Más clientes atendidos', text: 'Contesta al momento, resuelve dudas, solicita los datos del cliente y pide el seguimiento del equipo cuando hace falta.' }
+          { t: 'Activas tu prueba', p: 'Nos escribes por WhatsApp y configuramos a ' + d.rName + ' con tus servicios, horarios y tono. Queda lista en 3 a 5 días hábiles.' },
+          { t: 'La pones a prueba', p: 'Atiende a tus clientes reales durante ' + d.trialDays + ' días completos.' },
+          { t: 'Mides los resultados', p: 'Si no ves valor ni más citas agendadas, no pagas nada.', hl: true }
         ];
       },
       fqEyebrow: 'Preguntas frecuentes',
@@ -96,11 +91,12 @@
       wErrTitle: 'No se pudo cargar la demo',
       wErrBody: function (d) { return d.rName + ' no cargó en este dispositivo o red. Escríbenos por WhatsApp y te la mostramos al instante.'; },
       wErrBtn: 'Escríbenos por WhatsApp',
-      convertH: function (d) { return '¿Quieres que ' + d.rName + ' atienda a tus clientes reales?'; },
+      convertH: '¿Listo para dejar de perder clientes?',
       convertP: function (d) {
-        return 'Activamos tu prueba gratuita de ' + d.trialDays + ' días y adaptamos a ' + d.rName + ' a los servicios, horarios y forma de trabajar de tu negocio.';
+        return 'Activa hoy tu prueba gratuita de ' + d.trialDays + ' días. Adaptamos a ' + d.rName + ' a los servicios, horarios y forma de trabajar de tu negocio.';
       },
-      ctaTrial: 'Activar mi prueba gratuita',
+      ctaTrial: 'Empieza hoy tu prueba gratuita',
+      ctaSticky: function (d) { return 'Activa tu prueba gratis · ' + d.trialDays + ' días'; },
       ctaTech: 'Tengo una pregunta técnica',
       waTrial: function (d) {
         return d.generic
@@ -111,6 +107,11 @@
         return d.generic
           ? 'Hola, probé la demo de ' + d.rName + ', la recepcionista con IA, y tengo una pregunta técnica sobre el funcionamiento o las integraciones.'
           : 'Hola, probé la demo de ' + d.businessName + ' y tengo una pregunta técnica sobre el funcionamiento o las integraciones.';
+      },
+      waInfo: function (d) {
+        return d && !d.generic
+          ? 'Hola, estoy viendo la demo de ' + d.businessName + ' y quiero más información.'
+          : 'Hola, estoy viendo la demo de Sofía, la recepcionista con IA, y quiero más información.';
       },
       metaCity: 'Ciudad',
       metaIndustry: 'Industria',
@@ -136,23 +137,23 @@
     },
     en: {
       badge: 'Live demo',
-      headlineParts: function (d) {
+      headlineParts: function () {
+        return ['Never lose another customer ', 'because no one answered the phone', ''];
+      },
+      ledeParts: function (d) {
         return d.generic
-          ? ['Meet ', d.rName, ', the AI receptionist for your business']
-          : ['Meet ', d.rName, ', the AI receptionist for ' + d.businessName];
+          ? ['', d.rName, ', your AI receptionist, handles calls and WhatsApp 24/7: answers questions, books appointments and follows up for you.']
+          : ['', d.rName, ', the AI receptionist for ' + d.businessName + ', handles calls and WhatsApp 24/7: answers questions, books appointments and follows up for you.'];
       },
-      lede: function (d) {
-        return 'Try it now. Talk to ' + d.rName + ' as if you were a customer and see how it handles questions, collects details and requests team follow-up.';
-      },
-      heroCta: 'Activate my free trial',
-      trust: ['No card required', 'No contracts', 'Cancel anytime'],
+      heroCta: function (d) { return 'Activate your free ' + d.trialDays + '-day trial'; },
+      trust: ['No card required', 'No commitment', 'Setup included'],
       personaRole: 'AI Receptionist',
       personaStatus: 'Available 24/7',
       steps: function (d) {
         return [
-          'Press the button to start.',
+          'Press the button to call.',
           'Allow microphone access.',
-          'Talk to ' + d.rName + ' as if you were a real customer.'
+          'Ask for info or an appointment, like a real customer of ' + (d.generic ? 'your business' : d.businessName) + '.'
         ];
       },
       qsLabel: 'Suggested test questions',
@@ -163,29 +164,25 @@
       ],
       notice: 'This is a demo. Services, hours, responses, tools and actions are fully configured for your business before activation.',
       loading: function (d) { return 'Starting ' + d.rName + '…'; },
+      bfEyebrow: 'Benefits',
+      bfH: function (d) { return 'Everything ' + d.rName + ' does for your business'; },
+      checklist: [
+        'Answers calls 24/7, weekends included',
+        'Books appointments automatically',
+        'Replies on WhatsApp instantly',
+        'Never forgets to follow up',
+        'Adapts to your services and your tone',
+        'More customers served without hiring more staff'
+      ],
+      bfClose: 'More appointments, better service — more sales.',
+      benefitsCta: function (d) { return 'Try it free for ' + d.trialDays + ' days'; },
       hwEyebrow: 'How it works',
-      hwH: function () { return 'From this demo to your business in 4 steps'; },
+      hwH: function (d) { return 'How does the ' + d.trialDays + '-day trial work?'; },
       howSteps: function (d) {
         return [
-          { t: 'Try the demo', p: 'Talk to ' + d.rName + ' right here and see how it treats a customer.' },
-          { t: 'Activate your free trial', p: 'Message us on WhatsApp and we configure ' + d.rName + ' with your services, hours and tone. Live in 3 to 5 business days.' },
-          { t: 'Use it with real customers', p: d.trialDays + ' days of trial with real customers. No card, no commitment.' },
-          { t: 'Decide with results', p: 'If it convinces you, pick your plan and keep going. If not, you pay nothing.' }
-        ];
-      },
-      bfEyebrow: 'Why Elyon',
-      bfH: function () { return 'A receptionist that works like part of your team'; },
-      bfLede: function (d) {
-        return d.rName + ' is fully configured to fit your business and answers every contact instantly, so you never miss an opportunity.';
-      },
-      benefits: function () {
-        return [
-          { title: 'Fully customizable', text: 'Adapts to your services, prices, hours and tone of voice. It sounds like your business, not a generic bot.' },
-          { title: 'Available 24/7', text: 'Responds instantly day, night, weekends and holidays. It never leaves a question unanswered.' },
-          { title: 'First line or backup', text: 'Have it answer every call, or only when your team can’t pick up. You decide how it works.' },
-          { title: 'Also on WhatsApp, Facebook & Instagram', text: 'Beyond voice, the chat version replies on WhatsApp, Facebook Messenger and Instagram from one place.' },
-          { title: 'Saves time and money', text: 'Automates repetitive questions and frees your team from the phone, without hiring more people to grow.' },
-          { title: 'More customers served', text: 'Answers on the spot, resolves questions, collects the customer’s details and requests team follow-up when needed.' }
+          { t: 'Activate your trial', p: 'Message us on WhatsApp and we configure ' + d.rName + ' with your services, hours and tone. Live in 3 to 5 business days.' },
+          { t: 'Put it to the test', p: 'It serves your real customers for ' + d.trialDays + ' full days.' },
+          { t: 'Measure the results', p: 'If you see no value and no extra appointments, you pay nothing.', hl: true }
         ];
       },
       fqEyebrow: 'FAQ',
@@ -201,11 +198,12 @@
       wErrTitle: 'The demo could not load',
       wErrBody: function (d) { return d.rName + ' did not load on this device or network. Message us on WhatsApp and we will show it to you right away.'; },
       wErrBtn: 'Message us on WhatsApp',
-      convertH: function (d) { return 'Want ' + d.rName + ' answering your real customers?'; },
+      convertH: 'Ready to stop losing customers?',
       convertP: function (d) {
-        return 'We activate your ' + d.trialDays + '-day free trial and tailor ' + d.rName + ' to your services, hours and the way your business works.';
+        return 'Activate your free ' + d.trialDays + '-day trial today. We tailor ' + d.rName + ' to your services, hours and the way your business works.';
       },
-      ctaTrial: 'Activate my free trial',
+      ctaTrial: 'Start your free trial today',
+      ctaSticky: function (d) { return 'Free ' + d.trialDays + '-day trial'; },
       ctaTech: 'I have a technical question',
       waTrial: function (d) {
         return d.generic
@@ -216,6 +214,11 @@
         return d.generic
           ? 'Hi, I tried the demo of ' + d.rName + ', the AI receptionist, and I have a technical question about how it works or the integrations.'
           : 'Hi, I tried the ' + d.businessName + ' demo and I have a technical question about how it works or the integrations.';
+      },
+      waInfo: function (d) {
+        return d && !d.generic
+          ? 'Hi, I am looking at the ' + d.businessName + ' demo and would like more information.'
+          : 'Hi, I am looking at the Sofía AI receptionist demo and would like more information.';
       },
       metaCity: 'City',
       metaIndustry: 'Industry',
@@ -241,6 +244,9 @@
     }
   };
 
+  /* Elyon contact shown in header + footer (display form of ELYON_WA). */
+  var WA_DISPLAY = '+52 55 9435 6033';
+
   /* ---- helpers ---- */
   function $(id) { return document.getElementById(id); }
   function show(id) { var el = $(id); if (el) el.classList.remove('hidden'); }
@@ -257,6 +263,21 @@
 
   function waUrl(number, text) {
     return 'https://wa.me/' + number + '?text=' + encodeURIComponent(text);
+  }
+
+  /* Build "pre [accent] post" text into an element. */
+  function setParts(id, parts, accentTag) {
+    var el = $(id);
+    if (!el) return;
+    el.textContent = '';
+    el.appendChild(document.createTextNode(parts[0]));
+    if (parts[1]) {
+      var s = document.createElement(accentTag || 'span');
+      s.className = 'accent';
+      s.textContent = parts[1];
+      el.appendChild(s);
+    }
+    el.appendChild(document.createTextNode(parts[2]));
   }
 
   function renderNotFound(t) {
@@ -305,11 +326,28 @@
   function wireTrialCta(id, demo, t, number, placement, label) {
     var el = $(id);
     if (!el) return;
-    el.textContent = label || t.ctaTrial;
+    el.textContent = label;
     el.setAttribute('href', waUrl(number, t.waTrial(demo)));
     el.addEventListener('click', function () {
       trackEvent('demo_trial_click', { slug: demo.slug, placement: placement });
     });
+  }
+
+  /* Header + footer WhatsApp contact (all states). */
+  function wireContact(demo, t) {
+    var number = demo ? elyonWhatsApp(demo) : (typeof ELYON_WA_DEFAULT !== 'undefined' ? ELYON_WA_DEFAULT : '');
+    if (!number) return;
+    var msg = t.waInfo(demo);
+    [['wa-header', 'header'], ['foot-wa', 'footer']].forEach(function (pair) {
+      var el = $(pair[0]);
+      if (!el) return;
+      el.setAttribute('href', waUrl(number, msg));
+      el.addEventListener('click', function () {
+        trackEvent('demo_wa_contact', { slug: demo ? demo.slug : '(none)', placement: pair[1] });
+      });
+    });
+    setText('wa-header', WA_DISPLAY);
+    setText('foot-wa', 'WhatsApp ' + WA_DISPLAY);
   }
 
   /* Scroll-driven UI (reveals + sticky CTA), built as progressive
@@ -327,10 +365,8 @@
 
     function vh() { return window.innerHeight || document.documentElement.clientHeight; }
 
-    // Hide only what is safely below the fold, so above-fold content is
-    // never touched and a JS failure can't blank the page. Skip entirely
-    // when the viewport measurement is degenerate (prerender/background
-    // contexts can report ~0 height, which would mis-hide everything).
+    // Skip pre-hiding entirely when the viewport measurement is degenerate
+    // (prerender/background contexts can report ~0 height).
     if (!reduced && vh() < 200) reduced = true;
     if (!reduced) {
       reveals = reveals.filter(function (el) {
@@ -361,7 +397,6 @@
         return true;
       });
       if (bar && anchor) {
-        // show the sticky CTA once the widget card is fully above the viewport
         bar.classList.toggle('on', anchor.getBoundingClientRect().bottom < 0);
       }
     }
@@ -392,32 +427,19 @@
         brand.appendChild(sm);
       }
     }
-    setText('top-chip', t.badge);
 
-    // hero: headline with the persona name accent-colored
+    // hero: pain-first headline, then Sofía as the answer, CTA immediately
     setText('badge-text', t.badge);
-    var hl = $('headline');
-    if (hl) {
-      hl.textContent = '';
-      var parts = t.headlineParts(demo);
-      hl.appendChild(document.createTextNode(parts[0]));
-      var nm = document.createElement('span');
-      nm.className = 'accent';
-      nm.textContent = parts[1];
-      hl.appendChild(nm);
-      hl.appendChild(document.createTextNode(parts[2]));
-    }
-    setText('lede', t.lede(demo));
-    wireTrialCta('cta-hero', demo, t, number, 'hero', t.heroCta);
+    setParts('headline', t.headlineParts(demo));
+    setParts('lede', t.ledeParts(demo), 'b');
+    wireTrialCta('cta-hero', demo, t, number, 'hero', t.heroCta(demo));
     fillTrustLine('trust-hero', t.trust);
 
-    // meta pills (generic demos have no city — pills skip empty values)
+    // meta pills (after the CTA; generic demos have no city)
     var meta = $('meta');
     if (meta) {
       meta.innerHTML = '';
-      [[t.metaIndustry, demo.generic ? demo.industry : demo.industry],
-       [t.metaCity, demo.city],
-       [t.metaTrial, t.trialUnit(demo)]]
+      [[t.metaIndustry, demo.industry], [t.metaCity, demo.city], [t.metaTrial, t.trialUnit(demo)]]
         .forEach(function (pair) {
           if (!pair[1]) return;
           var span = document.createElement('span');
@@ -441,7 +463,14 @@
     setText('demo-notice', t.notice);
     setText('loading-text', t.loading(demo));
 
-    // how it works
+    // benefits: short checkmark lines + closing statement + mid CTA
+    setText('bf-eyebrow', t.bfEyebrow);
+    setText('bf-h', t.bfH(demo));
+    buildList($('benefits-list'), t.checklist);
+    setText('bf-close', t.bfClose);
+    wireTrialCta('cta-benefits', demo, t, number, 'benefits', t.benefitsCta(demo));
+
+    // how the trial works (3 steps, last one highlighted)
     setText('hw-eyebrow', t.hwEyebrow);
     setText('hw-h', t.hwH(demo));
     var hg = $('how-grid');
@@ -449,7 +478,7 @@
       hg.innerHTML = '';
       t.howSteps(demo).forEach(function (s) {
         var div = document.createElement('div');
-        div.className = 'how-step';
+        div.className = 'how-step' + (s.hl ? ' hl' : '');
         var h = document.createElement('h3');
         h.textContent = s.t;
         var p = document.createElement('p');
@@ -457,30 +486,6 @@
         div.appendChild(h);
         div.appendChild(p);
         hg.appendChild(div);
-      });
-    }
-
-    // benefits
-    setText('bf-eyebrow', t.bfEyebrow);
-    setText('bf-h', t.bfH(demo));
-    setText('bf-lede', t.bfLede(demo));
-    var bg = $('benefits-grid');
-    if (bg) {
-      bg.innerHTML = '';
-      t.benefits(demo).forEach(function (b, i) {
-        var card = document.createElement('div');
-        card.className = 'bf-card';
-        var idx = document.createElement('span');
-        idx.className = 'idx';
-        idx.textContent = (i + 1 < 10 ? '0' : '') + (i + 1);
-        var h = document.createElement('h3');
-        h.textContent = b.title;
-        var p = document.createElement('p');
-        p.textContent = b.text;
-        card.appendChild(idx);
-        card.appendChild(h);
-        card.appendChild(p);
-        bg.appendChild(card);
       });
     }
 
@@ -505,11 +510,11 @@
       });
     }
 
-    // conversion
-    setText('cv-h', t.convertH(demo));
+    // closing conversion band
+    setText('cv-h', t.convertH);
     setText('cv-p', t.convertP(demo));
     fillTrustLine('trust-convert', t.trust);
-    wireTrialCta('cta-trial', demo, t, number, 'bottom');
+    wireTrialCta('cta-trial', demo, t, number, 'bottom', t.ctaTrial);
     var tech = $('cta-tech');
     if (tech) {
       tech.textContent = t.ctaTech;
@@ -520,7 +525,7 @@
     }
 
     // sticky CTA (revealed on scroll past the widget)
-    wireTrialCta('cta-sticky', demo, t, number, 'sticky');
+    wireTrialCta('cta-sticky', demo, t, number, 'sticky', t.ctaSticky(demo));
 
     show('view-active');
     setupScrollUI(); // after show(): measurements need the section visible
@@ -588,6 +593,8 @@
       demo.rName = demo.receptionistName ||
         (typeof ELYON_RECEPTIONIST !== 'undefined' ? ELYON_RECEPTIONIST : 'Sofía');
     }
+
+    wireContact(demo, t); // header + footer WhatsApp, in every state
 
     if (!demo || demo.status !== 'active') {
       renderNotFound(COPY.es);

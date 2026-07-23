@@ -7,17 +7,17 @@
 <meta name="robots" content="noindex, nofollow">
 <meta name="googlebot" content="noindex, nofollow">
 <title>Conoce a Sofía — Recepcionista con IA | Elyon</title>
-<meta name="description" content="Habla con Sofía como si fueras un cliente. Demo en vivo de la recepcionista con IA de Elyon.">
+<meta name="description" content="Nunca vuelvas a perder un cliente por no contestar. Habla con Sofía, la recepcionista con IA. Demo en vivo.">
 <!-- OG tags: WhatsApp/Messenger link previews when the demo link is shared -->
 <meta property="og:type" content="website">
 <meta property="og:title" content="Conoce a Sofía — Recepcionista con IA">
-<meta property="og:description" content="Habla con ella como si fueras un cliente y descubre cómo atiende, agenda y da seguimiento. Demo en vivo.">
+<meta property="og:description" content="Nunca vuelvas a perder un cliente por no contestar el teléfono. Pruébala en vivo: atiende, agenda y da seguimiento 24/7.">
 <meta property="og:locale" content="es_MX">
-<meta name="theme-color" content="#0F241B">
-<link rel="icon" type="image/svg+xml" href='data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100"><rect width="100" height="100" rx="22" fill="%230E7A5A"/><path d="M50 24a12 12 0 0 0-12 12v14a12 12 0 0 0 24 0V36a12 12 0 0 0-12-12Z" fill="%23FFF6EF"/><path d="M30 50a20 20 0 0 0 40 0h-7a13 13 0 0 1-26 0Zm17 26h6v-8h-6Z" fill="%23FFF6EF"/></svg>'>
+<meta name="theme-color" content="#0F0F12">
+<link rel="icon" type="image/svg+xml" href='data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100"><rect width="100" height="100" fill="%230F0F12"/><rect x="22" y="22" width="12" height="56" fill="%23EFEDE6"/><rect x="22" y="22" width="56" height="12" fill="%232038E6"/><rect x="22" y="44" width="44" height="12" fill="%23EFEDE6"/><rect x="22" y="66" width="32" height="12" fill="%23EFEDE6"/></svg>'>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,600;9..144,700&family=Nunito+Sans:opsz,wght@6..12,400;6..12,600;6..12,700;6..12,800&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Martian+Mono:wght@400;700;800&family=IBM+Plex+Mono:wght@400;500;600&display=swap" rel="stylesheet">
 <!-- ANALYTICS: the same GA4 / Meta Pixel snippet used on the main site can be
      pasted here; events already fire through trackEvent() in demo-page.js. -->
 <link rel="stylesheet" href="/demo/demo.css">
@@ -29,7 +29,7 @@
   <div class="brand" id="brand-name">
     <!-- business or persona name filled by demo-page.js -->
   </div>
-  <span class="top-chip" id="top-chip">Demo en vivo</span>
+  <a class="top-chip" id="wa-header" target="_blank" rel="noopener"></a>
 </header>
 
 <main id="main">
@@ -39,16 +39,16 @@
     <div class="wrap">
       <div class="hero">
 
-        <!-- left: pitch + primary CTA -->
+        <!-- left: pain hook -> Sofía -> CTA in the first viewport -->
         <div class="hero-left reveal">
           <span class="badge"><span class="dot" aria-hidden="true"></span><span id="badge-text">Demo en vivo</span></span>
           <h1 class="h1 disp" id="headline"></h1>
           <p class="lede" id="lede"></p>
-          <div class="meta-row" id="meta"></div>
           <div class="hero-cta">
             <a class="btn fill big" id="cta-hero" target="_blank" rel="noopener"></a>
             <p class="trust-line" id="trust-hero"></p>
           </div>
+          <div class="meta-row" id="meta"></div>
         </div>
 
         <!-- right: the live widget -->
@@ -57,7 +57,7 @@
             <div class="card-head">
               <div class="persona">
                 <span class="avatar" aria-hidden="true">
-                  <svg viewBox="0 0 40 40" width="40" height="40"><rect width="40" height="40" rx="20" fill="#0E7A5A"/><g fill="#FFF6EF"><rect x="11" y="16" width="2.6" height="8" rx="1.3"/><rect x="16" y="12" width="2.6" height="16" rx="1.3"/><rect x="21" y="9" width="2.6" height="22" rx="1.3"/><rect x="26" y="14" width="2.6" height="12" rx="1.3"/></g></svg>
+                  <svg viewBox="0 0 40 40" width="40" height="40"><rect width="40" height="40" fill="#2038E6"/><g fill="#EFEDE6"><rect x="11" y="16" width="3" height="8"/><rect x="16" y="12" width="3" height="16"/><rect x="21" y="9" width="3" height="22"/><rect x="26" y="14" width="3" height="12"/></g></svg>
                 </span>
                 <div class="persona-id">
                   <b id="rcp-name">Sofía</b>
@@ -89,22 +89,25 @@
       </div>
     </div>
 
-    <!-- how it works / next steps -->
+    <!-- benefits: short checkmark lines, then a second CTA -->
+    <section class="benefits">
+      <div class="wrap reveal">
+        <span class="lbl bf-eyebrow" id="bf-eyebrow"></span>
+        <h2 class="disp" id="bf-h"></h2>
+        <ul class="checklist" id="benefits-list"></ul>
+        <p class="bf-close disp" id="bf-close"></p>
+        <div class="cta-mid">
+          <a class="btn fill big" id="cta-benefits" target="_blank" rel="noopener"></a>
+        </div>
+      </div>
+    </section>
+
+    <!-- how the trial works: 3 simple steps, last one highlighted -->
     <section class="how">
       <div class="wrap reveal">
         <span class="lbl" id="hw-eyebrow"></span>
         <h2 class="disp" id="hw-h"></h2>
         <div class="how-grid" id="how-grid"></div>
-      </div>
-    </section>
-
-    <!-- why / benefits -->
-    <section class="benefits">
-      <div class="wrap reveal">
-        <span class="lbl bf-eyebrow" id="bf-eyebrow"></span>
-        <h2 class="disp" id="bf-h"></h2>
-        <p class="bf-lede" id="bf-lede"></p>
-        <div class="bf-grid" id="benefits-grid"></div>
       </div>
     </section>
 
@@ -117,7 +120,7 @@
       </div>
     </section>
 
-    <!-- conversion -->
+    <!-- closing conversion band -->
     <section class="convert">
       <div class="wrap reveal">
         <h2 class="disp" id="cv-h"></h2>
@@ -158,9 +161,13 @@
   <a class="btn fill" id="cta-sticky" target="_blank" rel="noopener"></a>
 </div>
 
-<footer class="foot">
-  <span id="foot-left">Demostración privada</span>
-  <span id="foot-right">Preparada por <a href="https://tryelyon.com/" rel="noopener">Elyon</a></span>
+<footer class="foot2">
+  <img class="f-logo" src="/brand/assets/elyon-lockup.svg" alt="Elyon" width="164" height="42">
+  <div class="f-contact">
+    <a class="wa" id="foot-wa" target="_blank" rel="noopener">WhatsApp</a>
+    <a href="https://tryelyon.com/" rel="noopener">tryelyon.com</a>
+  </div>
+  <span class="f-small">Demostración privada · © 2026 Elyon</span>
 </footer>
 
 <script src="/demo/demo-config.js"></script>
