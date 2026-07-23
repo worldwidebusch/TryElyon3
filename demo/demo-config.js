@@ -56,7 +56,7 @@ var ELYON_DEMOS = [
          loader renders into; data-location-id is a public embed identifier
          (not a secret). Paste both the <div> and the <script>, unchanged.
          ---------------------------------------------------------------- */
-      embedHtml: `<div data-chat-widget data-widget-id="6a618c5a21f6baad675f3d9a" data-location-id="5ynssMYlwC8Q67rGQchD"></div><script src="https://widgets.leadconnectorhq.com/loader.js" data-resources-url="https://widgets.leadconnectorhq.com/chat-widget/loader.js" data-widget-id="6a618c5a21f6baad675f3d9a"></script>`
+      embedHtml: `<div data-chat-widget data-widget-id="6a61922ecbb3de01dd722f05" data-location-id="5ynssMYlwC8Q67rGQchD"></div><script src="https://widgets.leadconnectorhq.com/loader.js" data-resources-url="https://widgets.leadconnectorhq.com/chat-widget/loader.js" data-widget-id="6a61922ecbb3de01dd722f05"></script>`
     }
   }
 ];
