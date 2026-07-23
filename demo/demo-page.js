@@ -2,17 +2,23 @@
    ELYON · DEMO PAGE CONTROLLER
    --------------------------------------------------------------------------
    Reads the slug from the URL, looks up its entry in demo-config.js, and
-   renders the personalized Voice AI demo into the template in index.html.
-   Handles: active / not-found / expired states, WhatsApp CTAs, analytics,
-   and safe widget mounting with a loading + error fallback.
-   Depends on: demo-config.js, widget-loader.js (loaded before this file).
+   renders the personalized demo into the template in index.html. One
+   universal conversion-optimized design; personalization is text-only
+   (business name, industry, city, optional per-business questions).
+   Handles: active / not-found / expired states, WhatsApp CTAs (hero,
+   sticky, bottom), analytics, and safe widget mounting with loading +
+   error fallback. Depends on: demo-config.js, widget-loader.js.
+
+   NOTE ON CLAIMS: every factual claim in the copy below (trial length,
+   included usage, setup time, no card, cancel anytime) mirrors what
+   tryelyon.com already publishes. If the main site's terms change,
+   update this copy to match.
    ========================================================================== */
 (function () {
   'use strict';
 
   /* ---- analytics: reuse the site's GA4 / Meta Pixel wiring. Never adds a
-     provider; if none is present the calls are no-ops. Mirrors trackEvent()
-     in /index.html. ---- */
+     provider; if none is present the calls are no-ops. ---- */
   function trackEvent(ev, props) {
     try {
       if (window.gtag) window.gtag('event', ev, props || {});
@@ -20,12 +26,14 @@
     } catch (err) { /* analytics must never break the page */ }
   }
 
-  /* ---- copy, per language. Only what differs from the HTML lives here. ---- */
+  /* ---- copy, per language ---- */
   var COPY = {
     es: {
       badge: 'Demo personalizada',
       headline: function (d) { return 'Conoce a la recepcionista de IA de ' + d.businessName; },
       lede: 'Pruébala ahora. Habla como si fueras un cliente y descubre cómo atiende consultas, recopila datos y solicita el seguimiento del equipo.',
+      heroCta: 'Activar mi prueba gratuita',
+      trust: ['Sin tarjeta', 'Sin contratos', 'Cancelas cuando quieras'],
       cardTitle: 'Habla con tu recepcionista de IA',
       steps: [
         'Pulsa el botón para comenzar.',
@@ -39,6 +47,15 @@
         '¿Pueden contactarme por WhatsApp?'
       ],
       notice: 'Esta es una demostración personalizada. Los servicios, horarios, respuestas, herramientas y acciones se configuran completamente antes de la activación.',
+      loading: 'Iniciando la recepcionista…',
+      hwEyebrow: 'Cómo funciona',
+      hwH: 'De esta demo a tu negocio en 4 pasos',
+      howSteps: [
+        { t: 'Prueba la demo', p: 'Habla con la recepcionista aquí mismo y comprueba cómo atiende a un cliente.' },
+        { t: 'Activa tu prueba gratuita', p: 'Nos escribes por WhatsApp y configuramos tu agente con tus servicios, horarios y tono. Queda lista en 3 a 5 días hábiles.' },
+        { t: 'Úsala con clientes reales', p: function (d) { return d.trialDays + ' días de prueba con clientes reales. Sin tarjeta y sin compromiso.'; } },
+        { t: 'Decide con resultados', p: 'Si te convence, eliges tu plan y sigue trabajando. Si no, no pagas nada.' }
+      ],
       bfEyebrow: 'Por qué Elyon',
       bfH: 'Una recepcionista de IA que trabaja como parte de tu equipo',
       bfLede: 'Se configura por completo a la medida de tu negocio y atiende cada contacto al instante, para que no pierdas ni una sola oportunidad.',
@@ -50,7 +67,14 @@
         { title: 'Ahorra tiempo y dinero', text: 'Automatiza las consultas repetitivas y libera a tu equipo del teléfono, sin sumar más personal para crecer.' },
         { title: 'Más clientes atendidos', text: 'Contesta al momento, resuelve dudas, solicita los datos del cliente y pide el seguimiento del equipo cuando hace falta.' }
       ],
-      loading: 'Iniciando la recepcionista…',
+      fqEyebrow: 'Preguntas frecuentes',
+      fqH: 'Lo que normalmente nos preguntan',
+      faq: [
+        { q: '¿Suena robótica?', a: 'No. Tu agente se configura con los servicios, precios y tono de voz de tu negocio, y pasa la conversación a una persona de tu equipo cuando el caso lo necesita.' },
+        { q: '¿La prueba gratuita es realmente gratis?', a: 'Sí, sin tarjeta. Incluye hasta 150 conversaciones de IA y 30 minutos de voz durante la prueba. Si superas el uso incluido, el agente se pausa y tú decides si continuar.' },
+        { q: '¿Qué pasa cuando termina la prueba?', a: 'Continúas solo si quieres. Sin contratos y puedes cancelar cuando quieras. El costo de configuración aplica únicamente si decides quedarte con tu agente.' },
+        { q: '¿En cuánto tiempo queda lista?', a: 'La mayoría de los agentes quedan activos entre 3 y 5 días hábiles después de que nos envías la información de tu negocio.' }
+      ],
       wErrTitle: 'No se pudo cargar la demo',
       wErrBody: 'La recepcionista de IA no cargó en este dispositivo o red. Escríbenos por WhatsApp y te la mostramos al instante.',
       wErrBtn: 'Escríbenos por WhatsApp',
@@ -63,7 +87,7 @@
       metaCity: 'Ciudad',
       metaIndustry: 'Industria',
       metaTrial: 'Prueba',
-      trialUnit: function (d) { return d.trialDays + ' días'; },
+      trialUnit: function (d) { return d.trialDays + ' días gratis'; },
       endedTitle: 'Esta demostración ha finalizado',
       endedBody: 'La demo personalizada ya no está activa. Con gusto reactivamos una nueva para tu negocio.',
       endedBtn: 'Escríbenos por WhatsApp',
@@ -75,6 +99,8 @@
       badge: 'Personalized demo',
       headline: function (d) { return 'Meet the AI receptionist for ' + d.businessName; },
       lede: 'Try it now. Speak as if you were a customer and see how it handles questions, collects details and requests team follow-up.',
+      heroCta: 'Activate my free trial',
+      trust: ['No card required', 'No contracts', 'Cancel anytime'],
       cardTitle: 'Talk to your AI receptionist',
       steps: [
         'Press the button to start.',
@@ -88,6 +114,15 @@
         'Can you contact me on WhatsApp?'
       ],
       notice: 'This is a personalized demo. Services, hours, responses, tools and actions are fully configured before activation.',
+      loading: 'Starting the receptionist…',
+      hwEyebrow: 'How it works',
+      hwH: 'From this demo to your business in 4 steps',
+      howSteps: [
+        { t: 'Try the demo', p: 'Talk to the receptionist right here and see how it treats a customer.' },
+        { t: 'Activate your free trial', p: 'Message us on WhatsApp and we configure your agent with your services, hours and tone. Live in 3 to 5 business days.' },
+        { t: 'Use it with real customers', p: function (d) { return d.trialDays + ' days of trial with real customers. No card, no commitment.'; } },
+        { t: 'Decide with results', p: 'If it convinces you, pick your plan and keep going. If not, you pay nothing.' }
+      ],
       bfEyebrow: 'Why Elyon',
       bfH: 'An AI receptionist that works like part of your team',
       bfLede: 'Fully configured to fit your business, answering every contact instantly so you never miss an opportunity.',
@@ -99,7 +134,14 @@
         { title: 'Saves time and money', text: 'Automates repetitive questions and frees your team from the phone, without hiring more people to grow.' },
         { title: 'More customers served', text: 'Answers on the spot, resolves questions, collects the customer’s details and requests team follow-up when needed.' }
       ],
-      loading: 'Starting the receptionist…',
+      fqEyebrow: 'FAQ',
+      fqH: 'What people usually ask us',
+      faq: [
+        { q: 'Will it sound robotic?', a: 'No. Your agent is configured with your services, prices and tone of voice, and it hands the conversation to a person on your team whenever a case needs one.' },
+        { q: 'Is the free trial really free?', a: 'Yes, no card required. It includes up to 150 AI conversations and 30 voice minutes during the trial. If you pass the included usage, the agent pauses and you decide whether to continue.' },
+        { q: 'What happens after the trial?', a: 'You continue only if you want to. No contracts, cancel anytime. The setup fee applies only if you decide to keep your agent.' },
+        { q: 'How fast can it go live?', a: 'Most agents go live 3 to 5 business days after you send us your business information.' }
+      ],
       wErrTitle: 'The demo could not load',
       wErrBody: 'The AI receptionist did not load on this device or network. Message us on WhatsApp and we will show it to you right away.',
       wErrBtn: 'Message us on WhatsApp',
@@ -112,7 +154,7 @@
       metaCity: 'City',
       metaIndustry: 'Industry',
       metaTrial: 'Trial',
-      trialUnit: function (d) { return d.trialDays + ' days'; },
+      trialUnit: function (d) { return d.trialDays + ' days free'; },
       endedTitle: 'This demo has ended',
       endedBody: 'This personalized demo is no longer active. We are happy to spin up a fresh one for your business.',
       endedBtn: 'Message us on WhatsApp',
@@ -126,63 +168,6 @@
   function $(id) { return document.getElementById(id); }
   function show(id) { var el = $(id); if (el) el.classList.remove('hidden'); }
   function setText(id, txt) { var el = $(id); if (el) el.textContent = txt; }
-
-  /* ---- business-type template: colors, fonts, motif, favicon ----
-     Templates live in demo-templates.js; this applies one to the page. */
-  function hexToRgba(hex, a) {
-    var m = /^#?([0-9a-f]{6})$/i.exec(String(hex || ''));
-    if (!m) return null;
-    var n = parseInt(m[1], 16);
-    return 'rgba(' + (n >> 16 & 255) + ',' + (n >> 8 & 255) + ',' + (n & 255) + ',' + a + ')';
-  }
-
-  function applyTemplate(tpl) {
-    if (!tpl) return;
-    var root = document.documentElement;
-    var map = {
-      '--t-bg': tpl.palette.bg,
-      '--t-surface': tpl.palette.surface,
-      '--t-ink': tpl.palette.ink,
-      '--t-ink-soft': tpl.palette.inkSoft,
-      '--t-accent': tpl.palette.accent,
-      '--t-accent-dark': tpl.palette.accentDark,
-      '--t-on-accent': tpl.palette.onAccent,
-      '--t-card-bg': tpl.palette.cardBg,
-      '--t-card-ink': tpl.palette.cardInk,
-      '--t-rule': tpl.palette.rule,
-      '--t-disp': tpl.displayFamily,
-      '--t-body': tpl.bodyFamily,
-      '--t-motif-ink': tpl.motifInk || hexToRgba(tpl.palette.ink, 0.05) || 'rgba(0,0,0,.05)'
-    };
-    for (var k in map) { if (map[k]) root.style.setProperty(k, map[k]); }
-
-    // template fonts (Google Fonts, loaded once)
-    if (tpl.fontCss && !document.querySelector('link[data-tpl-font]')) {
-      var l = document.createElement('link');
-      l.rel = 'stylesheet';
-      l.href = tpl.fontCss;
-      l.setAttribute('data-tpl-font', '1');
-      document.head.appendChild(l);
-    }
-
-    // background motif
-    document.body.setAttribute('data-motif', tpl.motif || 'none');
-
-    // favicon + theme color tinted to the template accent
-    var fav = $('favicon');
-    if (fav) {
-      var a = encodeURIComponent(tpl.palette.accent);
-      var o = encodeURIComponent(tpl.palette.onAccent);
-      fav.href = 'data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100"><rect width="100" height="100" rx="18" fill="' + a + '"/><path d="M50 24a12 12 0 0 0-12 12v14a12 12 0 0 0 24 0V36a12 12 0 0 0-12-12Z" fill="' + o + '"/><path d="M30 50a20 20 0 0 0 40 0h-7a13 13 0 0 1-26 0Zm17 26h6v-8h-6Z" fill="' + o + '"/></svg>';
-    }
-    var tc = document.querySelector('meta[name="theme-color"]');
-    if (tc) tc.setAttribute('content', tpl.palette.cardBg);
-  }
-
-  function resolveTemplate(demo) {
-    if (typeof elyonTemplate !== 'function') return null; // demo-templates.js missing
-    return elyonTemplate(demo && demo.template);
-  }
 
   function slugFromLocation() {
     // Primary: path segment after /demo/. Fallback: ?slug= (local/file use).
@@ -210,6 +195,8 @@
   function renderEnded(demo, t) {
     var number = elyonWhatsApp(demo);
     document.title = 'Demo · ' + demo.businessName + ' | Elyon';
+    var brand = $('brand-name');
+    if (brand) brand.textContent = demo.businessName;
     setText('ended-title', t.endedTitle);
     setText('ended-body', t.endedBody);
     var btn = $('ended-btn');
@@ -218,25 +205,45 @@
     trackEvent('demo_view', { slug: demo.slug, state: 'ended' });
   }
 
-  function buildList(el, items, tag) {
+  function buildList(el, items) {
     if (!el) return;
     el.innerHTML = '';
     items.forEach(function (txt) {
-      var li = document.createElement(tag || 'li');
+      var li = document.createElement('li');
       li.textContent = txt;
       el.appendChild(li);
     });
   }
 
+  function fillTrustLine(id, items) {
+    var el = $(id);
+    if (!el) return;
+    el.innerHTML = '';
+    items.forEach(function (txt) {
+      var s = document.createElement('span');
+      s.textContent = txt;
+      el.appendChild(s);
+    });
+  }
+
+  function wireTrialCta(id, demo, t, number, placement, label) {
+    var el = $(id);
+    if (!el) return;
+    el.textContent = label || t.ctaTrial;
+    el.setAttribute('href', waUrl(number, t.waTrial(demo)));
+    el.addEventListener('click', function () {
+      trackEvent('demo_trial_click', { slug: demo.slug, placement: placement });
+    });
+  }
+
   function renderActive(demo, t) {
     var number = elyonWhatsApp(demo);
-    var tpl = resolveTemplate(demo);
 
     // <head>
     document.title = 'Demo IA para ' + demo.businessName + ' | Elyon';
     document.documentElement.lang = demo.language || 'es';
 
-    // header: branded for the business, not Elyon
+    // header: branded for the business
     var brand = $('brand-name');
     if (brand) {
       brand.textContent = '';
@@ -251,6 +258,8 @@
     setText('badge-text', t.badge);
     setText('headline', t.headline(demo));
     setText('lede', t.lede);
+    wireTrialCta('cta-hero', demo, t, number, 'hero', t.heroCta);
+    fillTrustLine('trust-hero', t.trust);
 
     // meta pills
     var meta = $('meta');
@@ -273,19 +282,36 @@
     setText('card-title', t.cardTitle);
     buildList($('steps'), t.steps);
     setText('qs-label', t.qsLabel);
-    // suggested questions: per-business override > industry template > generic
-    var questions = demo.questions ||
-      (demo.language === 'es' && tpl && tpl.questions_es) || t.questions;
-    buildList($('qs-list'), questions);
+    // suggested questions: per-business override in the config beats generic
+    buildList($('qs-list'), demo.questions || t.questions);
     setText('demo-notice', t.notice);
     setText('loading-text', t.loading);
 
-    // benefits / why-elyon grid
+    // how it works
+    setText('hw-eyebrow', t.hwEyebrow);
+    setText('hw-h', t.hwH);
+    var hg = $('how-grid');
+    if (hg) {
+      hg.innerHTML = '';
+      t.howSteps.forEach(function (s) {
+        var div = document.createElement('div');
+        div.className = 'how-step';
+        var h = document.createElement('h3');
+        h.textContent = s.t;
+        var p = document.createElement('p');
+        p.textContent = typeof s.p === 'function' ? s.p(demo) : s.p;
+        div.appendChild(h);
+        div.appendChild(p);
+        hg.appendChild(div);
+      });
+    }
+
+    // benefits
     setText('bf-eyebrow', t.bfEyebrow);
     setText('bf-h', t.bfH);
     setText('bf-lede', t.bfLede);
     var bg = $('benefits-grid');
-    if (bg && t.benefits) {
+    if (bg) {
       bg.innerHTML = '';
       t.benefits.forEach(function (b, i) {
         var card = document.createElement('div');
@@ -304,17 +330,32 @@
       });
     }
 
+    // FAQ
+    setText('fq-eyebrow', t.fqEyebrow);
+    setText('fq-h', t.fqH);
+    var fl = $('faq-list');
+    if (fl) {
+      fl.innerHTML = '';
+      t.faq.forEach(function (f) {
+        var d = document.createElement('details');
+        var s = document.createElement('summary');
+        s.textContent = f.q;
+        var p = document.createElement('p');
+        p.textContent = f.a;
+        d.appendChild(s);
+        d.appendChild(p);
+        d.addEventListener('toggle', function () {
+          if (d.open) trackEvent('demo_faq_open', { slug: demo.slug, q: f.q });
+        });
+        fl.appendChild(d);
+      });
+    }
+
     // conversion
     setText('cv-h', t.convertH);
     setText('cv-p', t.convertP(demo));
-    var trial = $('cta-trial');
-    if (trial) {
-      trial.textContent = t.ctaTrial;
-      trial.setAttribute('href', waUrl(number, t.waTrial(demo)));
-      trial.addEventListener('click', function () {
-        trackEvent('demo_trial_click', { slug: demo.slug });
-      });
-    }
+    fillTrustLine('trust-convert', t.trust);
+    wireTrialCta('cta-trial', demo, t, number, 'bottom');
     var tech = $('cta-tech');
     if (tech) {
       tech.textContent = t.ctaTech;
@@ -323,6 +364,10 @@
         trackEvent('demo_tech_click', { slug: demo.slug });
       });
     }
+
+    // mobile sticky CTA
+    wireTrialCta('cta-sticky', demo, t, number, 'sticky');
+    show('sticky-cta');
 
     show('view-active');
     trackEvent('demo_view', { slug: demo.slug, state: 'active' });
@@ -387,17 +432,11 @@
     var lang = (demo && COPY[demo.language]) ? demo.language : 'es';
     var t = COPY[lang];
 
-    // Skin the page for the business type (neutral template when unknown).
-    applyTemplate(resolveTemplate(demo));
-
     if (!demo || demo.status !== 'active') {
       renderNotFound(COPY.es); // not-found copy stays Spanish (site default)
       return;
     }
     if (elyonDemoExpired(demo)) {
-      // keep the branded header even on the ended state
-      var brand = $('brand-name');
-      if (brand) brand.textContent = demo.businessName;
       renderEnded(demo, t);
       return;
     }

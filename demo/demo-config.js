@@ -12,13 +12,9 @@
    industry        Free text (e.g. "Taller automotriz").
    city            Free text (e.g. "Querétaro, México").
    language        "es" or "en". Drives on-page copy.
-   template        Business-type design template (colors, fonts, motif and
-                   industry-tailored suggested questions). One of:
-                   "automotive" | "dental" | "restaurant" | "beauty" |
-                   "fitness" | "professional" (default when omitted).
-                   Defined in demo-templates.js — add new types there.
-   questions       OPTIONAL array of 3 strings. Overrides the template's
-                   suggested test questions for this business only.
+   questions       OPTIONAL array of 3 strings: industry-tailored suggested
+                   test questions for this business. Falls back to generic
+                   questions when omitted.
    trialDays       Number of free-trial days offered (e.g. 7).
    status          "active"  -> demo is live.
                    "inactive"-> shows the not-found state.
@@ -51,7 +47,11 @@ var ELYON_DEMOS = [
     industry: 'Taller automotriz',
     city: 'Querétaro, México',
     language: 'es',
-    template: 'automotive',
+    questions: [
+      'Quiero agendar una cita para el servicio de mi carro, ¿tienen lugar esta semana?',
+      '¿Cuánto me sale la revisión de frenos y en cuánto tiempo me entregan el coche?',
+      '¿Me pueden mandar la cotización por WhatsApp cuando esté lista?'
+    ],
     trialDays: 7,
     status: 'active',
     expiresAt: null,
@@ -65,6 +65,37 @@ var ELYON_DEMOS = [
          (not a secret). Paste both the <div> and the <script>, unchanged.
          ---------------------------------------------------------------- */
       embedHtml: `<div data-chat-widget data-widget-id="6a61922ecbb3de01dd722f05" data-location-id="5ynssMYlwC8Q67rGQchD"></div><script src="https://widgets.leadconnectorhq.com/loader.js" data-resources-url="https://widgets.leadconnectorhq.com/chat-widget/loader.js" data-widget-id="6a61922ecbb3de01dd722f05"></script>`
+    }
+  },
+
+  {
+    /* Prospect contact: Arq. Paola (+52 442 471 1702) — send her the demo
+       link once the widget below is configured. City assumed Querétaro from
+       the 442 area code; adjust if wrong. */
+    slug: 'pool-depot',
+    businessName: 'Pool Depot',
+    industry: 'Construcción y equipamiento de albercas',
+    city: 'Querétaro, México',
+    language: 'es',
+    questions: [
+      'Hola, quiero construir una alberca en mi casa, ¿pueden agendar una visita para hacerme una cotización?',
+      'Mi bomba de la alberca está fallando y creo que el filtro ya necesita cambio, ¿qué equipos manejan y dan servicio de mantenimiento?',
+      '¿Me pueden mandar la información y la cotización por WhatsApp, por favor?'
+    ],
+    trialDays: 7,
+    status: 'active',
+    expiresAt: null,
+    whatsappNumber: ELYON_WA_DEFAULT, // CTAs always go to the Elyon line
+    widget: {
+      placement: 'inline',
+      /* ----------------------------------------------------------------
+         PENDING: create the Pool Depot Voice AI agent + chat widget in
+         GoHighLevel (placement Embedded/Inline), then paste the inline
+         embed here: the <div data-chat-widget data-widget-id
+         data-location-id> mount AND the loader <script>, verbatim.
+         Until then the page shows a "widget sin configurar" notice.
+         ---------------------------------------------------------------- */
+      embedHtml: `[PASTE_THE_COMPLETE_GHL_WIDGET_EMBED_CODE_HERE]`
     }
   }
 ];

@@ -8,16 +8,16 @@
 <meta name="googlebot" content="noindex, nofollow">
 <title>Demo IA para The Shop Automotive Service | Elyon</title>
 <meta name="description" content="Demostración personalizada de recepcionista de IA.">
-<meta name="theme-color" content="#1c2430">
-<link id="favicon" rel="icon" type="image/svg+xml" href='data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100"><rect width="100" height="100" rx="18" fill="%231f3a5f"/><path d="M50 24a12 12 0 0 0-12 12v14a12 12 0 0 0 24 0V36a12 12 0 0 0-12-12Z" fill="%23ffffff"/><path d="M30 50a20 20 0 0 0 40 0h-7a13 13 0 0 1-26 0Zm17 26h6v-8h-6Z" fill="%23ffffff"/></svg>'>
+<meta name="theme-color" content="#0F0F12">
+<link rel="icon" type="image/svg+xml" href='data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100"><rect width="100" height="100" rx="18" fill="%232038E6"/><path d="M50 24a12 12 0 0 0-12 12v14a12 12 0 0 0 24 0V36a12 12 0 0 0-12-12Z" fill="%23ffffff"/><path d="M30 50a20 20 0 0 0 40 0h-7a13 13 0 0 1-26 0Zm17 26h6v-8h-6Z" fill="%23ffffff"/></svg>'>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<!-- Template fonts are injected at runtime by demo-page.js from demo-templates.js -->
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@500;700&family=IBM+Plex+Sans:wght@400;500;600&display=swap" rel="stylesheet">
 <!-- ANALYTICS: the same GA4 / Meta Pixel snippet used on the main site can be
      pasted here; events already fire through trackEvent() in demo-page.js. -->
 <link rel="stylesheet" href="/demo/demo.css">
 </head>
-<body data-motif="none">
+<body>
 <a class="skip" href="#main">Ir al contenido</a>
 
 <header class="topbar">
@@ -34,16 +34,20 @@
     <div class="wrap">
       <div class="hero">
 
-        <!-- left: pitch -->
+        <!-- left: pitch + primary CTA -->
         <div class="hero-left">
           <span class="badge"><span class="dot" aria-hidden="true"></span><span id="badge-text">Demo personalizada</span></span>
           <h1 class="h1 disp" id="headline"></h1>
           <p class="lede" id="lede"></p>
           <div class="meta-row" id="meta"></div>
+          <div class="hero-cta">
+            <a class="btn fill big" id="cta-hero" target="_blank" rel="noopener"></a>
+            <p class="trust-line" id="trust-hero"></p>
+          </div>
         </div>
 
         <!-- right: the live widget -->
-        <div class="hero-right">
+        <div class="hero-right" id="widget-anchor">
           <div class="card">
             <div class="card-head">
               <span class="t" id="card-title"></span>
@@ -72,6 +76,15 @@
       </div>
     </div>
 
+    <!-- how it works / next steps -->
+    <section class="how">
+      <div class="wrap">
+        <span class="lbl" id="hw-eyebrow"></span>
+        <h2 class="disp" id="hw-h"></h2>
+        <div class="how-grid" id="how-grid"></div>
+      </div>
+    </section>
+
     <!-- why / benefits -->
     <section class="benefits">
       <div class="wrap">
@@ -82,13 +95,23 @@
       </div>
     </section>
 
+    <!-- mini FAQ / objection handling -->
+    <section class="faq">
+      <div class="wrap">
+        <span class="lbl" id="fq-eyebrow"></span>
+        <h2 class="disp" id="fq-h"></h2>
+        <div class="faq-list" id="faq-list"></div>
+      </div>
+    </section>
+
     <!-- conversion -->
     <section class="convert">
       <div class="wrap">
         <h2 class="disp" id="cv-h"></h2>
         <p id="cv-p"></p>
+        <p class="trust-line" id="trust-convert"></p>
         <div class="cta-row">
-          <a class="btn fill" id="cta-trial" target="_blank" rel="noopener"></a>
+          <a class="btn fill big" id="cta-trial" target="_blank" rel="noopener"></a>
           <a class="btn" id="cta-tech" target="_blank" rel="noopener"></a>
         </div>
       </div>
@@ -117,12 +140,16 @@
 
 </main>
 
+<!-- mobile sticky CTA (hidden on desktop and on non-active states) -->
+<div class="sticky-cta hidden" id="sticky-cta">
+  <a class="btn fill" id="cta-sticky" target="_blank" rel="noopener"></a>
+</div>
+
 <footer class="foot">
   <span id="foot-left">Demostración privada</span>
-  <span id="foot-right">Preparada por Elyon</span>
+  <span id="foot-right">Preparada por <a href="https://tryelyon.com/" rel="noopener">Elyon</a></span>
 </footer>
 
-<script src="/demo/demo-templates.js"></script>
 <script src="/demo/demo-config.js"></script>
 <script src="/demo/widget-loader.js"></script>
 <script src="/demo/demo-page.js"></script>
