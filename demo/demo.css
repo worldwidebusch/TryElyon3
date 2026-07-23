@@ -81,9 +81,13 @@ body[data-motif="dots"]{
 .badge .dot{width:7px;height:7px;background:var(--t-accent);border-radius:50%;animation:pulse 1.8s infinite}
 @keyframes pulse{50%{opacity:.3}}
 
-/* --- hero + widget: two columns on desktop, stacked on mobile --- */
-.hero{display:grid;grid-template-columns:1fr;gap:clamp(24px,4vw,44px);align-items:start}
-@media (min-width:900px){.hero{grid-template-columns:1fr 1fr}}
+/* --- hero + widget: two columns on desktop, stacked on mobile ---
+   minmax(0,1fr) + min-width:0 let columns shrink below their content's
+   intrinsic width (the embedded voice widget is ~520px wide and would
+   otherwise force horizontal page scroll at narrow/zoomed widths). --- */
+.hero{display:grid;grid-template-columns:minmax(0,1fr);gap:clamp(24px,4vw,44px);align-items:start}
+@media (min-width:900px){.hero{grid-template-columns:minmax(0,1fr) minmax(0,1fr)}}
+.hero-left,.hero-right{min-width:0}
 
 .h1{font-size:clamp(1.75rem,4.6vw,3.1rem);margin:1.1rem 0 .9rem;color:var(--t-ink)}
 .lede{font-size:clamp(1rem,1.6vw,1.13rem);max-width:38ch;color:var(--t-ink-soft)}
@@ -122,7 +126,9 @@ body[data-motif="dots"]{
   background:color-mix(in srgb,var(--t-card-ink) 5%,transparent);position:relative;
 }
 .widget-zone[data-widget-state="ready"]{border-style:solid}
-.ew-slot{width:100%;display:flex;align-items:center;justify-content:center}
+/* an oversized embed scrolls inside its zone instead of widening the page */
+.widget-zone{max-width:100%;overflow-x:auto}
+.ew-slot{width:100%;max-width:100%;display:flex;align-items:center;justify-content:center}
 .loading{display:flex;flex-direction:column;align-items:center;gap:.8rem}
 .loading .bars{display:flex;gap:4px;align-items:flex-end;height:26px}
 .loading .bars span{width:4px;background:var(--t-accent);animation:eq 1s ease-in-out infinite}
