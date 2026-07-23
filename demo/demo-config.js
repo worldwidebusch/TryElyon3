@@ -51,14 +51,12 @@ var ELYON_DEMOS = [
     widget: {
       placement: 'inline',
       /* ----------------------------------------------------------------
-         GoHighLevel Chat Widget that hosts the Voice AI agent, verbatim.
-         REQUIRED for it to render inside the card instead of a floating
-         bubble: in GoHighLevel, set this widget's "Widget Placement" to
-         Embedded / Inline (NOT floating), save, then hard-refresh the page.
-         Placement is read from GHL by data-widget-id, so the snippet itself
-         does not change — only the GHL setting.
+         GoHighLevel Chat Widget (Embedded / Inline) that hosts the Voice AI
+         agent, verbatim. The <div data-chat-widget> is the inline mount the
+         loader renders into; data-location-id is a public embed identifier
+         (not a secret). Paste both the <div> and the <script>, unchanged.
          ---------------------------------------------------------------- */
-      embedHtml: `<script src="https://widgets.leadconnectorhq.com/loader.js" data-resources-url="https://widgets.leadconnectorhq.com/chat-widget/loader.js" data-widget-id="6a6167b1cbb3de01dd6c4421"></script>`
+      embedHtml: `<div data-chat-widget data-widget-id="6a617bbe7742c156ec8a0163" data-location-id="5ynssMYlwC8Q67rGQchD"></div><script src="https://widgets.leadconnectorhq.com/loader.js" data-resources-url="https://widgets.leadconnectorhq.com/chat-widget/loader.js" data-widget-id="6a617bbe7742c156ec8a0163"></script>`
     }
   }
 ];
