@@ -328,7 +328,10 @@
     function vh() { return window.innerHeight || document.documentElement.clientHeight; }
 
     // Hide only what is safely below the fold, so above-fold content is
-    // never touched and a JS failure can't blank the page.
+    // never touched and a JS failure can't blank the page. Skip entirely
+    // when the viewport measurement is degenerate (prerender/background
+    // contexts can report ~0 height, which would mis-hide everything).
+    if (!reduced && vh() < 200) reduced = true;
     if (!reduced) {
       reveals = reveals.filter(function (el) {
         if (el.getBoundingClientRect().top >= vh() * 0.96) {
