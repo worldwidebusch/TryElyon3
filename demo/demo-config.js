@@ -12,6 +12,11 @@
    industry        Free text (e.g. "Taller automotriz").
    city            Free text (e.g. "Querétaro, México").
    language        "es" or "en". Drives on-page copy.
+   generic         OPTIONAL. true -> the copy is written for "tu negocio"
+                   instead of a specific business (the one link you can send
+                   to any prospect). businessName is ignored in the copy.
+   receptionistName OPTIONAL. The AI receptionist's persona name shown all
+                   over the page. Defaults to ELYON_RECEPTIONIST below.
    questions       OPTIONAL array of 3 strings: industry-tailored suggested
                    test questions for this business. Falls back to generic
                    questions when omitted.
@@ -40,7 +45,43 @@
    Currently the Elyon WhatsApp Business line (+52 55 9435 6033). */
 var ELYON_WA_DEFAULT = '525594356033';
 
+/* Default persona name for the AI receptionist, used across the page copy.
+   Override per demo with receptionistName. */
+var ELYON_RECEPTIONIST = 'Sofía';
+
 var ELYON_DEMOS = [
+  {
+    /* THE general demo: one link you can send to any Mexican business.
+       tryelyon.com/demo/sofia — copy speaks to "tu negocio", no company
+       name. NOTE: needs its own GENERIC Voice AI agent in GoHighLevel
+       (e.g. duplicate an existing agent, rename it "Sofía", strip the
+       business-specific services) with its own Embedded/Inline chat
+       widget — do NOT reuse a client's widget here, the persona would
+       answer as that client's business. */
+    slug: 'sofia',
+    generic: true,
+    businessName: 'Elyon',
+    industry: 'Para todo tipo de negocio',
+    city: '',
+    language: 'es',
+    receptionistName: ELYON_RECEPTIONIST,
+    questions: [
+      'Quiero agendar una cita, ¿tienen espacio esta semana?',
+      '¿Qué servicios ofrecen y en qué horarios atienden?',
+      '¿Me pueden mandar la información por WhatsApp?'
+    ],
+    trialDays: 7,
+    status: 'active',
+    expiresAt: null,
+    whatsappNumber: ELYON_WA_DEFAULT,
+    widget: {
+      placement: 'inline',
+      /* PENDING: paste the generic Sofía agent's inline embed here
+         (<div data-chat-widget ...> + loader <script>, verbatim). */
+      embedHtml: `[PASTE_THE_COMPLETE_GHL_WIDGET_EMBED_CODE_HERE]`
+    }
+  },
+
   {
     slug: 'the-shop-automotive',
     businessName: 'The Shop Automotive Service',

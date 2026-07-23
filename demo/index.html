@@ -6,8 +6,13 @@
 <!-- Private sales-demo pages: keep out of search + link graph. -->
 <meta name="robots" content="noindex, nofollow">
 <meta name="googlebot" content="noindex, nofollow">
-<title>Demo IA para The Shop Automotive Service | Elyon</title>
-<meta name="description" content="Demostración personalizada de recepcionista de IA.">
+<title>Conoce a Sofía — Recepcionista con IA | Elyon</title>
+<meta name="description" content="Habla con Sofía como si fueras un cliente. Demo en vivo de la recepcionista con IA de Elyon.">
+<!-- OG tags: WhatsApp/Messenger link previews when the demo link is shared -->
+<meta property="og:type" content="website">
+<meta property="og:title" content="Conoce a Sofía — Recepcionista con IA">
+<meta property="og:description" content="Habla con ella como si fueras un cliente y descubre cómo atiende, agenda y da seguimiento. Demo en vivo.">
+<meta property="og:locale" content="es_MX">
 <meta name="theme-color" content="#0F0F12">
 <link rel="icon" type="image/svg+xml" href='data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100"><rect width="100" height="100" rx="18" fill="%232038E6"/><path d="M50 24a12 12 0 0 0-12 12v14a12 12 0 0 0 24 0V36a12 12 0 0 0-12-12Z" fill="%23ffffff"/><path d="M30 50a20 20 0 0 0 40 0h-7a13 13 0 0 1-26 0Zm17 26h6v-8h-6Z" fill="%23ffffff"/></svg>'>
 <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -22,9 +27,9 @@
 
 <header class="topbar">
   <div class="brand" id="brand-name">
-    <!-- business name + industry filled by demo-page.js -->
+    <!-- business or persona name filled by demo-page.js -->
   </div>
-  <span class="top-chip" id="top-chip">Demo personalizada</span>
+  <span class="top-chip" id="top-chip">Demo en vivo</span>
 </header>
 
 <main id="main">
@@ -35,8 +40,8 @@
       <div class="hero">
 
         <!-- left: pitch + primary CTA -->
-        <div class="hero-left">
-          <span class="badge"><span class="dot" aria-hidden="true"></span><span id="badge-text">Demo personalizada</span></span>
+        <div class="hero-left reveal">
+          <span class="badge"><span class="dot" aria-hidden="true"></span><span id="badge-text">Demo en vivo</span></span>
           <h1 class="h1 disp" id="headline"></h1>
           <p class="lede" id="lede"></p>
           <div class="meta-row" id="meta"></div>
@@ -47,11 +52,19 @@
         </div>
 
         <!-- right: the live widget -->
-        <div class="hero-right" id="widget-anchor">
+        <div class="hero-right reveal" id="widget-anchor">
           <div class="card">
             <div class="card-head">
-              <span class="t" id="card-title"></span>
-              <span class="idx" aria-hidden="true">VOICE · AI</span>
+              <div class="persona">
+                <span class="avatar" aria-hidden="true">
+                  <svg viewBox="0 0 40 40" width="40" height="40"><rect width="40" height="40" rx="20" fill="#2038E6"/><g fill="#fff"><rect x="11" y="16" width="2.6" height="8" rx="1.3"/><rect x="16" y="12" width="2.6" height="16" rx="1.3"/><rect x="21" y="9" width="2.6" height="22" rx="1.3"/><rect x="26" y="14" width="2.6" height="12" rx="1.3"/></g></svg>
+                </span>
+                <div class="persona-id">
+                  <b id="rcp-name">Sofía</b>
+                  <small id="rcp-role">Recepcionista con IA</small>
+                </div>
+              </div>
+              <span class="status"><i aria-hidden="true"></i><span id="status-text">Disponible 24/7</span></span>
             </div>
             <div class="card-body">
               <ol class="steps" id="steps"></ol>
@@ -59,7 +72,7 @@
               <div class="widget-zone" id="widget-zone" data-widget-state="loading" aria-live="polite">
                 <div class="loading" id="widget-loading">
                   <div class="bars" aria-hidden="true"><span></span><span></span><span></span><span></span><span></span></div>
-                  <span class="t" id="loading-text">Iniciando la recepcionista…</span>
+                  <span class="t" id="loading-text">Iniciando…</span>
                 </div>
               </div>
 
@@ -78,7 +91,7 @@
 
     <!-- how it works / next steps -->
     <section class="how">
-      <div class="wrap">
+      <div class="wrap reveal">
         <span class="lbl" id="hw-eyebrow"></span>
         <h2 class="disp" id="hw-h"></h2>
         <div class="how-grid" id="how-grid"></div>
@@ -87,7 +100,7 @@
 
     <!-- why / benefits -->
     <section class="benefits">
-      <div class="wrap">
+      <div class="wrap reveal">
         <span class="lbl bf-eyebrow" id="bf-eyebrow"></span>
         <h2 class="disp" id="bf-h"></h2>
         <p class="bf-lede" id="bf-lede"></p>
@@ -97,7 +110,7 @@
 
     <!-- mini FAQ / objection handling -->
     <section class="faq">
-      <div class="wrap">
+      <div class="wrap reveal">
         <span class="lbl" id="fq-eyebrow"></span>
         <h2 class="disp" id="fq-h"></h2>
         <div class="faq-list" id="faq-list"></div>
@@ -106,7 +119,7 @@
 
     <!-- conversion -->
     <section class="convert">
-      <div class="wrap">
+      <div class="wrap reveal">
         <h2 class="disp" id="cv-h"></h2>
         <p id="cv-p"></p>
         <p class="trust-line" id="trust-convert"></p>
@@ -140,7 +153,7 @@
 
 </main>
 
-<!-- mobile sticky CTA (hidden on desktop and on non-active states) -->
+<!-- mobile sticky CTA: revealed by JS once the widget scrolls out of view -->
 <div class="sticky-cta hidden" id="sticky-cta">
   <a class="btn fill" id="cta-sticky" target="_blank" rel="noopener"></a>
 </div>

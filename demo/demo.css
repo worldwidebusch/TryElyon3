@@ -78,6 +78,7 @@ img,svg{max-width:100%}
 .hero-left,.hero-right{min-width:0}
 
 .h1{font-size:clamp(1.75rem,4.6vw,3rem);margin:1.1rem 0 .9rem;color:var(--ink)}
+.h1 .accent{color:var(--accent)}
 .lede{font-size:clamp(1rem,1.6vw,1.13rem);max-width:38ch;color:var(--ink-soft)}
 .meta-row{display:flex;flex-wrap:wrap;gap:.5rem;margin-top:1.3rem}
 .meta-row .pill{border:1.5px solid var(--rule);background:var(--surface);padding:.38rem .65rem;font-size:.68rem;letter-spacing:.06em;text-transform:uppercase}
@@ -95,9 +96,17 @@ img,svg{max-width:100%}
   box-shadow:0 18px 44px -18px rgba(15,15,18,.4);
   display:flex;flex-direction:column;
 }
-.card-head{padding:.8rem 18px;border-bottom:1px solid rgba(239,237,230,.18);display:flex;align-items:center;justify-content:space-between;gap:1rem}
-.card-head .t{font-family:var(--disp);font-weight:700;font-size:.8rem;letter-spacing:.07em;text-transform:uppercase}
-.card-head .idx{font-family:var(--disp);font-size:.6rem;letter-spacing:.12em;opacity:.65}
+.card-head{padding:.75rem 18px;border-bottom:1px solid rgba(239,237,230,.18);display:flex;align-items:center;justify-content:space-between;gap:1rem}
+
+/* persona identity: avatar + name + live status */
+.persona{display:flex;align-items:center;gap:.7rem;min-width:0}
+.persona .avatar{flex:none;width:40px;height:40px;display:block;border-radius:50%;box-shadow:0 0 0 2px rgba(125,140,255,.35)}
+.persona .avatar svg{display:block}
+.persona-id{display:flex;flex-direction:column;line-height:1.25;min-width:0}
+.persona-id b{font-family:var(--disp);font-weight:700;font-size:1rem}
+.persona-id small{font-size:.66rem;letter-spacing:.09em;text-transform:uppercase;opacity:.65}
+.status{display:inline-flex;align-items:center;gap:.45rem;flex:none;font-size:.66rem;letter-spacing:.08em;text-transform:uppercase;opacity:.9;border:1px solid rgba(239,237,230,.25);padding:.35rem .6rem;border-radius:99px}
+.status i{width:7px;height:7px;border-radius:50%;background:#41d98c;animation:pulse 1.8s infinite}
 .card-body{padding:clamp(18px,3vw,26px) clamp(16px,3vw,22px)}
 
 /* steps */
@@ -223,7 +232,10 @@ img,svg{max-width:100%}
   padding-bottom:calc(.6rem + env(safe-area-inset-bottom,0px));
   display:flex;gap:.6rem;align-items:center;
   box-shadow:0 -10px 30px -12px rgba(15,15,18,.25);
+  transform:translateY(110%);transition:transform .28s ease;
 }
+.sticky-cta.on{transform:translateY(0)}
+@media (prefers-reduced-motion:reduce){.sticky-cta{transition:none}}
 .sticky-cta .btn{flex:1;padding:.8rem 1rem;font-size:.72rem}
 @media (min-width:900px){.sticky-cta{display:none}}
 @media (max-width:899.98px){body{padding-bottom:74px}}
@@ -238,5 +250,26 @@ img,svg{max-width:100%}
 .state .code{font-family:var(--disp);font-weight:700;font-size:clamp(2.4rem,8vw,4.4rem);color:var(--accent);letter-spacing:-.04em}
 .state h1{font-size:clamp(1.3rem,3.4vw,2rem);margin:.6rem 0 1rem}
 .state p{color:var(--ink-soft);margin-bottom:1.8rem}
+
+/* --- micro-interactions: hover lifts + scroll reveals --- */
+.bf-card,.how-step{transition:transform .18s ease,box-shadow .18s ease,border-color .18s ease}
+.bf-card:hover,.how-step:hover{transform:translateY(-3px);border-color:var(--accent);box-shadow:0 12px 28px -14px rgba(32,56,230,.28)}
+.faq-list summary{transition:color .15s}
+.faq-list summary:hover{color:var(--accent)}
+.btn{transition:background .15s,color .15s,border-color .15s,transform .12s}
+.btn:active{transform:translateY(1px)}
+
+/* Progressive-enhancement reveals: content is VISIBLE by default. JS adds
+   .pre only to below-fold sections (and force-reveals everything after a
+   safety timeout), so nothing can ever be stuck invisible. */
+.reveal.pre{opacity:0;transform:translateY(14px)}
+.reveal.in{opacity:1;transform:none;transition:opacity .55s ease,transform .55s ease}
+@media (prefers-reduced-motion:reduce){
+  .reveal.pre{opacity:1;transform:none}
+  .reveal.in{transition:none}
+  .bf-card,.how-step,.btn{transition:none}
+  .bf-card:hover,.how-step:hover{transform:none}
+  .status i{animation:none}
+}
 
 .hidden{display:none!important}
