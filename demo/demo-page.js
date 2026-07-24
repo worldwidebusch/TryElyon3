@@ -7,7 +7,7 @@
    3-step trial explainer (last step highlighted), FAQ, closing CTA. CTAs
    repeat through the page (hero / benefits / bottom / sticky) — "perdidos
    en el texto pero siempre presentes".
-   Persona: Sofía (receptionistName per demo). generic:true entries speak to
+   Persona: Mateo (receptionistName/receptionistGender per demo). generic:true entries speak to
    "tu negocio"; business entries name the business.
    Depends on: demo-config.js, widget-loader.js.
 
@@ -25,8 +25,12 @@
     } catch (err) { /* analytics must never break the page */ }
   }
 
+  /* Spanish gender helpers: d.g is 'm' or 'f' (from receptionistGender). */
+  function esArt(d) { return d.g === 'm' ? 'el' : 'la'; }
+  function esO(d) { return d.g === 'm' ? 'o' : 'a'; }
+
   /* ---- copy, per language. Functions receive the demo entry `d`, which
-     carries d.rName (resolved receptionist name) and d.generic. ---- */
+     carries d.rName (resolved receptionist name), d.g and d.generic. ---- */
   var COPY = {
     es: {
       badge: 'Demo en vivo',
@@ -36,7 +40,7 @@
       ledeParts: function (d) {
         return d.generic
           ? ['', d.rName, ', tu recepcionista con IA, atiende llamadas y WhatsApp 24/7: responde dudas, agenda citas y da seguimiento por ti.']
-          : ['', d.rName, ', la recepcionista con IA de ' + d.businessName + ', atiende llamadas y WhatsApp 24/7: responde dudas, agenda citas y da seguimiento por ti.'];
+          : ['', d.rName, ', ' + esArt(d) + ' recepcionista con IA de ' + d.businessName + ', atiende llamadas y WhatsApp 24/7: responde dudas, agenda citas y da seguimiento por ti.'];
       },
       heroCta: function (d) { return 'Activa tu prueba gratuita de ' + d.trialDays + ' días'; },
       trust: ['Sin tarjeta', 'Sin compromiso', 'Configuración incluida'],
@@ -73,8 +77,8 @@
       hwH: function (d) { return '¿Cómo funciona la prueba de ' + d.trialDays + ' días?'; },
       howSteps: function (d) {
         return [
-          { t: 'Activas tu prueba', p: 'Nos escribes por WhatsApp y configuramos a ' + d.rName + ' con tus servicios, horarios y tono. Queda lista en 3 a 5 días hábiles.' },
-          { t: 'La pones a prueba', p: 'Atiende a tus clientes reales durante ' + d.trialDays + ' días completos.' },
+          { t: 'Activas tu prueba', p: 'Nos escribes por WhatsApp y configuramos a ' + d.rName + ' con tus servicios, horarios y tono. Queda list' + esO(d) + ' en 3 a 5 días hábiles.' },
+          { t: (d.g === 'm' ? 'Lo' : 'La') + ' pones a prueba', p: 'Atiende a tus clientes reales durante ' + d.trialDays + ' días completos.' },
           { t: 'Mides los resultados', p: 'Si no ves valor ni más citas agendadas, no pagas nada.', hl: true }
         ];
       },
@@ -82,10 +86,10 @@
       fqH: 'Lo que normalmente nos preguntan',
       faq: function (d) {
         return [
-          { q: '¿' + d.rName + ' suena robótica?', a: 'No. Se configura con los servicios, precios y tono de voz de tu negocio, y pasa la conversación a una persona de tu equipo cuando el caso lo necesita.' },
+          { q: '¿' + d.rName + ' suena robótic' + esO(d) + '?', a: 'No. Se configura con los servicios, precios y tono de voz de tu negocio, y pasa la conversación a una persona de tu equipo cuando el caso lo necesita.' },
           { q: '¿La prueba gratuita es realmente gratis?', a: 'Sí, sin tarjeta. Incluye hasta 150 conversaciones de IA y 30 minutos de voz durante la prueba. Si superas el uso incluido, el agente se pausa y tú decides si continuar.' },
           { q: '¿Qué pasa cuando termina la prueba?', a: 'Continúas solo si quieres. Sin contratos y puedes cancelar cuando quieras. El costo de configuración aplica únicamente si decides quedarte con tu agente.' },
-          { q: '¿En cuánto tiempo queda lista?', a: 'La mayoría de los agentes quedan activos entre 3 y 5 días hábiles después de que nos envías la información de tu negocio.' }
+          { q: '¿En cuánto tiempo queda listo mi agente?', a: 'La mayoría de los agentes quedan activos entre 3 y 5 días hábiles después de que nos envías la información de tu negocio.' }
         ];
       },
       wErrTitle: 'No se pudo cargar la demo',
@@ -100,18 +104,21 @@
       ctaTech: 'Tengo una pregunta técnica',
       waTrial: function (d) {
         return d.generic
-          ? 'Hola, probé la demo de ' + d.rName + ', la recepcionista con IA, y quiero activar la prueba gratuita de ' + d.trialDays + ' días para mi negocio.'
+          ? 'Hola, probé la demo de ' + d.rName + ', ' + esArt(d) + ' recepcionista con IA, y quiero activar la prueba gratuita de ' + d.trialDays + ' días para mi negocio.'
           : 'Hola, probé la demo de ' + d.businessName + ' y quiero activar la prueba gratuita de ' + d.trialDays + ' días.';
       },
       waTech: function (d) {
         return d.generic
-          ? 'Hola, probé la demo de ' + d.rName + ', la recepcionista con IA, y tengo una pregunta técnica sobre el funcionamiento o las integraciones.'
+          ? 'Hola, probé la demo de ' + d.rName + ', ' + esArt(d) + ' recepcionista con IA, y tengo una pregunta técnica sobre el funcionamiento o las integraciones.'
           : 'Hola, probé la demo de ' + d.businessName + ' y tengo una pregunta técnica sobre el funcionamiento o las integraciones.';
       },
       waInfo: function (d) {
-        return d && !d.generic
-          ? 'Hola, estoy viendo la demo de ' + d.businessName + ' y quiero más información.'
-          : 'Hola, estoy viendo la demo de Sofía, la recepcionista con IA, y quiero más información.';
+        if (d && !d.generic) {
+          return 'Hola, estoy viendo la demo de ' + d.businessName + ' y quiero más información.';
+        }
+        var name = (d && d.rName) || (typeof ELYON_RECEPTIONIST !== 'undefined' ? ELYON_RECEPTIONIST : 'Mateo');
+        var art = (d ? esArt(d) : 'el');
+        return 'Hola, estoy viendo la demo de ' + name + ', ' + art + ' recepcionista con IA, y quiero más información.';
       },
       metaCity: 'Ciudad',
       metaIndustry: 'Industria',
@@ -218,7 +225,7 @@
       waInfo: function (d) {
         return d && !d.generic
           ? 'Hi, I am looking at the ' + d.businessName + ' demo and would like more information.'
-          : 'Hi, I am looking at the Sofía AI receptionist demo and would like more information.';
+          : 'Hi, I am looking at the Mateo AI receptionist demo and would like more information.';
       },
       metaCity: 'City',
       metaIndustry: 'Industry',
@@ -444,7 +451,7 @@
       }
     }
 
-    // hero: pain-first headline, then Sofía as the answer, CTA immediately
+    // hero: pain-first headline, then the persona as the answer, CTA immediately
     setText('badge-text', t.badge);
     setParts('headline', t.headlineParts(demo));
     setParts('lede', t.ledeParts(demo), 'b');
@@ -607,7 +614,9 @@
 
     if (demo) {
       demo.rName = demo.receptionistName ||
-        (typeof ELYON_RECEPTIONIST !== 'undefined' ? ELYON_RECEPTIONIST : 'Sofía');
+        (typeof ELYON_RECEPTIONIST !== 'undefined' ? ELYON_RECEPTIONIST : 'Mateo');
+      demo.g = demo.receptionistGender ||
+        (typeof ELYON_RECEPTIONIST_GENDER !== 'undefined' ? ELYON_RECEPTIONIST_GENDER : 'm');
     }
 
     wireContact(demo, t); // header + footer WhatsApp, in every state

@@ -45,26 +45,30 @@
    Currently the Elyon WhatsApp Business line (+52 55 9435 6033). */
 var ELYON_WA_DEFAULT = '525594356033';
 
-/* Default persona name for the AI receptionist, used across the page copy.
-   Override per demo with receptionistName. */
-var ELYON_RECEPTIONIST = 'Sofía';
+/* Default persona for the AI receptionist, used across the page copy.
+   Override per demo with receptionistName / receptionistGender ('m'|'f') —
+   gender drives the Spanish articles and adjectives (el/la, listo/lista). */
+var ELYON_RECEPTIONIST = 'Mateo';
+var ELYON_RECEPTIONIST_GENDER = 'm';
 
 var ELYON_DEMOS = [
   {
     /* THE general demo: one link you can send to any Mexican business.
        tryelyon.com/demo/sofia — copy speaks to "tu negocio", no company
        name. NOTE: needs its own GENERIC Voice AI agent in GoHighLevel
-       (e.g. duplicate an existing agent, rename it "Sofía", strip the
+       (e.g. duplicate an existing agent, rename it "Mateo", strip the
        business-specific services) with its own Embedded/Inline chat
        widget — do NOT reuse a client's widget here, the persona would
        answer as that client's business. */
-    slug: 'sofia',
+    slug: 'mateo',
+    aliases: ['sofia'], // old shared links keep working
     generic: true,
     businessName: 'Elyon',
     industry: 'Para todo tipo de negocio',
     city: '',
     language: 'es',
     receptionistName: ELYON_RECEPTIONIST,
+    receptionistGender: ELYON_RECEPTIONIST_GENDER,
     questions: [
       'Quiero agendar una cita, ¿tienen espacio esta semana?',
       '¿Qué servicios ofrecen y en qué horarios atienden?',
@@ -79,7 +83,7 @@ var ELYON_DEMOS = [
       /* NOTE: this is currently the SAME widget/agent as the-shop-automotive
          (agent "The Shop Automotive Service"). For the general demo the
          agent should be renamed/reconfigured in GoHighLevel as a generic
-         "Sofía" receptionist — otherwise callers on this page hear it
+         "Mateo" receptionist — otherwise callers on this page hear it
          introduce itself as an automotive shop. */
       embedHtml: `<div data-chat-widget data-widget-id="6a61922ecbb3de01dd722f05" data-location-id="5ynssMYlwC8Q67rGQchD"></div><script src="https://widgets.leadconnectorhq.com/loader.js" data-resources-url="https://widgets.leadconnectorhq.com/chat-widget/loader.js" data-widget-id="6a61922ecbb3de01dd722f05"></script>`
     }
@@ -149,7 +153,9 @@ function elyonFindDemo(slug) {
   if (!slug) return null;
   var s = String(slug).toLowerCase();
   for (var i = 0; i < ELYON_DEMOS.length; i++) {
-    if (ELYON_DEMOS[i].slug === s) return ELYON_DEMOS[i];
+    var d = ELYON_DEMOS[i];
+    if (d.slug === s) return d;
+    if (d.aliases && d.aliases.indexOf(s) !== -1) return d;
   }
   return null;
 }
