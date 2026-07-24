@@ -93,7 +93,7 @@
         ];
       },
       wErrTitle: 'No se pudo cargar la demo',
-      wErrBody: function (d) { return d.rName + ' no cargó en este dispositivo o red. Escríbenos por WhatsApp y te la mostramos al instante.'; },
+      wErrBody: function (d) { return d.rName + ' no cargó en este dispositivo o red. Escríbenos por WhatsApp y te ' + (d.g === 'm' ? 'lo' : 'la') + ' mostramos al instante.'; },
       wErrBtn: 'Escríbenos por WhatsApp',
       convertH: '¿Listo para dejar de perder clientes?',
       convertP: function (d) {
