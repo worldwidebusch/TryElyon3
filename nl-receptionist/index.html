@@ -519,7 +519,7 @@ footer .fsmall{margin-top:.7rem;font-size:.78rem}
     <div class="wrap">
       <span class="kicker">Aanvragen</span>
       <h2 id="h-form">Start de intake</h2>
-      <p class="sub">Vul dit in en we nemen binnen één werkdag contact met je op. Samen kiezen we het pakket dat past. Eerst nog vragen? Bel de demo op <a href="tel:[DEMO_NUMMER]">[DEMO_NUMMER]</a>.</p>
+      <p class="sub">Vier velden, meer niet. We nemen binnen één werkdag contact met je op en de rest bespreken we in een kort gesprek. Eerst nog vragen? Bel de demo op <a href="tel:[DEMO_NUMMER]">[DEMO_NUMMER]</a>.</p>
 
       <form name="receptionist-intake" method="POST" action="/" data-netlify="true" netlify-honeypot="extra-veld" novalidate>
         <input type="hidden" name="form-name" value="receptionist-intake">
@@ -551,60 +551,14 @@ footer .fsmall{margin-top:.7rem;font-size:.78rem}
           <p class="err" id="e-mail">Vul een geldig e-mailadres in.</p>
         </div>
         <div class="field">
-          <label for="f-sector">Sector</label>
-          <select id="f-sector" aria-describedby="e-sector" name="sector" required>
-            <option value="">Kies je sector</option>
-            <option>Recruitment of uitzendbureau</option>
-            <option>IT of softwarebedrijf</option>
-            <option>Marketingbureau</option>
-            <option>Consultancy of zakelijke dienstverlening</option>
-            <option>Anders</option>
-          </select>
-          <p class="err" id="e-sector">Kies je sector.</p>
-        </div>
-        <div class="field">
-          <label for="f-fte">Hoeveel medewerkers hebben jullie?</label>
-          <select id="f-fte" aria-describedby="e-fte" name="aantal_medewerkers" required>
-            <option value="">Maak een keuze</option>
+          <label for="f-fte">Hoeveel medewerkers hebben jullie? (mag je overslaan)</label>
+          <select id="f-fte" name="aantal_medewerkers">
+            <option value="">Zeg ik liever in het gesprek</option>
             <option>2 tot 10</option>
             <option>10 tot 25</option>
             <option>25 tot 50</option>
             <option>50 tot 100</option>
             <option>Meer dan 100</option>
-          </select>
-          <p class="err" id="e-fte">Maak een keuze.</p>
-        </div>
-        <div class="field">
-          <label for="f-calls">Hoeveel oproepen missen jullie per week, denk je?</label>
-          <select id="f-calls" aria-describedby="e-calls" name="gemiste_calls_per_week" required>
-            <option value="">Maak een keuze</option>
-            <option>0 tot 5</option>
-            <option>5 tot 15</option>
-            <option>15 tot 30</option>
-            <option>Meer dan 30</option>
-            <option>Geen idee</option>
-          </select>
-          <p class="err" id="e-calls">Maak een keuze.</p>
-        </div>
-        <div class="field">
-          <label for="f-huidig">Hoe vangen jullie gemiste oproepen nu op?</label>
-          <select id="f-huidig" aria-describedby="e-huidig" name="huidige_oplossing" required>
-            <option value="">Maak een keuze</option>
-            <option>Receptie of officemanager</option>
-            <option>Iedereen neemt zelf op</option>
-            <option>Voicemail</option>
-            <option>Antwoordservice</option>
-            <option>Niets</option>
-          </select>
-          <p class="err" id="e-huidig">Maak een keuze.</p>
-        </div>
-        <div class="field">
-          <label for="f-pakket">Welk pakket lijkt jullie het beste? (mag je overslaan)</label>
-          <select id="f-pakket" name="pakket">
-            <option value="">Weet ik nog niet</option>
-            <option>Start (€195 per maand)</option>
-            <option>Groei (€395 per maand)</option>
-            <option>Schaal (vanaf €795 per maand)</option>
           </select>
         </div>
 
@@ -730,15 +684,11 @@ footer .fsmall{margin-top:.7rem;font-size:.78rem}
     allOk = check('f-naam', v('f-naam').length > 1) && allOk;
     allOk = check('f-tel', /^[0-9+()\s-]{8,20}$/.test(v('f-tel'))) && allOk;
     allOk = check('f-mail', /^[^\s@]+@[^\s@]+\.[^\s@]{2,}$/.test(v('f-mail'))) && allOk;
-    allOk = check('f-sector', v('f-sector') !== '') && allOk;
-    allOk = check('f-fte', v('f-fte') !== '') && allOk;
-    allOk = check('f-calls', v('f-calls') !== '') && allOk;
-    allOk = check('f-huidig', v('f-huidig') !== '') && allOk;
     if (firstBad) firstBad.focus();
     return allOk;
   }
 
-  ['f-bedrijf','f-naam','f-tel','f-mail','f-sector','f-fte','f-calls','f-huidig'].forEach(function (id) {
+  ['f-bedrijf','f-naam','f-tel','f-mail'].forEach(function (id) {
     var el = document.getElementById(id);
     el.addEventListener('input', function () { setInvalid(id, false); });
     el.addEventListener('change', function () { setInvalid(id, false); });
