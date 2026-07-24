@@ -66,4 +66,16 @@ tools for inbox/email tasks.
   (use a local override or environment injection).
 - Verify it loaded with `claude mcp list` (or `/mcp` inside a Claude Code session).
 
+### `/inboxkit` slash command
+
+A project command in [`.claude/commands/inboxkit.md`](.claude/commands/inboxkit.md) lets you
+invoke InboxKit directly:
+
+```
+/inboxkit <what you want InboxKit to do>
+```
+
+It routes the request to the `inboxkit` MCP tools. If the server isn't authenticated yet,
+run `/mcp` first to sign in, then retry.
+
 (c) 2026 Elyon. All rights reserved.
