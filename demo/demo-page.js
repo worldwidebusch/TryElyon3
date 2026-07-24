@@ -44,7 +44,7 @@
       },
       heroCta: function (d) { return 'Activa tu prueba gratuita de ' + d.trialDays + ' días'; },
       trust: ['Sin tarjeta', 'Sin compromiso', 'Configuración incluida'],
-      personaRole: 'Recepcionista con IA',
+      personaRole: function (d) { return (d.g === 'm' ? 'El' : 'La') + ' recepcionista con IA'; },
       personaStatus: 'Disponible 24/7',
       steps: function (d) {
         return [
@@ -132,7 +132,7 @@
       brandTop: function (d) { return d.generic ? d.rName : d.businessName; },
       brandSub: function (d) {
         return d.generic
-          ? 'Recepcionista con IA · Elyon'
+          ? (d.g === 'm' ? 'El' : 'La') + ' recepcionista con IA · Elyon'
           : [d.industry, d.city].filter(Boolean).join(' · ');
       },
       endedTitle: 'Esta demostración ha finalizado',
@@ -154,7 +154,7 @@
       },
       heroCta: function (d) { return 'Activate your free ' + d.trialDays + '-day trial'; },
       trust: ['No card required', 'No commitment', 'Setup included'],
-      personaRole: 'AI Receptionist',
+      personaRole: function () { return 'AI Receptionist'; },
       personaStatus: 'Available 24/7',
       steps: function (d) {
         return [
@@ -477,7 +477,7 @@
 
     // widget card persona identity
     setText('rcp-name', demo.rName);
-    setText('rcp-role', t.personaRole);
+    setText('rcp-role', t.personaRole(demo));
     setText('status-text', t.personaStatus);
 
     buildList($('steps'), t.steps(demo));
