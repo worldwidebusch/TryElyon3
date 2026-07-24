@@ -42,4 +42,28 @@ brand/assets/*.svg       Logo, wordmark, lockups, app icon, favicon (production 
 - Spanish copy: the `ES` dictionary at the top of the `<script>` block. English lives in the HTML.
 - Demo slideshow scenes: `.scene` blocks inside `#screen`; timings via `data-d` / `data-dur`.
 
+## MCP integration (Claude Code)
+
+This repo registers the **InboxKit** MCP server as a project-scoped tool provider in
+[`.mcp.json`](.mcp.json), so anyone running Claude Code inside this repo can use its
+tools for inbox/email tasks.
+
+```json
+{
+  "mcpServers": {
+    "inboxkit": {
+      "type": "http",
+      "url": "https://mcp.inboxkit.com/mcp"
+    }
+  }
+}
+```
+
+- On first use, Claude Code prompts you to approve the project MCP server and, if the
+  server requires it, walks you through its OAuth sign-in.
+- If InboxKit instead issues a static API token, add it under `headers`, e.g.
+  `"headers": { "Authorization": "Bearer <token>" }` — keep real tokens out of git
+  (use a local override or environment injection).
+- Verify it loaded with `claude mcp list` (or `/mcp` inside a Claude Code session).
+
 (c) 2026 Elyon. All rights reserved.

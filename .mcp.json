@@ -1,0 +1,8 @@
+{
+  "mcpServers": {
+    "inboxkit": {
+      "type": "http",
+      "url": "https://mcp.inboxkit.com/mcp"
+    }
+  }
+}
