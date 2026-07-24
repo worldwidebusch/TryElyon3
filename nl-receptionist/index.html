@@ -1,0 +1,620 @@
+<!DOCTYPE html>
+<html lang="nl">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Nooit meer een gemiste oproep | Elyon</title>
+<meta name="description" content="Onze AI-receptionist neemt elke oproep aan. 24/7, in vloeiend Nederlands. Wij richten alles in, jullie schakelen alleen het nummer door. Live binnen 5 werkdagen.">
+<meta property="og:type" content="website">
+<meta property="og:url" content="https://tryelyon.com/nl-receptionist/">
+<meta property="og:title" content="Elke gemiste oproep is een klant voor je concurrent">
+<meta property="og:description" content="Een receptionist die elke oproep aanneemt, doorverbindt naar de juiste collega en afspraken inplant. Wij zetten alles voor je klaar. Live binnen 5 werkdagen.">
+<meta property="og:locale" content="nl_NL">
+<meta name="theme-color" content="#0F0F12">
+<link rel="icon" type="image/svg+xml" href='data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100"><rect width="100" height="100" fill="%230F0F12"/><rect x="22" y="22" width="12" height="56" fill="%23EFEDE6"/><rect x="22" y="22" width="56" height="12" fill="%232038E6"/><rect x="22" y="44" width="44" height="12" fill="%23EFEDE6"/><rect x="22" y="66" width="32" height="12" fill="%23EFEDE6"/></svg>'>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<!-- fonts load async so the only external request never blocks first paint -->
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Martian+Mono:wght@400;700;800&family=IBM+Plex+Mono:wght@400;500;600&display=swap" media="print" onload="this.media='all'">
+<noscript><link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Martian+Mono:wght@400;700;800&family=IBM+Plex+Mono:wght@400;500;600&display=swap"></noscript>
+
+<script type="application/ld+json">
+{"@context":"https://schema.org","@type":"LocalBusiness","name":"Elyon","url":"https://tryelyon.com","description":"AI-receptionist voor recruitmentbureaus, IT-bedrijven en marketingbureaus. Elke oproep beantwoord, 24/7, in vloeiend Nederlands.","address":{"@type":"PostalAddress","streetAddress":"[ADRES]","addressCountry":"NL"},"telephone":"[DEMO_NUMMER]","priceRange":"€195 per maand"}
+</script>
+<script type="application/ld+json">
+{"@context":"https://schema.org","@type":"FAQPage","mainEntity":[
+{"@type":"Question","name":"Klinkt hij als een robot?","acceptedAnswer":{"@type":"Answer","text":"Nee. Je hoort een natuurlijke Nederlandse stem. Bel de demo op [DEMO_NUMMER] en oordeel zelf."}},
+{"@type":"Question","name":"Wat als hij een vraag niet kan beantwoorden?","acceptedAnswer":{"@type":"Answer","text":"Dan zegt hij dat eerlijk en legt hij de vraag als bericht bij jullie neer, met naam en nummer van de beller. Hij gokt niet."}},
+{"@type":"Question","name":"Kunnen we zelf nog opnemen?","acceptedAnswer":{"@type":"Answer","text":"Ja. Jullie kiezen zelf hoe je doorschakelt: alleen bij geen gehoor, buiten kantooruren of altijd. Jullie houden de controle."}},
+{"@type":"Question","name":"Wat gebeurt er met ons huidige nummer?","acceptedAnswer":{"@type":"Answer","text":"Niets. Het nummer blijft van jullie. Je zet alleen een doorschakeling aan en die kun je elk moment weer uitzetten."}},
+{"@type":"Question","name":"Is onze data veilig volgens de AVG?","acceptedAnswer":{"@type":"Answer","text":"We behandelen gegevens volgens de AVG, sluiten een verwerkersovereenkomst af en bewaren niet meer dan nodig is om jullie oproepen af te handelen. Verwijderen kan op elk moment."}},
+{"@type":"Question","name":"Kunnen we maandelijks opzeggen?","acceptedAnswer":{"@type":"Answer","text":"Ja. Geen jaarcontract, opzeggen kan per maand. En binnen de eerste 14 dagen krijg je bij twijfel je geld terug."}},
+{"@type":"Question","name":"Hoe snel is het geregeld?","acceptedAnswer":{"@type":"Answer","text":"Binnen 5 werkdagen na de intake staat je receptionist live. Jullie vullen het formulier in, schakelen aan het eind het nummer door en dat is alles."}},
+{"@type":"Question","name":"Werkt het met onze agenda's?","acceptedAnswer":{"@type":"Answer","text":"Met de meeste online agenda's, zoals Google Agenda en Outlook. Geen koppeling? Dan sturen we afspraakverzoeken per e-mail of WhatsApp."}}
+]}
+</script>
+
+<style>
+:root{
+  --bg:#efede6;            /* Elyon paper */
+  --surface:#e6e3da;       /* paper-2 */
+  --ink:#131316;
+  --ink-soft:#50505a;
+  --accent:#2038e6;        /* Elyon cobalt */
+  --accent-dark:#1a2cb8;
+  --accent-lt:#7d8cff;
+  --phone:#1e7a46;         /* call-green, only for phone actions */
+  --phone-dark:#155c34;
+  --carbon:#0f0f12;
+  --bone:#efede6;
+  --rule:#131316;
+  --err:#b3261e;
+  --disp:'Martian Mono',ui-monospace,monospace;
+  --body:'IBM Plex Mono',ui-monospace,monospace;
+}
+*{margin:0;padding:0;box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{
+  background:var(--bg);color:var(--ink);
+  font-family:var(--body);font-size:15.5px;line-height:1.65;
+  -webkit-font-smoothing:antialiased;
+  background-image:
+    linear-gradient(rgba(32,56,230,.05) 1px,transparent 1px),
+    linear-gradient(90deg,rgba(32,56,230,.05) 1px,transparent 1px);
+  background-size:34px 34px;
+}
+a{color:inherit}
+::selection{background:var(--accent);color:var(--bg)}
+:focus-visible{outline:2.5px solid var(--accent);outline-offset:3px}
+img,svg{max-width:100%}
+.wrap{max-width:1100px;margin:0 auto;padding:clamp(48px,7vw,88px) clamp(18px,4vw,28px)}
+h1,h2,h3{font-family:var(--disp);letter-spacing:-.02em;line-height:1.12}
+h1,h2{font-weight:800;text-transform:uppercase}
+h2{font-size:clamp(1.2rem,2.8vw,1.8rem);max-width:32ch}
+.kicker{display:inline-block;font-family:var(--disp);font-size:.66rem;font-weight:700;letter-spacing:.14em;text-transform:uppercase;color:var(--accent);margin-bottom:1rem}
+.sub{color:var(--ink-soft);max-width:62ch;margin-top:.9rem}
+
+/* buttons: Elyon brand, square */
+.btn{
+  display:inline-flex;align-items:center;justify-content:center;gap:.55rem;
+  font-family:var(--disp);font-weight:700;font-size:.74rem;letter-spacing:.06em;text-transform:uppercase;
+  text-decoration:none;cursor:pointer;text-align:center;
+  padding:.95rem 1.5rem;border:1.5px solid var(--rule);background:transparent;color:var(--ink);
+  transition:background .15s,color .15s,border-color .15s,transform .1s;
+}
+.btn:active{transform:translateY(1px)}
+.btn-primary{background:var(--accent);border-color:var(--accent);color:#fff}
+.btn-primary:hover{background:var(--accent-dark);border-color:var(--accent-dark)}
+.btn-phone{background:var(--phone);border-color:var(--phone);color:#fff}
+.btn-phone:hover{background:var(--phone-dark);border-color:var(--phone-dark)}
+.btn-phone .ico{flex:none}
+.btn-block{width:100%}
+
+/* hero */
+.hero{border-bottom:1.5px solid var(--rule)}
+.hero .wrap{padding-top:clamp(56px,9vw,104px);padding-bottom:clamp(56px,8vw,92px)}
+.hero h1{font-size:clamp(1.5rem,4.6vw,2.7rem);max-width:24ch}
+.hero .sub{font-size:clamp(.98rem,1.6vw,1.08rem);max-width:58ch}
+.offer-line{margin-top:1rem;font-weight:600}
+.cta-row{display:flex;flex-wrap:wrap;gap:.8rem;margin-top:1.8rem}
+.phone-note{margin-top:.7rem;font-size:.88rem;color:var(--ink-soft)}
+.trust{display:flex;flex-wrap:wrap;gap:.4rem 1.4rem;margin-top:1.4rem;font-size:.85rem;color:var(--ink-soft)}
+.trust span::before{content:"✓";color:var(--phone);font-weight:700;margin-right:.4rem}
+@media (max-width:560px){
+  .cta-row{flex-direction:column}
+  .cta-row .btn{width:100%}
+}
+
+/* probleem */
+.cards{display:grid;grid-template-columns:1fr;gap:14px;margin-top:2rem}
+@media (min-width:760px){.cards{grid-template-columns:repeat(3,1fr)}}
+.card{background:var(--bg);border:1.5px solid var(--rule);padding:24px}
+.card .big{font-family:var(--disp);font-size:1.9rem;font-weight:800;color:var(--accent);letter-spacing:-.02em}
+.card p{margin-top:.5rem;color:var(--ink-soft);font-size:.92rem}
+.bron{display:block;margin-top:.6rem;font-size:.78rem;color:var(--ink-soft)}
+.bron a{color:var(--accent);text-decoration:underline;text-underline-offset:2px}
+
+/* stappen */
+.sec-alt{background:var(--surface);border-top:1.5px solid var(--rule)}
+.steps{counter-reset:st;display:grid;grid-template-columns:1fr;gap:14px;margin-top:2rem}
+@media (min-width:760px){.steps{grid-template-columns:repeat(3,1fr)}}
+.step{background:var(--bg);border:1.5px solid var(--rule);padding:24px;counter-increment:st}
+.step::before{
+  content:counter(st,decimal-leading-zero);display:inline-block;font-family:var(--disp);font-weight:700;
+  font-size:.66rem;color:var(--accent);border-bottom:2px solid var(--accent);margin-bottom:.8rem;padding-bottom:.2rem;
+}
+.step h3{font-size:.95rem;font-weight:800;text-transform:uppercase}
+.step p{margin-top:.45rem;color:var(--ink-soft);font-size:.92rem}
+.steps-note{margin-top:1.4rem;font-weight:600}
+.steps-note b{color:var(--accent)}
+
+/* capabilities */
+.caps{display:grid;grid-template-columns:1fr;gap:14px 28px;margin-top:2rem}
+@media (min-width:700px){.caps{grid-template-columns:1fr 1fr}}
+.cap{display:flex;gap:.85rem;align-items:flex-start}
+.cap .ic{flex:none;width:26px;height:26px;background:var(--accent);color:#fff;display:inline-flex;align-items:center;justify-content:center;font-weight:700;font-size:.85rem;margin-top:2px}
+.cap h3{font-size:.95rem;font-weight:800;text-transform:uppercase}
+.cap p{color:var(--ink-soft);font-size:.92rem;margin-top:.2rem}
+
+/* demo band: Elyon carbon */
+.demo{background:var(--carbon);color:var(--bone);border-top:1.5px solid var(--rule)}
+.demo h2{color:var(--bone)}
+.demo .kicker{color:var(--accent-lt)}
+.demo .sub{color:rgba(239,237,230,.85)}
+.demo-num{
+  display:inline-flex;align-items:center;gap:.8rem;margin-top:1.6rem;
+  font-family:var(--disp);font-size:clamp(1.2rem,4.4vw,2.2rem);font-weight:800;letter-spacing:.01em;
+  color:#fff;text-decoration:none;background:var(--phone);border:1.5px solid var(--phone);
+  padding:.7em 1em;
+}
+.demo-num:hover{background:var(--phone-dark)}
+.demo-small{margin-top:1rem;font-size:.88rem;color:rgba(239,237,230,.75)}
+
+/* prijs */
+.price-card{
+  background:var(--bg);border:1.5px solid var(--rule);
+  padding:clamp(26px,4vw,40px);margin-top:2rem;max-width:560px;
+  box-shadow:0 18px 40px -24px rgba(15,15,18,.35);
+}
+.price-card h3{font-size:1rem;font-weight:800;text-transform:uppercase}
+.price-line{display:flex;flex-wrap:wrap;align-items:baseline;gap:.4rem 1rem;margin-top:1rem}
+.price-line .p1{font-family:var(--disp);font-size:1.9rem;font-weight:800;letter-spacing:-.02em}
+.price-line .p1 small{font-size:.8rem;font-weight:600;color:var(--ink-soft)}
+.price-line .p2{font-size:1.05rem;font-weight:600;color:var(--ink-soft)}
+.incl{list-style:none;margin-top:1.3rem;display:flex;flex-direction:column;gap:.55rem}
+.incl li{display:flex;gap:.6rem;align-items:flex-start;font-size:.92rem}
+.incl li::before{content:"✓";color:var(--phone);font-weight:700;flex:none}
+.garantie{margin-top:1.4rem;padding:.9rem 1rem;background:var(--surface);border-left:4px solid var(--phone);font-size:.9rem}
+.price-card .btn{margin-top:1.5rem}
+
+/* faq */
+.faq-list{margin-top:2rem;max-width:760px}
+.faq-list details{background:var(--bg);border:1.5px solid var(--rule)}
+.faq-list details+details{margin-top:10px}
+.faq-list summary{cursor:pointer;list-style:none;display:flex;justify-content:space-between;align-items:center;gap:1rem;padding:1rem 1.1rem;font-weight:600;font-size:.95rem}
+.faq-list summary::-webkit-details-marker{display:none}
+.faq-list summary::after{content:"+";color:var(--accent);font-family:var(--disp);font-size:1.2rem;font-weight:700;flex:none;line-height:1}
+.faq-list details[open] summary::after{content:"×"}
+.faq-list details p{padding:0 1.1rem 1.05rem;color:var(--ink-soft);font-size:.92rem}
+
+/* form */
+form{margin-top:2rem;max-width:640px}
+.field{margin-bottom:1.15rem}
+label{display:block;font-weight:600;font-size:.9rem;margin-bottom:.35rem}
+input[type=text],input[type=tel],input[type=email],select{
+  width:100%;padding:.8rem .9rem;font:inherit;font-size:1rem;color:var(--ink);
+  background:var(--bg);border:1.5px solid var(--rule);
+}
+input:focus,select:focus{outline:none;border-color:var(--accent);box-shadow:0 0 0 3px rgba(32,56,230,.18)}
+.field.invalid input,.field.invalid select{border-color:var(--err)}
+.err{display:none;color:var(--err);font-size:.85rem;margin-top:.3rem}
+.field.invalid .err{display:block}
+.form-privacy{font-size:.82rem;color:var(--ink-soft);margin-top:1rem}
+.form-privacy a{color:var(--accent)}
+.form-ok{display:none;margin-top:2rem;padding:1.4rem;background:var(--bg);border:1.5px solid var(--phone);max-width:640px}
+.form-ok h3{color:var(--phone-dark);text-transform:uppercase;font-size:.95rem}
+.form-ok p{margin-top:.4rem;color:var(--ink-soft)}
+.form-ok a{color:var(--accent)}
+.hp{position:absolute;left:-9999px;top:-9999px}
+
+/* footer */
+footer{border-top:1.5px solid var(--rule);background:var(--surface);padding:2.2rem clamp(18px,4vw,28px);text-align:center;font-size:.85rem;color:var(--ink-soft)}
+footer .f-logo{height:34px;width:auto;display:inline-block}
+footer .flinks{display:flex;flex-wrap:wrap;gap:.4rem 1.4rem;justify-content:center;margin-top:.9rem}
+footer a{color:var(--accent)}
+footer .fsmall{margin-top:.7rem;font-size:.78rem}
+
+/* lazy render below the fold */
+.cv{content-visibility:auto;contain-intrinsic-size:auto 640px}
+
+/* reveals: visible by default, JS adds .pre only below the fold */
+.reveal.pre{opacity:0;transform:translateY(14px)}
+.reveal.in{opacity:1;transform:none;transition:opacity .5s ease,transform .5s ease}
+@media (prefers-reduced-motion:reduce){
+  .reveal.pre{opacity:1;transform:none}
+  .reveal.in{transition:none}
+  html{scroll-behavior:auto}
+}
+</style>
+</head>
+<body>
+
+<!-- ============================ HERO ============================ -->
+<header class="hero">
+  <div class="wrap">
+    <span class="kicker">Voor recruitmentbureaus, IT-bedrijven en marketingbureaus</span>
+    <h1>Elke gemiste oproep is een klant voor je concurrent</h1>
+    <p class="sub">Onze AI-receptionist neemt elke oproep aan. 24/7, in vloeiend Nederlands. Hij noteert wie er belde en waarover, verbindt door naar de juiste collega en plant afspraken in de agenda. Wij richten alles voor je in.</p>
+    <p class="offer-line">€500 eenmalige inrichting, daarna €195 per maand. Live binnen 5 werkdagen.</p>
+    <div class="cta-row">
+      <a class="btn btn-primary" href="#aanvragen">Vraag je receptionist aan</a>
+      <a class="btn btn-phone" href="tel:[DEMO_NUMMER]">
+        <svg class="ico" width="18" height="18" viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M6.6 3h2.3c.5 0 .9.3 1 .8l.8 3.2c.1.4 0 .8-.3 1.1L8.9 9.6a13 13 0 0 0 5.5 5.5l1.5-1.5c.3-.3.7-.4 1.1-.3l3.2.8c.5.1.8.5.8 1v2.3c0 .6-.5 1.1-1.1 1.1C11.5 18.5 5.5 12.5 5.5 4.1c0-.6.5-1.1 1.1-1.1z" fill="currentColor"/></svg>
+        Bel de demo: [DEMO_NUMMER]
+      </a>
+    </div>
+    <p class="phone-note">Hoor eerst zelf hoe hij klinkt. Je krijgt dezelfde receptionist aan de lijn die straks jullie telefoon aanneemt.</p>
+    <p class="trust"><span>14 dagen geld-teruggarantie</span><span>Maandelijks opzegbaar</span><span>Geen jaarcontract</span></p>
+  </div>
+</header>
+
+<main id="main">
+
+  <!-- ========================= PROBLEEM ========================= -->
+  <section class="reveal" aria-labelledby="h-probleem">
+    <div class="wrap">
+      <span class="kicker">Het probleem</span>
+      <h2 id="h-probleem">Niet opnemen kost je meer dan je denkt</h2>
+      <p class="sub">Iedereen zit in gesprek, in een meeting, of het is na zessen. De beller wacht niet. Die belt de volgende op de lijst.</p>
+      <div class="cards">
+        <div class="card">
+          <span class="big">62%</span>
+          <p>van de telefoontjes naar kleinere bedrijven wordt niet door een mens opgenomen.</p>
+          <span class="bron">Bron: <a href="https://411locals.us/small-business-owners-dont-answer-62-of-phone-calls/" rel="noopener" target="_blank">411 Locals, onderzoek onder 85 bedrijven</a></span>
+        </div>
+        <div class="card">
+          <span class="big">80%</span>
+          <p>van de bellers die voicemail krijgt, hangt op zonder bericht. Je weet niet eens dat ze belden.</p>
+          <span class="bron">Bron: <a href="https://www.sellcell.com/blog/voicemail-statistics/" rel="noopener" target="_blank">Forbes en Hiya, voicemailonderzoek</a></span>
+        </div>
+        <div class="card">
+          <span class="big">2x</span>
+          <p>vaker belt een klant meestal niet. Wie je twee keer niet te pakken krijgt, gaat naar een ander.</p>
+          <span class="bron">Bron: <a href="https://aircall.io/blog/customer-happiness/missed-calls/" rel="noopener" target="_blank">BT Business, klantonderzoek</a></span>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ======================= HOE HET WERKT ======================= -->
+  <section class="sec-alt reveal cv" aria-labelledby="h-hoe">
+    <div class="wrap">
+      <span class="kicker">Hoe het werkt</span>
+      <h2 id="h-hoe">Vijf minuten werk voor jou, de rest doen wij</h2>
+      <div class="steps">
+        <div class="step">
+          <h3>Vul het intakeformulier in</h3>
+          <p>Een paar vragen over jullie bedrijf, diensten en wie waarvoor bereikbaar is. Drie minuten werk.</p>
+        </div>
+        <div class="step">
+          <h3>Wij bouwen en trainen je receptionist</h3>
+          <p>Wij richten hem in met jullie diensten, veelgestelde vragen en doorschakelregels. Niemand hoeft iets te installeren.</p>
+        </div>
+        <div class="step">
+          <h3>Schakel het nummer door, klaar</h3>
+          <p>Twee minuten werk, wij sturen de instructies mee. Vanaf dat moment wordt elke oproep aangenomen.</p>
+        </div>
+      </div>
+      <p class="steps-note">Stap 1 en 3 kosten jou samen <b>vijf minuten</b>. Binnen 5 werkdagen staat alles live.</p>
+    </div>
+  </section>
+
+  <!-- ==================== WAT DE RECEPTIONIST DOET ==================== -->
+  <section class="reveal cv" aria-labelledby="h-wat">
+    <div class="wrap">
+      <span class="kicker">Wat je krijgt</span>
+      <h2 id="h-wat">Wat de receptionist voor je doet</h2>
+      <div class="caps">
+        <div class="cap"><span class="ic" aria-hidden="true">✓</span><div>
+          <h3>Neemt 24/7 op</h3>
+          <p>Ook tijdens de lunch, tijdens meetings en na zessen.</p>
+        </div></div>
+        <div class="cap"><span class="ic" aria-hidden="true">✓</span><div>
+          <h3>Noteert elke oproep</h3>
+          <p>Wie belde, waarover en hoe dringend. Er gaat niets verloren.</p>
+        </div></div>
+        <div class="cap"><span class="ic" aria-hidden="true">✓</span><div>
+          <h3>Verbindt door naar de juiste collega</h3>
+          <p>Kandidaten naar de juiste recruiter, klanten naar sales, storingen naar support. Spoed gaat direct door.</p>
+        </div></div>
+        <div class="cap"><span class="ic" aria-hidden="true">✓</span><div>
+          <h3>Plant afspraken in de agenda</h3>
+          <p>Intakes, demo's en gesprekken, alleen op momenten die jullie vrijgeven.</p>
+        </div></div>
+        <div class="cap"><span class="ic" aria-hidden="true">✓</span><div>
+          <h3>Vangt piekdrukte op</h3>
+          <p>Als alle lijnen bezet zijn, neemt hij op. Geen wachtrij, geen ingesprekstoon.</p>
+        </div></div>
+        <div class="cap"><span class="ic" aria-hidden="true">✓</span><div>
+          <h3>Stuurt na elk gesprek een samenvatting</h3>
+          <p>Per e-mail of WhatsApp, binnen een minuut na het gesprek.</p>
+        </div></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============================ DEMO ============================ -->
+  <section class="demo reveal cv" aria-labelledby="h-demo">
+    <div class="wrap">
+      <span class="kicker">De demo</span>
+      <h2 id="h-demo">Eerst horen? Bel hem nu</h2>
+      <p class="sub">Bel, stel lastige vragen, praat erdoorheen, probeer hem vast te laten lopen. Dan weet je precies wat jullie bellers straks horen.</p>
+      <a class="demo-num" href="tel:[DEMO_NUMMER]">
+        <svg width="26" height="26" viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M6.6 3h2.3c.5 0 .9.3 1 .8l.8 3.2c.1.4 0 .8-.3 1.1L8.9 9.6a13 13 0 0 0 5.5 5.5l1.5-1.5c.3-.3.7-.4 1.1-.3l3.2.8c.5.1.8.5.8 1v2.3c0 .6-.5 1.1-1.1 1.1C11.5 18.5 5.5 12.5 5.5 4.1c0-.6.5-1.1 1.1-1.1z" fill="currentColor"/></svg>
+        [DEMO_NUMMER]
+      </a>
+      <p class="demo-small">Gewoon bellen, geen aanmelding nodig. De demo is gratis, je betaalt alleen je normale beltarief.</p>
+    </div>
+  </section>
+
+  <!-- ============================ PRIJS ============================ -->
+  <section class="reveal cv" aria-labelledby="h-prijs">
+    <div class="wrap">
+      <span class="kicker">De prijs</span>
+      <h2 id="h-prijs">Eén prijs, alles erin</h2>
+      <div class="price-card">
+        <h3>AI-receptionist, compleet ingericht</h3>
+        <div class="price-line">
+          <span class="p1">€500 <small>eenmalig</small></span>
+          <span class="p2">+ €195 per maand</span>
+        </div>
+        <ul class="incl">
+          <li>Volledige inrichting en training door ons</li>
+          <li>Beantwoording 24/7, ook buiten kantooruren</li>
+          <li>Doorverbinden naar de juiste collega</li>
+          <li>Afspraken direct in de agenda</li>
+          <li>Samenvatting per e-mail of WhatsApp na elk gesprek</li>
+          <li>Aanpassingen wanneer jullie iets willen wijzigen</li>
+        </ul>
+        <p class="garantie"><strong>14 dagen geld-teruggarantie.</strong> Niet tevreden? Je krijgt je geld terug en we zetten alles stop. Verder geen jaarcontract: opzeggen kan per maand.</p>
+        <a class="btn btn-primary btn-block" href="#aanvragen">Vraag je receptionist aan</a>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============================ FAQ ============================ -->
+  <section class="sec-alt reveal cv" aria-labelledby="h-faq">
+    <div class="wrap">
+      <span class="kicker">Vragen</span>
+      <h2 id="h-faq">Wat ondernemers ons vragen</h2>
+      <div class="faq-list">
+        <details>
+          <summary>Klinkt hij als een robot?</summary>
+          <p>Nee. Je hoort een natuurlijke Nederlandse stem. Bel de demo op <a href="tel:[DEMO_NUMMER]">[DEMO_NUMMER]</a> en oordeel zelf.</p>
+        </details>
+        <details>
+          <summary>Wat als hij een vraag niet kan beantwoorden?</summary>
+          <p>Dan zegt hij dat eerlijk en legt hij de vraag als bericht bij jullie neer, met naam en nummer van de beller. Hij gokt niet.</p>
+        </details>
+        <details>
+          <summary>Kunnen we zelf nog opnemen?</summary>
+          <p>Ja. Jullie kiezen zelf hoe je doorschakelt: alleen bij geen gehoor, buiten kantooruren of altijd. Jullie houden de controle.</p>
+        </details>
+        <details>
+          <summary>Wat gebeurt er met ons huidige nummer?</summary>
+          <p>Niets. Het nummer blijft van jullie. Je zet alleen een doorschakeling aan en die kun je elk moment weer uitzetten.</p>
+        </details>
+        <details>
+          <summary>Is onze data veilig volgens de AVG?</summary>
+          <p>We behandelen gegevens volgens de AVG, sluiten een verwerkersovereenkomst af en bewaren niet meer dan nodig is om jullie oproepen af te handelen. Verwijderen kan op elk moment.</p>
+        </details>
+        <details>
+          <summary>Kunnen we maandelijks opzeggen?</summary>
+          <p>Ja. Geen jaarcontract, opzeggen kan per maand. En binnen de eerste 14 dagen krijg je bij twijfel je geld terug.</p>
+        </details>
+        <details>
+          <summary>Hoe snel is het geregeld?</summary>
+          <p>Binnen 5 werkdagen na de intake staat je receptionist live. Jullie vullen het formulier in, schakelen aan het eind het nummer door en dat is alles.</p>
+        </details>
+        <details>
+          <summary>Werkt het met onze agenda's?</summary>
+          <p>Met de meeste online agenda's, zoals Google Agenda en Outlook. Geen koppeling? Dan sturen we afspraakverzoeken per e-mail of WhatsApp.</p>
+        </details>
+      </div>
+    </div>
+  </section>
+
+  <!-- ========================= INTAKE FORM ========================= -->
+  <section class="reveal cv" id="aanvragen" aria-labelledby="h-form">
+    <div class="wrap">
+      <span class="kicker">Aanvragen</span>
+      <h2 id="h-form">Vraag je receptionist aan</h2>
+      <p class="sub">Vul dit in en we nemen binnen één werkdag contact met je op om de intake te plannen. Eerst nog vragen? Bel de demo op <a href="tel:[DEMO_NUMMER]">[DEMO_NUMMER]</a>.</p>
+
+      <form name="receptionist-intake" method="POST" action="/" data-netlify="true" netlify-honeypot="extra-veld" novalidate>
+        <input type="hidden" name="form-name" value="receptionist-intake">
+        <p class="hp" aria-hidden="true"><label>Laat dit veld leeg: <input name="extra-veld" tabindex="-1" autocomplete="off"></label></p>
+        <input type="hidden" name="utm_source" id="utm_source">
+        <input type="hidden" name="utm_medium" id="utm_medium">
+        <input type="hidden" name="utm_campaign" id="utm_campaign">
+        <input type="hidden" name="utm_content" id="utm_content">
+        <input type="hidden" name="utm_term" id="utm_term">
+
+        <div class="field">
+          <label for="f-bedrijf">Bedrijfsnaam</label>
+          <input type="text" id="f-bedrijf" aria-describedby="e-bedrijf" name="bedrijfsnaam" autocomplete="organization" required>
+          <p class="err" id="e-bedrijf">Vul je bedrijfsnaam in.</p>
+        </div>
+        <div class="field">
+          <label for="f-naam">Contactpersoon</label>
+          <input type="text" id="f-naam" aria-describedby="e-naam" name="contactpersoon" autocomplete="name" required>
+          <p class="err" id="e-naam">Vul je naam in.</p>
+        </div>
+        <div class="field">
+          <label for="f-tel">Telefoonnummer</label>
+          <input type="tel" id="f-tel" aria-describedby="e-tel" name="telefoonnummer" autocomplete="tel" required>
+          <p class="err" id="e-tel">Vul een geldig telefoonnummer in.</p>
+        </div>
+        <div class="field">
+          <label for="f-mail">E-mail</label>
+          <input type="email" id="f-mail" aria-describedby="e-mail" name="email" autocomplete="email" required>
+          <p class="err" id="e-mail">Vul een geldig e-mailadres in.</p>
+        </div>
+        <div class="field">
+          <label for="f-sector">Sector</label>
+          <select id="f-sector" aria-describedby="e-sector" name="sector" required>
+            <option value="">Kies je sector</option>
+            <option>Recruitment of uitzendbureau</option>
+            <option>IT of softwarebedrijf</option>
+            <option>Marketingbureau</option>
+            <option>Consultancy of zakelijke dienstverlening</option>
+            <option>Anders</option>
+          </select>
+          <p class="err" id="e-sector">Kies je sector.</p>
+        </div>
+        <div class="field">
+          <label for="f-calls">Hoeveel oproepen missen jullie per week, denk je?</label>
+          <select id="f-calls" aria-describedby="e-calls" name="gemiste_calls_per_week" required>
+            <option value="">Maak een keuze</option>
+            <option>0 tot 5</option>
+            <option>5 tot 15</option>
+            <option>15 tot 30</option>
+            <option>Meer dan 30</option>
+            <option>Geen idee</option>
+          </select>
+          <p class="err" id="e-calls">Maak een keuze.</p>
+        </div>
+        <div class="field">
+          <label for="f-huidig">Hoe vangen jullie gemiste oproepen nu op?</label>
+          <select id="f-huidig" aria-describedby="e-huidig" name="huidige_oplossing" required>
+            <option value="">Maak een keuze</option>
+            <option>Receptie of officemanager</option>
+            <option>Iedereen neemt zelf op</option>
+            <option>Voicemail</option>
+            <option>Antwoordservice</option>
+            <option>Niets</option>
+          </select>
+          <p class="err" id="e-huidig">Maak een keuze.</p>
+        </div>
+
+        <button type="submit" class="btn btn-primary btn-block">Verstuur aanvraag</button>
+        <p class="form-privacy">Je gegevens gebruiken we alleen om contact met je op te nemen. Zie de <a href="/privacy">privacyverklaring</a>.</p>
+      </form>
+
+      <div class="form-ok" id="form-ok" role="status" tabindex="-1">
+        <h3>Aanvraag ontvangen</h3>
+        <p>Bedankt. We nemen binnen één werkdag contact met je op om de intake te plannen. Benieuwd wat je bellers straks te horen krijgen? Bel de demo op <a href="tel:[DEMO_NUMMER]">[DEMO_NUMMER]</a>.</p>
+      </div>
+    </div>
+  </section>
+
+</main>
+
+<footer>
+  <svg class="f-logo" viewBox="-24 -24 420 108" role="img" aria-label="Elyon"><rect x="0" y="0" width="13.0" height="60.0" fill="#131316"/><rect x="0" y="0" width="60.0" height="13.0" fill="#2038E6"/><rect x="0" y="23.5" width="47.0" height="13.0" fill="#131316"/><rect x="0" y="47.0" width="34.0" height="13.0" fill="#131316"/><g transform="translate(88,0)"><rect x="0" y="0" width="13" height="60" fill="#131316"/><rect x="0" y="0" width="44" height="13" fill="#131316"/><rect x="0" y="23.5" width="36" height="13" fill="#131316"/><rect x="0" y="47" width="28" height="13" fill="#131316"/><rect x="60" y="0" width="13" height="60" fill="#131316"/><rect x="60" y="47" width="44" height="13" fill="#131316"/><polygon points="120,0 133,0 148.5,30 135.5,30" fill="#131316"/><polygon points="151,0 164,0 148.5,30 135.5,30" fill="#131316"/><rect x="135.5" y="30" width="13" height="30" fill="#131316"/><path fill-rule="evenodd" fill="#131316" d="M180 0H224V60H180Z M193 13H211V47H193Z"/><rect x="240" y="0" width="13" height="60" fill="#131316"/><rect x="271" y="0" width="13" height="60" fill="#131316"/><polygon points="240,0 253,0 284,60 271,60" fill="#131316"/></g></svg>
+  <div style="margin-top:.6rem"><strong>Elyon</strong> · [ADRES] · KvK [KVK]</div>
+  <div class="flinks">
+    <a href="/privacy">Privacyverklaring</a>
+    <a href="https://tryelyon.com/" rel="noopener">tryelyon.com</a>
+    <a href="tel:[DEMO_NUMMER]">Demo: [DEMO_NUMMER]</a>
+  </div>
+  <div class="fsmall">We gaan zorgvuldig met je gegevens om, volgens de AVG. © <span id="jaar">2026</span> Elyon</div>
+</footer>
+
+<script>
+(function () {
+  'use strict';
+
+  /* ---- current year ---- */
+  var y = document.getElementById('jaar');
+  if (y) y.textContent = new Date().getFullYear();
+
+  /* ---- UTM capture: read once, persist, fill hidden fields ---- */
+  try {
+    var params = new URLSearchParams(location.search);
+    ['utm_source', 'utm_medium', 'utm_campaign', 'utm_content', 'utm_term'].forEach(function (k) {
+      var v = params.get(k) || '';
+      if (v) { localStorage.setItem('lp_' + k, v); }
+      else { v = localStorage.getItem('lp_' + k) || ''; }
+      var el = document.getElementById(k);
+      if (el) el.value = v;
+    });
+  } catch (e) { /* private mode: hidden fields just stay empty */ }
+
+  /* ---- reveals: visible by default; only below-fold sections animate.
+     Safety timeout force-reveals everything, so content can never be
+     stuck invisible. ---- */
+  var reduced = window.matchMedia && matchMedia('(prefers-reduced-motion: reduce)').matches;
+  var vh = window.innerHeight || document.documentElement.clientHeight;
+  if (!reduced && vh >= 200 && 'IntersectionObserver' in window) {
+    var pending = [];
+    document.querySelectorAll('.reveal').forEach(function (el) {
+      if (el.getBoundingClientRect().top >= vh * 0.96) {
+        el.classList.add('pre');
+        pending.push(el);
+      }
+    });
+    var io = new IntersectionObserver(function (entries) {
+      entries.forEach(function (en) {
+        if (en.isIntersecting) {
+          en.target.classList.remove('pre');
+          en.target.classList.add('in');
+          io.unobserve(en.target);
+        }
+      });
+    }, { threshold: 0.1 });
+    pending.forEach(function (el) { io.observe(el); });
+    setTimeout(function () {
+      pending.forEach(function (el) { el.classList.remove('pre'); el.classList.add('in'); });
+    }, 4000);
+  }
+
+  /* ---- form: inline Dutch validation + AJAX submit to Netlify ---- */
+  var form = document.querySelector('form[name="receptionist-intake"]');
+  if (!form) return;
+
+  function setInvalid(id, invalid) {
+    var input = document.getElementById(id);
+    if (!input) return;
+    var field = input.closest('.field');
+    if (field) field.classList.toggle('invalid', invalid);
+    input.setAttribute('aria-invalid', invalid ? 'true' : 'false');
+  }
+
+  function validate() {
+    var firstBad = null;
+    function check(id, ok) {
+      setInvalid(id, !ok);
+      if (!ok && !firstBad) firstBad = document.getElementById(id);
+      return ok;
+    }
+    var v = function (id) { return (document.getElementById(id).value || '').trim(); };
+    var allOk = true;
+    allOk = check('f-bedrijf', v('f-bedrijf').length > 1) && allOk;
+    allOk = check('f-naam', v('f-naam').length > 1) && allOk;
+    allOk = check('f-tel', /^[0-9+()\s-]{8,20}$/.test(v('f-tel'))) && allOk;
+    allOk = check('f-mail', /^[^\s@]+@[^\s@]+\.[^\s@]{2,}$/.test(v('f-mail'))) && allOk;
+    allOk = check('f-sector', v('f-sector') !== '') && allOk;
+    allOk = check('f-calls', v('f-calls') !== '') && allOk;
+    allOk = check('f-huidig', v('f-huidig') !== '') && allOk;
+    if (firstBad) firstBad.focus();
+    return allOk;
+  }
+
+  ['f-bedrijf','f-naam','f-tel','f-mail','f-sector','f-calls','f-huidig'].forEach(function (id) {
+    var el = document.getElementById(id);
+    el.addEventListener('input', function () { setInvalid(id, false); });
+    el.addEventListener('change', function () { setInvalid(id, false); });
+  });
+
+  var fallback = false;
+  form.addEventListener('submit', function (ev) {
+    if (fallback) return; // native POST fallback in progress
+    ev.preventDefault();
+    if (!validate()) return;
+    var btn = form.querySelector('button[type=submit]');
+    btn.disabled = true;
+    btn.textContent = 'Versturen…';
+    fetch('/', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
+      body: new URLSearchParams(new FormData(form)).toString()
+    }).then(function (r) {
+      if (!r.ok) throw new Error('status ' + r.status);
+      form.style.display = 'none';
+      var ok = document.getElementById('form-ok');
+      ok.style.display = 'block';
+      ok.scrollIntoView({ block: 'center' });
+      ok.focus();
+    }).catch(function () {
+      // fetch failed: fall back to a normal POST so Netlify still gets it
+      btn.disabled = false;
+      btn.textContent = 'Verstuur aanvraag';
+      fallback = true;
+      form.submit();
+    });
+  });
+})();
+</script>
+</body>
+</html>
