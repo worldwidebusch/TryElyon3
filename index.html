@@ -165,12 +165,12 @@ button{font-family:inherit}
 .topnav a b{font-family:var(--disp);font-weight:400;font-size:.6rem;color:var(--cobalt)}
 /* language toggle */
 .langsw{display:flex;align-items:center;border-left:1.5px solid var(--rule)}
-.langsw button{
+.langsw button,.langsw a{
   height:100%;padding:0 13px;border:0;background:transparent;cursor:pointer;
   font-family:var(--disp);font-weight:700;font-size:.66rem;letter-spacing:.1em;color:var(--ink);opacity:.4;
   transition:opacity .15s,background .15s;
 }
-.langsw button+button{border-left:1.5px solid var(--rule)}
+.langsw button+button,.langsw button+a{border-left:1.5px solid var(--rule)}
 .langsw button.on{opacity:1;background:var(--cobalt);color:#fff}
 .topcta{display:flex;align-items:center;padding:0 14px;border-left:1.5px solid var(--rule)}
 .topcta .btn{padding:.5rem 1rem;font-size:.62rem}
@@ -659,7 +659,7 @@ footer{background:var(--carbon);color:var(--bone)}
   .brand{padding:0 12px;font-size:.78rem}
   .topcta{padding:0 8px}
   .topcta .btn{padding:.45rem .7rem;font-size:.56rem}
-  .langsw button{padding:0 9px}
+  .langsw button,.langsw a{padding:0 9px}
 }
 </style>
 <noscript><style>
@@ -686,6 +686,7 @@ footer{background:var(--carbon);color:var(--bone)}
   <div class="langsw" role="group" aria-label="Language">
     <button id="langEN" onclick="setLang('en')">EN</button>
     <button id="langES" onclick="setLang('es')">ES</button>
+    <a href="/nl/" aria-label="Nederlandse pagina">NL</a>
   </div>
   <div class="topcta"><a class="btn fill" href="#channel" data-i18n="cta.trial">Try Elyon Free</a></div>
 </header>
