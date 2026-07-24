@@ -92,20 +92,34 @@ h2{font-size:clamp(1.2rem,2.8vw,1.8rem);max-width:32ch}
 .btn-phone .ico{flex:none}
 .btn-block{width:100%}
 
-/* hero */
+/* hero: two columns on desktop (pitch left, demo-call card right) */
 .hero{border-bottom:1.5px solid var(--rule)}
-.hero .wrap{padding-top:clamp(56px,9vw,104px);padding-bottom:clamp(56px,8vw,92px)}
-.hero h1{font-size:clamp(1.5rem,4.6vw,2.7rem);max-width:24ch}
+.hero .wrap{padding-top:clamp(48px,7vw,88px);padding-bottom:clamp(48px,7vw,84px)}
+.hero-grid{display:grid;grid-template-columns:minmax(0,1fr);gap:clamp(30px,4vw,56px);align-items:center}
+@media (min-width:980px){.hero-grid{grid-template-columns:minmax(0,7fr) minmax(0,5fr)}}
+.hero h1{font-size:clamp(1.5rem,4.6vw,2.6rem)}
 .hero .sub{font-size:clamp(.98rem,1.6vw,1.08rem);max-width:58ch}
 .offer-line{margin-top:1rem;font-weight:600}
-.cta-row{display:flex;flex-wrap:wrap;gap:.8rem;margin-top:1.8rem}
-.phone-note{margin-top:.7rem;font-size:.88rem;color:var(--ink-soft)}
-.trust{display:flex;flex-wrap:wrap;gap:.4rem 1.4rem;margin-top:1.4rem;font-size:.85rem;color:var(--ink-soft)}
+.cta-row{display:flex;flex-wrap:wrap;gap:.8rem;margin-top:1.6rem}
+.trust{display:flex;flex-wrap:wrap;gap:.4rem 1.4rem;margin-top:1.3rem;font-size:.85rem;color:var(--ink-soft)}
 .trust span::before{content:"✓";color:var(--phone);font-weight:700;margin-right:.4rem}
 @media (max-width:560px){
   .cta-row{flex-direction:column}
   .cta-row .btn{width:100%}
 }
+
+/* demo-call card: the strongest conversion element, above the fold */
+.democard{background:var(--carbon);color:var(--bone);border:1.5px solid var(--rule);padding:clamp(22px,2.6vw,32px);position:relative}
+.democard::before,.democard::after{content:"";position:absolute;width:14px;height:14px;border:0 solid var(--accent-lt)}
+.democard::before{top:5px;left:5px;border-top-width:2.5px;border-left-width:2.5px}
+.democard::after{bottom:5px;right:5px;border-bottom-width:2.5px;border-right-width:2.5px}
+.democard .dk{font-family:var(--disp);font-size:.62rem;font-weight:700;letter-spacing:.13em;text-transform:uppercase;color:var(--accent-lt)}
+.democard h2{color:var(--bone);font-size:clamp(1.05rem,2vw,1.3rem);max-width:none;margin-top:.5rem}
+.democard .btn-phone{width:100%;margin-top:1.1rem;font-size:.82rem;padding:1.05rem 1rem}
+.demosteps{list-style:none;margin-top:1.1rem;display:flex;flex-direction:column;gap:.5rem}
+.demosteps li{display:flex;gap:.6rem;align-items:flex-start;font-size:.86rem}
+.demosteps li::before{content:"✓";color:#41d98c;font-weight:700;flex:none}
+.democard .dnote{margin-top:1rem;font-size:.8rem;color:rgba(239,237,230,.7)}
 
 /* probleem */
 .cards{display:grid;grid-template-columns:1fr;gap:14px;margin-top:2rem}
@@ -146,9 +160,9 @@ h2{font-size:clamp(1.2rem,2.8vw,1.8rem);max-width:32ch}
 
 /* prijs: 3 tiers, usage-based */
 .anchor-line{margin-top:1.2rem;padding:.9rem 1rem;background:var(--surface);border-left:4px solid var(--accent);font-size:.95rem;max-width:640px}
-.tiers{display:grid;grid-template-columns:1fr;gap:16px;margin-top:2rem;align-items:start}
+.tiers{display:grid;grid-template-columns:1fr;gap:16px;margin-top:2rem;align-items:stretch}
 @media (min-width:860px){.tiers{grid-template-columns:repeat(3,1fr)}}
-.tier{background:var(--bg);border:1.5px solid var(--rule);padding:clamp(20px,2.6vw,28px);position:relative}
+.tier{background:var(--bg);border:1.5px solid var(--rule);padding:clamp(20px,2.6vw,28px);position:relative;display:flex;flex-direction:column}
 .tier.featured{border:2.5px solid var(--accent);box-shadow:0 18px 40px -24px rgba(32,56,230,.4)}
 .tier-badge{
   position:absolute;top:-13px;left:50%;transform:translateX(-50%);white-space:nowrap;
@@ -165,7 +179,8 @@ h2{font-size:clamp(1.2rem,2.8vw,1.8rem);max-width:32ch}
 .incl{list-style:none;margin-top:1rem;display:flex;flex-direction:column;gap:.5rem}
 .incl li{display:flex;gap:.6rem;align-items:flex-start;font-size:.88rem}
 .incl li::before{content:"✓";color:var(--phone);font-weight:700;flex:none}
-.tier .btn{margin-top:1.3rem;width:100%}
+.tier .btn{margin-top:auto;width:100%}
+.tier .incl{margin-bottom:1.3rem}
 .overage-note{margin-top:1.4rem;font-size:.88rem;color:var(--ink-soft);max-width:640px}
 .garantie{margin-top:1.4rem;padding:.9rem 1rem;background:var(--surface);border-left:4px solid var(--phone);font-size:.9rem;max-width:640px}
 
@@ -215,6 +230,22 @@ footer .flinks{display:flex;flex-wrap:wrap;gap:.4rem 1.4rem;justify-content:cent
 footer a{color:var(--accent)}
 footer .fsmall{margin-top:.7rem;font-size:.78rem}
 
+/* sticky mobile call bar: the strongest CTA always in reach on phones */
+.sticky-call{
+  position:fixed;left:0;right:0;bottom:0;z-index:50;
+  background:var(--bg);border-top:1.5px solid var(--rule);
+  padding:.55rem clamp(12px,3vw,16px);
+  padding-bottom:calc(.55rem + env(safe-area-inset-bottom,0px));
+  display:flex;gap:.6rem;align-items:center;
+  box-shadow:0 -12px 30px -14px rgba(15,15,18,.35);
+  transform:translateY(110%);transition:transform .28s ease;
+}
+.sticky-call.on{transform:translateY(0)}
+.sticky-call .btn{flex:1;padding:.85rem .6rem;font-size:.66rem}
+@media (min-width:900px){.sticky-call{display:none}}
+@media (max-width:899.98px){body{padding-bottom:72px}}
+@media (prefers-reduced-motion:reduce){.sticky-call{transition:none}}
+
 /* lazy render below the fold */
 .cv{content-visibility:auto;contain-intrinsic-size:auto 640px}
 
@@ -233,19 +264,32 @@ footer .fsmall{margin-top:.7rem;font-size:.78rem}
 <!-- ============================ HERO ============================ -->
 <header class="hero">
   <div class="wrap">
-    <span class="kicker">Voor recruitmentbureaus, IT-bedrijven en marketingbureaus</span>
-    <h1>Elke gemiste oproep is een klant voor je concurrent</h1>
-    <p class="sub">Onze AI-medewerker neemt elk telefoontje aan: als receptionist, als klantenservice of als overloop bij drukte. 24/7, in vloeiend Nederlands. Hij verbindt door naar de juiste collega, plant afspraken in de agenda en stuurt na elk gesprek een samenvatting. Wij richten alles voor je in.</p>
-    <p class="offer-line">Pakketten vanaf €195 per maand, plus eenmalige inrichting vanaf €500. Live binnen 5 werkdagen.</p>
-    <div class="cta-row">
-      <a class="btn btn-primary" href="#aanvragen">Start de intake</a>
-      <a class="btn btn-phone" href="tel:[DEMO_NUMMER]">
-        <svg class="ico" width="18" height="18" viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M6.6 3h2.3c.5 0 .9.3 1 .8l.8 3.2c.1.4 0 .8-.3 1.1L8.9 9.6a13 13 0 0 0 5.5 5.5l1.5-1.5c.3-.3.7-.4 1.1-.3l3.2.8c.5.1.8.5.8 1v2.3c0 .6-.5 1.1-1.1 1.1C11.5 18.5 5.5 12.5 5.5 4.1c0-.6.5-1.1 1.1-1.1z" fill="currentColor"/></svg>
-        Bel de demo: [DEMO_NUMMER]
-      </a>
+    <div class="hero-grid">
+      <div>
+        <span class="kicker">Voor recruitmentbureaus, IT-bedrijven en marketingbureaus</span>
+        <h1>Elke gemiste oproep is een klant voor je concurrent</h1>
+        <p class="sub">Onze AI-medewerker neemt elk telefoontje aan: als receptionist, als klantenservice of als overloop bij drukte. 24/7, in vloeiend Nederlands. Hij verbindt door naar de juiste collega, plant afspraken in de agenda en stuurt na elk gesprek een samenvatting. Wij richten alles voor je in.</p>
+        <p class="offer-line">Pakketten vanaf €195 per maand, plus eenmalige inrichting vanaf €500. Live binnen 5 werkdagen.</p>
+        <div class="cta-row">
+          <a class="btn btn-primary" href="#aanvragen">Start de intake</a>
+        </div>
+        <p class="trust"><span>14 dagen geld-teruggarantie</span><span>Maandelijks opzegbaar</span><span>Geen jaarcontract</span></p>
+      </div>
+      <aside class="democard" aria-labelledby="h-herodemo">
+        <span class="dk">Live demo</span>
+        <h2 id="h-herodemo">Hoor eerst zelf hoe hij klinkt</h2>
+        <a class="btn btn-phone" href="tel:[DEMO_NUMMER]">
+          <svg class="ico" width="18" height="18" viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M6.6 3h2.3c.5 0 .9.3 1 .8l.8 3.2c.1.4 0 .8-.3 1.1L8.9 9.6a13 13 0 0 0 5.5 5.5l1.5-1.5c.3-.3.7-.4 1.1-.3l3.2.8c.5.1.8.5.8 1v2.3c0 .6-.5 1.1-1.1 1.1C11.5 18.5 5.5 12.5 5.5 4.1c0-.6.5-1.1 1.1-1.1z" fill="currentColor"/></svg>
+          Bel de demo: [DEMO_NUMMER]
+        </a>
+        <ul class="demosteps">
+          <li>Je krijgt dezelfde AI-medewerker aan de lijn die straks jullie telefoon aanneemt</li>
+          <li>Stel lastige vragen, praat erdoorheen, probeer hem vast te laten lopen</li>
+          <li>Gratis en zonder aanmelding, je betaalt alleen je normale beltarief</li>
+        </ul>
+        <p class="dnote">Liever eerst lezen? Alle prijzen staan verderop, zonder verrassingen.</p>
+      </aside>
     </div>
-    <p class="phone-note">Hoor eerst zelf hoe hij klinkt. Je krijgt dezelfde receptionist aan de lijn die straks jullie telefoon aanneemt.</p>
-    <p class="trust"><span>14 dagen geld-teruggarantie</span><span>Maandelijks opzegbaar</span><span>Geen jaarcontract</span></p>
   </div>
 </header>
 
@@ -565,7 +609,7 @@ footer .fsmall{margin-top:.7rem;font-size:.78rem}
         </div>
 
         <button type="submit" class="btn btn-primary btn-block">Verstuur aanvraag</button>
-        <p class="form-privacy">Je gegevens gebruiken we alleen om contact met je op te nemen. Zie de <a href="/privacy">privacyverklaring</a>.</p>
+        <p class="form-privacy">Je gegevens gebruiken we alleen om contact met je op te nemen. Zie de <a href="privacy/">privacyverklaring</a>.</p>
       </form>
 
       <div class="form-ok" id="form-ok" role="status" tabindex="-1">
@@ -577,11 +621,17 @@ footer .fsmall{margin-top:.7rem;font-size:.78rem}
 
 </main>
 
+<!-- mobile sticky call bar: revealed by JS after the hero scrolls out of view -->
+<div class="sticky-call" id="sticky-call" aria-hidden="false">
+  <a class="btn btn-phone" href="tel:[DEMO_NUMMER]">Bel de demo</a>
+  <a class="btn btn-primary" href="#aanvragen">Start de intake</a>
+</div>
+
 <footer>
   <svg class="f-logo" viewBox="-24 -24 420 108" role="img" aria-label="Elyon"><rect x="0" y="0" width="13.0" height="60.0" fill="#131316"/><rect x="0" y="0" width="60.0" height="13.0" fill="#2038E6"/><rect x="0" y="23.5" width="47.0" height="13.0" fill="#131316"/><rect x="0" y="47.0" width="34.0" height="13.0" fill="#131316"/><g transform="translate(88,0)"><rect x="0" y="0" width="13" height="60" fill="#131316"/><rect x="0" y="0" width="44" height="13" fill="#131316"/><rect x="0" y="23.5" width="36" height="13" fill="#131316"/><rect x="0" y="47" width="28" height="13" fill="#131316"/><rect x="60" y="0" width="13" height="60" fill="#131316"/><rect x="60" y="47" width="44" height="13" fill="#131316"/><polygon points="120,0 133,0 148.5,30 135.5,30" fill="#131316"/><polygon points="151,0 164,0 148.5,30 135.5,30" fill="#131316"/><rect x="135.5" y="30" width="13" height="30" fill="#131316"/><path fill-rule="evenodd" fill="#131316" d="M180 0H224V60H180Z M193 13H211V47H193Z"/><rect x="240" y="0" width="13" height="60" fill="#131316"/><rect x="271" y="0" width="13" height="60" fill="#131316"/><polygon points="240,0 253,0 284,60 271,60" fill="#131316"/></g></svg>
   <div style="margin-top:.6rem"><strong>Elyon</strong> · [ADRES] · KvK [KVK]</div>
   <div class="flinks">
-    <a href="/privacy">Privacyverklaring</a>
+    <a href="privacy/">Privacyverklaring</a>
     <a href="https://tryelyon.com/" rel="noopener">tryelyon.com</a>
     <a href="tel:[DEMO_NUMMER]">Demo: [DEMO_NUMMER]</a>
   </div>
@@ -634,6 +684,25 @@ footer .fsmall{margin-top:.7rem;font-size:.78rem}
     setTimeout(function () {
       pending.forEach(function (el) { el.classList.remove('pre'); el.classList.add('in'); });
     }, 4000);
+  }
+
+  /* ---- sticky mobile call bar: slides up once the hero is scrolled past.
+     Plain scroll check + heartbeat, no observer dependency. ---- */
+  var stickyBar = document.getElementById('sticky-call');
+  var hero = document.querySelector('.hero');
+  if (stickyBar && hero) {
+    var ticking = false;
+    var updateSticky = function () {
+      ticking = false;
+      stickyBar.classList.toggle('on', hero.getBoundingClientRect().bottom < 0);
+    };
+    var onScrollSticky = function () {
+      if (!ticking) { ticking = true; setTimeout(updateSticky, 60); }
+    };
+    window.addEventListener('scroll', onScrollSticky, { passive: true });
+    window.addEventListener('resize', onScrollSticky, { passive: true });
+    setInterval(updateSticky, 700);
+    updateSticky();
   }
 
   /* ---- form: inline Dutch validation + AJAX submit to Netlify ---- */
