@@ -4,11 +4,11 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Nooit meer een gemiste oproep | Elyon</title>
-<meta name="description" content="Onze AI-receptionist neemt elke oproep aan. 24/7, in vloeiend Nederlands. Wij richten alles in, jullie schakelen alleen het nummer door. Live binnen 5 werkdagen.">
+<meta name="description" content="Onze AI-medewerker neemt elk telefoontje aan: receptionist, klantenservice en overloop in één. 24/7, in vloeiend Nederlands. Wij richten alles in. Live binnen 5 werkdagen.">
 <meta property="og:type" content="website">
 <meta property="og:url" content="https://tryelyon.com/nl-receptionist/">
 <meta property="og:title" content="Elke gemiste oproep is een klant voor je concurrent">
-<meta property="og:description" content="Een receptionist die elke oproep aanneemt, doorverbindt naar de juiste collega en afspraken inplant. Wij zetten alles voor je klaar. Live binnen 5 werkdagen.">
+<meta property="og:description" content="Receptionist, klantenservice en overloop in één AI-medewerker. Neemt elke oproep aan, verbindt door en plant afspraken. Wij zetten alles voor je klaar.">
 <meta property="og:locale" content="nl_NL">
 <meta name="theme-color" content="#0F0F12">
 <link rel="icon" type="image/svg+xml" href='data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100"><rect width="100" height="100" fill="%230F0F12"/><rect x="22" y="22" width="12" height="56" fill="%23EFEDE6"/><rect x="22" y="22" width="56" height="12" fill="%232038E6"/><rect x="22" y="44" width="44" height="12" fill="%23EFEDE6"/><rect x="22" y="66" width="32" height="12" fill="%23EFEDE6"/></svg>'>
@@ -29,7 +29,9 @@
 {"@type":"Question","name":"Wat gebeurt er met ons huidige nummer?","acceptedAnswer":{"@type":"Answer","text":"Niets. Het nummer blijft van jullie. Je zet alleen een doorschakeling aan en die kun je elk moment weer uitzetten."}},
 {"@type":"Question","name":"Is onze data veilig volgens de AVG?","acceptedAnswer":{"@type":"Answer","text":"We behandelen gegevens volgens de AVG, sluiten een verwerkersovereenkomst af en bewaren niet meer dan nodig is om jullie oproepen af te handelen. Verwijderen kan op elk moment."}},
 {"@type":"Question","name":"Kunnen we maandelijks opzeggen?","acceptedAnswer":{"@type":"Answer","text":"Ja. Geen jaarcontract, opzeggen kan per maand. En binnen de eerste 14 dagen krijg je bij twijfel je geld terug."}},
-{"@type":"Question","name":"Hoe snel is het geregeld?","acceptedAnswer":{"@type":"Answer","text":"Binnen 5 werkdagen na de intake staat je receptionist live. Jullie vullen het formulier in, schakelen aan het eind het nummer door en dat is alles."}},
+{"@type":"Question","name":"Wat gebeurt er als onze belminuten op zijn?","acceptedAnswer":{"@type":"Answer","text":"Dan blijft hij gewoon opnemen. Extra minuten kosten €0,30 per minuut, per seconde afgerekend. We waarschuwen je bij 80% van je bundel en denken mee over een passender pakket."}},
+{"@type":"Question","name":"Kunnen we op- of afschalen?","acceptedAnswer":{"@type":"Answer","text":"Ja, per maand. Blijkt je bundel structureel te klein of te groot, dan wissel je de maand erna van pakket. Zonder kosten."}},
+{"@type":"Question","name":"Hoe snel is het geregeld?","acceptedAnswer":{"@type":"Answer","text":"Binnen 5 werkdagen na de intake staat je AI-medewerker live. Jullie vullen het formulier in, schakelen aan het eind het nummer door en dat is alles."}},
 {"@type":"Question","name":"Werkt het met onze agenda's?","acceptedAnswer":{"@type":"Answer","text":"Met de meeste online agenda's, zoals Google Agenda en Outlook. Geen koppeling? Dan sturen we afspraakverzoeken per e-mail of WhatsApp."}}
 ]}
 </script>
@@ -128,14 +130,6 @@ h2{font-size:clamp(1.2rem,2.8vw,1.8rem);max-width:32ch}
 .steps-note{margin-top:1.4rem;font-weight:600}
 .steps-note b{color:var(--accent)}
 
-/* capabilities */
-.caps{display:grid;grid-template-columns:1fr;gap:14px 28px;margin-top:2rem}
-@media (min-width:700px){.caps{grid-template-columns:1fr 1fr}}
-.cap{display:flex;gap:.85rem;align-items:flex-start}
-.cap .ic{flex:none;width:26px;height:26px;background:var(--accent);color:#fff;display:inline-flex;align-items:center;justify-content:center;font-weight:700;font-size:.85rem;margin-top:2px}
-.cap h3{font-size:.95rem;font-weight:800;text-transform:uppercase}
-.cap p{color:var(--ink-soft);font-size:.92rem;margin-top:.2rem}
-
 /* demo band: Elyon carbon */
 .demo{background:var(--carbon);color:var(--bone);border-top:1.5px solid var(--rule)}
 .demo h2{color:var(--bone)}
@@ -150,22 +144,39 @@ h2{font-size:clamp(1.2rem,2.8vw,1.8rem);max-width:32ch}
 .demo-num:hover{background:var(--phone-dark)}
 .demo-small{margin-top:1rem;font-size:.88rem;color:rgba(239,237,230,.75)}
 
-/* prijs */
-.price-card{
-  background:var(--bg);border:1.5px solid var(--rule);
-  padding:clamp(26px,4vw,40px);margin-top:2rem;max-width:560px;
-  box-shadow:0 18px 40px -24px rgba(15,15,18,.35);
+/* prijs: 3 tiers, usage-based */
+.anchor-line{margin-top:1.2rem;padding:.9rem 1rem;background:var(--surface);border-left:4px solid var(--accent);font-size:.95rem;max-width:640px}
+.tiers{display:grid;grid-template-columns:1fr;gap:16px;margin-top:2rem;align-items:start}
+@media (min-width:860px){.tiers{grid-template-columns:repeat(3,1fr)}}
+.tier{background:var(--bg);border:1.5px solid var(--rule);padding:clamp(20px,2.6vw,28px);position:relative}
+.tier.featured{border:2.5px solid var(--accent);box-shadow:0 18px 40px -24px rgba(32,56,230,.4)}
+.tier-badge{
+  position:absolute;top:-13px;left:50%;transform:translateX(-50%);white-space:nowrap;
+  background:var(--accent);color:#fff;font-family:var(--disp);font-weight:700;
+  font-size:.56rem;letter-spacing:.08em;text-transform:uppercase;padding:.35rem .7rem;
 }
-.price-card h3{font-size:1rem;font-weight:800;text-transform:uppercase}
-.price-line{display:flex;flex-wrap:wrap;align-items:baseline;gap:.4rem 1rem;margin-top:1rem}
-.price-line .p1{font-family:var(--disp);font-size:1.9rem;font-weight:800;letter-spacing:-.02em}
-.price-line .p1 small{font-size:.8rem;font-weight:600;color:var(--ink-soft)}
-.price-line .p2{font-size:1.05rem;font-weight:600;color:var(--ink-soft)}
-.incl{list-style:none;margin-top:1.3rem;display:flex;flex-direction:column;gap:.55rem}
-.incl li{display:flex;gap:.6rem;align-items:flex-start;font-size:.92rem}
+.tier h3{font-family:var(--disp);font-size:.95rem;font-weight:800;text-transform:uppercase}
+.tier .t-who{margin-top:.35rem;font-size:.82rem;color:var(--ink-soft);min-height:2.6em}
+.tier .t-price{font-family:var(--disp);font-size:1.7rem;font-weight:800;letter-spacing:-.02em;margin-top:.9rem}
+.tier .t-price small{font-size:.72rem;font-weight:600;color:var(--ink-soft)}
+.tier .t-setup{font-size:.8rem;color:var(--ink-soft);margin-top:.15rem}
+.tier .t-min{margin-top:.8rem;font-weight:600;font-size:.9rem}
+.tier .t-eff{font-size:.78rem;color:var(--ink-soft)}
+.incl{list-style:none;margin-top:1rem;display:flex;flex-direction:column;gap:.5rem}
+.incl li{display:flex;gap:.6rem;align-items:flex-start;font-size:.88rem}
 .incl li::before{content:"✓";color:var(--phone);font-weight:700;flex:none}
-.garantie{margin-top:1.4rem;padding:.9rem 1rem;background:var(--surface);border-left:4px solid var(--phone);font-size:.9rem}
-.price-card .btn{margin-top:1.5rem}
+.tier .btn{margin-top:1.3rem;width:100%}
+.overage-note{margin-top:1.4rem;font-size:.88rem;color:var(--ink-soft);max-width:640px}
+.garantie{margin-top:1.4rem;padding:.9rem 1rem;background:var(--surface);border-left:4px solid var(--phone);font-size:.9rem;max-width:640px}
+
+/* rollen */
+.roles{display:grid;grid-template-columns:1fr;gap:14px;margin-top:2rem}
+@media (min-width:700px){.roles{grid-template-columns:1fr 1fr}}
+.role{background:var(--bg);border:1.5px solid var(--rule);padding:22px}
+.role h3{font-family:var(--disp);font-size:.92rem;font-weight:800;text-transform:uppercase;color:var(--accent)}
+.role ul{list-style:none;margin-top:.7rem;display:flex;flex-direction:column;gap:.4rem}
+.role li{display:flex;gap:.55rem;align-items:flex-start;font-size:.9rem}
+.role li::before{content:"✓";color:var(--phone);font-weight:700;flex:none}
 
 /* faq */
 .faq-list{margin-top:2rem;max-width:760px}
@@ -224,10 +235,10 @@ footer .fsmall{margin-top:.7rem;font-size:.78rem}
   <div class="wrap">
     <span class="kicker">Voor recruitmentbureaus, IT-bedrijven en marketingbureaus</span>
     <h1>Elke gemiste oproep is een klant voor je concurrent</h1>
-    <p class="sub">Onze AI-receptionist neemt elke oproep aan. 24/7, in vloeiend Nederlands. Hij noteert wie er belde en waarover, verbindt door naar de juiste collega en plant afspraken in de agenda. Wij richten alles voor je in.</p>
-    <p class="offer-line">€500 eenmalige inrichting, daarna €195 per maand. Live binnen 5 werkdagen.</p>
+    <p class="sub">Onze AI-medewerker neemt elk telefoontje aan: als receptionist, als klantenservice of als overloop bij drukte. 24/7, in vloeiend Nederlands. Hij verbindt door naar de juiste collega, plant afspraken in de agenda en stuurt na elk gesprek een samenvatting. Wij richten alles voor je in.</p>
+    <p class="offer-line">Pakketten vanaf €195 per maand, plus eenmalige inrichting vanaf €500. Live binnen 5 werkdagen.</p>
     <div class="cta-row">
-      <a class="btn btn-primary" href="#aanvragen">Vraag je receptionist aan</a>
+      <a class="btn btn-primary" href="#aanvragen">Start de intake</a>
       <a class="btn btn-phone" href="tel:[DEMO_NUMMER]">
         <svg class="ico" width="18" height="18" viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M6.6 3h2.3c.5 0 .9.3 1 .8l.8 3.2c.1.4 0 .8-.3 1.1L8.9 9.6a13 13 0 0 0 5.5 5.5l1.5-1.5c.3-.3.7-.4 1.1-.3l3.2.8c.5.1.8.5.8 1v2.3c0 .6-.5 1.1-1.1 1.1C11.5 18.5 5.5 12.5 5.5 4.1c0-.6.5-1.1 1.1-1.1z" fill="currentColor"/></svg>
         Bel de demo: [DEMO_NUMMER]
@@ -289,36 +300,45 @@ footer .fsmall{margin-top:.7rem;font-size:.78rem}
     </div>
   </section>
 
-  <!-- ==================== WAT DE RECEPTIONIST DOET ==================== -->
+  <!-- ==================== ROLLEN: MEER DAN EEN RECEPTIONIST ==================== -->
   <section class="reveal cv" aria-labelledby="h-wat">
     <div class="wrap">
       <span class="kicker">Wat je krijgt</span>
-      <h2 id="h-wat">Wat de receptionist voor je doet</h2>
-      <div class="caps">
-        <div class="cap"><span class="ic" aria-hidden="true">✓</span><div>
-          <h3>Neemt 24/7 op</h3>
-          <p>Ook tijdens de lunch, tijdens meetings en na zessen.</p>
-        </div></div>
-        <div class="cap"><span class="ic" aria-hidden="true">✓</span><div>
-          <h3>Noteert elke oproep</h3>
-          <p>Wie belde, waarover en hoe dringend. Er gaat niets verloren.</p>
-        </div></div>
-        <div class="cap"><span class="ic" aria-hidden="true">✓</span><div>
-          <h3>Verbindt door naar de juiste collega</h3>
-          <p>Kandidaten naar de juiste recruiter, klanten naar sales, storingen naar support. Spoed gaat direct door.</p>
-        </div></div>
-        <div class="cap"><span class="ic" aria-hidden="true">✓</span><div>
-          <h3>Plant afspraken in de agenda</h3>
-          <p>Intakes, demo's en gesprekken, alleen op momenten die jullie vrijgeven.</p>
-        </div></div>
-        <div class="cap"><span class="ic" aria-hidden="true">✓</span><div>
-          <h3>Vangt piekdrukte op</h3>
-          <p>Als alle lijnen bezet zijn, neemt hij op. Geen wachtrij, geen ingesprekstoon.</p>
-        </div></div>
-        <div class="cap"><span class="ic" aria-hidden="true">✓</span><div>
-          <h3>Stuurt na elk gesprek een samenvatting</h3>
-          <p>Per e-mail of WhatsApp, binnen een minuut na het gesprek.</p>
-        </div></div>
+      <h2 id="h-wat">Eén AI-medewerker, vier rollen</h2>
+      <p class="sub">Jullie bepalen bij de intake wat hij doet en wanneer. Van alleen overloop tot volledige klantenservice.</p>
+      <div class="roles">
+        <div class="role">
+          <h3>Receptionist</h3>
+          <ul>
+            <li>Neemt 24/7 op, ook tijdens meetings en na zessen</li>
+            <li>Verbindt door naar de juiste collega, spoed direct</li>
+            <li>Plant afspraken en intakes in de agenda</li>
+          </ul>
+        </div>
+        <div class="role">
+          <h3>Klantenservice</h3>
+          <ul>
+            <li>Beantwoordt veelgestelde vragen over jullie diensten</li>
+            <li>Registreert verzoeken, klachten en terugbelafspraken</li>
+            <li>Stuurt na elk gesprek een samenvatting per e-mail of WhatsApp</li>
+          </ul>
+        </div>
+        <div class="role">
+          <h3>Overloop bij drukte</h3>
+          <ul>
+            <li>Springt bij als alle lijnen bezet zijn</li>
+            <li>Geen wachtrij en geen ingesprekstoon voor de beller</li>
+            <li>Jullie team belt terug met naam, nummer en context</li>
+          </ul>
+        </div>
+        <div class="role">
+          <h3>Buiten kantooruren</h3>
+          <ul>
+            <li>Avond, weekend en feestdagen gewoon bereikbaar</li>
+            <li>Kandidaten en klanten bellen wanneer het hen uitkomt</li>
+            <li>Spoed doorverbonden, de rest netjes klaargezet voor morgen</li>
+          </ul>
+        </div>
       </div>
     </div>
   </section>
@@ -341,24 +361,62 @@ footer .fsmall{margin-top:.7rem;font-size:.78rem}
   <section class="reveal cv" aria-labelledby="h-prijs">
     <div class="wrap">
       <span class="kicker">De prijs</span>
-      <h2 id="h-prijs">Eén prijs, alles erin</h2>
-      <div class="price-card">
-        <h3>AI-receptionist, compleet ingericht</h3>
-        <div class="price-line">
-          <span class="p1">€500 <small>eenmalig</small></span>
-          <span class="p2">+ €195 per maand</span>
+      <h2 id="h-prijs">Kies wat past bij jullie belvolume</h2>
+      <p class="anchor-line">Ter vergelijking: één fulltime receptionist kost in Nederland al snel meer dan €2.500 bruto per maand, voor 40 uur per week. Deze pakketten nemen dag en nacht op.</p>
+      <div class="tiers">
+        <div class="tier">
+          <h3>Start</h3>
+          <p class="t-who">Voor teams die vooral gemiste oproepen willen opvangen.</p>
+          <p class="t-price">€195 <small>per maand</small></p>
+          <p class="t-setup">+ €500 eenmalige inrichting</p>
+          <p class="t-min">250 belminuten per maand inbegrepen</p>
+          <p class="t-eff">Ongeveer 80 tot 120 gesprekken. Binnen de bundel €0,78 per minuut.</p>
+          <ul class="incl">
+            <li>Volledige inrichting en training door ons</li>
+            <li>Beantwoording 24/7, ook in het weekend</li>
+            <li>Eigen doorschakelnummer inbegrepen</li>
+            <li>Samenvatting per e-mail of WhatsApp na elk gesprek</li>
+            <li>Aanpassingen wanneer jullie iets willen wijzigen</li>
+          </ul>
+          <a class="btn btn-primary" href="#aanvragen">Start de intake</a>
         </div>
-        <ul class="incl">
-          <li>Volledige inrichting en training door ons</li>
-          <li>Beantwoording 24/7, ook buiten kantooruren</li>
-          <li>Doorverbinden naar de juiste collega</li>
-          <li>Afspraken direct in de agenda</li>
-          <li>Samenvatting per e-mail of WhatsApp na elk gesprek</li>
-          <li>Aanpassingen wanneer jullie iets willen wijzigen</li>
-        </ul>
-        <p class="garantie"><strong>14 dagen geld-teruggarantie.</strong> Niet tevreden? Je krijgt je geld terug en we zetten alles stop. Verder geen jaarcontract: opzeggen kan per maand.</p>
-        <a class="btn btn-primary btn-block" href="#aanvragen">Vraag je receptionist aan</a>
+        <div class="tier featured">
+          <span class="tier-badge">Aanbevolen voor 20 tot 100 medewerkers</span>
+          <h3>Groei</h3>
+          <p class="t-who">Voor bureaus en IT-bedrijven met serieus belverkeer.</p>
+          <p class="t-price">€395 <small>per maand</small></p>
+          <p class="t-setup">+ €750 eenmalige inrichting</p>
+          <p class="t-min">750 belminuten per maand inbegrepen</p>
+          <p class="t-eff">Ongeveer 250 tot 375 gesprekken. Binnen de bundel €0,53 per minuut.</p>
+          <ul class="incl">
+            <li>Alles uit Start</li>
+            <li>Afspraken direct in de agenda (Google en Outlook)</li>
+            <li>Doorverbinden naar de juiste collega of afdeling</li>
+            <li>Koppeling met jullie CRM of ATS</li>
+            <li>Tweetalig: Nederlands en Engels</li>
+            <li>Maandelijkse gespreksrapportage</li>
+          </ul>
+          <a class="btn btn-primary" href="#aanvragen">Start de intake</a>
+        </div>
+        <div class="tier">
+          <h3>Schaal</h3>
+          <p class="t-who">Voor hoog volume, meerdere labels of vestigingen.</p>
+          <p class="t-price">vanaf €795 <small>per maand</small></p>
+          <p class="t-setup">+ inrichting op maat, vanaf €1.250</p>
+          <p class="t-min">2.000 belminuten per maand inbegrepen</p>
+          <p class="t-eff">Ongeveer 650 tot 1.000 gesprekken. Binnen de bundel €0,40 per minuut.</p>
+          <ul class="incl">
+            <li>Alles uit Groei</li>
+            <li>Meerdere AI-medewerkers en nummers</li>
+            <li>Premium stemmen</li>
+            <li>Maatwerkkoppelingen en afspraken over reactietijd</li>
+            <li>Elk kwartaal een optimalisatiesessie</li>
+          </ul>
+          <a class="btn" href="#aanvragen">Plan een gesprek</a>
+        </div>
       </div>
+      <p class="overage-note">Bundel op? Hij blijft gewoon opnemen. Extra minuten kosten €0,30 per minuut, per seconde afgerekend. We waarschuwen je bij 80% van je bundel en denken mee over een passender pakket. Rustige maand? Dan blijft het bij je vaste maandbedrag.</p>
+      <p class="garantie"><strong>14 dagen geld-teruggarantie.</strong> Niet tevreden? Je krijgt je geld terug en we zetten alles stop. Verder geen jaarcontract: opzeggen en wisselen van pakket kan per maand.</p>
     </div>
   </section>
 
@@ -393,8 +451,16 @@ footer .fsmall{margin-top:.7rem;font-size:.78rem}
           <p>Ja. Geen jaarcontract, opzeggen kan per maand. En binnen de eerste 14 dagen krijg je bij twijfel je geld terug.</p>
         </details>
         <details>
+          <summary>Wat gebeurt er als onze belminuten op zijn?</summary>
+          <p>Dan blijft hij gewoon opnemen. Extra minuten kosten €0,30 per minuut, per seconde afgerekend. We waarschuwen je bij 80% van je bundel en denken mee over een passender pakket.</p>
+        </details>
+        <details>
+          <summary>Kunnen we op- of afschalen?</summary>
+          <p>Ja, per maand. Blijkt je bundel structureel te klein of te groot, dan wissel je de maand erna van pakket. Zonder kosten.</p>
+        </details>
+        <details>
           <summary>Hoe snel is het geregeld?</summary>
-          <p>Binnen 5 werkdagen na de intake staat je receptionist live. Jullie vullen het formulier in, schakelen aan het eind het nummer door en dat is alles.</p>
+          <p>Binnen 5 werkdagen na de intake staat je AI-medewerker live. Jullie vullen het formulier in, schakelen aan het eind het nummer door en dat is alles.</p>
         </details>
         <details>
           <summary>Werkt het met onze agenda's?</summary>
@@ -408,8 +474,8 @@ footer .fsmall{margin-top:.7rem;font-size:.78rem}
   <section class="reveal cv" id="aanvragen" aria-labelledby="h-form">
     <div class="wrap">
       <span class="kicker">Aanvragen</span>
-      <h2 id="h-form">Vraag je receptionist aan</h2>
-      <p class="sub">Vul dit in en we nemen binnen één werkdag contact met je op om de intake te plannen. Eerst nog vragen? Bel de demo op <a href="tel:[DEMO_NUMMER]">[DEMO_NUMMER]</a>.</p>
+      <h2 id="h-form">Start de intake</h2>
+      <p class="sub">Vul dit in en we nemen binnen één werkdag contact met je op. Samen kiezen we het pakket dat past. Eerst nog vragen? Bel de demo op <a href="tel:[DEMO_NUMMER]">[DEMO_NUMMER]</a>.</p>
 
       <form name="receptionist-intake" method="POST" action="/" data-netlify="true" netlify-honeypot="extra-veld" novalidate>
         <input type="hidden" name="form-name" value="receptionist-intake">
@@ -453,6 +519,18 @@ footer .fsmall{margin-top:.7rem;font-size:.78rem}
           <p class="err" id="e-sector">Kies je sector.</p>
         </div>
         <div class="field">
+          <label for="f-fte">Hoeveel medewerkers hebben jullie?</label>
+          <select id="f-fte" aria-describedby="e-fte" name="aantal_medewerkers" required>
+            <option value="">Maak een keuze</option>
+            <option>2 tot 10</option>
+            <option>10 tot 25</option>
+            <option>25 tot 50</option>
+            <option>50 tot 100</option>
+            <option>Meer dan 100</option>
+          </select>
+          <p class="err" id="e-fte">Maak een keuze.</p>
+        </div>
+        <div class="field">
           <label for="f-calls">Hoeveel oproepen missen jullie per week, denk je?</label>
           <select id="f-calls" aria-describedby="e-calls" name="gemiste_calls_per_week" required>
             <option value="">Maak een keuze</option>
@@ -475,6 +553,15 @@ footer .fsmall{margin-top:.7rem;font-size:.78rem}
             <option>Niets</option>
           </select>
           <p class="err" id="e-huidig">Maak een keuze.</p>
+        </div>
+        <div class="field">
+          <label for="f-pakket">Welk pakket lijkt jullie het beste? (mag je overslaan)</label>
+          <select id="f-pakket" name="pakket">
+            <option value="">Weet ik nog niet</option>
+            <option>Start (€195 per maand)</option>
+            <option>Groei (€395 per maand)</option>
+            <option>Schaal (vanaf €795 per maand)</option>
+          </select>
         </div>
 
         <button type="submit" class="btn btn-primary btn-block">Verstuur aanvraag</button>
@@ -575,13 +662,14 @@ footer .fsmall{margin-top:.7rem;font-size:.78rem}
     allOk = check('f-tel', /^[0-9+()\s-]{8,20}$/.test(v('f-tel'))) && allOk;
     allOk = check('f-mail', /^[^\s@]+@[^\s@]+\.[^\s@]{2,}$/.test(v('f-mail'))) && allOk;
     allOk = check('f-sector', v('f-sector') !== '') && allOk;
+    allOk = check('f-fte', v('f-fte') !== '') && allOk;
     allOk = check('f-calls', v('f-calls') !== '') && allOk;
     allOk = check('f-huidig', v('f-huidig') !== '') && allOk;
     if (firstBad) firstBad.focus();
     return allOk;
   }
 
-  ['f-bedrijf','f-naam','f-tel','f-mail','f-sector','f-calls','f-huidig'].forEach(function (id) {
+  ['f-bedrijf','f-naam','f-tel','f-mail','f-sector','f-fte','f-calls','f-huidig'].forEach(function (id) {
     var el = document.getElementById(id);
     el.addEventListener('input', function () { setInvalid(id, false); });
     el.addEventListener('change', function () { setInvalid(id, false); });
