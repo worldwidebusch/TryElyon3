@@ -59,11 +59,17 @@ tools for inbox/email tasks.
 }
 ```
 
-- On first use, Claude Code prompts you to approve the project MCP server and, if the
-  server requires it, walks you through its OAuth sign-in.
-- If InboxKit instead issues a static API token, add it under `headers`, e.g.
-  `"headers": { "Authorization": "Bearer <token>" }` — keep real tokens out of git
-  (use a local override or environment injection).
+- On first use, Claude Code prompts you to approve the project MCP server.
+- Auth uses an InboxKit API token, injected from the `INBOXKIT_TOKEN` environment
+  variable (never committed to git). Export it before launching Claude Code:
+
+  ```sh
+  export INBOXKIT_TOKEN="<your-inboxkit-api-token>"
+  claude   # picks up .mcp.json and expands ${INBOXKIT_TOKEN} into the auth header
+  ```
+
+  If InboxKit expects a different header name than `Authorization: Bearer`, adjust the
+  `headers` block in `.mcp.json` accordingly.
 - Verify it loaded with `claude mcp list` (or `/mcp` inside a Claude Code session).
 
 ### `/inboxkit` slash command

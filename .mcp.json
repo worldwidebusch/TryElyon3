@@ -2,7 +2,10 @@
   "mcpServers": {
     "inboxkit": {
       "type": "http",
-      "url": "https://mcp.inboxkit.com/mcp"
+      "url": "https://mcp.inboxkit.com/mcp",
+      "headers": {
+        "Authorization": "Bearer ${INBOXKIT_TOKEN}"
+      }
     }
   }
 }
