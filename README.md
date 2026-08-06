@@ -42,4 +42,46 @@ brand/assets/*.svg       Logo, wordmark, lockups, app icon, favicon (production 
 - Spanish copy: the `ES` dictionary at the top of the `<script>` block. English lives in the HTML.
 - Demo slideshow scenes: `.scene` blocks inside `#screen`; timings via `data-d` / `data-dur`.
 
+## MCP integration (Claude Code)
+
+This repo registers the **InboxKit** MCP server as a project-scoped tool provider in
+[`.mcp.json`](.mcp.json), so anyone running Claude Code inside this repo can use its
+tools for inbox/email tasks.
+
+```json
+{
+  "mcpServers": {
+    "inboxkit": {
+      "type": "http",
+      "url": "https://mcp.inboxkit.com/mcp"
+    }
+  }
+}
+```
+
+- On first use, Claude Code prompts you to approve the project MCP server.
+- Auth uses an InboxKit API token, injected from the `INBOXKIT_TOKEN` environment
+  variable (never committed to git). Export it before launching Claude Code:
+
+  ```sh
+  export INBOXKIT_TOKEN="<your-inboxkit-api-token>"
+  claude   # picks up .mcp.json and expands ${INBOXKIT_TOKEN} into the auth header
+  ```
+
+  If InboxKit expects a different header name than `Authorization: Bearer`, adjust the
+  `headers` block in `.mcp.json` accordingly.
+- Verify it loaded with `claude mcp list` (or `/mcp` inside a Claude Code session).
+
+### `/inboxkit` slash command
+
+A project command in [`.claude/commands/inboxkit.md`](.claude/commands/inboxkit.md) lets you
+invoke InboxKit directly:
+
+```
+/inboxkit <what you want InboxKit to do>
+```
+
+It routes the request to the `inboxkit` MCP tools. If the server isn't authenticated yet,
+run `/mcp` first to sign in, then retry.
+
 (c) 2026 Elyon. All rights reserved.
