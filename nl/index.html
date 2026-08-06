@@ -3,187 +3,772 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Elyon | AI-medewerkers voor telefoon en klantcontact</title>
-<meta name="description" content="Elyon bouwt AI-medewerkers voor sales, support en klantcontact. Telefoon, WhatsApp, Instagram en Messenger. Actief in Nederland en Latijns-Amerika.">
-<meta name="robots" content="index,follow">
-<link rel="canonical" href="https://tryelyon.com/nl/">
+<title>Elyon | Signalen, geen lijsten</title>
+<meta name="description" content="Elyon vindt bedrijven die nu publiek vragen om wat jij verkoopt. Vacatures, aanbestedingen, KVK-wijzigingen, ondernemersgroepen. Geleverd binnen het uur, met bron, trigger en contactpersoon.">
+<!-- Deze pagina komt uit koude e-mail en mag niet concurreren met tryelyon.com -->
+<meta name="robots" content="noindex,nofollow">
+<meta name="theme-color" content="#0F0F12">
 <meta property="og:type" content="website">
 <meta property="og:url" content="https://tryelyon.com/nl/">
-<meta property="og:title" content="Elyon | AI-medewerkers voor telefoon en klantcontact">
-<meta property="og:description" content="AI-medewerkers die opnemen, doorverbinden, afspraken plannen en klanten beantwoorden. 24/7, in vloeiend Nederlands.">
+<meta property="og:title" content="Elyon | Signalen, geen lijsten">
+<meta property="og:description" content="Een aanvraag in een ondernemersgroep is vier uur wat waard. Wij leveren hem binnen het uur, met bron, trigger en openingszin.">
 <meta property="og:locale" content="nl_NL">
-<meta name="theme-color" content="#0F0F12">
+<!-- OG-AFBEELDING: nog te genereren. Zet hier de URL zodra die er is.
+<meta property="og:image" content="https://tryelyon.com/nl/og.png"> -->
 <link rel="icon" type="image/svg+xml" href='data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100"><rect width="100" height="100" fill="%230F0F12"/><rect x="22" y="22" width="12" height="56" fill="%23EFEDE6"/><rect x="22" y="22" width="56" height="12" fill="%232038E6"/><rect x="22" y="44" width="44" height="12" fill="%23EFEDE6"/><rect x="22" y="66" width="32" height="12" fill="%23EFEDE6"/></svg>'>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Martian+Mono:wght@400;700;800&family=IBM+Plex+Mono:wght@400;500;600&display=swap" media="print" onload="this.media='all'">
 <noscript><link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Martian+Mono:wght@400;700;800&family=IBM+Plex+Mono:wght@400;500;600&display=swap"></noscript>
-<script type="application/ld+json">
-{"@context":"https://schema.org","@type":"Organization","name":"Elyon","url":"https://tryelyon.com/nl/","description":"AI-medewerkers voor sales, support en klantcontact: telefoon, WhatsApp, Instagram en Messenger.","areaServed":["NL","MX"]}
-</script>
 <style>
+/* ==========================================================
+   ELYON NL / TOKENS
+   Basis: Elyon merksysteem (paper, carbon, cobalt, signal).
+   Toegevoegd: versheidsramp amber + ash. Een signaal is cobalt
+   als het binnenkomt en grijst uit terwijl je kijkt.
+   ========================================================== */
 :root{
-  --bg:#efede6;--surface:#e6e3da;--ink:#131316;--ink-soft:#50505a;
-  --accent:#2038e6;--accent-dark:#1a2cb8;--accent-lt:#7d8cff;
-  --phone:#1e7a46;--phone-dark:#155c34;--carbon:#0f0f12;--bone:#efede6;--rule:#131316;
-  --disp:'Martian Mono',ui-monospace,monospace;--body:'IBM Plex Mono',ui-monospace,monospace;
+  --paper:#efede6;
+  --paper-2:#e6e3da;
+  --carbon:#0f0f12;
+  --carbon-2:#17171b;
+  --ink:#131316;
+  --ink-soft:#54545f;
+  --cobalt:#2038e6;
+  --cobalt-lt:#7d8cff;
+  --cobalt-dark:#1a2cb8;
+  --amber:#b4690e;
+  --amber-lt:#e5a33f;
+  --ash:#6e6e78;
+  --ash-lt:#8b8b96;
+  --signal:#ff3d1f;
+  --rule:#131316;
+  --rule-d:#33333b;
+  --disp:'Martian Mono',ui-monospace,SFMono-Regular,Menlo,monospace;
+  --body:'IBM Plex Mono',ui-monospace,SFMono-Regular,Menlo,monospace;
 }
+
 *{margin:0;padding:0;box-sizing:border-box}
-html{scroll-behavior:smooth}
+html{scroll-behavior:smooth;-webkit-text-size-adjust:100%}
 body{
-  background:var(--bg);color:var(--ink);font-family:var(--body);font-size:15.5px;line-height:1.65;
-  -webkit-font-smoothing:antialiased;
+  background:var(--paper);color:var(--ink);
+  font-family:var(--body);font-size:15.5px;line-height:1.65;
+  -webkit-font-smoothing:antialiased;overflow-x:hidden;
+}
+a{color:inherit;text-decoration:none}
+img,svg{max-width:100%;display:block}
+::selection{background:var(--cobalt);color:var(--paper)}
+:focus-visible{outline:2.5px solid var(--cobalt);outline-offset:3px}
+.sec.dark :focus-visible{outline-color:var(--cobalt-lt)}
+button{font-family:inherit;font-size:inherit}
+
+/* ---------- typografie ---------- */
+h1,h2,h3{font-family:var(--disp);letter-spacing:-.025em;line-height:1.1;font-weight:800}
+h1,h2{text-transform:uppercase}
+h1{font-size:clamp(1.55rem,4.4vw,2.75rem)}
+h2{font-size:clamp(1.15rem,2.9vw,1.85rem)}
+h3{font-size:.95rem;letter-spacing:-.01em}
+p{max-width:64ch}
+.lead{font-size:clamp(1rem,1.6vw,1.15rem);color:var(--ink-soft);max-width:56ch}
+.dim{color:var(--ink-soft)}
+.sec.dark .dim{color:#a0a0ad}
+.lbl{font-family:var(--disp);font-size:.62rem;font-weight:700;letter-spacing:.15em;text-transform:uppercase}
+
+/* ---------- sectieframe (Elyon systeem) ---------- */
+.sec{border-bottom:1.5px solid var(--rule);position:relative}
+.sec.dark{background:var(--carbon);color:var(--paper);border-bottom-color:var(--rule-d)}
+.sec-head{
+  display:flex;justify-content:space-between;align-items:center;gap:1rem;
+  padding:.6rem clamp(16px,4vw,28px);
+  border-bottom:1.5px solid var(--rule);background:inherit;
+  position:relative;z-index:2;
+}
+.sec.dark .sec-head{border-bottom-color:var(--rule-d)}
+.sec-head .lbl{color:var(--ink)}
+.sec.dark .sec-head .lbl{color:var(--paper)}
+.sec-head .idx{font-family:var(--disp);font-size:.62rem;font-weight:400;letter-spacing:.1em;color:var(--cobalt)}
+.sec.dark .sec-head .idx{color:var(--cobalt-lt)}
+.sec-body{padding:clamp(40px,6vw,84px) clamp(16px,4vw,28px)}
+.inner{max-width:1160px;margin:0 auto}
+.inner-tight{max-width:880px;margin:0 auto}
+
+/* blauwdrukraster op lichte secties */
+.sec:not(.dark) .sec-body{
   background-image:
-    linear-gradient(rgba(32,56,230,.05) 1px,transparent 1px),
-    linear-gradient(90deg,rgba(32,56,230,.05) 1px,transparent 1px);
+    linear-gradient(rgba(32,56,230,.045) 1px,transparent 1px),
+    linear-gradient(90deg,rgba(32,56,230,.045) 1px,transparent 1px);
   background-size:34px 34px;
 }
-a{color:inherit}
-::selection{background:var(--accent);color:var(--bg)}
-:focus-visible{outline:2.5px solid var(--accent);outline-offset:3px}
-img,svg{max-width:100%}
-.wrap{max-width:1100px;margin:0 auto;padding:clamp(48px,7vw,88px) clamp(18px,4vw,28px)}
-h1,h2,h3{font-family:var(--disp);letter-spacing:-.02em;line-height:1.12}
-h1,h2{font-weight:800;text-transform:uppercase}
-h2{font-size:clamp(1.2rem,2.8vw,1.8rem)}
-.kicker{display:inline-block;font-family:var(--disp);font-size:.66rem;font-weight:700;letter-spacing:.14em;text-transform:uppercase;color:var(--accent);margin-bottom:1rem}
-.sub{color:var(--ink-soft);max-width:62ch;margin-top:.9rem}
+
+/* ---------- knoppen ---------- */
 .btn{
   display:inline-flex;align-items:center;justify-content:center;gap:.55rem;
-  font-family:var(--disp);font-weight:700;font-size:.74rem;letter-spacing:.06em;text-transform:uppercase;
-  text-decoration:none;cursor:pointer;text-align:center;
-  padding:.95rem 1.5rem;border:1.5px solid var(--rule);background:transparent;color:var(--ink);
-  transition:background .15s,color .15s,border-color .15s,transform .1s;
+  font-family:var(--disp);font-weight:700;font-size:.72rem;letter-spacing:.07em;text-transform:uppercase;
+  padding:1rem 1.6rem;border:1.5px solid var(--rule);background:transparent;color:var(--ink);
+  cursor:pointer;text-align:center;
+  transition:background .16s,color .16s,border-color .16s,transform .1s;
 }
+.btn:hover{background:var(--ink);color:var(--paper)}
 .btn:active{transform:translateY(1px)}
-.btn:hover{background:var(--ink);color:var(--bg)}
-.btn-primary{background:var(--accent);border-color:var(--accent);color:#fff}
-.btn-primary:hover{background:var(--accent-dark);border-color:var(--accent-dark);color:#fff}
-.btn-phone{background:var(--phone);border-color:var(--phone);color:#fff}
-.btn-phone:hover{background:var(--phone-dark);border-color:var(--phone-dark);color:#fff}
-
-/* topbar */
-.topbar{border-bottom:1.5px solid var(--rule);background:var(--bg);display:flex;align-items:center;justify-content:space-between;gap:1rem;min-height:56px;padding:.6rem clamp(16px,4vw,28px)}
-.brand{display:flex;align-items:center;gap:.6rem;font-family:var(--disp);font-weight:800;font-size:.95rem;letter-spacing:.04em}
-.brand svg{width:20px;height:20px;display:block}
-.toplinks{display:flex;gap:.9rem;font-size:.7rem;font-family:var(--disp);font-weight:700;letter-spacing:.05em;text-transform:uppercase}
-.toplinks a{text-decoration:none;color:var(--ink-soft)}
-.toplinks a:hover{color:var(--accent)}
-
-/* hero */
-.hero{border-bottom:1.5px solid var(--rule)}
-.hero h1{font-size:clamp(1.5rem,4.6vw,2.6rem);max-width:26ch}
-.cta-row{display:flex;flex-wrap:wrap;gap:.8rem;margin-top:1.8rem}
+.btn-primary{background:var(--cobalt);border-color:var(--cobalt);color:#fff}
+.btn-primary:hover{background:var(--cobalt-dark);border-color:var(--cobalt-dark);color:#fff}
+.btn-ghost-d{border-color:var(--rule-d);color:var(--paper)}
+.btn-ghost-d:hover{background:var(--paper);color:var(--carbon);border-color:var(--paper)}
+.cta-row{display:flex;flex-wrap:wrap;gap:.7rem;margin-top:1.8rem}
 @media (max-width:560px){.cta-row{flex-direction:column}.cta-row .btn{width:100%}}
-.markets{margin-top:1.4rem;font-size:.8rem;color:var(--ink-soft);letter-spacing:.04em;text-transform:uppercase;font-weight:600}
 
-/* aanbod */
-.offer-grid{display:grid;grid-template-columns:1fr;gap:16px;margin-top:2rem}
-@media (min-width:860px){.offer-grid{grid-template-columns:1fr 1fr}}
-.offer{background:var(--bg);border:1.5px solid var(--rule);padding:clamp(22px,3vw,32px);display:flex;flex-direction:column}
-.offer.hl{border:2.5px solid var(--accent);box-shadow:0 18px 40px -24px rgba(32,56,230,.4)}
-.offer h3{font-size:1rem;font-weight:800;text-transform:uppercase}
-.offer .tag{display:inline-block;font-family:var(--disp);font-size:.56rem;font-weight:700;letter-spacing:.1em;text-transform:uppercase;color:var(--accent);border:1.5px solid var(--accent);padding:.3rem .55rem;margin-bottom:.8rem;align-self:flex-start}
-.offer p{color:var(--ink-soft);font-size:.94rem;margin-top:.6rem}
-.offer ul{list-style:none;margin-top:.9rem;display:flex;flex-direction:column;gap:.45rem}
-.offer li{display:flex;gap:.6rem;align-items:flex-start;font-size:.9rem}
-.offer li::before{content:"✓";color:var(--phone);font-weight:700;flex:none}
-.offer .btn{margin-top:auto}
-.offer ul{margin-bottom:1.3rem}
+/* ---------- topbalk ---------- */
+.topbar{
+  display:flex;align-items:center;justify-content:space-between;gap:1rem;
+  min-height:54px;padding:.5rem clamp(16px,4vw,28px);
+  background:var(--carbon);color:var(--paper);border-bottom:1.5px solid var(--rule-d);
+}
+.brand{display:flex;align-items:center;gap:.55rem;font-family:var(--disp);font-weight:800;font-size:.9rem;letter-spacing:.05em}
+.brand svg{width:19px;height:19px}
+.topbar .tel{font-family:var(--disp);font-weight:700;font-size:.68rem;letter-spacing:.06em;color:var(--cobalt-lt);white-space:nowrap}
+.topbar .tel:hover{color:#fff}
 
-/* over */
-.sec-alt{background:var(--surface);border-top:1.5px solid var(--rule)}
-.about p{max-width:62ch}
+/* ==========================================================
+   HERO / LIVE SIGNAALFEED  (het handtekeningelement)
+   ========================================================== */
+.hero{background:var(--carbon);color:var(--paper);position:relative;overflow:hidden;border-bottom:1.5px solid var(--rule-d)}
+/* ambient: trage scanbeweging, geen radarveeg */
+.hero::before{
+  content:"";position:absolute;inset:-40% -10% auto -10%;height:180%;
+  background:
+    radial-gradient(60% 40% at 50% 0%,rgba(32,56,230,.20),transparent 70%),
+    repeating-linear-gradient(180deg,rgba(125,140,255,.05) 0 1px,transparent 1px 5px);
+  animation:drift 22s linear infinite;pointer-events:none;
+}
+@keyframes drift{0%{transform:translateY(-6%)}50%{transform:translateY(4%)}100%{transform:translateY(-6%)}}
+.hero-grid{
+  max-width:1160px;margin:0 auto;padding:clamp(34px,5vw,68px) clamp(16px,4vw,28px) clamp(40px,6vw,76px);
+  display:grid;gap:clamp(30px,4.5vw,54px);position:relative;z-index:1;
+}
+/* Mobiel: kopie, dan feed, dan noot. De feed is het argument, dus die moet
+   zo snel mogelijk in beeld komen. Desktop: feed rechts, noot linksonder. */
+@media (min-width:940px){
+  .hero-grid{grid-template-columns:0.86fr 1.14fr;align-items:start}
+  .hero-copy{grid-column:1;grid-row:1}
+  .hero-grid .console{grid-column:2;grid-row:1 / span 2}
+  .hero-note{grid-column:1;grid-row:2;margin-top:0}
+}
+.hero h1{color:var(--paper);max-width:16ch}
+.hero .lead{color:#b6b6c4;margin-top:1.1rem}
+.hero .kicker{
+  display:inline-flex;align-items:center;gap:.5rem;
+  font-family:var(--disp);font-size:.62rem;font-weight:700;letter-spacing:.15em;text-transform:uppercase;
+  color:var(--cobalt-lt);margin-bottom:1.1rem;
+}
+.pulse{width:7px;height:7px;background:var(--cobalt-lt);border-radius:50%;animation:pulse 1.9s ease-in-out infinite;flex:none}
+@keyframes pulse{0%,100%{opacity:1;transform:scale(1)}50%{opacity:.35;transform:scale(.72)}}
+.hero-note{margin-top:1.5rem;font-size:.78rem;color:#8a8a99;max-width:40ch;border-left:2px solid var(--rule-d);padding-left:.8rem}
 
-/* footer */
-footer{border-top:1.5px solid var(--rule);background:var(--surface);padding:2.2rem clamp(18px,4vw,28px);text-align:center;font-size:.85rem;color:var(--ink-soft)}
-footer .f-logo{height:34px;width:auto;display:inline-block}
-footer .flinks{display:flex;flex-wrap:wrap;gap:.4rem 1.4rem;justify-content:center;margin-top:.9rem}
-footer a{color:var(--accent)}
-footer .fsmall{margin-top:.7rem;font-size:.78rem}
+/* console */
+.console{border:1.5px solid var(--rule-d);background:var(--carbon-2)}
+.console-bar{
+  display:flex;align-items:center;justify-content:space-between;gap:.7rem;flex-wrap:wrap;
+  padding:.6rem .85rem;border-bottom:1.5px solid var(--rule-d);
+}
+.console-bar .lbl{color:var(--paper);font-size:.6rem}
+.console-bar .meta{font-size:.62rem;color:#8a8a99;letter-spacing:.08em;text-transform:uppercase;font-weight:500}
+.feed{list-style:none;max-height:min(66vh,540px);overflow:hidden;position:relative}
+.feed::after{content:"";position:absolute;left:0;right:0;bottom:0;height:56px;background:linear-gradient(transparent,var(--carbon-2));pointer-events:none}
+
+/* feedregel */
+.row{
+  display:grid;grid-template-columns:auto 1fr;gap:.55rem .8rem;
+  padding:.8rem .85rem;border-bottom:1px solid rgba(255,255,255,.07);
+  animation:land .5s cubic-bezier(.2,.8,.3,1) both;
+}
+@keyframes land{from{opacity:0;transform:translateY(-10px)}to{opacity:1;transform:none}}
+.row .stripe{width:3px;border-radius:2px;background:var(--cobalt);grid-row:1 / span 3;transition:background .6s linear}
+.row .top{display:flex;flex-wrap:wrap;align-items:center;gap:.45rem}
+.row .src{font-family:var(--disp);font-size:.58rem;font-weight:700;letter-spacing:.1em;text-transform:uppercase;color:var(--cobalt-lt);transition:color .6s linear}
+.row .age{
+  font-size:.58rem;font-weight:600;letter-spacing:.08em;text-transform:uppercase;
+  padding:.12rem .38rem;border:1px solid currentColor;color:var(--cobalt-lt);transition:color .6s linear;white-space:nowrap;
+}
+.row .trigger{font-size:.86rem;color:#e2e2ea;line-height:1.5;max-width:none}
+.row .match{font-size:.68rem;color:#8a8a99;letter-spacing:.02em}
+.row .match b{color:#b6b6c4;font-weight:600}
+/* versheidsstaten */
+.row[data-state="warm"] .stripe{background:var(--amber)}
+.row[data-state="warm"] .src,.row[data-state="warm"] .age{color:var(--amber-lt)}
+.row[data-state="koud"] .stripe{background:var(--ash)}
+.row[data-state="koud"] .src,.row[data-state="koud"] .age{color:var(--ash-lt)}
+.row[data-state="koud"] .trigger{color:#9a9aa6}
+.row[data-state="dood"]{opacity:.42}
+.row[data-state="dood"] .stripe{background:#3a3a42}
+.row[data-state="dood"] .src,.row[data-state="dood"] .age{color:#6a6a76}
+.row[data-state="dood"] .trigger{color:#7a7a86;text-decoration:line-through;text-decoration-color:rgba(255,255,255,.25)}
+.console-foot{padding:.65rem .85rem;border-top:1.5px solid var(--rule-d);display:flex;gap:1rem;flex-wrap:wrap;align-items:center}
+.legend{display:flex;gap:.75rem;flex-wrap:wrap;font-size:.6rem;letter-spacing:.06em;text-transform:uppercase;color:#8a8a99}
+.legend span{display:inline-flex;align-items:center;gap:.32rem}
+.legend i{width:8px;height:8px;display:block}
+.lg-vers{background:var(--cobalt)}.lg-warm{background:var(--amber)}.lg-koud{background:var(--ash)}.lg-dood{background:#3a3a42}
+
+/* ==========================================================
+   PROBLEEM
+   ========================================================== */
+.race{display:grid;gap:1px;background:var(--rule);border:1.5px solid var(--rule);margin-top:2.2rem}
+@media (min-width:720px){.race{grid-template-columns:1fr 1fr}}
+.race > div{background:var(--paper);padding:1.4rem 1.3rem}
+.race .win{background:var(--carbon);color:var(--paper)}
+.race .lbl{display:block;margin-bottom:.7rem;color:var(--cobalt)}
+.race .win .lbl{color:var(--signal)}
+.race .clock{font-family:var(--disp);font-weight:800;font-size:clamp(1.6rem,4.6vw,2.4rem);letter-spacing:-.03em;line-height:1}
+.race .win .clock{color:var(--signal)}
+.race p{font-size:.86rem;margin-top:.7rem;color:var(--ink-soft)}
+.race .win p{color:#a0a0ad}
+/* Alleen verbergen als JS draait. Zonder JS blijft de sectie gewoon staan,
+   want anders verdwijnt er een heel blok tekst voor wie scripts blokkeert. */
+.js .reveal{opacity:0;transform:translateY(22px);transition:opacity .7s ease,transform .7s cubic-bezier(.2,.8,.3,1)}
+.js .reveal.in{opacity:1;transform:none}
+
+/* ==========================================================
+   HOE HET WERKT  (echte volgorde, dus genummerd)
+   ========================================================== */
+.steps{display:grid;gap:1px;background:var(--rule);border:1.5px solid var(--rule);margin-top:2rem}
+@media (min-width:800px){.steps{grid-template-columns:repeat(3,1fr)}}
+.step{background:var(--paper);padding:1.5rem 1.3rem;transition:background .18s}
+.step:hover{background:var(--paper-2)}
+.step .n{font-family:var(--disp);font-weight:800;font-size:.68rem;letter-spacing:.1em;color:var(--cobalt);display:block;margin-bottom:.9rem}
+.step h3{margin-bottom:.55rem}
+.step p{font-size:.86rem;color:var(--ink-soft)}
+
+/* ==========================================================
+   BRONNEN
+   ========================================================== */
+.sources{display:grid;gap:1px;background:var(--rule-d);border:1.5px solid var(--rule-d);margin-top:2rem}
+@media (min-width:620px){.sources{grid-template-columns:1fr 1fr}}
+@media (min-width:980px){.sources{grid-template-columns:repeat(4,1fr)}}
+.source{
+  background:var(--carbon-2);padding:1.15rem 1rem;
+  transition:background .18s,transform .18s;
+}
+.source:hover{background:#1e1e24;transform:translateY(-2px)}
+.source .lbl{color:var(--cobalt-lt);display:block;margin-bottom:.6rem;font-size:.58rem}
+.source ul{list-style:none;font-size:.8rem;color:#b6b6c4;line-height:1.75}
+.source li::before{content:"› ";color:var(--ash-lt)}
+.coverage{margin-top:1.6rem;font-size:.8rem;color:#8a8a99;max-width:60ch}
+
+/* ==========================================================
+   VOORBEELDKAART
+   ========================================================== */
+.card{border:1.5px solid var(--rule);background:var(--paper);margin-top:2rem;max-width:660px}
+.card-bar{display:flex;justify-content:space-between;align-items:center;gap:.7rem;flex-wrap:wrap;padding:.6rem .95rem;background:var(--carbon);color:var(--paper);border-bottom:1.5px solid var(--rule)}
+.card-bar .lbl{font-size:.58rem}
+.card-bar .stamp{font-size:.6rem;color:var(--cobalt-lt);letter-spacing:.08em;text-transform:uppercase;font-weight:600}
+.field{padding:.85rem .95rem;border-bottom:1px solid rgba(19,19,22,.14)}
+.field:last-child{border-bottom:0}
+.field .k{font-family:var(--disp);font-size:.56rem;font-weight:700;letter-spacing:.13em;text-transform:uppercase;color:var(--cobalt);display:block;margin-bottom:.35rem}
+.field .v{font-size:.87rem;line-height:1.55}
+.field .v.quote{border-left:2px solid var(--cobalt);padding-left:.75rem;color:var(--ink-soft)}
+.field .v.draft{background:var(--paper-2);padding:.7rem .8rem;font-size:.84rem}
+
+/* ==========================================================
+   PRIJS
+   ========================================================== */
+.price{display:grid;gap:1px;background:var(--rule);border:1.5px solid var(--rule);margin-top:2rem}
+@media (min-width:760px){.price{grid-template-columns:1.1fr .9fr}}
+.price > div{background:var(--paper);padding:1.6rem 1.4rem}
+.price .amount{font-family:var(--disp);font-weight:800;font-size:clamp(1.9rem,5.2vw,2.9rem);letter-spacing:-.035em;line-height:1;color:var(--ink)}
+.price .per{font-size:.78rem;color:var(--ink-soft);margin-top:.5rem;letter-spacing:.04em;text-transform:uppercase;font-weight:600}
+.price ul{list-style:none;margin-top:1.2rem;font-size:.85rem}
+.price li{padding:.32rem 0 .32rem 1.1rem;position:relative;color:var(--ink-soft)}
+.price li::before{content:"+";position:absolute;left:0;color:var(--cobalt);font-weight:700}
+.price .compare{background:var(--paper-2)}
+.price .compare .lbl{color:var(--cobalt);display:block;margin-bottom:.8rem}
+.price .compare dl{font-size:.85rem}
+.price .compare dt{color:var(--ink-soft);margin-top:.7rem}
+.price .compare dd{font-family:var(--disp);font-weight:700;font-size:1rem;letter-spacing:-.02em}
+
+/* ==========================================================
+   FOUNDER
+   ========================================================== */
+.founder{display:grid;gap:1.6rem;margin-top:1.6rem;align-items:start}
+@media (min-width:700px){.founder{grid-template-columns:190px 1fr}}
+.portrait{
+  aspect-ratio:1/1;max-width:190px;border:1.5px solid var(--rule);background:var(--paper-2);
+  display:flex;align-items:center;justify-content:center;text-align:center;padding:1rem;
+}
+.portrait span{font-size:.62rem;letter-spacing:.1em;text-transform:uppercase;color:var(--ink-soft);line-height:1.6}
+.founder .name{font-family:var(--disp);font-weight:800;font-size:1.15rem;letter-spacing:-.02em}
+.founder .role{font-size:.72rem;letter-spacing:.1em;text-transform:uppercase;color:var(--cobalt);font-weight:600;margin-top:.25rem}
+.contact-list{list-style:none;margin-top:1.3rem;font-size:.9rem}
+.contact-list li{padding:.45rem 0;border-bottom:1px solid rgba(19,19,22,.14);display:flex;gap:.7rem;flex-wrap:wrap;align-items:baseline}
+.contact-list .k{font-family:var(--disp);font-size:.58rem;font-weight:700;letter-spacing:.12em;text-transform:uppercase;color:var(--ink-soft);min-width:74px}
+.contact-list a{border-bottom:1.5px solid var(--cobalt);font-weight:500}
+.contact-list a:hover{background:var(--cobalt);color:#fff;border-bottom-color:var(--cobalt)}
+
+/* ==========================================================
+   BOEKEN
+   ========================================================== */
+.cal{
+  border:1.5px dashed var(--rule-d);background:var(--carbon-2);
+  min-height:340px;display:flex;align-items:center;justify-content:center;text-align:center;
+  padding:2rem 1.2rem;margin-top:1.8rem;
+}
+.cal span{font-size:.68rem;letter-spacing:.12em;text-transform:uppercase;color:#8a8a99;line-height:1.9;max-width:34ch}
+.fallback{margin-top:1.4rem;display:flex;flex-wrap:wrap;gap:.7rem}
+
+/* ==========================================================
+   FOOTER
+   ========================================================== */
+.foot{background:var(--carbon);color:#8a8a99;font-size:.76rem;padding:2.2rem clamp(16px,4vw,28px)}
+.foot-grid{max-width:1160px;margin:0 auto;display:grid;gap:1.6rem}
+@media (min-width:760px){.foot-grid{grid-template-columns:1.4fr 1fr 1fr}}
+.foot .lbl{color:var(--paper);display:block;margin-bottom:.7rem;font-size:.58rem}
+.foot p{line-height:1.75;max-width:44ch}
+.foot ul{list-style:none;line-height:2}
+.foot a{border-bottom:1px solid var(--rule-d)}
+.foot a:hover{color:var(--paper);border-bottom-color:var(--cobalt-lt)}
+.foot .legal{max-width:1160px;margin:1.8rem auto 0;padding-top:1.2rem;border-top:1px solid var(--rule-d);font-size:.7rem;line-height:1.8}
+
+/* ---------- reduced motion ---------- */
+@media (prefers-reduced-motion:reduce){
+  html{scroll-behavior:auto}
+  *,*::before,*::after{animation-duration:.001ms !important;animation-iteration-count:1 !important;transition-duration:.001ms !important}
+  .js .reveal{opacity:1;transform:none}
+}
 </style>
+<script>document.documentElement.className+=' js';</script>
 </head>
 <body>
 
 <header class="topbar">
-  <a class="brand" href="/nl/" aria-label="Elyon">
-    <svg viewBox="-20 -20 100 100" aria-hidden="true"><rect x="0" y="0" width="13" height="60" fill="#131316"/><rect x="0" y="0" width="60" height="13" fill="#2038E6"/><rect x="0" y="23.5" width="47" height="13" fill="#131316"/><rect x="0" y="47" width="34" height="13" fill="#131316"/></svg>
+  <a href="#top" class="brand" aria-label="Elyon, naar boven">
+    <svg viewBox="0 0 100 100" aria-hidden="true"><rect x="22" y="22" width="12" height="56" fill="#EFEDE6"/><rect x="22" y="22" width="56" height="12" fill="#2038E6"/><rect x="22" y="44" width="44" height="12" fill="#EFEDE6"/><rect x="22" y="66" width="32" height="12" fill="#EFEDE6"/></svg>
     ELYON
   </a>
-  <nav class="toplinks" aria-label="Taal en site">
-    <a href="/nl-receptionist/">AI-receptionist</a>
-    <a href="/" hreflang="es">ES / EN</a>
-  </nav>
+  <!-- TELEFOON: vervang op elke plek door het echte 06-nummer voor livegang -->
+  <a class="tel" href="tel:+31600000000">+31 6 00 00 00 00</a>
 </header>
 
-<main id="main">
-
-  <section class="hero">
-    <div class="wrap">
-      <span class="kicker">AI-medewerkers voor je klantcontact</span>
-      <h1>Medewerkers van software, resultaten van mensen</h1>
-      <p class="sub">Elyon bouwt AI-medewerkers die je telefoon opnemen, klanten beantwoorden, afspraken plannen en leads opvolgen. Op de kanalen waar jouw klanten al zitten: telefoon, WhatsApp, Instagram en Messenger. Wij richten alles in, jij houdt de controle.</p>
+<!-- ==========================================================
+     01 / HERO
+     ========================================================== -->
+<section class="sec hero" id="top">
+  <div class="hero-grid">
+    <div class="hero-copy">
+      <span class="kicker"><i class="pulse" aria-hidden="true"></i> Live signalen</span>
+      <h1>Zij vragen er nu om. Publiek.</h1>
+      <p class="lead">De meeste leadgen verkoopt je een lijst bedrijven die op je profiel lijken. Wij vinden de bedrijven die op dit moment publiek vragen om wat jij verkoopt, en leveren dat binnen het uur.</p>
       <div class="cta-row">
-        <a class="btn btn-primary" href="/nl-receptionist/">Bekijk de AI-receptionist</a>
-        <a class="btn btn-phone" href="tel:[DEMO_NUMMER]">Bel de live demo</a>
+        <a class="btn btn-primary" href="#bellen">Plan een call</a>
+        <a class="btn btn-ghost-d" href="#voorbeeld">Bekijk een signaal</a>
       </div>
-      <p class="markets">Actief in Nederland en Latijns-Amerika · tryelyon.com</p>
     </div>
-  </section>
 
-  <section aria-labelledby="h-aanbod">
-    <div class="wrap">
-      <span class="kicker">Wat we bouwen</span>
-      <h2 id="h-aanbod">Twee soorten AI-medewerkers</h2>
-      <div class="offer-grid">
-        <div class="offer hl">
-          <span class="tag">Nu beschikbaar in Nederland</span>
-          <h3>AI-medewerker voor de telefoon</h3>
-          <p>Receptionist, klantenservice en overloop in één. Neemt elke oproep aan, 24/7, in vloeiend Nederlands.</p>
-          <ul>
-            <li>Verbindt door naar de juiste collega</li>
-            <li>Plant afspraken in de agenda</li>
-            <li>Stuurt na elk gesprek een samenvatting</li>
-            <li>Vanaf €195 per maand, maandelijks opzegbaar</li>
-          </ul>
-          <a class="btn btn-primary" href="/nl-receptionist/">Prijzen en live demo</a>
-        </div>
-        <div class="offer">
-          <span class="tag">Op aanvraag</span>
-          <h3>AI-medewerker voor chat</h3>
-          <p>Beantwoordt klanten op WhatsApp, Instagram en Messenger. Kwalificeert leads, plant afspraken en volgt op.</p>
-          <ul>
-            <li>Reageert binnen seconden, dag en nacht</li>
-            <li>Zelfde kennis en toon als je telefonische AI-medewerker</li>
-            <li>Interesse? Noem het in je intake en we nemen het mee</li>
-          </ul>
-          <a class="btn" href="/nl-receptionist/#aanvragen">Vraag ernaar via de intake</a>
+    <div class="console" aria-label="Demonstratie van de signaalfeed">
+      <div class="console-bar">
+        <span class="lbl">Signaalfeed</span>
+        <span class="meta" id="counter">Voorbeeldweergave</span>
+      </div>
+      <ul class="feed" id="feed"></ul>
+      <div class="console-foot">
+        <div class="legend" aria-hidden="true">
+          <span><i class="lg-vers"></i> Vers</span>
+          <span><i class="lg-warm"></i> Warm</span>
+          <span><i class="lg-koud"></i> Koud</span>
+          <span><i class="lg-dood"></i> Verlopen</span>
         </div>
       </div>
     </div>
-  </section>
 
-  <section class="sec-alt about" aria-labelledby="h-over">
-    <div class="wrap">
-      <span class="kicker">Over Elyon</span>
-      <h2 id="h-over">Eén team, twee continenten</h2>
-      <p class="sub">Elyon bouwt en beheert AI-medewerkers voor bedrijven in Nederland en Latijns-Amerika. Geen software die je zelf moet uitzoeken: wij richten in, trainen en verbeteren. Jij merkt alleen dat de telefoon wordt opgenomen en de agenda voller staat.</p>
-      <p class="sub">Spaanstalig of internationaal actief? Onze hoofdsite staat op <a href="/">tryelyon.com</a>.</p>
-    </div>
-  </section>
-
-</main>
-
-<footer>
-  <svg class="f-logo" viewBox="-24 -24 420 108" role="img" aria-label="Elyon"><rect x="0" y="0" width="13.0" height="60.0" fill="#131316"/><rect x="0" y="0" width="60.0" height="13.0" fill="#2038E6"/><rect x="0" y="23.5" width="47.0" height="13.0" fill="#131316"/><rect x="0" y="47.0" width="34.0" height="13.0" fill="#131316"/><g transform="translate(88,0)"><rect x="0" y="0" width="13" height="60" fill="#131316"/><rect x="0" y="0" width="44" height="13" fill="#131316"/><rect x="0" y="23.5" width="36" height="13" fill="#131316"/><rect x="0" y="47" width="28" height="13" fill="#131316"/><rect x="60" y="0" width="13" height="60" fill="#131316"/><rect x="60" y="47" width="44" height="13" fill="#131316"/><polygon points="120,0 133,0 148.5,30 135.5,30" fill="#131316"/><polygon points="151,0 164,0 148.5,30 135.5,30" fill="#131316"/><rect x="135.5" y="30" width="13" height="30" fill="#131316"/><path fill-rule="evenodd" fill="#131316" d="M180 0H224V60H180Z M193 13H211V47H193Z"/><rect x="240" y="0" width="13" height="60" fill="#131316"/><rect x="271" y="0" width="13" height="60" fill="#131316"/><polygon points="240,0 253,0 284,60 271,60" fill="#131316"/></g></svg>
-  <div style="margin-top:.6rem"><strong>Elyon</strong> · [ADRES] · KvK [KVK]</div>
-  <div class="flinks">
-    <a href="/nl-receptionist/">AI-receptionist</a>
-    <a href="/nl-receptionist/privacy/">Privacyverklaring</a>
-    <a href="/">Español / English</a>
+    <p class="hero-note">Dit is een demonstratie met voorbeeldsignalen. Let op wat er gebeurt met een signaal naarmate het ouder wordt.</p>
   </div>
-  <div class="fsmall">We gaan zorgvuldig met je gegevens om, volgens de AVG. © 2026 Elyon</div>
+</section>
+
+<!-- ==========================================================
+     02 / PROBLEEM
+     ========================================================== -->
+<section class="sec">
+  <div class="sec-head"><span class="lbl">Het probleem</span><span class="idx">02</span></div>
+  <div class="sec-body">
+    <div class="inner-tight reveal" data-reveal>
+      <h2>Je concurrent was niet beter. Hij was eerder.</h2>
+      <p class="lead" style="margin-top:1rem">Iemand plaatst een vraag in een ondernemersgroep. Binnen vier uur staan er zeven reacties onder en is de keuze praktisch gemaakt. Wie op dag drie een keurige e-mail stuurt, praat tegen een gesloten deur.</p>
+      <div class="race">
+        <div class="win">
+          <span class="lbl">Wie reageerde als eerste</span>
+          <div class="clock">41 min</div>
+          <p>Zag de vraag toen die net stond. Reageerde met een antwoord op precies dat probleem. Kreeg het gesprek.</p>
+        </div>
+        <div>
+          <span class="lbl">Wie een lijst kocht</span>
+          <div class="clock">3 dagen</div>
+          <p>Kreeg maandag een export met bedrijven die op het profiel leken. Deze vraag stond er niet in, want lijsten weten niet wat er vandaag gebeurt.</p>
+        </div>
+      </div>
+      <p style="margin-top:1.6rem" class="dim">Het verschil zit niet in je aanbod en niet in je copy. Het zit in het moment waarop je het zag. Daarom bouwen wij op snelheid, niet op volume.</p>
+    </div>
+  </div>
+</section>
+
+<!-- ==========================================================
+     03 / HOE HET WERKT (echte volgorde)
+     ========================================================== -->
+<section class="sec">
+  <div class="sec-head"><span class="lbl">Hoe het werkt</span><span class="idx">03</span></div>
+  <div class="sec-body">
+    <div class="inner">
+      <h2>Drie stappen, verder niets</h2>
+      <p class="lead" style="margin-top:.9rem">Geen dashboard waar je in moet leren werken. De signalen komen naar je toe.</p>
+      <div class="steps">
+        <div class="step">
+          <span class="n">01 / Signalen binnen</span>
+          <h3>AI leest publieke bronnen door</h3>
+          <p>Vacaturesites, TenderNed, het KVK-handelsregister, ondernemersgroepen op Facebook, Reddit, LinkedIn-posts en branchefora. Continu, niet één keer per week.</p>
+        </div>
+        <div class="step">
+          <span class="n">02 / Match op jouw ICP</span>
+          <h3>Alleen wat bij jou past</h3>
+          <p>We leggen elk signaal langs jouw ideale klantprofiel: branche, omvang, regio, en het probleem dat jij oplost. De rest gooien we weg. Je krijgt geen ruis.</p>
+        </div>
+        <div class="step">
+          <span class="n">03 / Levering met context</span>
+          <h3>Bron, trigger, contact, openingszin</h3>
+          <p>Elk signaal komt binnen met de vindplaats, de letterlijke aanleiding, de juiste contactpersoon en een concept openingszin die naar die aanleiding verwijst. Wil je het niet zelf versturen, dan doen wij dat.</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ==========================================================
+     04 / BRONNEN
+     ========================================================== -->
+<section class="sec dark">
+  <div class="sec-head"><span class="lbl">Bronnen</span><span class="idx">04</span></div>
+  <div class="sec-body">
+    <div class="inner">
+      <h2>Waar de signalen vandaan komen</h2>
+      <p class="lead" style="color:#b6b6c4;margin-top:.9rem">Alles openbaar, alles herleidbaar. Bij elk signaal zit de link naar de plek waar we het vonden, zodat je het zelf kunt nalezen.</p>
+      <div class="sources">
+        <div class="source">
+          <span class="lbl">Vacatures</span>
+          <ul>
+            <li>Indeed</li>
+            <li>LinkedIn Jobs</li>
+            <li>Werk.nl</li>
+            <li>Vacaturepaginas van bedrijven zelf</li>
+          </ul>
+        </div>
+        <div class="source">
+          <span class="lbl">Aanbestedingen</span>
+          <ul>
+            <li>TenderNed</li>
+            <li>Negometrix</li>
+            <li>Marktplein aankondigingen</li>
+            <li>Gemeentelijke publicaties</li>
+          </ul>
+        </div>
+        <div class="source">
+          <span class="lbl">Register</span>
+          <ul>
+            <li>KVK Handelsregister</li>
+            <li>Nieuwe inschrijvingen</li>
+            <li>Bestuurswisselingen</li>
+            <li>Nieuwe vestigingen</li>
+          </ul>
+        </div>
+        <div class="source">
+          <span class="lbl">Sociaal</span>
+          <ul>
+            <li>Facebook ondernemersgroepen</li>
+            <li>Reddit, waaronder r/ondernemen</li>
+            <li>LinkedIn posts en comments</li>
+            <li>Branchefora</li>
+          </ul>
+        </div>
+      </div>
+      <p class="coverage">Welke bronnen voor jou aanstaan hangt af van wat je verkoopt. Een detacheerder heeft aan vacatures en KVK genoeg. Een marketingbureau haalt het meeste uit groepen en posts. Dat bepalen we in de call.</p>
+    </div>
+  </div>
+</section>
+
+<!-- ==========================================================
+     05 / WAT JE KRIJGT
+     ========================================================== -->
+<section class="sec" id="voorbeeld">
+  <div class="sec-head"><span class="lbl">Wat je krijgt</span><span class="idx">05</span></div>
+  <div class="sec-body">
+    <div class="inner">
+      <h2>Dit landt in je inbox</h2>
+      <p class="lead" style="margin-top:.9rem">Geen rij in een spreadsheet. Een signaal met alles erbij om binnen een paar minuten te reageren.</p>
+
+      <article class="card">
+        <div class="card-bar">
+          <span class="lbl">Signaal</span>
+          <span class="stamp">Gevonden 14:02 · Geleverd 14:38</span>
+        </div>
+        <div class="field">
+          <span class="k">Bron</span>
+          <div class="v">Facebook groep, Ondernemers Nederland. Openbaar bericht, link meegeleverd.</div>
+        </div>
+        <div class="field">
+          <span class="k">Trigger</span>
+          <div class="v quote">"Wij zoeken op korte termijn 3 ervaren .NET developers. Heeft iemand een detacheerder waar je echt goede mensen van krijgt? Eerdere bureaus stuurden vooral juniors."</div>
+        </div>
+        <div class="field">
+          <span class="k">Bedrijf</span>
+          <div class="v">Softwarebedrijf, 34 medewerkers, regio Utrecht. Plaatste vorige maand ook twee vacatures voor backend developers.</div>
+        </div>
+        <div class="field">
+          <span class="k">Contact</span>
+          <div class="v">Auteur van het bericht, operationeel directeur. Naam, functie en LinkedIn-profiel zitten in de levering.</div>
+        </div>
+        <div class="field">
+          <span class="k">Concept openingszin</span>
+          <div class="v draft">Ik zag je bericht in Ondernemers Nederland over die drie .NET plekken, en vooral je punt over juniors. Wij leveren alleen mensen met minimaal vijf jaar productie-ervaring, en je spreekt ze voor we ze voorstellen. Zal ik er deze week twee langs sturen?</div>
+        </div>
+      </article>
+
+      <p style="margin-top:1.5rem" class="dim">De openingszin is een concept. Pas hem aan of stuur hem zoals hij is. Kies je voor verzending door ons, dan gaat hij eruit binnen het venster waarin het signaal nog iets waard is.</p>
+    </div>
+  </div>
+</section>
+
+<!-- ==========================================================
+     06 / PRIJS
+     ========================================================== -->
+<section class="sec">
+  <div class="sec-head"><span class="lbl">Prijs</span><span class="idx">06</span></div>
+  <div class="sec-body">
+    <div class="inner">
+      <h2>Wat het kost</h2>
+      <p class="lead" style="margin-top:.9rem">Staat er gewoon. Je hoeft geen call te doen om een bedrag te horen.</p>
+      <div class="price">
+        <div>
+          <!-- PRIJS: bevestig dit bedrag voor livegang. -->
+          <div class="amount">€ 1.450</div>
+          <div class="per">per maand, maandelijks opzegbaar</div>
+          <ul>
+            <li>Signalen doorlopend geleverd, niet in een wekelijkse batch</li>
+            <li>Levering binnen het uur na vondst</li>
+            <li>Bron, trigger, bedrijf, contactpersoon en concept openingszin</li>
+            <li>Bronnenset afgestemd op wat jij verkoopt</li>
+            <li>Uitvoeren van de outreach door ons, als je dat wilt</li>
+            <li>Eerste maand meekijken en bijsturen op je ICP</li>
+          </ul>
+        </div>
+        <div class="compare">
+          <span class="lbl">Waar je het tegen afzet</span>
+          <dl>
+            <dt>Salaris plus werkgeverslasten van één SDR</dt>
+            <dd>€ 4.500 tot € 6.000 per maand</dd>
+            <dt>Die persoon zoekt zelf</dt>
+            <dd>Enkele uren per dag</dd>
+            <dt>En ziet groepen en fora</dt>
+            <dd>Bijna nooit op tijd</dd>
+          </dl>
+          <p style="margin-top:1.2rem;font-size:.82rem;color:var(--ink-soft)">Dit vervangt geen verkoper. Het haalt het zoekwerk weg en zet je verkoper op gesprekken die al warm zijn.</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ==========================================================
+     07 / WIE HIERACHTER ZIT
+     ========================================================== -->
+<section class="sec">
+  <div class="sec-head"><span class="lbl">Wie hierachter zit</span><span class="idx">07</span></div>
+  <div class="sec-body">
+    <div class="inner-tight">
+      <h2>Je praat met mij, niet met een supportadres</h2>
+      <div class="founder">
+        <!-- FOTO: zet hier een echte foto van Thijs. Geen AI-gegenereerd portret. -->
+        <div class="portrait"><span>Foto<br>Thijs Buschman<br>nog te plaatsen</span></div>
+        <div>
+          <div class="name">Thijs Buschman</div>
+          <div class="role">Oprichter</div>
+          <p style="margin-top:.9rem" class="dim">Ik bouw Elyon en ik voer de gesprekken zelf. Als je belt krijg je mij aan de lijn, niet een callcenter. Werkt het niet voor jou, dan zeg ik dat in de call in plaats van je een half jaar vast te zetten.</p>
+          <ul class="contact-list">
+            <!-- CONTACT: vervang telefoon en e-mail door de echte gegevens -->
+            <li><span class="k">Telefoon</span><a href="tel:+31600000000">+31 6 00 00 00 00</a></li>
+            <li><span class="k">E-mail</span><a href="mailto:thijs@tryelyon.com">thijs@tryelyon.com</a></li>
+            <li><span class="k">LinkedIn</span><a href="#" rel="noopener">Profiel van Thijs</a></li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ==========================================================
+     08 / BOEKEN
+     ========================================================== -->
+<section class="sec dark" id="bellen">
+  <div class="sec-head"><span class="lbl">Plan een call</span><span class="idx">08</span></div>
+  <div class="sec-body">
+    <div class="inner-tight">
+      <h2>Twintig minuten, geen presentatie</h2>
+      <p class="lead" style="color:#b6b6c4;margin-top:.9rem">We nemen door wat je verkoopt en aan wie. Daarna zeg ik of er genoeg signaal in jouw markt zit. Zo niet, dan houdt het op en heb je twintig minuten verloren.</p>
+
+      <!-- AGENDA: plak hier de embed van Cal.com, Calendly of GHL -->
+      <div class="cal"><span>Agenda-embed komt hier<br>plak de booking-widget in dit blok</span></div>
+
+      <p style="margin-top:1.6rem;font-size:.82rem;color:#8a8a99">Liever direct iemand spreken?</p>
+      <div class="fallback">
+        <a class="btn btn-primary" href="tel:+31600000000">Bel +31 6 00 00 00 00</a>
+        <a class="btn btn-ghost-d" href="mailto:thijs@tryelyon.com">thijs@tryelyon.com</a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ==========================================================
+     FOOTER / EERLIJKE BEDRIJFSGEGEVENS
+     ========================================================== -->
+<footer class="foot">
+  <div class="foot-grid">
+    <div>
+      <span class="lbl">Elyon</span>
+      <p>Elyon wordt geëxploiteerd vanuit een in de Verenigde Staten geregistreerde LLC. Er is nog geen Nederlandse entiteit en dus geen KVK-nummer. Dat vermelden we liever dan dat we een nummer verzinnen. De oprichter is Nederlands en telefonisch bereikbaar op het nummer hierboven.</p>
+    </div>
+    <div>
+      <span class="lbl">Contact</span>
+      <ul>
+        <li><a href="tel:+31600000000">+31 6 00 00 00 00</a></li>
+        <li><a href="mailto:thijs@tryelyon.com">thijs@tryelyon.com</a></li>
+        <li><a href="https://tryelyon.com/">tryelyon.com</a></li>
+      </ul>
+    </div>
+    <div>
+      <span class="lbl">Privacy</span>
+      <ul>
+        <!-- Zorg dat deze twee pagina's bestaan voor de eerste campagne uitgaat -->
+        <li><a href="/nl/privacy/">Privacyverklaring</a></li>
+        <li><a href="mailto:thijs@tryelyon.com?subject=Afmelden">Afmelden voor e-mail</a></li>
+        <li><a href="mailto:thijs@tryelyon.com?subject=Gegevens%20verwijderen">Mijn gegevens verwijderen</a></li>
+      </ul>
+    </div>
+  </div>
+  <div class="legal">
+    <p>Heb je een e-mail van ons gekregen die je niet wilde? Stuur "stop" naar het adres hierboven, dan halen we je gegevens weg en hoor je niets meer. We verwerken alleen zakelijke contactgegevens uit openbare bronnen, met een gerechtvaardigd belang als grondslag onder de AVG.</p>
+    <p style="margin-top:.7rem">© <span id="jaar">2026</span> Elyon. Alle rechten voorbehouden.</p>
+  </div>
 </footer>
 
+<script>
+(function(){
+  "use strict";
+  var reduced = window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+  document.getElementById('jaar').textContent = new Date().getFullYear();
+
+  /* ---- voorbeeldsignalen. Illustratief, geen echte klantdata. ---- */
+  var SIGNALS = [
+    {src:'Facebook groep', trig:'"Iemand ervaring met een detacheerder voor .NET? We zoeken er 3 op korte termijn."', match:'Softwarebedrijf, 34 mdw, Utrecht', fit:'Detachering IT'},
+    {src:'Indeed', trig:'Vierde vacature voor Salesforce consultant geplaatst binnen drie weken.', match:'Zakelijke dienstverlener, 120 mdw', fit:'IT consultancy'},
+    {src:'Reddit r/ondernemen', trig:'"Welk bureau doen jullie B2B leadgen mee? Onze huidige levert alleen ruis."', match:'SaaS bedrijf, 22 mdw, Amsterdam', fit:'Marketingbureau'},
+    {src:'TenderNed', trig:'Aanbesteding gepubliceerd voor inhuur technisch personeel, looptijd 24 maanden.', match:'Gemeente, regio Zuid-Holland', fit:'Detachering techniek'},
+    {src:'KVK Handelsregister', trig:'Nieuwe vestiging ingeschreven, uitbreiding naar tweede locatie.', match:'Installatiebedrijf, 45 mdw, Brabant', fit:'Werving en selectie'},
+    {src:'LinkedIn post', trig:'"We groeien dit kwartaal van 18 naar 30 man. Tips voor onboarding welkom."', match:'Scale-up, 18 mdw, Rotterdam', fit:'HR dienstverlening'},
+    {src:'Branchforum', trig:'"Zoeken partij die onze Exact koppeling kan bouwen, intern lukt het niet."', match:'Groothandel, 60 mdw, Gelderland', fit:'IT consultancy'},
+    {src:'Facebook groep', trig:'"Ons marketingbureau stopt ermee. Aanraders voor B2B, geen social media only?"', match:'Producent, 28 mdw, Twente', fit:'Marketingbureau'},
+    {src:'Indeed', trig:'Vacature Head of Sales geopend, eerste in twee jaar.', match:'Techbedrijf, 51 mdw, Eindhoven', fit:'Sales consultancy'},
+    {src:'Werk.nl', trig:'Zeven openstaande vacatures logistiek, drie langer dan 60 dagen open.', match:'Logistiek dienstverlener, 90 mdw', fit:'Detachering logistiek'}
+  ];
+
+  var feed = document.getElementById('feed');
+  var counter = document.getElementById('counter');
+  var MAX = 7, cursor = 0;
+
+  function stateFor(min){
+    if(min < 60) return 'vers';
+    if(min < 120) return 'warm';
+    if(min < 240) return 'koud';
+    return 'dood';
+  }
+  function ageLabel(min){
+    if(min < 60) return min + ' min';
+    var u = Math.floor(min/60), r = min % 60;
+    return r ? u + 'u ' + r + 'm' : u + 'u';
+  }
+  function build(sig, min){
+    var li = document.createElement('li');
+    li.className = 'row';
+    li.dataset.min = min;
+    li.dataset.state = stateFor(min);
+    if(reduced) li.style.animation = 'none';
+
+    var stripe = document.createElement('i');
+    stripe.className = 'stripe';
+    stripe.setAttribute('aria-hidden','true');
+
+    var top = document.createElement('div');
+    top.className = 'top';
+    var src = document.createElement('span');
+    src.className = 'src'; src.textContent = sig.src;
+    var age = document.createElement('span');
+    age.className = 'age'; age.textContent = ageLabel(min);
+    top.appendChild(src); top.appendChild(age);
+
+    var trig = document.createElement('p');
+    trig.className = 'trigger'; trig.textContent = sig.trig;
+
+    var match = document.createElement('div');
+    match.className = 'match';
+    match.innerHTML = '';
+    var b = document.createElement('b'); b.textContent = sig.fit;
+    match.appendChild(b);
+    match.appendChild(document.createTextNode(' · ' + sig.match));
+
+    li.appendChild(stripe); li.appendChild(top); li.appendChild(trig); li.appendChild(match);
+    return li;
+  }
+  function push(min){
+    var sig = SIGNALS[cursor % SIGNALS.length];
+    cursor++;
+    feed.insertBefore(build(sig, min), feed.firstChild);
+    while(feed.children.length > MAX) feed.removeChild(feed.lastChild);
+  }
+
+  /* startvulling: opgebouwde geschiedenis zodat de versheidsramp meteen leesbaar is */
+  /* Tempo is zo gekozen dat de feed in rust de hele versheidsramp beslaat:
+     6 tussenruimtes x 11s x 5 min = ongeveer 330 minuten onderaan. Daardoor
+     staat er altijd iets vers bovenaan en iets verlopen onderaan. */
+  var AGE_STEP = 5, ARRIVE = 11000;
+
+  /* oudste eerst inschuiven, zodat het nieuwste signaal bovenaan eindigt */
+  var seed = [330, 275, 220, 165, 110, 55, 3];
+  for(var i = 0; i < seed.length; i++) push(seed[i]);
+
+  if(!reduced){
+    /* verouderen, zichtbaar: elke seconde schuift elk signaal op richting verlopen */
+    setInterval(function(){
+      var rows = feed.children;
+      for(var i = 0; i < rows.length; i++){
+        var m = parseInt(rows[i].dataset.min, 10) + AGE_STEP;
+        rows[i].dataset.min = m;
+        rows[i].dataset.state = stateFor(m);
+        var a = rows[i].querySelector('.age');
+        if(a) a.textContent = ageLabel(m);
+      }
+    }, 1000);
+
+    /* nieuwe signalen komen binnen */
+    setInterval(function(){ push(0); }, ARRIVE);
+  } else {
+    counter.textContent = 'Voorbeeldweergave, stilstaand';
+  }
+
+  /* ---- één scroll reveal ---- */
+  if(!reduced && 'IntersectionObserver' in window){
+    var io = new IntersectionObserver(function(entries){
+      entries.forEach(function(e){
+        if(e.isIntersecting){ e.target.classList.add('in'); io.unobserve(e.target); }
+      });
+    }, {threshold:.18});
+    document.querySelectorAll('[data-reveal]').forEach(function(el){ io.observe(el); });
+  } else {
+    document.querySelectorAll('[data-reveal]').forEach(function(el){ el.classList.add('in'); });
+  }
+})();
+</script>
 </body>
 </html>
