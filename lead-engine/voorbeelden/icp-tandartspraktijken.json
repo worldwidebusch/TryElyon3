@@ -1,0 +1,12 @@
+{
+  "omschrijving": "Tandartspraktijken in de Randstad met 2-8 behandelkamers",
+  "branches": ["tandartspraktijk", "mondzorg", "tandarts", "orthodontiepraktijk", "mondhygiene"],
+  "functietitels": ["praktijkhouder", "praktijkmanager", "tandarts"],
+  "bedrijfsgrootte": "3-25 medewerkers",
+  "regios": ["Noord-Holland", "Zuid-Holland", "Utrecht"],
+  "pijnpunten": ["telefoon wordt niet opgenomen tijdens behandelingen", "no-shows"],
+  "koopsignalen": ["vacature balie-assistente", "reviews over slechte bereikbaarheid"],
+  "zoekwoorden": ["tandartspraktijk", "mondhygienist", "gebit", "implantaat", "nieuwe patienten", "spoedtandarts", "gebitsreiniging"],
+  "branchverenigingen": ["KNMT", "ANT"],
+  "uitsluiten": ["ziekenhuizen", "opleidingen", "groothandel", "leveranciers", "brancheverenigingen", "tandtechnisch laboratorium"]
+}

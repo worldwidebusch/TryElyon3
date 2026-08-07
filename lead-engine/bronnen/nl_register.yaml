@@ -1,0 +1,316 @@
+# ── Nederlands bronnenregister ──────────────────────────────────────────────
+# Vaste, geverifieerde NL-bronnen. Deze worden altijd meegenomen; de LLM voegt
+# er ICP-specifieke bronnen aan toe.
+#
+# Velden:
+#   naam, type, url, connector, oogstmodus, prioriteit (1=hoog), signaal, aanpak
+#   trefwoorden : alleen meenemen als de ICP hierop matcht (leeg = altijd)
+#   site_zoek   : domein waarbinnen de motor via de zoekmachine de échte
+#                 ledenlijst opzoekt (`site:<domein> <branche>`), zodat we niet
+#                 op de homepage blijven hangen en geen URL-structuur gokken
+#
+# oogstmodus:
+#   auto      -> de motor scrapet dit zelf
+#   api       -> alleen actief als de bijbehorende API-key is ingevuld
+#   handmatig -> platform verbiedt geautomatiseerd oogsten van persoonsgegevens.
+#                Komt wel op je bronnenlijst mét recept, zodat je 'm bewust en
+#                binnen de regels kunt inzetten.
+
+bronnen:
+
+  # ── Openbare registers ────────────────────────────────────────────────────
+  - naam: KvK Handelsregister
+    type: openbaar register
+    url: https://www.kvk.nl/zoeken/
+    connector: kvk
+    oogstmodus: api
+    prioriteit: 1
+    signaal: "Officiële bedrijfsgegevens; inschrijfdatum = signaal voor starters"
+    aanpak: "Zet KVK_API_KEY. Zoek op SBI-code + plaats voor exacte branchematch."
+
+  - naam: BIG-register (zorgverleners)
+    type: openbaar register
+    url: https://www.bigregister.nl/zoek-zorgverlener
+    site_zoek: bigregister.nl
+    connector: listing
+    oogstmodus: auto
+    prioriteit: 2
+    trefwoorden: [zorg, tandarts, huisarts, fysio, psycholoog, apotheek, verloskundige, mondzorg, praktijk]
+    signaal: "Bevestigt bevoegdheid + specialisatie van de praktijkhouder"
+
+  - naam: RDW Erkende Bedrijven
+    type: openbaar register
+    url: https://www.rdw.nl/particulier/paginas/erkende-bedrijven
+    site_zoek: rdw.nl
+    connector: listing
+    oogstmodus: auto
+    prioriteit: 2
+    trefwoorden: [auto, garage, autobedrijf, apk, schadeherstel, banden, camper, motor]
+    signaal: "APK-erkenning = actieve, gecertificeerde werkplaats"
+
+  - naam: Rijksvastgoed / TenderNed aanbestedingen
+    type: openbaar register
+    url: https://www.tenderned.nl
+    site_zoek: tenderned.nl
+    connector: listing
+    oogstmodus: auto
+    prioriteit: 3
+    trefwoorden: [bouw, installatie, ict, advies, catering, schoonmaak, beveiliging, groen]
+    signaal: "Inschrijver op aanbesteding = actief in groeimodus, budget aanwezig"
+
+  # ── Branchverenigingen & keurmerken ───────────────────────────────────────
+  - naam: Bovag ledenlijst
+    type: branchevereniging
+    url: https://www.bovag.nl/vind-een-bovag-bedrijf
+    site_zoek: bovag.nl
+    connector: listing
+    oogstmodus: auto
+    prioriteit: 1
+    trefwoorden: [auto, garage, fiets, caravan, camper, motor, autobedrijf, autoschade]
+    signaal: "Lidmaatschap kost geld = serieus bedrijf, geen eenpitter-zzp'er"
+
+  - naam: Techniek Nederland ledenlijst
+    type: branchevereniging
+    url: https://www.technieknederland.nl/vind-een-vakman
+    site_zoek: technieknederland.nl
+    connector: listing
+    oogstmodus: auto
+    prioriteit: 1
+    trefwoorden: [installateur, loodgieter, elektricien, cv, warmtepomp, techniek, koeling, isolatie]
+    signaal: "Erkend installateur = werkt met vergunningen en grotere opdrachten"
+
+  - naam: KNMT (tandartsen)
+    type: branchevereniging
+    url: https://www.allesoverhetgebit.nl/tandartsen-zoeken
+    site_zoek: allesoverhetgebit.nl
+    connector: listing
+    oogstmodus: auto
+    prioriteit: 1
+    trefwoorden: [tandarts, mondzorg, orthodontist, implantoloog, mondhygiene]
+    signaal: "Praktijkhouder is beslisser en betaalt zelf voor tooling"
+
+  - naam: NVM / VBO / VastgoedPRO makelaars
+    type: branchevereniging
+    url: https://www.funda.nl/makelaars/
+    site_zoek: funda.nl
+    connector: listing
+    oogstmodus: auto
+    prioriteit: 1
+    trefwoorden: [makelaar, vastgoed, woning, verhuur, taxateur, beheer, vve]
+    signaal: "Makelaarskantoren leven van gemiste telefoontjes = sterke pijn"
+
+  - naam: Koninklijke Horeca Nederland
+    type: branchevereniging
+    url: https://www.khn.nl
+    site_zoek: khn.nl
+    connector: listing
+    oogstmodus: auto
+    prioriteit: 2
+    trefwoorden: [horeca, restaurant, cafe, hotel, catering, brasserie, lunchroom]
+    signaal: "KHN-lid = gevestigde zaak met personeel"
+
+  - naam: ANKO (kappers) / branchesalons
+    type: branchevereniging
+    url: https://www.anko.nl
+    site_zoek: anko.nl
+    connector: listing
+    oogstmodus: auto
+    prioriteit: 2
+    trefwoorden: [kapper, kapsalon, beauty, schoonheidssalon, barbier, nagelstudio]
+    signaal: "Salons met personeel = telefoon rinkelt tijdens behandelingen"
+
+  - naam: NBBU / ABU (uitzenders)
+    type: branchevereniging
+    url: https://www.nbbu.nl/leden/
+    site_zoek: nbbu.nl
+    connector: listing
+    oogstmodus: auto
+    prioriteit: 2
+    trefwoorden: [uitzend, detachering, werving, recruitment, payroll, arbeidsbemiddeling]
+    signaal: "Uitzenders draaien op belvolume — directe koppeling met bereikbaarheid"
+
+  - naam: Nederlandse Orde van Advocaten
+    type: branchevereniging
+    url: https://www.advocatenorde.nl/zoek-een-advocaat
+    site_zoek: advocatenorde.nl
+    connector: listing
+    oogstmodus: auto
+    prioriteit: 2
+    trefwoorden: [advocaat, jurist, letselschade, arbeidsrecht, notaris, mediation]
+    signaal: "Kantoren met 2-15 fte hebben geen fulltime receptie"
+
+  - naam: NOAB / SRA (administratie & accountancy)
+    type: branchevereniging
+    url: https://www.noab.nl/kantoor-zoeken
+    site_zoek: noab.nl
+    connector: listing
+    oogstmodus: auto
+    prioriteit: 2
+    trefwoorden: [accountant, administratiekantoor, boekhouder, fiscalist, belasting]
+    signaal: "Piekdrukte rond aangifteseizoen = acute bereikbaarheidspijn"
+
+  - naam: Bouwend Nederland
+    type: branchevereniging
+    url: https://www.bouwendnederland.nl
+    site_zoek: bouwendnederland.nl
+    connector: listing
+    oogstmodus: auto
+    prioriteit: 2
+    trefwoorden: [bouw, aannemer, verbouw, dakdekker, stukadoor, timmerman, renovatie]
+    signaal: "Aannemers staan op de bouw en missen structureel inkomende leads"
+
+  # ── Marktplaatsen & vergelijkers (hoge intentie) ──────────────────────────
+  - naam: Werkspot vakmensen
+    type: marktplaats
+    url: https://www.werkspot.nl
+    site_zoek: werkspot.nl
+    connector: listing
+    oogstmodus: auto
+    prioriteit: 1
+    trefwoorden: [klus, bouw, installateur, schilder, hovenier, dakdekker, verbouw, aannemer]
+    signaal: "Betaalt per lead => bewezen bereid te betalen voor klantcontact"
+
+  - naam: Trustoo / Sterspecialist vergelijkers
+    type: marktplaats
+    url: https://www.trustoo.nl
+    site_zoek: trustoo.nl
+    connector: listing
+    oogstmodus: auto
+    prioriteit: 2
+    trefwoorden: [klus, vakman, hovenier, schilder, verhuizer, schoonmaak, dakdekker]
+    signaal: "Actieve adverteerder = groeihonger + marketingbudget"
+
+  - naam: Treatwell / Salonized-salons
+    type: marktplaats
+    url: https://www.treatwell.nl
+    site_zoek: treatwell.nl
+    connector: listing
+    oogstmodus: auto
+    prioriteit: 2
+    trefwoorden: [kapper, beauty, massage, nagelstudio, schoonheidssalon, spa, pedicure]
+    signaal: "Online boeken = digitaal volwassen, open voor automatisering"
+
+  - naam: Zorgkaart Nederland
+    type: marktplaats
+    url: https://www.zorgkaartnederland.nl
+    site_zoek: zorgkaartnederland.nl
+    connector: listing
+    oogstmodus: auto
+    prioriteit: 2
+    trefwoorden: [zorg, praktijk, fysio, tandarts, huisarts, kliniek, psycholoog]
+    signaal: "Reviews met klachten over bereikbaarheid = keihard koopsignaal"
+
+  - naam: Google Maps / Places (lokaal MKB)
+    type: kaart
+    url: https://maps.google.nl
+    connector: google_places
+    oogstmodus: api
+    prioriteit: 1
+    signaal: "Rating + reviewaantal + telefoonnummer in één klap; beste lokale bron"
+    aanpak: "Zet GOOGLE_PLACES_API_KEY. Fan-out over de 60 grootste gemeenten."
+
+  # ── Vacatures = koopsignaal ───────────────────────────────────────────────
+  - naam: Vacaturesites (Indeed NL / Nationale Vacaturebank)
+    type: vacaturesignaal
+    url: https://nl.indeed.com
+    site_zoek: indeed.com
+    connector: listing
+    oogstmodus: auto
+    prioriteit: 2
+    signaal: "Openstaande vacature voor receptie/telefoniste/planner = ze voelen de pijn NU"
+    aanpak: "Zoek op functietitels die jouw oplossing vervangt of ondersteunt."
+
+  # ── Media waar de ICP zich laat zien ──────────────────────────────────────
+  - naam: YouTube-kanalen & NL-podcasts in de branche
+    type: media
+    url: https://www.youtube.com
+    connector: youtube
+    oogstmodus: api
+    prioriteit: 2
+    signaal: "Wie zich laat interviewen wil zichtbaar zijn = open voor gesprek"
+    aanpak: "Zet YOUTUBE_API_KEY. Kanaal -> videobeschrijvingen -> websites gasten."
+
+  - naam: NL-podcasts (Apple/iTunes-index)
+    type: media
+    url: https://podcasts.apple.com/nl
+    connector: podcast
+    oogstmodus: auto
+    prioriteit: 3
+    signaal: "RSS-feeds bevatten vaak het directe e-mailadres van de eigenaar"
+
+  - naam: Vakbeurzen & exposantenlijsten
+    type: evenement
+    url: https://www.jaarbeurs.nl
+    site_zoek: jaarbeurs.nl
+    connector: listing
+    oogstmodus: auto
+    prioriteit: 2
+    signaal: "Exposant = duizenden euro's marketingbudget, actief op zoek naar groei"
+    aanpak: "Zoek '<branche> beurs 2026 exposanten' — die lijsten zijn goud."
+
+  # ── B2B-databases via API ─────────────────────────────────────────────────
+  - naam: Apollo.io (B2B-contacten, dekt de LinkedIn-behoefte)
+    type: b2b-database
+    url: https://www.apollo.io
+    connector: apollo
+    oogstmodus: api
+    prioriteit: 2
+    signaal: "Functietitel-targeting op persoonsniveau via een legale API"
+    aanpak: "Zet APOLLO_API_KEY. Filter op land=Netherlands + jouw functietitels."
+
+  - naam: Hunter.io (domein -> e-mailadressen)
+    type: b2b-database
+    url: https://hunter.io
+    connector: hunter
+    oogstmodus: api
+    prioriteit: 3
+    signaal: "Vult ontbrekende e-mails aan voor domeinen die je al hebt"
+
+  # ── Communities: alleen handmatig (platformregels) ────────────────────────
+  - naam: LinkedIn (groepen, commentaren, bedrijfspagina's)
+    type: community
+    url: https://www.linkedin.com
+    connector: handmatig
+    oogstmodus: handmatig
+    prioriteit: 1
+    signaal: "Wie in een NL-vakgroep reageert op een pijnpunt is warm"
+    aanpak: >
+      LinkedIn verbiedt geautomatiseerd scrapen. Twee routes die wél mogen:
+      (1) Sales Navigator -> zoek op jouw functietitels + regio Nederland ->
+      exporteer je eigen lijst -> voer die als CSV in via `leadengine importeer`.
+      (2) Gebruik de Apollo-connector, die dezelfde populatie via API levert.
+
+  - naam: Facebook-groepen (NL ondernemersgroepen)
+    type: community
+    url: https://www.facebook.com/groups
+    connector: handmatig
+    oogstmodus: handmatig
+    prioriteit: 2
+    signaal: "Vraagposts in NL-ondernemersgroepen tonen het probleem letterlijk"
+    aanpak: >
+      Scrapen is verboden en levert bovendien privé-persoonsgegevens op (AVG).
+      Wat wel werkt: zoek de groep, noteer de meest actieve BEDRIJVEN (niet
+      personen), en voer hun bedrijfsnaam/website in via `leadengine importeer`.
+      De motor haalt de zakelijke contactgegevens dan van hun eigen website.
+
+  - naam: Discord- & Skool-communities
+    type: community
+    url: https://www.skool.com/discovery
+    connector: handmatig
+    oogstmodus: handmatig
+    prioriteit: 3
+    signaal: "Betalende community-leden investeren in hun bedrijf"
+    aanpak: >
+      Ledenlijsten zijn niet openbaar en scrapen schendt de voorwaarden.
+      Gebruik dit als SEGMENT, niet als scrape-doel: zoek de community, kijk
+      welke NL-bedrijven zich openbaar profileren (showcase-kanalen, publieke
+      member-spotlights), en voer die bedrijven in via `leadengine importeer`.
+
+  - naam: Reddit (r/ondernemen, r/thenetherlands)
+    type: community
+    url: https://www.reddit.com/r/ondernemen
+    connector: handmatig
+    oogstmodus: handmatig
+    prioriteit: 4
+    signaal: "Pijnpunt-onderzoek: hier lees je letterlijk de woorden voor je copy"
+    aanpak: "Gebruik voor copy-research, niet voor contactgegevens (pseudoniem = geen lead)."
