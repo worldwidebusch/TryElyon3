@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="nl">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Signaal / bedieningspaneel</title>
+<meta name="robots" content="noindex,nofollow">
+<link rel="icon" type="image/svg+xml" href='data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100"><rect width="100" height="100" fill="%230F0F12"/><rect x="22" y="22" width="12" height="56" fill="%23EFEDE6"/><rect x="22" y="22" width="56" height="12" fill="%232038E6"/><rect x="22" y="44" width="44" height="12" fill="%23EFEDE6"/><rect x="22" y="66" width="32" height="12" fill="%23EFEDE6"/></svg>'>
+<link rel="stylesheet" href="/app.css">
+</head>
+<body>
+
+<header class="topbar">
+  <div class="brand">
+    <svg viewBox="0 0 100 100" aria-hidden="true"><rect x="22" y="22" width="12" height="56" fill="#EFEDE6"/><rect x="22" y="22" width="56" height="12" fill="#2038E6"/><rect x="22" y="44" width="44" height="12" fill="#EFEDE6"/><rect x="22" y="66" width="32" height="12" fill="#EFEDE6"/></svg>
+    SIGNAAL
+  </div>
+  <div class="topmeta" id="topmeta"></div>
+</header>
+
+<div id="demobalk" class="demobalk" hidden>
+  <strong>Demostand.</strong>
+  <span id="demotekst"></span>
+</div>
+
+<nav class="tabs" id="tabs">
+  <button data-tab="overzicht" class="actief">Overzicht</button>
+  <button data-tab="trechter">Trechter</button>
+  <button data-tab="capaciteit">Capaciteit</button>
+  <button data-tab="personas">Persona's</button>
+  <button data-tab="bronnen">Bronnen</button>
+  <button data-tab="domeinen">Domeinen</button>
+  <button data-tab="kosten">Kosten</button>
+  <button data-tab="naleving">AVG</button>
+</nav>
+
+<main id="paneel"><p class="laden">Laden...</p></main>
+
+<footer class="voet">
+  Signaal draait lokaal. Cijfers uit externe bronnen zijn verzonnen zolang er geen API-sleutels zijn ingesteld.
+</footer>
+
+<script src="/app.js"></script>
+</body>
+</html>

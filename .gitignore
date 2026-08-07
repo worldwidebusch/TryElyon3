@@ -2,3 +2,7 @@
 Thumbs.db
 *.log
 node_modules/
+signaal/data/
+*.db
+*.db-wal
+*.db-shm

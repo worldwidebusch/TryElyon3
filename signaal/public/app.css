@@ -1,0 +1,141 @@
+/* Signaal / bedieningspaneel
+   Elyon-tokens, maar met systeemletters: dit draait lokaal en mag niet
+   afhankelijk zijn van een lettertype dat van buiten geladen moet worden. */
+
+:root{
+  --paper:#efede6;
+  --paper-2:#e6e3da;
+  --carbon:#0f0f12;
+  --carbon-2:#17171b;
+  --ink:#131316;
+  --ink-soft:#54545f;
+  --cobalt:#2038e6;
+  --cobalt-lt:#7d8cff;
+  --amber:#b4690e;
+  --ash:#6e6e78;
+  --signal:#ff3d1f;
+  --ok:#0e8a4d;
+  --rule:#131316;
+  --rule-d:#33333b;
+  --mono:ui-monospace,SFMono-Regular,"SF Mono",Menlo,Consolas,"Liberation Mono",monospace;
+}
+
+*{margin:0;padding:0;box-sizing:border-box}
+body{
+  background:var(--paper);color:var(--ink);
+  font-family:var(--mono);font-size:13.5px;line-height:1.6;
+  -webkit-font-smoothing:antialiased;
+}
+a{color:var(--cobalt)}
+:focus-visible{outline:2.5px solid var(--cobalt);outline-offset:2px}
+button{font-family:inherit;font-size:inherit;cursor:pointer}
+table{border-collapse:collapse;width:100%}
+
+/* ---------- topbalk ---------- */
+.topbar{
+  display:flex;align-items:center;justify-content:space-between;gap:1rem;flex-wrap:wrap;
+  background:var(--carbon);color:var(--paper);padding:.6rem clamp(12px,3vw,22px);
+}
+.brand{display:flex;align-items:center;gap:.55rem;font-weight:700;letter-spacing:.14em;font-size:.82rem}
+.brand svg{width:18px;height:18px;display:block}
+.topmeta{font-size:.72rem;color:#9a9aa6;display:flex;gap:1.1rem;flex-wrap:wrap}
+.topmeta b{color:var(--paper);font-weight:600}
+
+/* ---------- demobalk ---------- */
+.demobalk{
+  background:#3a2a06;color:#f0d9a8;border-bottom:1.5px solid var(--amber);
+  padding:.55rem clamp(12px,3vw,22px);font-size:.76rem;
+}
+.demobalk strong{color:#ffc866}
+
+/* ---------- tabs ---------- */
+.tabs{
+  display:flex;gap:0;flex-wrap:wrap;
+  background:var(--paper-2);border-bottom:1.5px solid var(--rule);
+  padding:0 clamp(8px,2vw,14px);
+}
+.tabs button{
+  background:transparent;border:0;border-bottom:2.5px solid transparent;
+  padding:.7rem .85rem;color:var(--ink-soft);font-weight:600;font-size:.76rem;
+  letter-spacing:.05em;text-transform:uppercase;
+}
+.tabs button:hover{color:var(--ink)}
+.tabs button.actief{color:var(--cobalt);border-bottom-color:var(--cobalt)}
+
+main{padding:clamp(14px,3vw,26px);max-width:1280px;margin:0 auto}
+.laden{color:var(--ink-soft)}
+
+/* ---------- kaarten ---------- */
+h2{font-size:.95rem;letter-spacing:.04em;text-transform:uppercase;margin-bottom:.2rem}
+.uitleg{color:var(--ink-soft);font-size:.8rem;margin-bottom:1rem;max-width:78ch}
+section.blok{margin-bottom:2.1rem}
+
+.kpis{display:grid;gap:1px;background:var(--rule);border:1.5px solid var(--rule);margin-bottom:1.4rem}
+@media(min-width:560px){.kpis{grid-template-columns:repeat(2,1fr)}}
+@media(min-width:900px){.kpis{grid-template-columns:repeat(4,1fr)}}
+.kpi{background:var(--paper);padding:.85rem .9rem}
+.kpi .k{font-size:.64rem;letter-spacing:.11em;text-transform:uppercase;color:var(--ink-soft)}
+.kpi .v{font-size:1.5rem;font-weight:700;letter-spacing:-.02em;margin-top:.25rem}
+.kpi .s{font-size:.72rem;color:var(--ink-soft)}
+.kpi.goed .v{color:var(--ok)}
+.kpi.slecht .v{color:var(--signal)}
+.kpi.let .v{color:var(--amber)}
+
+/* ---------- tabellen ---------- */
+.tabelwrap{overflow-x:auto;border:1.5px solid var(--rule);background:var(--paper)}
+th,td{padding:.5rem .7rem;text-align:left;border-bottom:1px solid rgba(19,19,22,.13);white-space:nowrap}
+th{background:var(--carbon);color:var(--paper);font-size:.64rem;letter-spacing:.1em;text-transform:uppercase;font-weight:600;position:sticky;top:0}
+tbody tr:hover{background:var(--paper-2)}
+td.num,th.num{text-align:right;font-variant-numeric:tabular-nums}
+td.wrap{white-space:normal;min-width:22ch}
+
+/* ---------- trechterbalken ---------- */
+.trechter{border:1.5px solid var(--rule);background:var(--paper)}
+.stap{display:grid;grid-template-columns:minmax(120px,1fr) 3fr minmax(120px,auto);gap:.8rem;align-items:center;padding:.6rem .8rem;border-bottom:1px solid rgba(19,19,22,.13)}
+.stap:last-child{border-bottom:0}
+.stap .naam{font-weight:600;font-size:.8rem}
+.stap .naam small{display:block;font-weight:400;color:var(--ink-soft);font-size:.68rem}
+.baan{background:var(--paper-2);height:22px;position:relative;overflow:hidden}
+.baan i{display:block;height:100%;background:var(--cobalt)}
+.stap .cijfers{text-align:right;font-variant-numeric:tabular-nums;font-size:.8rem}
+.stap .cijfers b{font-size:.95rem}
+.stap .cijfers span{color:var(--ink-soft);font-size:.72rem;display:block}
+.stap.knel .baan i{background:var(--amber)}
+.stap.knel .naam{color:var(--amber)}
+
+/* ---------- badges ---------- */
+.badge{display:inline-block;padding:.1rem .42rem;font-size:.64rem;letter-spacing:.06em;text-transform:uppercase;font-weight:600;border:1px solid currentColor}
+.b-ok{color:var(--ok)}
+.b-let{color:var(--amber)}
+.b-slecht{color:var(--signal)}
+.b-uit{color:var(--ash)}
+.b-cobalt{color:var(--cobalt)}
+
+/* ---------- formulier ---------- */
+.rij{display:flex;gap:.7rem;flex-wrap:wrap;align-items:flex-end;margin-bottom:1rem}
+label{display:block;font-size:.66rem;letter-spacing:.09em;text-transform:uppercase;color:var(--ink-soft);margin-bottom:.25rem}
+input,select{
+  font-family:inherit;font-size:.85rem;padding:.5rem .6rem;
+  border:1.5px solid var(--rule);background:var(--paper);color:var(--ink);min-width:9rem;
+}
+.knop{
+  border:1.5px solid var(--rule);background:var(--cobalt);color:#fff;
+  padding:.55rem 1rem;font-weight:600;font-size:.74rem;letter-spacing:.06em;text-transform:uppercase;
+}
+.knop:hover{background:#1a2cb8}
+.knop.leeg{background:transparent;color:var(--ink)}
+.knop.leeg:hover{background:var(--ink);color:var(--paper)}
+
+/* ---------- meldingen ---------- */
+.melding{border-left:3px solid var(--cobalt);background:var(--paper-2);padding:.7rem .85rem;font-size:.8rem;margin-bottom:1rem}
+.melding.waarschuwing{border-left-color:var(--amber)}
+.melding.fout{border-left-color:var(--signal)}
+.melding.goed{border-left-color:var(--ok)}
+.melding b{display:block;margin-bottom:.2rem}
+
+.lijst{list-style:none;font-size:.8rem}
+.lijst li{padding:.32rem 0 .32rem 1rem;position:relative;border-bottom:1px solid rgba(19,19,22,.09)}
+.lijst li::before{content:"›";position:absolute;left:0;color:var(--cobalt)}
+
+.voet{padding:1.4rem clamp(12px,3vw,22px);color:var(--ink-soft);font-size:.72rem;border-top:1.5px solid var(--rule)}
+code{background:var(--paper-2);padding:.05rem .3rem;font-size:.92em}
