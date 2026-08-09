@@ -350,13 +350,8 @@ def zet_sleutel(naam: str, *, console) -> int:
     if naam == "GEMINI_API_KEY":
         if not waarde.startswith("AIza"):
             console.print(
-                f"\n[yellow]Let op:[/] deze waarde begint met '{waarde[:3]}…', niet met 'AIza'."
-            )
-            console.print(
-                "[dim]API-keys uit AI Studio beginnen altijd met 'AIza'. Een waarde die met\n"
-                "'AQ.' begint is een tijdelijk token voor de Live API: die authenticeert wel,\n"
-                "maar mag generateContent niet aanroepen — precies de aanroep die wij doen.\n"
-                "Ik probeer het toch, maar houd hier rekening mee als het misgaat.[/]"
+                f"[dim]Deze waarde begint met '{waarde[:3]}…' in plaats van 'AIza'. "
+                "Dat is ongebruikelijk maar geen probleem zolang de test hieronder slaagt.[/]"
             )
 
         console.print("\n[cyan]Key controleren en beschikbare modellen opvragen…[/]")
@@ -377,15 +372,9 @@ def zet_sleutel(naam: str, *, console) -> int:
             console.print("\n[red]Geen enkel model reageerde op generateContent.[/]")
             if not waarde.startswith("AIza"):
                 console.print(
-                    "\n[bold]Dit is vrijwel zeker het probleem:[/] je gebruikt geen API-key.\n"
-                    "De lijst met modellen ophalen lukte (dus je token is echt), maar tekst\n"
-                    "genereren mag ermee niet. Dat is precies hoe een tijdelijk Live-API-token\n"
-                    "zich gedraagt.\n"
-                )
-                console.print(
-                    "Haal een echte API-key op — die begint met 'AIza':\n"
-                    "  [bold]https://aistudio.google.com/apikey[/]\n"
-                    "  Klik op [bold]Create API key[/], niet op iets met 'token' of 'ephemeral'."
+                    "[dim]Je key begint niet met 'AIza'. Dat hoeft niets te betekenen, maar\n"
+                    "een verse key uit https://aistudio.google.com/apikey is het eerste\n"
+                    "dat je kunt uitsluiten.[/]"
                 )
             console.print("\n[dim]Wat Google per model terugstuurde:[/]")
             for regel in fouten:

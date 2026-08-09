@@ -44,7 +44,70 @@ def test_zonder_lijstsignaal_valt_af():
     )
 
 
-def test_zonder_icp_gedraagt_zich_als_voorheen():
-    assert _is_kandidaat_lijst(
-        "https://www.eerstekamer.nl/leden", "Alle leden", "", None
+def test_zonder_icp_blijft_de_padeis_gelden():
+    """Zonder ICP vervalt alleen de brancheposrt, niet de eis van een lijstpad."""
+    assert _is_kandidaat_lijst("https://www.eerstekamer.nl/leden", "Alle leden", "", None)
+    assert not _is_kandidaat_lijst("https://losbedrijf.nl/", "Ledenvoordeel", "", None)
+
+
+def test_buitenlandse_domeinen_vallen_af():
+    """NL-only: een Belgische ledenlijst levert leads buiten je markt."""
+    assert _is_ruis("https://www.denturgent.be/leden")
+    assert _is_ruis("https://www.bbno.be/zoeken")
+    assert _is_ruis("https://example.de/mitglieder")
+    assert not _is_ruis("https://www.knmt.nl/leden")
+
+
+def test_losse_bedrijfssite_is_geen_bron():
+    assert not _is_kandidaat_lijst(
+        "https://tandartsenpraktijknieuwvennep.nl/",
+        "Tandartsenpraktijk Nieuw-Vennep - overzicht behandelingen",
+        "", ICP_INSTALLATIE,
     )
+
+
+def test_registerbron_matcht_niet_op_toevallige_substring():
+    """'auto' zit in 'automatisch' — Bovag hoort niet bij een tandarts-ICP."""
+    from leadengine.sources import _matcht_icp
+
+    bovag = {"trefwoorden": ["auto", "garage", "fiets", "camper", "motor"]}
+    tandarts_icp = ICP(
+        branches=["tandartspraktijk", "mondzorg"],
+        zoekwoorden=["automatische afspraakherinnering", "bereikbaarheid"],
+        omschrijving="Tandartspraktijken met slechte telefonische bereikbaarheid",
+    )
+    assert not _matcht_icp(bovag, tandarts_icp)
+
+
+def test_registerbron_matcht_wel_op_echte_branche():
+    from leadengine.sources import _matcht_icp
+
+    bovag = {"trefwoorden": ["auto", "garage", "autobedrijf"]}
+    garage_icp = ICP(branches=["autobedrijf", "garage"], zoekwoorden=["apk", "onderhoud"])
+    assert _matcht_icp(bovag, garage_icp)
+
+
+def test_registerbron_matcht_op_samenstelling():
+    from leadengine.sources import _matcht_icp
+
+    knmt = {"trefwoorden": ["tandarts", "mondzorg"]}
+    icp = ICP(branches=["tandartspraktijken"], zoekwoorden=["gebit"])
+    assert _matcht_icp(knmt, icp)
+
+
+def test_registerbron_zonder_trefwoorden_doet_altijd_mee():
+    from leadengine.sources import _matcht_icp
+
+    assert _matcht_icp({}, ICP(branches=["wat dan ook"]))
+
+
+def test_ledenlijst_pad_herkenning():
+    from leadengine.sources import _lijkt_ledenlijst_pad
+
+    assert _lijkt_ledenlijst_pad("https://www.knmt.nl/leden")
+    assert _lijkt_ledenlijst_pad("https://www.bovag.nl/vind-een-bovag-bedrijf")
+    assert _lijkt_ledenlijst_pad("https://www.technieknederland.nl/zoeken?q=x")
+    # losse praktijk: 'tandarts' in het domein telt niet mee
+    assert not _lijkt_ledenlijst_pad("https://tandartsenpraktijknieuwvennep.nl/")
+    assert not _lijkt_ledenlijst_pad("https://dentalnews.nl/artikel/nieuwe-techniek")
+    assert not _lijkt_ledenlijst_pad("https://www.abnamro.nl/")

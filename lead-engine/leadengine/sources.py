@@ -48,10 +48,20 @@ def _domein_van(url: str) -> str:
     return urlparse(url).netloc.lower().removeprefix("www.")
 
 
+# Deze tool richt zich uitsluitend op Nederland. Een Belgische of Duitse
+# ledenlijst is inhoudelijk misschien prima, maar levert leads buiten je markt.
+_BUITENLANDSE_TLDS = (
+    ".be", ".de", ".fr", ".uk", ".co.uk", ".es", ".it", ".at", ".ch", ".dk",
+    ".se", ".no", ".fi", ".pl", ".pt", ".ie", ".cz", ".us", ".ca", ".au",
+)
+
+
 def _is_ruis(url_of_domein: str) -> bool:
     """Subdomeinen tellen mee: nl.wikipedia.org is net zo goed ruis."""
     domein = _domein_van(url_of_domein) if "://" in url_of_domein else url_of_domein.lower()
     if not domein:
+        return True
+    if domein.endswith(_BUITENLANDSE_TLDS):
         return True
     return any(domein == r or domein.endswith("." + r) for r in _RUIS_DOMEINEN)
 
@@ -64,13 +74,31 @@ def _laad_register() -> list[dict]:
 
 
 def _matcht_icp(item: dict, icp: ICP) -> bool:
-    trefwoorden = [t.lower() for t in (item.get("trefwoorden") or [])]
+    """Hoort deze registerbron bij dit ICP?
+
+    Op losse substrings matchen gaat mis: 'auto' zit in 'automatisch', waardoor
+    de Bovag-ledenlijst opdook bij een tandarts-ICP. We vergelijken daarom op
+    woordstammen, met samenstellingen als enige uitzondering ('tandarts' mag
+    'tandartspraktijk' vinden).
+    """
+    trefwoorden = [t.lower().strip() for t in (item.get("trefwoorden") or []) if t.strip()]
     if not trefwoorden:
         return True
-    haystack = " ".join(
+
+    tekst = " ".join(
         icp.branches + icp.zoekwoorden + icp.functietitels + [icp.omschrijving]
     ).lower()
-    return any(t in haystack for t in trefwoorden)
+    woorden = relevance._tokens(tekst)
+
+    for trefwoord in trefwoorden:
+        stam = relevance._stam(trefwoord)
+        if stam in woorden:
+            return True
+        # Samenstelling: 'tandarts' in 'tandartspraktijk'. Alleen bij termen die
+        # lang genoeg zijn om niet toevallig ergens in te zitten.
+        if len(stam) >= 6 and any(stam in w for w in woorden):
+            return True
+    return False
 
 
 def _connector_beschikbaar(connector: str) -> bool:
@@ -253,6 +281,28 @@ VERWACHTE OUTPUT (vorm, niet inhoud)
 Geef uitsluitend dit JSON-object terug, zonder tekst eromheen."""
 
 
+# Padfragmenten die op een échte ledenlijst wijzen
+_PAD_SIGNALEN = (
+    "leden", "ledenlijst", "lidbedrijven", "aangesloten", "deelnemers",
+    "exposanten", "vind-een", "zoek-een", "vindeen", "zoeken", "overzicht",
+    "bedrijvengids", "register", "directory", "members", "vestigingen",
+    "praktijken", "kantoren", "specialisten", "vakmensen", "dealers",
+    "erkende", "zoekresultaten", "adressen",
+)
+
+
+def _lijkt_ledenlijst_pad(url: str) -> bool:
+    """Wijst het URL-pad op een lijst van bedrijven?
+
+    Een losse praktijk als tandartspraktijkxyz.nl haalt dit niet, ook al staat
+    'tandarts' in de domeinnaam — en dat is precies de bedoeling.
+    """
+    pad = urlparse(url).path.lower()
+    if pad.strip("/") == "":
+        return False                       # homepage is geen ledenlijst
+    return any(sig in pad for sig in _PAD_SIGNALEN)
+
+
 async def via_gemini_grounding(fetcher, icp: ICP) -> list[Bron]:
     """Laat Gemini écht op Google zoeken en lever geverifieerde bronnen.
 
@@ -301,10 +351,11 @@ async def via_gemini_grounding(fetcher, icp: ICP) -> list[Bron]:
                 continue
             domein = _domein_van(echte_url)
             titel = citaat.get("titel") or domein
-            # Bewust zónder ICP-term-poort: Gemini zocht al met zoekopdrachten
-            # die uit het ICP zijn afgeleid, dus deze pagina's zijn al gericht.
-            # Bij blinde SERP-resultaten (laag 3) is die poort er wél.
-            if not _is_kandidaat_lijst(echte_url, titel, ""):
+            # Strenger dan bij de bronnen die Gemini expliciet noemt: dit zijn
+            # zomaar de pagina's die het model onderweg las, dus daar zitten
+            # losse praktijken en vakbladen tussen. Alleen het URL-pad telt —
+            # een lijstwoord in de paginatitel zegt te weinig.
+            if not _lijkt_ledenlijst_pad(echte_url):
                 continue
             bekend.add(echte_url)
             bronnen.append(Bron(
@@ -382,6 +433,10 @@ def _is_kandidaat_lijst(url: str, titel: str, omschrijving: str, icp: ICP | None
     hooi = f"{url.lower()} {titel.lower()} {omschrijving.lower()}"
     if not any(sig in hooi for sig in _LIJST_SIGNALEN):
         return False
+    # Het pad moet ook op een lijst wijzen. Zonder deze eis komen losse
+    # bedrijfssites en vakbladartikelen binnen op een lijstwoord in hun titel.
+    if not _lijkt_ledenlijst_pad(url):
+        return False
     if icp is None:
         return True
 
@@ -401,7 +456,12 @@ async def via_serp(zoeker: Zoeker, icp: ICP, *, max_bronnen: int = 40) -> list[B
     queries = (data or {}).get("queries") if isinstance(data, dict) else None
     if not queries:
         queries = _terugval_queries(icp)
-    queries = [str(q) for q in queries][:30]
+
+    # Met Gemini als zoekmachine is elke query een volledige grounded LLM-call:
+    # traag en duur. De grounded laag hierboven heeft het zware werk al gedaan,
+    # dus houden we deze blinde laag dan kort.
+    limiet = 6 if zoeker.provider == "gemini" else 30
+    queries = [str(q) for q in queries][:limiet]
 
     resultaten = await zoeker.zoek_veel(queries, aantal=15)
 
