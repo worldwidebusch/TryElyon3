@@ -74,6 +74,17 @@ def _pak_json(tekst: str) -> Any | None:
 
 # ── Gemini ──────────────────────────────────────────────────────────────────
 
+def _search_tool(model: str) -> dict:
+    """De naam van de Google-Search-tool verschilt per modelgeneratie.
+
+    Gemini 2.x en nieuwer gebruiken `google_search`; de 1.5-generatie kent
+    alleen `google_search_retrieval`. De verkeerde naam levert een 400 op.
+    """
+    if "1.5" in model or "1.0" in model or "gemini-pro" == model:
+        return {"google_search_retrieval": {}}
+    return {"google_search": {}}
+
+
 def _gemini_call(
     systeem: str,
     prompt: str,
@@ -95,7 +106,7 @@ def _gemini_call(
     if gronden:
         # Met de search-tool aan mag je géén responseMimeType=application/json
         # meegeven; we vragen de JSON dus in de prompt en parsen uit de tekst.
-        body["tools"] = [{"google_search": {}}]
+        body["tools"] = [_search_tool(model or SETTINGS.gemini_model)]
     else:
         body["generationConfig"]["responseMimeType"] = "application/json"
 

@@ -104,6 +104,8 @@ def bouw_parser() -> argparse.ArgumentParser:
     )
     sleutel.add_argument("--test", action="store_true",
                          help="test alleen de huidige GEMINI_API_KEY, wijzig niets")
+    sleutel.add_argument("--modellen", action="store_true",
+                         help="toon welke Gemini-modellen jouw key heeft")
 
     return parser
 
@@ -120,10 +122,27 @@ def main(argv: list[str] | None = None) -> int:
 
     if args.commando == "sleutel":
         from . import setup
+        from .config import SETTINGS
+
+        if args.modellen:
+            if not SETTINGS.gemini_key:
+                console.print("[yellow]Geen GEMINI_API_KEY gevonden.[/] Zet 'm eerst met:")
+                console.print("  [bold]python -m leadengine sleutel GEMINI_API_KEY[/]")
+                return 1
+            modellen, fout = setup.lijst_modellen(SETTINGS.gemini_key)
+            if fout:
+                console.print(f"[red]x[/] {fout}")
+                return 1
+            aanbevolen = setup.kies_model(modellen)
+            console.print(f"\n[bold]{len(modellen)} model(len) beschikbaar voor jouw key:[/]\n")
+            for model in modellen:
+                markering = "[green]<- aanbevolen[/]" if model == aanbevolen else ""
+                huidig = "[cyan]<- nu ingesteld[/]" if model == SETTINGS.gemini_model else ""
+                console.print(f"  {model} {markering}{huidig}")
+            console.print(f"\nAnder model kiezen: [bold]python -m leadengine sleutel GEMINI_MODEL[/]")
+            return 0
 
         if args.test:
-            from .config import SETTINGS
-
             if not SETTINGS.gemini_key:
                 console.print("[yellow]Geen GEMINI_API_KEY gevonden om te testen.[/]")
                 return 1

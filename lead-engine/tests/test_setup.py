@@ -108,6 +108,73 @@ def test_quotum_meldt_dat_de_key_wel_klopt(monkeypatch):
     assert not goed and "geldig" in melding
 
 
+def _nep_modellenlijst(namen: list[str], status: int = 200):
+    payload = {
+        "models": [
+            {"name": f"models/{n}", "supportedGenerationMethods": ["generateContent"]}
+            for n in namen
+        ]
+    }
+
+    class C:
+        def __enter__(self): return self
+        def __exit__(self, *a): return False
+
+        def get(self, url, params=None):
+            return httpx.Response(status, json=payload, request=httpx.Request("GET", url))
+
+        def post(self, url, params=None, json=None):
+            return httpx.Response(404, json={}, request=httpx.Request("POST", url))
+
+    return lambda **kw: C()
+
+
+def test_lijst_modellen_filtert_op_generatecontent(monkeypatch):
+    class C:
+        def __enter__(self): return self
+        def __exit__(self, *a): return False
+
+        def get(self, url, params=None):
+            return httpx.Response(200, json={"models": [
+                {"name": "models/gemini-2.5-flash", "supportedGenerationMethods": ["generateContent"]},
+                {"name": "models/text-embedding-004", "supportedGenerationMethods": ["embedContent"]},
+            ]}, request=httpx.Request("GET", url))
+
+    monkeypatch.setattr(httpx, "Client", lambda **kw: C())
+    modellen, fout = setup.lijst_modellen("AIzaX")
+    assert modellen == ["gemini-2.5-flash"] and not fout
+
+
+def test_kies_model_volgt_voorkeur():
+    assert setup.kies_model(["gemini-1.5-pro", "gemini-2.5-flash"]) == "gemini-2.5-flash"
+    assert setup.kies_model(["gemini-1.5-pro", "gemini-1.5-flash"]) == "gemini-1.5-flash"
+
+
+def test_kies_model_valt_terug_op_onbekende_naam():
+    assert setup.kies_model(["gemini-9-flash-experimental"]) == "gemini-9-flash-experimental"
+    assert setup.kies_model(["text-embedding-004", "gemini-toekomst"]) == "gemini-toekomst"
+    assert setup.kies_model([]) == ""
+
+
+def test_404_noemt_de_echte_beschikbare_modellen(monkeypatch):
+    """Nooit 'kies een ander model' zonder te zeggen wélk model."""
+    monkeypatch.setattr(httpx, "Client", _nep_modellenlijst(["gemini-2.0-flash", "gemini-pro-latest"]))
+    goed, melding = setup.test_gemini("AIzaX", model="gemini-2.5-flash")
+    assert not goed
+    assert "gemini-2.0-flash" in melding
+    assert "Bruikbaar alternatief: gemini-2.0-flash" in melding
+    # de melding mag het kapotte model niet als oplossing aanraden
+    assert "bijv. gemini-2.5-flash" not in melding
+
+
+def test_search_tool_per_modelgeneratie():
+    from leadengine.llm import _search_tool
+
+    assert _search_tool("gemini-2.5-flash") == {"google_search": {}}
+    assert _search_tool("gemini-2.0-flash") == {"google_search": {}}
+    assert _search_tool("gemini-1.5-pro") == {"google_search_retrieval": {}}
+
+
 def test_netwerkfout_crasht_niet(monkeypatch):
     class C:
         def __enter__(self): return self
