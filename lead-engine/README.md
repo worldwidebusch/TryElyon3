@@ -15,13 +15,24 @@ gekochte database — en verdient dus een andere mail.
 ```bash
 cd lead-engine
 python -m pip install -r requirements.txt
-cp .env.example .env          # niets invullen mag; keys maken 'm alleen beter
 python -m leadengine status   # laat zien wat aanstaat én wat je mist
 ```
 
 Wil je meteen goede resultaten: zet één key, `GEMINI_API_KEY`
 ([gratis](https://aistudio.google.com/apikey)). Daarmee wordt het ICP scherp én
-zoekt de motor je bronnen via Google Search grounding op — zie hieronder.
+zoekt de motor je bronnen via Google Search grounding op.
+
+```bash
+python -m leadengine sleutel GEMINI_API_KEY
+```
+
+Dat vraagt je key, test 'm meteen bij Google en schrijft 'm pas weg als hij
+werkt. Je hoeft `.env` dus niet zelf aan te maken — handig op Windows, waar
+Kladblok er stilletjes `.env.txt` van maakt. De key wordt onzichtbaar ingelezen
+en komt niet in je command-history (anders dan bij `setx`).
+
+`python -m leadengine sleutel` zonder naam toont alle keys die je kunt zetten.
+Liever met de hand? `cp .env.example .env` en vul in wat je hebt.
 
 Eerste run:
 
@@ -176,6 +187,11 @@ python -m leadengine importeer mijn_lijst.csv --bron "LinkedIn SN"
 
 # Welke bronnen staan aan?
 python -m leadengine status
+
+# API-key instellen (vraagt, test en slaat pas op als hij werkt)
+python -m leadengine sleutel GEMINI_API_KEY
+python -m leadengine sleutel              # overzicht van alle keys
+python -m leadengine sleutel --test       # test de huidige Gemini-key
 ```
 
 Nuttige vlaggen bij `zoek`:
@@ -252,6 +268,7 @@ Laat het veld leeg om de bron altijd mee te nemen.
 python -m pytest tests/ -q
 ```
 
-36 tests: de extractielaag (e-mail, telefoon, namen, obfuscatie, JSON-LD), het
-ICP-relevantiefilter, de bronfiltering en de Gemini-laag (request-vorm en
-grounding-verwerking, met gemockte API-responses — geen key nodig).
+48 tests: de extractielaag (e-mail, telefoon, namen, obfuscatie, JSON-LD), het
+ICP-relevantiefilter, de bronfiltering, de Gemini-laag (request-vorm en
+grounding-verwerking) en de key-setup (.env schrijven, BOM, duplicaten,
+foutmeldingen). Alles met gemockte API-responses — geen key nodig.

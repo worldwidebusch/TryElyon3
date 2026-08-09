@@ -20,6 +20,24 @@ from .config import PROJECT_ROOT
 from .pipeline import console, draai, draai_import, toon_capabilities
 
 
+def _forceer_utf8_uitvoer() -> None:
+    """Zet stdout/stderr op UTF-8.
+
+    Een oudere Windows-console draait op cp1252; daar crasht het schrijven van
+    tekens als ✓ of → met een UnicodeEncodeError midden in een run. Met
+    errors='replace' gaat er in het ergste geval één teken verloren in plaats
+    van dat de hele run klapt.
+    """
+    for stroom in (sys.stdout, sys.stderr):
+        try:
+            stroom.reconfigure(encoding="utf-8", errors="replace")
+        except Exception:
+            pass
+
+
+_forceer_utf8_uitvoer()
+
+
 def _standaard_map(label: str) -> Path:
     stempel = datetime.now().strftime("%Y%m%d-%H%M")
     schoon = re.sub(r"[^\w\-]+", "-", label.lower()).strip("-")[:40] or "run"
@@ -75,6 +93,18 @@ def bouw_parser() -> argparse.ArgumentParser:
 
     sub.add_parser("status", help="laat zien welke bronnen aanstaan op basis van je keys")
 
+    # ── sleutel ─────────────────────────────────────────────────────────────
+    sleutel = sub.add_parser(
+        "sleutel",
+        help="API-key instellen zonder .env met de hand te bewerken",
+    )
+    sleutel.add_argument(
+        "naam", nargs="?",
+        help="bijv. GEMINI_API_KEY. Laat leeg voor een overzicht van alle keys.",
+    )
+    sleutel.add_argument("--test", action="store_true",
+                         help="test alleen de huidige GEMINI_API_KEY, wijzig niets")
+
     return parser
 
 
@@ -83,8 +113,28 @@ def main(argv: list[str] | None = None) -> int:
 
     if args.commando == "status":
         toon_capabilities()
-        console.print("\n[dim]Keys invullen in .env (zie .env.example).[/]")
+        console.print(
+            "\n[dim]Key instellen? [/][bold]python -m leadengine sleutel GEMINI_API_KEY[/]"
+        )
         return 0
+
+    if args.commando == "sleutel":
+        from . import setup
+
+        if args.test:
+            from .config import SETTINGS
+
+            if not SETTINGS.gemini_key:
+                console.print("[yellow]Geen GEMINI_API_KEY gevonden om te testen.[/]")
+                return 1
+            goed, melding = setup.test_gemini(SETTINGS.gemini_key)
+            console.print(f"  {'[green]✓[/]' if goed else '[red]✗[/]'} {melding}")
+            return 0 if goed else 1
+
+        if not args.naam:
+            setup.toon_keys(console)
+            return 0
+        return setup.zet_sleutel(args.naam, console=console)
 
     if args.commando == "importeer":
         if not args.bestand.exists():
