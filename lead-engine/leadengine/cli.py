@@ -146,8 +146,8 @@ def main(argv: list[str] | None = None) -> int:
             if not SETTINGS.gemini_key:
                 console.print("[yellow]Geen GEMINI_API_KEY gevonden om te testen.[/]")
                 return 1
-            goed, melding = setup.test_gemini(SETTINGS.gemini_key)
-            console.print(f"  {'[green]✓[/]' if goed else '[red]✗[/]'} {melding}")
+            goed, melding, _ = setup.test_gemini(SETTINGS.gemini_key)
+            console.print(f"  {'[green]v[/]' if goed else '[red]x[/]'} {melding}")
             return 0 if goed else 1
 
         if not args.naam:

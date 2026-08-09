@@ -75,7 +75,7 @@ def _nep_client(status: int, payload: dict | None = None, tekst: str = ""):
 
 def test_geldige_key(monkeypatch):
     monkeypatch.setattr(httpx, "Client", _nep_client(200, {"candidates": []}))
-    goed, melding = setup.test_gemini("AIzaGeldig")
+    goed, melding, _versie = setup.test_gemini("AIzaGeldig")
     assert goed and "Werkt" in melding
 
 
@@ -83,7 +83,7 @@ def test_ongeldige_key_geeft_hint_over_AQ_prefix(monkeypatch):
     monkeypatch.setattr(httpx, "Client", _nep_client(
         400, {"error": {"message": "API key not valid. Please pass a valid API key."}}
     ))
-    goed, melding = setup.test_gemini("AQ.tokenachtig")
+    goed, melding, _versie = setup.test_gemini("AQ.tokenachtig")
     assert not goed
     assert "AIza" in melding and "AQ." in melding
 
@@ -92,19 +92,19 @@ def test_uitgeschakelde_api_geeft_bruikbare_melding(monkeypatch):
     monkeypatch.setattr(httpx, "Client", _nep_client(
         403, {"error": {"message": "Generative Language API has not been used in project 123"}}
     ))
-    goed, melding = setup.test_gemini("AIzaX")
+    goed, melding, _versie = setup.test_gemini("AIzaX")
     assert not goed and "staat uit" in melding
 
 
 def test_onbekend_model_geeft_bruikbare_melding(monkeypatch):
     monkeypatch.setattr(httpx, "Client", _nep_client(404, {}, ""))
-    goed, melding = setup.test_gemini("AIzaX", model="gemini-99-onzin")
+    goed, melding, _versie = setup.test_gemini("AIzaX", model="gemini-99-onzin")
     assert not goed and "gemini-99-onzin" in melding
 
 
 def test_quotum_meldt_dat_de_key_wel_klopt(monkeypatch):
     monkeypatch.setattr(httpx, "Client", _nep_client(429, {}, ""))
-    goed, melding = setup.test_gemini("AIzaX")
+    goed, melding, _versie = setup.test_gemini("AIzaX")
     assert not goed and "geldig" in melding
 
 
@@ -156,15 +156,57 @@ def test_kies_model_valt_terug_op_onbekende_naam():
     assert setup.kies_model([]) == ""
 
 
-def test_404_noemt_de_echte_beschikbare_modellen(monkeypatch):
-    """Nooit 'kies een ander model' zonder te zeggen wélk model."""
-    monkeypatch.setattr(httpx, "Client", _nep_modellenlijst(["gemini-2.0-flash", "gemini-pro-latest"]))
-    goed, melding = setup.test_gemini("AIzaX", model="gemini-2.5-flash")
-    assert not goed
-    assert "gemini-2.0-flash" in melding
-    assert "Bruikbaar alternatief: gemini-2.0-flash" in melding
-    # de melding mag het kapotte model niet als oplossing aanraden
-    assert "bijv. gemini-2.5-flash" not in melding
+def test_404_probeert_beide_api_versies(monkeypatch):
+    """Een 404 op v1beta mag niet betekenen dat we v1 overslaan."""
+    gezien = []
+
+    class C:
+        def __enter__(self): return self
+        def __exit__(self, *a): return False
+
+        def post(self, url, params=None, json=None):
+            gezien.append(url)
+            status = 200 if "/v1/" in url else 404
+            return httpx.Response(
+                status, json={"candidates": []} if status == 200 else
+                {"error": {"message": "not found for API version v1beta"}},
+                request=httpx.Request("POST", url),
+            )
+
+    monkeypatch.setattr(httpx, "Client", lambda **kw: C())
+    goed, melding, versie = setup.test_gemini("AIzaX", model="gemini-2.5-flash")
+    assert goed and versie == "v1"
+    assert any("/v1beta/" in u for u in gezien) and any("/v1/" in u for u in gezien)
+
+
+def test_ongeldige_key_probeert_geen_tweede_versie(monkeypatch):
+    pogingen = []
+
+    class C:
+        def __enter__(self): return self
+        def __exit__(self, *a): return False
+
+        def post(self, url, params=None, json=None):
+            pogingen.append(url)
+            return httpx.Response(
+                400, json={"error": {"message": "API key not valid"}},
+                request=httpx.Request("POST", url),
+            )
+
+    monkeypatch.setattr(httpx, "Client", lambda **kw: C())
+    goed, _melding, versie = setup.test_gemini("AQ.fout", model="gemini-2.5-flash")
+    assert not goed and versie == ""
+    assert len(pogingen) == 1
+
+
+def test_kandidaten_sluit_ongeschikte_modellen_uit():
+    beschikbaar = [
+        "gemini-2.5-flash-preview-tts", "text-embedding-004", "imagen-3.0",
+        "gemini-2.5-flash", "gemini-2.5-pro",
+    ]
+    kandidaten = setup._kandidaten(beschikbaar)
+    assert kandidaten[0] == "gemini-2.5-flash"
+    assert not any("tts" in k or "embedding" in k or "imagen" in k for k in kandidaten)
 
 
 def test_search_tool_per_modelgeneratie():
@@ -182,5 +224,18 @@ def test_netwerkfout_crasht_niet(monkeypatch):
         def post(self, *a, **kw): raise httpx.ConnectError("geen netwerk")
 
     monkeypatch.setattr(httpx, "Client", lambda **kw: C())
-    goed, melding = setup.test_gemini("AIzaX")
+    goed, melding, _versie = setup.test_gemini("AIzaX")
     assert not goed and "Geen verbinding" in melding
+
+
+def test_schoonmaken_van_geplakte_keys():
+    """Onzichtbare tekens uit copy-paste maken een key stilletjes ongeldig."""
+    assert setup._schoon_key("\ufeffAIzaAbc") == "AIzaAbc"          # BOM
+    assert setup._schoon_key("AIzaAbc\u200b") == "AIzaAbc"          # zero-width space
+    assert setup._schoon_key("  AIzaAbc  ") == "AIzaAbc"
+    assert setup._schoon_key('"AIzaAbc"') == "AIzaAbc"
+    assert setup._schoon_key("'AIzaAbc'") == "AIzaAbc"
+    assert setup._schoon_key("GEMINI_API_KEY=AIzaAbc") == "AIzaAbc"
+    assert setup._schoon_key("Bearer AIzaAbc") == "AIzaAbc"
+    assert setup._schoon_key("AIza\u00a0Abc") == "AIzaAbc"          # non-breaking space
+    assert setup._schoon_key("") == ""

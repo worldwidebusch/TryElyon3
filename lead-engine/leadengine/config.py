@@ -75,6 +75,11 @@ class Settings:
     gemini_model: str = field(
         default_factory=lambda: os.getenv("GEMINI_MODEL", "gemini-2.5-flash").strip()
     )
+    # Welke API-versie het model bedient verschilt per account; `leadengine
+    # sleutel` detecteert dit en zet 'm hier vast.
+    gemini_api_version: str = field(
+        default_factory=lambda: os.getenv("GEMINI_API_VERSION", "v1beta").strip() or "v1beta"
+    )
     anthropic_model: str = field(
         default_factory=lambda: os.getenv("ANTHROPIC_MODEL", "claude-opus-5").strip()
     )

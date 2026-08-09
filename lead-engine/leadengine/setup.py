@@ -147,13 +147,26 @@ def kies_model(beschikbaar: list[str]) -> str:
 
 
 def _uitleg_fout(resp: httpx.Response) -> str:
-    """Zet een Google-foutrespons om in iets waar je wat mee kunt."""
     try:
         melding = (resp.json().get("error") or {}).get("message", "")
     except Exception:
         melding = resp.text[:200]
+    return _uitleg(resp.status_code, melding)
 
-    if resp.status_code in (400, 401, 403):
+
+def _uitleg(status: int, melding: str, *, model: str = "") -> str:
+    """Zet een Google-fout om in iets waar je wat mee kunt."""
+    if status == 0:
+        return melding or "Geen verbinding met Google."
+
+    if status == 404:
+        kern = (
+            f"Model '{model}' is niet bereikbaar via generateContent."
+            if model else "Endpoint niet gevonden."
+        )
+        return f"{kern}\n     Google zei: {melding[:200]}"
+
+    if status in (400, 401, 403):
         if "API_KEY_INVALID" in melding or "not valid" in melding.lower():
             return (
                 "Google accepteert deze key niet.\n"
@@ -168,49 +181,97 @@ def _uitleg_fout(resp: httpx.Response) -> str:
             )
         if "location is not supported" in melding.lower():
             return "Gemini is niet beschikbaar in de regio van dit project."
-        return f"Google gaf {resp.status_code}: {melding[:220]}"
-    if resp.status_code == 429:
+        return f"Google gaf {status}: {melding[:220]}"
+    if status == 429:
         return "Quotum bereikt (429). De key zelf is geldig — probeer het later opnieuw."
-    return f"Onverwachte status {resp.status_code}: {melding[:200]}"
+    return f"Onverwachte status {status}: {melding[:200]}"
 
 
-def test_gemini(key: str, model: str | None = None) -> tuple[bool, str]:
-    """Doe één minimale call om te bevestigen dat de key werkt."""
-    model = model or SETTINGS.gemini_model
-    url = f"https://generativelanguage.googleapis.com/v1beta/models/{model}:generateContent"
+API_VERSIES = ("v1beta", "v1")
+
+
+def _probeer_generate(key: str, model: str, versie: str) -> tuple[bool, int, str]:
+    """Eén generateContent-poging. Geeft (gelukt, statuscode, ruwe melding)."""
+    url = f"https://generativelanguage.googleapis.com/{versie}/models/{model}:generateContent"
     try:
-        with httpx.Client(timeout=30.0) as client:
+        with httpx.Client(timeout=30.0, follow_redirects=True) as client:
             resp = client.post(
                 url,
                 params={"key": key},
                 json={
                     "contents": [{"role": "user", "parts": [{"text": "Antwoord met exact: OK"}]}],
-                    "generationConfig": {"maxOutputTokens": 10, "temperature": 0},
+                    "generationConfig": {"maxOutputTokens": 512, "temperature": 0},
                 },
             )
     except Exception as fout:
-        return False, f"Geen verbinding met Google: {fout}"
+        return False, 0, f"Geen verbinding met Google: {fout}"
 
     if resp.status_code == 200:
-        return True, f"Werkt — model {model} antwoordde."
-    if resp.status_code == 404:
-        # Nooit "kies een ander model" zeggen zonder te vertellen wélk model.
-        beschikbaar, fout = lijst_modellen(key)
-        if fout:
-            return False, f"Model '{model}' bestaat niet, en de modellenlijst opvragen gaf: {fout}"
-        if not beschikbaar:
-            return False, (
-                f"Model '{model}' bestaat niet voor deze key, en er zijn geen "
-                "modellen beschikbaar die generateContent ondersteunen."
-            )
-        alternatief = kies_model(beschikbaar)
-        top = ", ".join(beschikbaar[:8])
-        return False, (
-            f"Model '{model}' bestaat niet voor deze key.\n"
-            f"     Wél beschikbaar: {top}\n"
-            f"     Bruikbaar alternatief: {alternatief}"
-        )
-    return False, _uitleg_fout(resp)
+        return True, 200, ""
+    try:
+        melding = (resp.json().get("error") or {}).get("message", "") or resp.text[:300]
+    except Exception:
+        melding = resp.text[:300]
+    return False, resp.status_code, melding
+
+
+def test_gemini(
+    key: str,
+    model: str | None = None,
+    *,
+    versies: tuple[str, ...] = API_VERSIES,
+) -> tuple[bool, str, str]:
+    """Test één model. Geeft (gelukt, melding, werkende_api_versie).
+
+    Probeert beide API-versies: welke werkt hangt af van het model en het
+    account, en een 404 op v1beta betekent niet dat v1 ook faalt.
+    """
+    model = model or SETTINGS.gemini_model
+    laatste_status, laatste_melding = 0, "Niet geprobeerd."
+    for versie in versies:
+        gelukt, status, melding = _probeer_generate(key, model, versie)
+        if gelukt:
+            return True, f"Werkt — {model} via {versie}.", versie
+        laatste_status, laatste_melding = status, melding
+        if status == 0:
+            break                          # netwerkfout: andere versie helpt niet
+        if status in (400, 401, 403) and (
+            "API_KEY_INVALID" in melding or "not valid" in melding.lower()
+        ):
+            break                          # key zelf is fout
+    return False, _uitleg(laatste_status, laatste_melding, model=model), ""
+
+
+def _kandidaten(beschikbaar: list[str], *, hoeveel: int = 6) -> list[str]:
+    """Modellen om te proberen, beste eerst.
+
+    Dat de modellenlijst een model noemt betekent niet dat generateContent er
+    ook echt mee werkt: dat verschilt per account en per API-versie. Dus
+    proberen we er een paar, in plaats van bij de eerste teleurstelling te stoppen.
+    """
+    ongeschikt = ("embedding", "aqa", "-tts", "image", "vision", "learnlm", "veo", "imagen")
+    schoon = [m for m in beschikbaar if not any(w in m for w in ongeschikt)]
+
+    volgorde = [m for m in VOORKEUR_MODELLEN if m in schoon]
+    volgorde += [m for m in schoon if m not in volgorde and "preview" not in m and "exp" not in m]
+    volgorde += [m for m in schoon if m not in volgorde]
+    return volgorde[:hoeveel]
+
+
+def _eerste_werkende_model(
+    key: str, beschikbaar: list[str], *, console
+) -> tuple[str, str, list[str]]:
+    """Probeer kandidaten tot er één antwoordt. (model, api_versie, fouten)."""
+    fouten: list[str] = []
+    for model in _kandidaten(beschikbaar):
+        console.print(f"[cyan]Testen met {model}…[/]")
+        gelukt, melding, versie = test_gemini(key, model)
+        if gelukt:
+            console.print(f"  [green]v[/] {melding}")
+            return model, versie, fouten
+        console.print(f"  [dim]x {model}: {melding[:150]}[/]")
+        fouten.append(f"{model} -> {melding[:200]}")
+    return "", "", fouten
 
 
 def _vraag_key(console) -> str | None:
@@ -242,10 +303,29 @@ def _vraag_key(console) -> str | None:
         console.print("[yellow]Geannuleerd — niets gewijzigd.[/]")
         return None
 
+    return _schoon_key(waarde) or None
+
+
+# Onzichtbare tekens die meeliften bij kopiëren uit een browser, PDF of terminal.
+# Eén BOM vooraan maakt je key ongeldig zonder dat je iets ziet — een klassieke
+# oorzaak van "mijn key werkt niet, maar hij ziet er goed uit".
+_ONZICHTBAAR = dict.fromkeys(
+    [0xFEFF, 0x200B, 0x200C, 0x200D, 0x2060, 0x00A0, 0x180E, 0x061C] +
+    list(range(0x200E, 0x2010)) + list(range(0x202A, 0x202F)),
+    None,
+)
+
+
+def _schoon_key(waarde: str) -> str:
+    waarde = waarde.translate(_ONZICHTBAAR).strip()
     # Aanhalingstekens die per ongeluk zijn meegeplakt
     if len(waarde) > 1 and waarde[0] == waarde[-1] and waarde[0] in "\"'":
         waarde = waarde[1:-1].strip()
-    return waarde or None
+    # Mensen plakken soms 'GEMINI_API_KEY=AIza...' in z'n geheel
+    for prefix in ("GEMINI_API_KEY=", "GOOGLE_API_KEY=", "key=", "Bearer "):
+        if waarde.startswith(prefix):
+            waarde = waarde[len(prefix):].strip()
+    return waarde
 
 
 def zet_sleutel(naam: str, *, console) -> int:
@@ -266,7 +346,19 @@ def zet_sleutel(naam: str, *, console) -> int:
         return 1
 
     gekozen_model = ""
+    gekozen_versie = ""
     if naam == "GEMINI_API_KEY":
+        if not waarde.startswith("AIza"):
+            console.print(
+                f"\n[yellow]Let op:[/] deze waarde begint met '{waarde[:3]}…', niet met 'AIza'."
+            )
+            console.print(
+                "[dim]API-keys uit AI Studio beginnen altijd met 'AIza'. Een waarde die met\n"
+                "'AQ.' begint is een tijdelijk token voor de Live API: die authenticeert wel,\n"
+                "maar mag generateContent niet aanroepen — precies de aanroep die wij doen.\n"
+                "Ik probeer het toch, maar houd hier rekening mee als het misgaat.[/]"
+            )
+
         console.print("\n[cyan]Key controleren en beschikbare modellen opvragen…[/]")
         beschikbaar, fout = lijst_modellen(waarde)
         if fout:
@@ -276,24 +368,41 @@ def zet_sleutel(naam: str, *, console) -> int:
         if not beschikbaar:
             console.print("  [red]x[/] Deze key heeft geen modellen die generateContent ondersteunen.")
             return 1
-
         console.print(f"  [green]v[/] Key geldig — {len(beschikbaar)} model(len) beschikbaar.")
-        gekozen_model = kies_model(beschikbaar)
 
-        console.print(f"\n[cyan]Testen met {gekozen_model}…[/]")
-        goed, melding = test_gemini(waarde, gekozen_model)
-        if not goed:
-            console.print(f"  [red]x[/] {melding}")
+        gekozen_model, gekozen_versie, fouten = _eerste_werkende_model(
+            waarde, beschikbaar, console=console
+        )
+        if not gekozen_model:
+            console.print("\n[red]Geen enkel model reageerde op generateContent.[/]")
+            if not waarde.startswith("AIza"):
+                console.print(
+                    "\n[bold]Dit is vrijwel zeker het probleem:[/] je gebruikt geen API-key.\n"
+                    "De lijst met modellen ophalen lukte (dus je token is echt), maar tekst\n"
+                    "genereren mag ermee niet. Dat is precies hoe een tijdelijk Live-API-token\n"
+                    "zich gedraagt.\n"
+                )
+                console.print(
+                    "Haal een echte API-key op — die begint met 'AIza':\n"
+                    "  [bold]https://aistudio.google.com/apikey[/]\n"
+                    "  Klik op [bold]Create API key[/], niet op iets met 'token' of 'ephemeral'."
+                )
+            console.print("\n[dim]Wat Google per model terugstuurde:[/]")
+            for regel in fouten:
+                console.print(f"  [dim]{regel}[/]")
             console.print("\n[yellow]Niet opgeslagen.[/]")
             return 1
-        console.print(f"  [green]v[/] {melding}")
 
     pad = schrijf_sleutel(naam, waarde)
-    if gekozen_model and gekozen_model != SETTINGS.gemini_model:
+    if gekozen_model:
         schrijf_sleutel("GEMINI_MODEL", gekozen_model)
         os.environ["GEMINI_MODEL"] = gekozen_model
         SETTINGS.gemini_model = gekozen_model
-        console.print(f"[dim]GEMINI_MODEL op {gekozen_model} gezet (het standaardmodel bestaat niet voor jouw key).[/]")
+        if gekozen_versie and gekozen_versie != SETTINGS.gemini_api_version:
+            schrijf_sleutel("GEMINI_API_VERSION", gekozen_versie)
+            os.environ["GEMINI_API_VERSION"] = gekozen_versie
+            SETTINGS.gemini_api_version = gekozen_versie
+            console.print(f"[dim]API-versie op {gekozen_versie} gezet.[/]")
     os.environ[naam] = waarde
     setattr(SETTINGS, _veld_voor(naam), waarde)
 

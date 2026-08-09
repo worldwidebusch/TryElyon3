@@ -23,8 +23,6 @@ from .config import SETTINGS
 
 _anthropic_client = None
 
-GEMINI_BASIS = "https://generativelanguage.googleapis.com/v1beta/models"
-
 
 # ── Providerkeuze ───────────────────────────────────────────────────────────
 
@@ -110,7 +108,10 @@ def _gemini_call(
     else:
         body["generationConfig"]["responseMimeType"] = "application/json"
 
-    url = f"{GEMINI_BASIS}/{model or SETTINGS.gemini_model}:generateContent"
+    url = (
+        f"https://generativelanguage.googleapis.com/{SETTINGS.gemini_api_version}"
+        f"/models/{model or SETTINGS.gemini_model}:generateContent"
+    )
     with httpx.Client(timeout=120.0) as client:
         resp = client.post(
             url,
