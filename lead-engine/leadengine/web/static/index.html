@@ -1,0 +1,392 @@
+<!doctype html>
+<html lang="nl">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>lead-engine</title>
+<style>
+  :root {
+    --bg: #0f1115; --paneel: #171a21; --rand: #262b36; --tekst: #e6e9ef;
+    --zacht: #9aa4b6; --accent: #4f9dff; --groen: #3ecf8e; --geel: #f0b429;
+    --rood: #f2555a; --radius: 10px;
+  }
+  @media (prefers-color-scheme: light) {
+    :root {
+      --bg: #f6f7f9; --paneel: #fff; --rand: #e2e6ec; --tekst: #12151a;
+      --zacht: #5b6472; --accent: #1f6feb;
+    }
+  }
+  * { box-sizing: border-box; }
+  body {
+    margin: 0; background: var(--bg); color: var(--tekst);
+    font: 15px/1.55 ui-sans-serif, system-ui, -apple-system, "Segoe UI", sans-serif;
+  }
+  header {
+    padding: 18px 24px; border-bottom: 1px solid var(--rand);
+    display: flex; align-items: baseline; gap: 14px; flex-wrap: wrap;
+  }
+  header h1 { font-size: 17px; margin: 0; letter-spacing: -.01em; }
+  header .sub { color: var(--zacht); font-size: 13px; }
+  main { max-width: 1180px; margin: 0 auto; padding: 22px 24px 60px; }
+  .grid { display: grid; grid-template-columns: minmax(0,380px) minmax(0,1fr); gap: 20px; }
+  @media (max-width: 900px) { .grid { grid-template-columns: 1fr; } }
+  .kaart {
+    background: var(--paneel); border: 1px solid var(--rand);
+    border-radius: var(--radius); padding: 18px; margin-bottom: 18px;
+  }
+  .kaart h2 { font-size: 13px; text-transform: uppercase; letter-spacing: .07em;
+    color: var(--zacht); margin: 0 0 14px; font-weight: 600; }
+  label { display: block; font-size: 13px; color: var(--zacht); margin: 12px 0 5px; }
+  textarea, input[type=text], input[type=password], input[type=number], select {
+    width: 100%; padding: 9px 11px; background: var(--bg); color: var(--tekst);
+    border: 1px solid var(--rand); border-radius: 7px; font: inherit; font-size: 14px;
+  }
+  textarea { min-height: 84px; resize: vertical; }
+  input:focus, textarea:focus, select:focus { outline: 2px solid var(--accent); outline-offset: -1px; }
+  button {
+    background: var(--accent); color: #fff; border: 0; border-radius: 7px;
+    padding: 10px 16px; font: inherit; font-weight: 600; cursor: pointer;
+  }
+  button:hover:not(:disabled) { filter: brightness(1.1); }
+  button:disabled { opacity: .5; cursor: not-allowed; }
+  button.stil { background: transparent; color: var(--zacht); border: 1px solid var(--rand); font-weight: 500; }
+  .rij { display: flex; gap: 10px; align-items: center; flex-wrap: wrap; }
+  .half { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; }
+  details { margin-top: 14px; }
+  summary { cursor: pointer; color: var(--zacht); font-size: 13px; user-select: none; }
+  .stip { width: 8px; height: 8px; border-radius: 50%; display: inline-block; flex: 0 0 auto; }
+  .aan { background: var(--groen); } .uit { background: var(--rand); }
+  .cap { display: flex; gap: 9px; align-items: center; padding: 5px 0; font-size: 13px; }
+  .cap .naam { flex: 1; min-width: 0; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+  .waarschuwing {
+    background: color-mix(in srgb, var(--geel) 12%, transparent);
+    border: 1px solid color-mix(in srgb, var(--geel) 35%, transparent);
+    color: var(--tekst); padding: 9px 11px; border-radius: 7px;
+    font-size: 13px; margin-top: 10px;
+  }
+  #log {
+    font: 12.5px/1.7 ui-monospace, "SF Mono", Consolas, monospace;
+    background: var(--bg); border: 1px solid var(--rand); border-radius: 7px;
+    padding: 12px; height: 300px; overflow-y: auto; white-space: pre-wrap;
+  }
+  #log .fase { color: var(--accent); font-weight: 600; }
+  #log .goed { color: var(--groen); }
+  #log .niets { color: var(--zacht); }
+  #log .fout { color: var(--rood); }
+  table { width: 100%; border-collapse: collapse; font-size: 13.5px; }
+  th, td { text-align: left; padding: 8px 10px; border-bottom: 1px solid var(--rand); }
+  th { color: var(--zacht); font-weight: 600; font-size: 12px; text-transform: uppercase; letter-spacing: .05em; }
+  td.num, th.num { text-align: right; font-variant-numeric: tabular-nums; }
+  a { color: var(--accent); }
+  .balk { height: 5px; background: var(--rand); border-radius: 3px; overflow: hidden; margin: 12px 0; }
+  .balk > i { display: block; height: 100%; background: var(--accent); width: 0; transition: width .3s; }
+  .cijfers { display: flex; gap: 22px; flex-wrap: wrap; margin-bottom: 6px; }
+  .cijfer .g { font-size: 26px; font-weight: 650; letter-spacing: -.02em; }
+  .cijfer .k { font-size: 12px; color: var(--zacht); }
+  .leeg { color: var(--zacht); font-size: 13.5px; }
+  .chip { font-size: 11px; padding: 2px 7px; border-radius: 20px; border: 1px solid var(--rand); color: var(--zacht); }
+</style>
+</head>
+<body>
+<header>
+  <h1>lead-engine</h1>
+  <span class="sub">Nederlandse leadmotor — draait lokaal op je eigen machine</span>
+</header>
+
+<main>
+<div class="grid">
+
+  <!-- ── Linkerkolom ─────────────────────────────────────────────── -->
+  <div>
+    <div class="kaart">
+      <h2>Wie zoek je?</h2>
+      <label for="icp">Beschrijf je ideale klant</label>
+      <textarea id="icp" placeholder="tandartspraktijken in de Randstad met 2 tot 8 behandelkamers"></textarea>
+
+      <label for="website">…of leid het af uit een website</label>
+      <input type="text" id="website" placeholder="https://tryelyon.com">
+
+      <details>
+        <summary>Instellingen</summary>
+        <div class="half">
+          <div><label for="maxBronnen">Max bronnen</label>
+            <input type="number" id="maxBronnen" value="40" min="1" max="200"></div>
+          <div><label for="maxBedrijven">Bedrijven per bron</label>
+            <input type="number" id="maxBedrijven" value="60" min="1" max="500"></div>
+          <div><label for="maxPaginas">Paginering</label>
+            <input type="number" id="maxPaginas" value="3" min="1" max="20"></div>
+          <div><label for="maxPerDomein">Leads per bedrijf</label>
+            <input type="number" id="maxPerDomein" value="3" min="1" max="20"></div>
+        </div>
+        <label for="minRelevantie">ICP-strengheid (0 = alles behouden)</label>
+        <input type="number" id="minRelevantie" value="30" min="0" max="100">
+        <label class="rij" style="margin-top:12px">
+          <input type="checkbox" id="alleenBronnen" style="width:auto">
+          <span>Alleen bronnen zoeken, nog niet oogsten</span>
+        </label>
+      </details>
+
+      <div class="rij" style="margin-top:16px">
+        <button id="start">Start</button>
+        <button id="stop" class="stil" disabled>Stop</button>
+      </div>
+    </div>
+
+    <div class="kaart">
+      <h2>Wat staat aan</h2>
+      <div id="caps"></div>
+      <div id="waarschuwingen"></div>
+      <details>
+        <summary>API-key instellen</summary>
+        <label for="keyNaam">Key</label>
+        <select id="keyNaam"></select>
+        <label for="keyWaarde">Waarde</label>
+        <input type="password" id="keyWaarde" placeholder="wordt getest voordat hij wordt opgeslagen">
+        <div class="rij" style="margin-top:10px">
+          <button id="keyOpslaan">Opslaan en testen</button>
+        </div>
+        <div id="keyMelding" style="margin-top:10px;font-size:13px"></div>
+      </details>
+    </div>
+  </div>
+
+  <!-- ── Rechterkolom ────────────────────────────────────────────── -->
+  <div>
+    <div class="kaart">
+      <h2>Voortgang</h2>
+      <div id="fase" class="leeg">Nog niets gestart.</div>
+      <div class="balk"><i id="balk"></i></div>
+      <div id="log"></div>
+    </div>
+
+    <div class="kaart" id="resultaatKaart" style="display:none">
+      <h2>Resultaat</h2>
+      <div class="cijfers" id="cijfers"></div>
+      <div id="mapPad" class="leeg" style="margin-bottom:14px"></div>
+      <div style="overflow-x:auto"><table id="segmenten"></table></div>
+    </div>
+
+    <div class="kaart">
+      <h2>Eerdere runs</h2>
+      <div id="runs" class="leeg">Laden…</div>
+    </div>
+  </div>
+
+</div>
+</main>
+
+<script>
+const $ = (id) => document.getElementById(id);
+let bron = null, huidigeRun = null, huidigeMap = null;
+
+// ── Log ──────────────────────────────────────────────────────────────
+function log(tekst, klasse = "") {
+  const el = $("log");
+  const regel = document.createElement("div");
+  if (klasse) regel.className = klasse;
+  regel.textContent = tekst;
+  el.appendChild(regel);
+  el.scrollTop = el.scrollHeight;
+}
+
+// ── Status ───────────────────────────────────────────────────────────
+async function laadStatus() {
+  const data = await (await fetch("/api/status")).json();
+
+  $("caps").innerHTML = data.capabilities.map(c =>
+    `<div class="cap"><span class="stip ${c.aan ? "aan" : "uit"}"></span>
+     <span class="naam" title="${esc(c.uitleg)}">${esc(c.naam)}</span></div>`
+  ).join("");
+
+  $("waarschuwingen").innerHTML = data.waarschuwingen
+    .map(w => `<div class="waarschuwing">${esc(w)}</div>`).join("");
+
+  $("keyNaam").innerHTML = data.keys.map(k =>
+    `<option value="${k.naam}">${k.naam}${k.gezet ? " (gezet)" : ""}</option>`
+  ).join("");
+}
+
+function esc(s) {
+  return String(s ?? "").replace(/[&<>"]/g, c =>
+    ({ "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;" }[c]));
+}
+
+// ── Keys ─────────────────────────────────────────────────────────────
+$("keyOpslaan").onclick = async () => {
+  const knop = $("keyOpslaan"), melding = $("keyMelding");
+  const waarde = $("keyWaarde").value.trim();
+  if (!waarde) { melding.textContent = "Vul een waarde in."; return; }
+
+  knop.disabled = true;
+  melding.style.color = "var(--zacht)";
+  melding.textContent = "Testen bij de provider…";
+  try {
+    const res = await fetch("/api/key", {
+      method: "POST", headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({ naam: $("keyNaam").value, waarde }),
+    });
+    const data = await res.json();
+    melding.style.color = data.ok ? "var(--groen)" : "var(--rood)";
+    melding.textContent = data.melding || (data.detail ?? "Onbekende fout.");
+    if (data.ok) { $("keyWaarde").value = ""; laadStatus(); }
+  } catch (e) {
+    melding.style.color = "var(--rood)";
+    melding.textContent = "Server niet bereikbaar: " + e.message;
+  } finally { knop.disabled = false; }
+};
+
+// ── Run starten ──────────────────────────────────────────────────────
+$("start").onclick = async () => {
+  const icp = $("icp").value.trim(), website = $("website").value.trim();
+  if (!icp && !website) { alert("Geef een ICP-omschrijving of een website op."); return; }
+
+  $("log").innerHTML = ""; $("balk").style.width = "0";
+  $("resultaatKaart").style.display = "none";
+  $("fase").textContent = "Starten…"; $("fase").className = "";
+
+  const res = await fetch("/api/run", {
+    method: "POST", headers: { "Content-Type": "application/json" },
+    body: JSON.stringify({
+      icp, website,
+      max_bronnen: +$("maxBronnen").value,
+      max_bedrijven: +$("maxBedrijven").value,
+      max_paginas: +$("maxPaginas").value,
+      max_per_domein: +$("maxPerDomein").value,
+      min_relevantie: +$("minRelevantie").value,
+      alleen_bronnen: $("alleenBronnen").checked,
+    }),
+  });
+  if (!res.ok) { alert((await res.json()).detail || "Starten mislukt."); return; }
+
+  huidigeRun = (await res.json()).run_id;
+  $("start").disabled = true; $("stop").disabled = false;
+  volg(huidigeRun);
+};
+
+$("stop").onclick = async () => {
+  if (huidigeRun) await fetch(`/api/run/${huidigeRun}/stop`, { method: "POST" });
+};
+
+// ── Live meekijken ───────────────────────────────────────────────────
+function volg(runId) {
+  if (bron) bron.close();
+  bron = new EventSource(`/api/run/${runId}/stream`);
+
+  bron.onmessage = (bericht) => {
+    const { soort, data } = JSON.parse(bericht.data);
+
+    if (soort === "fase") {
+      $("fase").textContent = data.tekst;
+      log("→ " + data.tekst, "fase");
+
+    } else if (soort === "icp") {
+      const i = data.icp;
+      if (i.branches?.length) log("   Branches: " + i.branches.join(", "), "niets");
+      if (i.regios?.length) log("   Regio's: " + i.regios.join(", "), "niets");
+
+    } else if (soort === "bronnen") {
+      log(`   ${data.bronnen.length} bronnen gevonden`, "niets");
+      data.bronnen.forEach(b => log(`     · ${b.naam} [${b.oogstmodus}]`, "niets"));
+
+    } else if (soort === "bron_klaar") {
+      const pct = Math.round(data.gedaan / data.totaal * 100);
+      $("balk").style.width = pct + "%";
+      $("fase").textContent = `Oogsten — ${data.gedaan}/${data.totaal} bronnen`;
+      log(`   ${data.naam}: ${data.aantal} ruwe leads`, data.aantal ? "goed" : "niets");
+
+    } else if (soort === "klaar") {
+      $("balk").style.width = "100%";
+      toonResultaat(data);
+
+    } else if (soort === "bronnen_klaar") {
+      $("balk").style.width = "100%";
+      toonBronnenResultaat(data);
+
+    } else if (soort === "leeg") {
+      log(data.tekst, "fout");
+      $("fase").textContent = "Niets gevonden";
+
+    } else if (soort === "fout") {
+      log(data.tekst, "fout");
+      $("fase").textContent = "Mislukt";
+
+    } else if (soort === "einde") {
+      bron.close(); bron = null;
+      $("start").disabled = false; $("stop").disabled = true;
+      laadRuns();
+    }
+  };
+
+  bron.onerror = () => {
+    log("Verbinding met de server verbroken.", "fout");
+    bron.close(); bron = null;
+    $("start").disabled = false; $("stop").disabled = true;
+  };
+}
+
+// ── Resultaat ────────────────────────────────────────────────────────
+function toonResultaat(data) {
+  const r = data.resultaat;
+  huidigeMap = data.map.split(/[\\/]/).pop();
+
+  $("fase").textContent = `Klaar in ${data.duur}`;
+  $("cijfers").innerHTML = [
+    ["Leads", r.leads], ["Met e-mail", r.met_email],
+    ["Met telefoon", r.met_telefoon], ["Segmenten", r.segmenten],
+  ].map(([k, g]) => `<div class="cijfer"><div class="g">${g}</div><div class="k">${k}</div></div>`).join("");
+
+  $("mapPad").textContent = data.map;
+
+  const rijen = (data.segmenten || []).map(s => `
+    <tr>
+      <td>${esc(s.segment)}</td>
+      <td class="num">${s.totaal}</td>
+      <td class="num">${s.met_email}</td>
+      <td class="num">${s.met_telefoon}</td>
+      <td class="num">${s.gem_score}</td>
+      <td><a href="/api/bestand/${encodeURIComponent(huidigeMap)}/${s.bestand}">CSV</a>
+        &nbsp;<a href="/api/bestand/${encodeURIComponent(huidigeMap)}/${s.instantly}">Instantly</a></td>
+    </tr>`).join("");
+
+  $("segmenten").innerHTML = `
+    <thead><tr><th>Segment</th><th class="num">Leads</th><th class="num">E-mail</th>
+    <th class="num">Tel.</th><th class="num">Score</th><th>Download</th></tr></thead>
+    <tbody>${rijen}</tbody>`;
+
+  $("resultaatKaart").style.display = "";
+}
+
+function toonBronnenResultaat(data) {
+  huidigeMap = data.map.split(/[\\/]/).pop();
+  $("fase").textContent = `Klaar in ${data.duur} — alleen bronnen`;
+  $("cijfers").innerHTML =
+    `<div class="cijfer"><div class="g">${data.aantal}</div><div class="k">Bronnen</div></div>`;
+  $("mapPad").textContent = data.map;
+  $("segmenten").innerHTML = `<tbody><tr>
+      <td>Bronnenlijst</td>
+      <td><a href="/api/bestand/${encodeURIComponent(huidigeMap)}/bronnen.csv">bronnen.csv</a></td>
+    </tr></tbody>`;
+  $("resultaatKaart").style.display = "";
+}
+
+// ── Eerdere runs ─────────────────────────────────────────────────────
+async function laadRuns() {
+  const runs = await (await fetch("/api/runs")).json();
+  $("runs").innerHTML = runs.length
+    ? runs.map(r => `<div class="cap">
+        <span class="naam">${esc(r.naam)}</span>
+        <span class="chip">${r.bestanden} csv</span>
+        ${r.volledig
+          ? `<a href="/api/bestand/${encodeURIComponent(r.naam)}/overzicht.csv">overzicht</a>
+             <a href="/api/bestand/${encodeURIComponent(r.naam)}/leads_alle.csv">alle leads</a>`
+          : `<a href="/api/bestand/${encodeURIComponent(r.naam)}/bronnen.csv">bronnen</a>`}
+      </div>`).join("")
+    : '<div class="leeg">Nog geen runs.</div>';
+  $("runs").className = "";
+}
+
+laadStatus();
+laadRuns();
+</script>
+</body>
+</html>

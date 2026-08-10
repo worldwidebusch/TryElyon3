@@ -1,0 +1,10 @@
+# Uitsluitlijst — één e-mailadres of domein per regel.
+# Alles hier wordt bij ELKE run automatisch weggefilterd.
+# Zet hier meteen elke afmelding in die binnenkomt (AVG + Telecomwet).
+#
+# Voorbeelden:
+# info@concurrent.nl
+# concurrent.nl
+
+# Je eigen domeinen (nooit jezelf mailen)
+tryelyon.com

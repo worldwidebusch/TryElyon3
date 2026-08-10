@@ -1,0 +1,15 @@
+httpx[http2]>=0.27
+beautifulsoup4>=4.12
+lxml>=5.2
+tldextract>=5.1
+phonenumbers>=8.13
+dnspython>=2.6
+PyYAML>=6.0
+python-dotenv>=1.0
+rich>=13.7
+anthropic>=0.40
+rapidfuzz>=3.9
+
+# web-interface (python -m leadengine web)
+fastapi>=0.115
+uvicorn>=0.30
