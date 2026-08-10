@@ -154,6 +154,12 @@ async def _verfijn_naar_lijstpagina(zoeker: Zoeker, bronnen: list[Bron], icp: IC
             continue
         treffers = await zoeker.zoek(f"site:{domein} {branche}", aantal=8)
         for treffer in treffers:
+            # De site:-operator wordt niet door elke zoekprovider gehonoreerd
+            # (Gemini-grounding bijvoorbeeld niet), dus zelf controleren. Zonder
+            # deze check kreeg het BIG-register de URL van een willekeurige site.
+            gevonden_domein = _domein_van(treffer["url"])
+            if gevonden_domein != domein and not gevonden_domein.endswith("." + domein):
+                continue
             pad = urlparse(treffer["url"]).path.strip("/")
             if pad and pad.count("/") <= 2:          # diepe pagina, geen homepage
                 bron.url = treffer["url"]

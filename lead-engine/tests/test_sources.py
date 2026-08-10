@@ -111,3 +111,40 @@ def test_ledenlijst_pad_herkenning():
     assert not _lijkt_ledenlijst_pad("https://tandartsenpraktijknieuwvennep.nl/")
     assert not _lijkt_ledenlijst_pad("https://dentalnews.nl/artikel/nieuwe-techniek")
     assert not _lijkt_ledenlijst_pad("https://www.abnamro.nl/")
+
+
+def test_site_zoek_accepteert_alleen_het_eigen_domein():
+    """Niet elke zoekprovider honoreert site:. Zonder eigen controle kreeg het
+    BIG-register de URL van een willekeurige andere site."""
+    import asyncio
+    from leadengine.models import Bron
+    from leadengine.sources import _verfijn_naar_lijstpagina
+
+    class NepZoeker:
+        provider = "gemini"
+        async def zoek(self, query, aantal=10):
+            return [
+                {"url": "https://keasberry.com/iets", "titel": "Ruis", "omschrijving": ""},
+                {"url": "https://www.bigregister.nl/zoeken/resultaat", "titel": "Zoeken", "omschrijving": ""},
+            ]
+
+    bron = Bron(naam="BIG-register", type="register", url="https://www.bigregister.nl",
+                params={"site_zoek": "bigregister.nl"})
+    asyncio.run(_verfijn_naar_lijstpagina(NepZoeker(), [bron], ICP(branches=["kapsalon"])))
+    assert bron.url == "https://www.bigregister.nl/zoeken/resultaat"
+
+
+def test_site_zoek_laat_url_staan_als_niets_matcht():
+    import asyncio
+    from leadengine.models import Bron
+    from leadengine.sources import _verfijn_naar_lijstpagina
+
+    class NepZoeker:
+        provider = "gemini"
+        async def zoek(self, query, aantal=10):
+            return [{"url": "https://heelietsanders.nl/x", "titel": "Ruis", "omschrijving": ""}]
+
+    bron = Bron(naam="BIG", type="register", url="https://www.bigregister.nl",
+                params={"site_zoek": "bigregister.nl"})
+    asyncio.run(_verfijn_naar_lijstpagina(NepZoeker(), [bron], ICP(branches=["kapsalon"])))
+    assert bron.url == "https://www.bigregister.nl"

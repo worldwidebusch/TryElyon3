@@ -93,6 +93,13 @@ def bouw_parser() -> argparse.ArgumentParser:
 
     sub.add_parser("status", help="laat zien welke bronnen aanstaan op basis van je keys")
 
+    # ── web ─────────────────────────────────────────────────────────────────
+    web = sub.add_parser("web", help="open de lokale web-interface in je browser")
+    web.add_argument("--poort", type=int, default=8100)
+    web.add_argument("--host", default="127.0.0.1",
+                     help="standaard alleen jouw machine; 0.0.0.0 stelt 'm open op je netwerk")
+    web.add_argument("--geen-browser", action="store_true")
+
     # ── sleutel ─────────────────────────────────────────────────────────────
     sleutel = sub.add_parser(
         "sleutel",
@@ -118,6 +125,18 @@ def main(argv: list[str] | None = None) -> int:
         console.print(
             "\n[dim]Key instellen? [/][bold]python -m leadengine sleutel GEMINI_API_KEY[/]"
         )
+        return 0
+
+    if args.commando == "web":
+        try:
+            from .web import start as start_web
+        except ImportError:
+            console.print("[red]De web-interface heeft fastapi en uvicorn nodig:[/]")
+            console.print("  [bold]python -m pip install -r requirements.txt[/]")
+            return 1
+        console.print(f"[bold]lead-engine[/] draait op http://{args.host}:{args.poort}")
+        console.print("[dim]Stoppen met Ctrl+C.[/]\n")
+        start_web(host=args.host, poort=args.poort, open_browser=not args.geen_browser)
         return 0
 
     if args.commando == "sleutel":

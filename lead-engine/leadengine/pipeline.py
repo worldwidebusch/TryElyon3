@@ -6,6 +6,7 @@ import asyncio
 import json
 from datetime import datetime, timezone
 from pathlib import Path
+from typing import Callable
 
 from rich.console import Console
 from rich.progress import (
@@ -67,6 +68,24 @@ def toon_bronnen(bronnen: list[Bron]) -> None:
     console.print(tabel)
 
 
+Melder = Callable[[str, dict], None]
+
+
+def _maak_meld(meld: Melder | None) -> Melder:
+    """Voortgangsmeldingen naar buiten. De CLI geeft niets mee, de web-UI wel.
+
+    Een kapotte melder mag een run nooit laten klappen — vandaar het vangnet.
+    """
+    def _meld(soort: str, data: dict | None = None) -> None:
+        if meld is None:
+            return
+        try:
+            meld(soort, data or {})
+        except Exception:
+            pass
+    return _meld
+
+
 async def draai(
     *,
     omschrijving: str = "",
@@ -82,9 +101,13 @@ async def draai(
     alleen_bronnen: bool = False,
     valideer_diep: bool = False,
     icp_bestand: Path | None = None,
+    meld: Melder | None = None,
 ) -> None:
     start = datetime.now(timezone.utc)
-    toon_capabilities()
+    _meld = _maak_meld(meld)
+    if meld is None:
+        toon_capabilities()
+    _meld("fase", {"tekst": "ICP bepalen"})
 
     async with Fetcher() as fetcher:
         zoeker = Zoeker(fetcher)
@@ -97,6 +120,7 @@ async def draai(
             with console.status("[cyan]ICP bepalen…[/]"):
                 icp = await icp_mod.bepaal_icp(fetcher, omschrijving=omschrijving, website=website)
         toon_icp(icp)
+        _meld("icp", {"icp": icp.to_dict()})
 
         uitvoermap.mkdir(parents=True, exist_ok=True)
         (uitvoermap / "icp.json").write_text(
@@ -104,9 +128,11 @@ async def draai(
         )
 
         # ── 2. Bronnen ──────────────────────────────────────────────────────
+        _meld("fase", {"tekst": "Catalyst databases zoeken"})
         with console.status("[cyan]Catalyst databases zoeken…[/]"):
             bronnenlijst = await sources.ontdek(zoeker, icp, max_bronnen=max_bronnen)
         toon_bronnen(bronnenlijst)
+        _meld("bronnen", {"bronnen": [b.to_dict() for b in bronnenlijst]})
 
         if alleen_bronnen:
             export._schrijf(
@@ -115,6 +141,11 @@ async def draai(
                 [b.to_dict() for b in bronnenlijst],
             )
             console.print(f"\n[green]Bronnenlijst weggeschreven:[/] {uitvoermap / 'bronnen.csv'}")
+            _meld("bronnen_klaar", {
+                "aantal": len(bronnenlijst),
+                "map": str(uitvoermap.resolve()),
+                "duur": str(datetime.now(timezone.utc) - start).split(".")[0],
+            })
             return
 
         # ── 3. Oogsten ──────────────────────────────────────────────────────
@@ -123,6 +154,8 @@ async def draai(
 
         alle_leads: list[Lead] = []
         sem = asyncio.Semaphore(gelijktijdige_bronnen)
+        _meld("fase", {"tekst": f"Oogsten uit {len(te_oogsten)} bronnen"})
+        gedaan = 0
 
         with Progress(
             SpinnerColumn(),
@@ -148,6 +181,15 @@ async def draai(
                     kleur = "green" if gevonden else "dim"
                     voortgang.console.print(f"  [{kleur}]•[/] {bron.naam}: {len(gevonden)} ruwe leads")
                     voortgang.advance(taak)
+                    nonlocal gedaan
+                    gedaan += 1
+                    _meld("bron_klaar", {
+                        "naam": bron.naam,
+                        "type": bron.type,
+                        "aantal": len(gevonden),
+                        "gedaan": gedaan,
+                        "totaal": len(te_oogsten),
+                    })
                     return gevonden
 
             for groep in await asyncio.gather(
@@ -159,7 +201,10 @@ async def draai(
         console.print(f"\n[bold]{len(alle_leads)}[/] ruwe leads geoogst uit {len(te_oogsten)} bronnen.")
         if not alle_leads:
             console.print("[yellow]Niets gevonden. Probeer een bredere ICP of zet een zoek-API-key.[/]")
+            _meld("leeg", {"tekst": "Geen leads gevonden. Probeer een bredere ICP of zet een zoek-API-key."})
             return
+
+        _meld("fase", {"tekst": f"{len(alle_leads)} ruwe leads verrijken en valideren"})
 
         # ── 4. Verrijken & valideren ────────────────────────────────────────
         with console.status("[cyan]Normaliseren…[/]"):
@@ -228,12 +273,43 @@ async def draai(
                 f"— overgeslagen.[/]"
             )
 
+        _meld("klaar", {
+            "resultaat": resultaat,
+            "map": str(uitvoermap.resolve()),
+            "duur": str(datetime.now(timezone.utc) - start).split(".")[0],
+            "segmenten": _segmentoverzicht(schoon),
+        })
+
         console.print(f"\n[bold green]Klaar.[/] Alles staat in: [bold]{uitvoermap.resolve()}[/]")
         console.print("  • [bold]overzicht.csv[/] — volume per segment (begin hier)")
         console.print("  • [bold]instantly/[/] — direct importeerbaar per campagne")
         console.print("  • [bold]bronnen.csv[/] — je complete bronnenlijst")
         if handmatig:
             console.print("  • [bold]handmatige_bronnen.md[/] — recepten voor LinkedIn/FB/Skool")
+
+
+def _segmentoverzicht(leads: list[Lead]) -> list[dict]:
+    """Per segment de cijfers die de web-UI toont, gesorteerd op omvang."""
+    from collections import defaultdict
+
+    per_segment: dict[str, list[Lead]] = defaultdict(list)
+    for lead in leads:
+        per_segment[lead.segment or lead.bron_naam or "overig"].append(lead)
+
+    uit = []
+    for segment, groep in per_segment.items():
+        uit.append({
+            "segment": segment,
+            "bron": groep[0].bron_naam,
+            "totaal": len(groep),
+            "met_email": sum(1 for l in groep if l.email and l.email_status != "ongeldig"),
+            "met_telefoon": sum(1 for l in groep if l.telefoon),
+            "persoonlijk": sum(1 for l in groep if l.email_type == "persoonlijk"),
+            "gem_score": round(sum(l.score for l in groep) / len(groep)),
+            "bestand": f"segmenten/{export._veilige_naam(segment)}.csv",
+            "instantly": f"instantly/{export._veilige_naam(segment)}.csv",
+        })
+    return sorted(uit, key=lambda s: -s["totaal"])
 
 
 def _schrijf_avg_notitie(map_pad: Path, icp: ICP, bronnen: list[Bron], start: datetime) -> None:

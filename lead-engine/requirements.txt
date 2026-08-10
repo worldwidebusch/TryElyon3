@@ -9,3 +9,7 @@ python-dotenv>=1.0
 rich>=13.7
 anthropic>=0.40
 rapidfuzz>=3.9
+
+# web-interface (python -m leadengine web)
+fastapi>=0.115
+uvicorn>=0.30

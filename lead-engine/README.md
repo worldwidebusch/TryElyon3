@@ -15,8 +15,15 @@ gekochte database — en verdient dus een andere mail.
 ```bash
 cd lead-engine
 python -m pip install -r requirements.txt
-python -m leadengine status   # laat zien wat aanstaat én wat je mist
+python -m leadengine web
 ```
+
+Dat opent een pagina in je browser waar je je ICP invult, de run start, live
+meekijkt welke bronnen worden gevonden en geoogst, en de CSV's downloadt. Alles
+draait lokaal op je eigen machine — er gaat niets naar buiten behalve de
+API-aanroepen die de motor zelf doet, en je keys blijven in `.env` staan.
+
+Liever vanaf de opdrachtregel? Dat kan ook, zie [Alle commando's](#alle-commandos).
 
 Wil je meteen goede resultaten: zet één key, `GEMINI_API_KEY`
 ([gratis](https://aistudio.google.com/apikey)). Daarmee wordt het ICP scherp én
@@ -176,6 +183,10 @@ GEMINI_MODEL=gemini-2.5-flash         # zwaarder model? zet 'm hier
 ## Alle commando's
 
 ```bash
+# Web-interface (aanrader)
+python -m leadengine web
+python -m leadengine web --poort 9000 --geen-browser
+
 # Volledige run
 python -m leadengine zoek --icp "tandartspraktijken Randstad"
 
@@ -268,7 +279,7 @@ Laat het veld leeg om de bron altijd mee te nemen.
 python -m pytest tests/ -q
 ```
 
-48 tests: de extractielaag (e-mail, telefoon, namen, obfuscatie, JSON-LD), het
+65 tests: de extractielaag (e-mail, telefoon, namen, obfuscatie, JSON-LD), het
 ICP-relevantiefilter, de bronfiltering, de Gemini-laag (request-vorm en
 grounding-verwerking) en de key-setup (.env schrijven, BOM, duplicaten,
 foutmeldingen). Alles met gemockte API-responses — geen key nodig.
